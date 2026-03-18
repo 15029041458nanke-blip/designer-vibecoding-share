@@ -242,11 +242,11 @@
     <div class="mode-cards" id="mode-cards">
       <div class="mode-card active" onclick="selectMode(this)">
         <p class="mode-card-name">Claude + Codex</p>
-        <p class="mode-card-desc">多模型协作：Claude 规划，Codex 执行</p>
+        <p class="mode-card-desc">完整角色团队 + 双模型分工：Claude 驱动规划侧，Codex 驱动执行侧</p>
       </div>
       <div class="mode-card" onclick="selectMode(this)">
         <p class="mode-card-name">Codex 全流程</p>
-        <p class="mode-card-desc">单模型多角色：PM / 架构师 / 工程师 / 测试</p>
+        <p class="mode-card-desc">完整角色团队 + 单模型驱动：Codex 串联所有角色完成全流程</p>
       </div>
       <div class="mode-card" onclick="selectMode(this)">
         <p class="mode-card-name">zero-to-one</p>
@@ -283,12 +283,12 @@
       <p class="path-number">02</p>
       <span class="path-tag">有设计稿</span>
       <h2 class="path-name">Design Driven</h2>
-      <p class="path-desc">以 Figma 设计稿为输入源，自动生成设计分析、设计合约、Design QA 四份核心文件，驱动整个开发流程。</p>
+      <p class="path-desc">以 Figma 设计稿为输入源，由 <strong>design-analyst</strong> 角色先做设计转译，产出设计驱动 PRD 与设计合约，再驱动开发与 Design QA 闭环。</p>
       <ul class="path-steps">
-        <li><span class="step-num">①</span>填写 docs/design/figma-source.md</li>
-        <li><span class="step-num">②</span>完成 design-analysis.md 与 design-contract.md</li>
-        <li><span class="step-num">③</span>按设计合约驱动 PRD 与开发</li>
-        <li><span class="step-num">④</span>开发完成后运行 design-qa.md 校验</li>
+        <li><span class="step-num">①</span>design-analyst 分析 Figma，产出 design-analysis.md + design-contract.md</li>
+        <li><span class="step-num">②</span>product-strategist / project-manager 校验范围，形成最终 PRD</li>
+        <li><span class="step-num">③</span>architect 定义边界，engineer + tester 按 handoff 实施验证</li>
+        <li><span class="step-num">④</span>design-analyst 执行 Design QA，确认实现与设计一致</li>
       </ul>
     </div>
   </div>
@@ -299,28 +299,28 @@
 <!-- Workflow strip -->
 <section class="workflow-strip" id="workflow">
   <p class="section-label reveal">三条协作链路</p>
-  <h2 class="workflow-title reveal">选择你的<br/><em>AI 协作方式</em></h2>
+  <h2 class="workflow-title reveal">完整角色团队<br/><em>双模型分工</em></h2>
   <div class="chains">
     <div class="chain reveal">
       <p class="chain-letter">A</p>
       <p class="chain-name">多模型协作</p>
       <span class="chain-tag">Claude + Codex</span>
-      <p class="chain-desc">Claude 负责长上下文规划与任务拆解，Codex 专注执行。适合复杂任务、长会话场景。</p>
+      <p class="chain-desc">两条链路共享同一套完整角色团队。链路 A 中，Claude 主导规划侧全部角色，Codex 主导执行侧角色。</p>
       <ul class="chain-list">
-        <li>Claude 配额充足时优先</li>
-        <li>任务复杂、上下文长</li>
-        <li>希望规划与执行分离</li>
+        <li>Claude 侧：design-analyst · product-strategist · project-manager · architect · reviewer</li>
+        <li>Codex 侧：engineer · tester</li>
+        <li>适合复杂任务、上下文长、需规划与执行分离的场景</li>
       </ul>
     </div>
     <div class="chain reveal" style="transition-delay:0.1s">
       <p class="chain-letter">B</p>
       <p class="chain-name">单模型多角色</p>
       <span class="chain-tag">Codex 全流程</span>
-      <p class="chain-desc">一个模型独立扮演 PM、架构师、工程师、测试、reviewer 五个角色，一个环境跑完全部流程。</p>
+      <p class="chain-desc">链路 B 同样使用完整角色团队，由 Codex 一个模型依次驱动所有角色，在单个环境跑完全部流程。</p>
       <ul class="chain-list">
-        <li>想在一个环境里完成全部</li>
-        <li>Claude 配额用尽时切换</li>
-        <li>适合独立开发者场景</li>
+        <li>Codex 串联：PM · architect · engineer · tester · reviewer</li>
+        <li>Claude 配额用尽或想在一个环境完成全部时选用</li>
+        <li>适合独立开发者、快速迭代场景</li>
       </ul>
     </div>
     <div class="chain reveal" style="transition-delay:0.2s">
@@ -467,7 +467,7 @@
 
 <footer>
   <p class="footer-brand">Designer Vibecoding Starter &mdash; Claude Skill</p>
-  <p class="footer-meta">Round 3 · 2026-03-18 · 对照 WORKING_SPEC.md 构建</p>
+  <p class="footer-meta">Round 4 · 2026-03-18 · 完整角色团队更新 · 对照 agent-roles.md v2 构建</p>
 </footer>
 
 <script>
