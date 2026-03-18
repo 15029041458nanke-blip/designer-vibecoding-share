@@ -1,0 +1,2447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>设计师如何从 0 到 1 搭一套 vibecoding 协作链路</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Manrope:wght@400;500;700;800&family=Outfit:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===========================================
+       CSS CUSTOM PROPERTIES (VINTAGE EDITORIAL + NOTEBOOK TABS)
+       =========================================== */
+    :root {
+      --bg-primary: #2f2c2a;
+      --bg-cream: #f5f1e8;
+      --bg-panel: rgba(255, 251, 244, 0.9);
+      --text-primary: #1f1b19;
+      --text-secondary: #655d57;
+      --accent-warm: #cb7a47;
+      --accent-rose: #e3b7c4;
+      --accent-mint: #9dcab4;
+      --accent-sky: #abcce5;
+      --accent-gold: #e8d89f;
+      --line: rgba(31, 27, 25, 0.12);
+      --shadow: 0 18px 48px rgba(31, 27, 25, 0.16);
+      --font-display: "Fraunces", serif;
+      --font-body: "Manrope", sans-serif;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --duration-normal: 0.72s;
+      --duration-fast: 0.35s;
+      /* ── 1512×982 适配：整体缩小约 15% ── */
+      --title-size: clamp(1.2rem, 3.8vw, 3rem);
+      --h2-size: clamp(1rem, 2.9vw, 2.4rem);
+      --h3-size: clamp(0.85rem, 1.8vw, 1.3rem);
+      --body-size: clamp(0.66rem, 1.1vw, 0.92rem);
+      --small-size: clamp(0.58rem, 0.82vw, 0.76rem);
+      --slide-padding: 18px;
+      --content-gap: clamp(0.4rem, 1.4vw, 1.4rem);
+      --element-gap: clamp(0.2rem, 0.75vw, 0.75rem);
+    }
+
+    /* ===========================================
+       BASE RESET
+       =========================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    html {
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(90, 118, 255, 0.18), transparent 26%),
+        radial-gradient(circle at bottom right, rgba(129, 185, 255, 0.12), transparent 24%),
+        #090d16;
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      position: relative;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::before {
+      opacity: 0.9;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.03), transparent 24%),
+        repeating-linear-gradient(
+          90deg,
+          transparent 0,
+          transparent 4.5vw,
+          rgba(101, 144, 255, 0.12) 4.5vw,
+          rgba(101, 144, 255, 0.12) calc(4.5vw + 1px),
+          transparent calc(4.5vw + 1px),
+          transparent 9vw
+        );
+      animation: fallingPatternSlow 10s linear infinite;
+    }
+
+    body::after {
+      opacity: 0.72;
+      background:
+        radial-gradient(circle at 20% 12%, rgba(132,175,255,0.32) 0 2px, transparent 2px 100%),
+        radial-gradient(circle at 58% 20%, rgba(132,175,255,0.26) 0 1.5px, transparent 1.5px 100%),
+        radial-gradient(circle at 80% 8%, rgba(132,175,255,0.22) 0 2px, transparent 2px 100%),
+        radial-gradient(circle at 40% 30%, rgba(132,175,255,0.18) 0 1.5px, transparent 1.5px 100%);
+      background-size: 16vw 24vh, 22vw 32vh, 18vw 28vh, 20vw 34vh;
+      animation: fallingPatternFast 7s linear infinite;
+    }
+
+    body[data-theme="notebook"] {
+      --bg-primary: #2f2c2a;
+      --bg-cream: #f5f1e8;
+      --bg-panel: rgba(255, 251, 244, 0.9);
+      --text-primary: #1f1b19;
+      --text-secondary: #655d57;
+      --accent-warm: #cb7a47;
+      --accent-rose: #e3b7c4;
+      --accent-mint: #9dcab4;
+      --accent-sky: #abcce5;
+      --accent-gold: #e8d89f;
+      --font-display: "Fraunces", serif;
+      --font-body: "Manrope", sans-serif;
+    }
+
+    /* ===========================================
+       VIEWPORT FITTING: MANDATORY BASE STYLES
+       =========================================== */
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .slide-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-height: 100%;
+      overflow: hidden;
+      padding: var(--slide-padding);
+    }
+
+    .card,
+    .container,
+    .content-box {
+      max-width: min(90vw, 1200px);
+      max-height: min(80vh, 760px);
+    }
+
+    .feature-list,
+    .bullet-list {
+      gap: clamp(0.4rem, 1vh, 1rem);
+    }
+
+    .feature-list li,
+    .bullet-list li {
+      font-size: var(--body-size);
+      line-height: 1.4;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+      gap: clamp(0.5rem, 1.5vw, 1rem);
+    }
+
+    img,
+    .image-container {
+      max-width: 100%;
+      max-height: min(50vh, 400px);
+      object-fit: contain;
+    }
+
+    @media (max-height: 700px) {
+      :root {
+        --slide-padding: 16px;
+        --content-gap: clamp(0.3rem, 1.2vw, 0.9rem);
+        --title-size: clamp(1.1rem, 3.5vw, 2rem);
+        --h2-size: clamp(0.9rem, 2vw, 1.5rem);
+      }
+    }
+
+    @media (max-height: 600px) {
+      :root {
+        --slide-padding: 24px;
+        --content-gap: clamp(0.3rem, 1vw, 0.75rem);
+        --title-size: clamp(1.1rem, 4vw, 2rem);
+        --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+      }
+
+      .nav-dots,
+      .keyboard-hint,
+      .decorative {
+        display: none;
+      }
+    }
+
+    @media (max-height: 500px) {
+      :root {
+        --slide-padding: 24px;
+        --title-size: clamp(1rem, 3.5vw, 1.5rem);
+        --h2-size: clamp(0.9rem, 2.5vw, 1.25rem);
+        --body-size: clamp(0.65rem, 1vw, 0.85rem);
+      }
+    }
+
+    @media (max-width: 600px) {
+      :root {
+        --title-size: clamp(1.25rem, 7vw, 2.5rem);
+      }
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.2s !important;
+      }
+
+      html {
+        scroll-behavior: auto;
+      }
+    }
+
+    /* ===========================================
+       PRESENTATION FRAME
+       =========================================== */
+    .page {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      padding-right: 0;
+    }
+
+    .sheet {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 16%),
+        var(--bg-cream);
+      border-radius: clamp(1.2rem, 2vw, 2rem);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow:
+        0 22px 54px rgba(0, 0, 0, 0.32),
+        0 0 0 1px rgba(122, 153, 255, 0.08);
+      overflow: hidden;
+    }
+
+    .sheet::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(203, 122, 71, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(203, 122, 71, 0.02) 1px, transparent 1px);
+      background-size: 20px 20px;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+
+    .tabs {
+      position: absolute;
+      top: clamp(3.6rem, 14vh, 7rem);
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      z-index: 2;
+    }
+
+    @keyframes fallingPatternSlow {
+      from {
+        transform: translate3d(0, -18vh, 0);
+      }
+      to {
+        transform: translate3d(0, 18vh, 0);
+      }
+    }
+
+    @keyframes fallingPatternFast {
+      from {
+        transform: translate3d(0, -24vh, 0);
+      }
+      to {
+        transform: translate3d(0, 24vh, 0);
+      }
+    }
+
+    .tab {
+      width: clamp(2rem, 3vw, 2.8rem);
+      height: clamp(4rem, 10vh, 6rem);
+      border-radius: 0 1rem 1rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(31, 27, 25, 0.72);
+      font-size: clamp(0.45rem, 0.9vw, 0.68rem);
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      box-shadow: 0 8px 18px rgba(31, 27, 25, 0.1);
+    }
+
+    .tab.mint { background: var(--accent-mint); }
+    .tab.rose { background: var(--accent-rose); }
+    .tab.sky { background: var(--accent-sky); }
+    .tab.gold { background: var(--accent-gold); }
+
+    .binder {
+      position: absolute;
+      left: clamp(0.7rem, 1.8vw, 1rem);
+      top: 0;
+      bottom: 0;
+      width: clamp(0.9rem, 1.6vw, 1.2rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .binder::before,
+    .binder::after,
+    .binder span {
+      content: "";
+      width: clamp(0.65rem, 1.1vw, 0.85rem);
+      height: clamp(0.65rem, 1.1vw, 0.85rem);
+      border-radius: 999px;
+      background: rgba(47, 44, 42, 0.22);
+      box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.45);
+      display: block;
+    }
+
+    .inner {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(0.7rem, 1.4vw, 1.4rem) clamp(1rem, 1.8vw, 1.8rem) clamp(0.6rem, 1.1vw, 1.1rem) clamp(1.4rem, 2.4vw, 2.4rem);
+      gap: clamp(0.3rem, 0.7vh, 0.65rem);
+    }
+
+    .slide-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(203, 122, 71, 0.12);
+      color: var(--accent-warm);
+      font-size: var(--small-size);
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .slide-index {
+      font-family: var(--font-display);
+      color: rgba(31, 27, 25, 0.24);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      line-height: 1;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: var(--font-display);
+      color: var(--text-primary);
+      letter-spacing: -0.03em;
+      line-height: 0.98;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4.8vw, 4.2rem);
+      max-width: 10ch;
+    }
+
+    h2 {
+      font-size: clamp(1.1rem, 2.1vw, 1.85rem);
+      max-width: 26ch;
+      line-height: 1.12;
+    }
+
+    .subnote {
+      max-width: 58ch;
+      color: var(--text-secondary);
+      font-family: var(--font-body);
+      font-size: clamp(0.72rem, 1.05vw, 0.92rem);
+      line-height: 1.45;
+      letter-spacing: 0.01em;
+      margin-top: -0.1rem;
+    }
+
+    h3 {
+      font-size: clamp(1.05rem, 1.9vw, 1.45rem);
+      line-height: 1.15;
+    }
+
+    p,
+    li,
+    code {
+      font-size: var(--body-size);
+      line-height: 1.5;
+    }
+
+    .lead {
+      max-width: 56ch;
+      color: var(--text-secondary);
+      font-size: clamp(0.95rem, 1.7vw, 1.28rem);
+      line-height: 1.65;
+    }
+
+    .hero-grid,
+    .two-col,
+    .three-col,
+    .four-col,
+    .folder-grid {
+      display: grid;
+      gap: clamp(0.7rem, 1.4vw, 1rem);
+    }
+
+    .hero-grid {
+      grid-template-columns: 1.2fr 0.9fr;
+      align-items: end;
+      flex: 1;
+    }
+
+    .two-col {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .three-col {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .four-col {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .folder-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid var(--line);
+      border-radius: 1.3rem;
+      padding: clamp(0.8rem, 1.4vw, 1rem);
+      overflow: hidden;
+    }
+
+    .card-icon {
+      width: 2rem;
+      height: 2rem;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: rgba(31, 27, 25, 0.06);
+      color: var(--accent-warm);
+    }
+
+    .card-icon svg {
+      width: 1.15rem;
+      height: 1.15rem;
+      fill: currentColor;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(203, 122, 71, 0.48), transparent);
+    }
+
+    .card.soft-rose,
+    .card.soft-mint,
+    .card.soft-sky,
+    .card.soft-gold {
+      background: rgba(255,255,255,0.9);
+    }
+
+    .card-label {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.34rem 0.58rem;
+      border-radius: 999px;
+      background: rgba(31, 27, 25, 0.06);
+      color: var(--text-secondary);
+      font-size: var(--small-size);
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+      margin-bottom: 0.6rem;
+    }
+
+    /* icon + label 横排对齐容器 */
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .card-header .card-label {
+      margin-bottom: 0;
+    }
+
+    .stat {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 2.2vw, 2rem);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .bullet-list {
+      list-style: none;
+      display: grid;
+      margin-top: 0.55rem;
+    }
+
+    .bullet-list li {
+      position: relative;
+      padding-left: 1rem;
+      color: var(--text-secondary);
+    }
+
+    .bullet-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.7em;
+      width: 0.36rem;
+      height: 0.36rem;
+      border-radius: 999px;
+      background: var(--accent-warm);
+      transform: translateY(-50%);
+    }
+
+    .sequence {
+      display: flex;
+      align-items: stretch;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .sequence .card {
+      flex: 1 1 0;
+      min-width: 160px;
+    }
+
+    .arrow {
+      display: grid;
+      place-items: center;
+      color: rgba(31, 27, 25, 0.4);
+      font-size: clamp(1rem, 2vw, 1.4rem);
+      font-weight: 700;
+      padding: 0 0.2rem;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: 0.55fr 1.45fr;
+      gap: 0.8rem;
+      align-items: start;
+    }
+
+    .phase {
+      color: var(--accent-warm);
+      font-size: clamp(0.8rem, 1.3vw, 1rem);
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding-top: 1rem;
+    }
+
+    .quote {
+      margin-top: auto;
+      padding: clamp(0.6rem, 1.1vw, 0.9rem);
+      border-left: 3px solid var(--accent-warm);
+      background: rgba(203, 122, 71, 0.08);
+      border-radius: 0 0.8rem 0.8rem 0;
+      font-family: var(--font-display);
+      font-size: clamp(0.95rem, 1.6vw, 1.5rem);
+      line-height: 1.28;
+      max-width: 30ch;
+    }
+
+    .mindmap-pipeline {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1.15fr;
+      gap: 0.55rem;
+      align-items: stretch;
+      margin-top: 0.9rem;
+    }
+
+    .mindmap-final {
+      position: relative;
+      min-height: 12rem;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid var(--line);
+      border-radius: 1.3rem;
+      padding: 0.9rem;
+      overflow: hidden;
+    }
+
+    .mindmap-center {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      padding: 0.55rem 0.9rem;
+      border-radius: 999px;
+      background: var(--accent-warm);
+      color: #fff;
+      font-size: clamp(0.72rem, 0.95vw, 0.9rem);
+      font-weight: 800;
+      z-index: 2;
+      white-space: nowrap;
+    }
+
+    .node {
+      position: absolute;
+      padding: 0.38rem 0.6rem;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: clamp(0.62rem, 0.85vw, 0.78rem);
+      color: var(--text-primary);
+      z-index: 2;
+    }
+
+    .mindmap-final svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.7rem;
+      margin-top: 0.9rem;
+    }
+
+    .copy-layout {
+      display: grid;
+      grid-template-columns: 0.78fr 1.22fr;
+      gap: 0.8rem;
+      margin-top: 0.9rem;
+      align-items: start;
+    }
+
+    .copy-stack {
+      display: grid;
+      gap: 0.7rem;
+      padding-bottom: 28px;
+    }
+
+    .copy-wrap {
+      position: relative;
+      border-radius: 1rem;
+      background: #1d2228;
+      color: #f4f1ea;
+      border: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+
+    .copy-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      padding: 0.55rem 0.75rem;
+      background: rgba(255,255,255,0.05);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .copy-btn {
+      border: none;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      padding: 0.35rem 0.7rem;
+      font-size: 0.68rem;
+      cursor: pointer;
+    }
+
+    .copy-pre {
+      margin: 0;
+      padding: 0.75rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: clamp(0.5rem, 0.7vw, 0.65rem);
+      line-height: 1.34;
+      white-space: pre-wrap;
+    }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+      margin-top: 0.9rem;
+    }
+
+    .compare-card {
+      border-radius: 1.1rem;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.84);
+    }
+
+    .compare-top {
+      padding: 0.7rem 0.9rem;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      background: rgba(31,27,25,0.06);
+    }
+
+    .compare-card.bad .compare-top {
+      background: rgba(217, 75, 61, 0.12);
+      color: #8d2a22;
+    }
+
+    .compare-card.good .compare-top {
+      background: rgba(79, 160, 122, 0.14);
+      color: #15543a;
+    }
+
+    .compare-pre {
+      margin: 0;
+      padding: 0.8rem 0.9rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: clamp(0.56rem, 0.76vw, 0.68rem);
+      line-height: 1.42;
+      white-space: pre-wrap;
+      color: var(--text-primary);
+    }
+
+    .scenario-flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.7rem;
+      margin-top: 0.9rem;
+    }
+
+    .scenario-card {
+      position: relative;
+      padding: 0.85rem;
+      border-radius: 1.15rem;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.84);
+    }
+
+    .scenario-card::after {
+      content: "→";
+      position: absolute;
+      right: -0.55rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(31, 27, 25, 0.35);
+      font-weight: 800;
+    }
+
+    .scenario-card:last-child::after {
+      display: none;
+    }
+
+    .folder-map {
+      position: relative;
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1.1fr 1fr;
+      gap: 0.9rem;
+      align-items: center;
+    }
+
+    .hub-center {
+      position: relative;
+      min-height: 21rem;
+      border-radius: 1.5rem;
+      border: 2px dashed rgba(31, 27, 25, 0.14);
+      background: rgba(255,255,255,0.78);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0.85rem;
+    }
+
+    .hub-center::before {
+      content: "";
+      position: absolute;
+      inset: 1.2rem;
+      border-radius: 1.1rem;
+      background: linear-gradient(180deg, rgba(203,122,71,0.08), rgba(157,202,180,0.08));
+    }
+
+    .hub-note {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hub-folder {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.7rem 1rem;
+      border-radius: 1rem;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid var(--line);
+      font-weight: 800;
+      margin-bottom: 0.6rem;
+      z-index: 2;
+      position: relative;
+    }
+
+    .rocket-art {
+      width: 100%;
+      max-width: 19rem;
+      max-height: 13.8rem;
+      object-fit: contain;
+      filter: saturate(1.02) contrast(1.02);
+      position: relative;
+      z-index: 1;
+      border-radius: 1rem;
+    }
+
+    .hub-caption {
+      position: relative;
+      z-index: 2;
+      margin-top: 0.35rem;
+      color: var(--text-secondary);
+      font-size: clamp(0.7rem, 0.9vw, 0.82rem);
+      line-height: 1.35;
+      max-width: 24ch;
+    }
+
+    .side-stack {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .map-card {
+      position: relative;
+      padding: 0.85rem 0.9rem;
+      border-radius: 1rem;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.85);
+      min-height: 5.8rem;
+    }
+
+    .exploded-map {
+      position: relative;
+      flex: 1;
+      min-height: 26rem;
+      margin-top: 0.4rem;
+      border-radius: 1.3rem;
+      background: transparent;
+      overflow: hidden;
+    }
+
+    .exploded-art-wrap {
+      position: absolute;
+      left: 51%;
+      top: 55%;
+      transform: translate(-50%, -50%);
+      width: min(max(45vw, 32rem), 50rem);
+      aspect-ratio: 1456 / 1678;
+      max-height: 84%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    .exploded-art {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: saturate(1.04) contrast(1.03);
+    }
+
+    .diagram-title {
+      position: absolute;
+      left: 2rem;
+      top: 2rem;
+      max-width: 19rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: clamp(0.8rem, 1.15vw, 1rem);
+      line-height: 1.45;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+    }
+
+    .diagram-meta-left,
+    .diagram-meta-right {
+      position: absolute;
+      top: 2rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: clamp(0.72rem, 0.95vw, 0.84rem);
+      letter-spacing: 0.18em;
+      color: rgba(31, 27, 25, 0.52);
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+    }
+
+    .diagram-meta-left {
+      left: 0.8rem;
+    }
+
+    .diagram-meta-right {
+      right: 0.8rem;
+    }
+
+    .anno {
+      position: absolute;
+      width: 15rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      color: #3557d3;
+      font-size: clamp(0.56rem, 0.78vw, 0.7rem);
+      line-height: 1.35;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .anno .file {
+      display: inline-block;
+      color: #2447c2;
+      font-weight: 800;
+      background: rgba(255,255,255,0.78);
+      padding: 0.12rem 0.28rem;
+    }
+
+    .anno .desc {
+      display: inline-block;
+      margin-top: 0.28rem;
+      max-width: 16rem;
+      color: rgba(36, 71, 194, 0.8);
+      text-transform: none;
+      letter-spacing: 0.01em;
+      line-height: 1.35;
+      background: rgba(255,255,255,0.58);
+    }
+
+    .anno svg {
+      display: none;
+    }
+
+    .anno.right {
+      text-align: left;
+    }
+
+    .anno.left {
+      text-align: right;
+    }
+
+    .diagram-lines {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .diagram-lines path,
+    .diagram-lines line {
+      stroke: #3557d3;
+      stroke-width: 1.1;
+      fill: none;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .map-card.left::after,
+    .map-card.right::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 1rem;
+      height: 1px;
+      background: rgba(31, 27, 25, 0.24);
+    }
+
+    .map-card.left::after {
+      right: -1rem;
+    }
+
+    .map-card.right::after {
+      left: -1rem;
+    }
+
+    .command {
+      border-radius: 1rem;
+      background: #1f2328;
+      color: #f5f1e8;
+      padding: 0.8rem 1rem;
+      font-size: clamp(0.72rem, 1vw, 0.92rem);
+      line-height: 1.5;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      overflow: hidden;
+    }
+
+    .mini-table {
+      display: grid;
+      border: 1px solid var(--line);
+      border-radius: 1.2rem;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.82);
+    }
+
+    .mini-row {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr 1.2fr;
+    }
+
+    .mini-row > div {
+      padding: 0.85rem 0.9rem;
+      border-bottom: 1px solid var(--line);
+      font-size: clamp(0.72rem, 1vw, 0.96rem);
+      line-height: 1.45;
+    }
+
+    .mini-row.head > div {
+      background: rgba(31, 27, 25, 0.05);
+      font-weight: 800;
+    }
+
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      color: var(--text-secondary);
+      font-size: var(--small-size);
+    }
+
+    .nav-dots {
+      position: fixed;
+      right: 1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: none;
+      flex-direction: column;
+      gap: 0.45rem;
+      z-index: 20;
+    }
+
+    .nav-dot {
+      width: 0.7rem;
+      height: 0.7rem;
+      border-radius: 999px;
+      border: none;
+      background: rgba(255, 255, 255, 0.26);
+      cursor: pointer;
+      transition: transform var(--duration-fast) ease, background var(--duration-fast) ease;
+    }
+
+    .nav-dot.active {
+      background: var(--accent-warm);
+      transform: scale(1.25);
+    }
+
+    .progress-wrap {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      z-index: 30;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--accent-warm), var(--accent-rose), var(--accent-mint));
+      transition: width 0.25s ease;
+    }
+
+    .keyboard-hint {
+      position: fixed;
+      left: 1rem;
+      bottom: 0.9rem;
+      z-index: 20;
+      color: rgba(255, 255, 255, 0.74);
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+    }
+
+    .display-dock { display: none; }
+
+    .display-card {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: clamp(10rem, 14vw, 14rem);
+      aspect-ratio: 16 / 10;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 1.4rem;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(249, 244, 235, 0.9)),
+        var(--bg-cream);
+      box-shadow:
+        0 20px 44px rgba(0, 0, 0, 0.28),
+        0 0 0 1px rgba(122, 153, 255, 0.08);
+      padding: 0.8rem 0.82rem;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      pointer-events: auto;
+      transform-origin: 50% 100%;
+      transition:
+        transform 0.6s var(--ease-out-expo),
+        opacity 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease,
+        filter 0.35s ease;
+      color: var(--text-primary);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .display-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.18), transparent 32%),
+        linear-gradient(rgba(203, 122, 71, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(203, 122, 71, 0.018) 1px, transparent 1px);
+      background-size: auto, 14px 14px, 14px 14px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .display-card.active {
+      border-color: rgba(203, 122, 71, 0.45);
+      box-shadow:
+        0 32px 56px rgba(0, 0, 0, 0.36),
+        0 0 0 1px rgba(203, 122, 71, 0.18);
+      filter: saturate(1.02);
+    }
+
+    .display-card.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .display-card:hover {
+      border-color: rgba(203, 122, 71, 0.35);
+    }
+
+    .display-card-head,
+    .display-card-foot {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .display-card-head {
+      position: absolute;
+      left: 0.7rem;
+      right: 0.7rem;
+      top: 0.6rem;
+    }
+
+    .display-card-foot {
+      position: absolute;
+      left: 0.7rem;
+      right: 0.7rem;
+      bottom: 0.55rem;
+    }
+
+    .display-card-num {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      line-height: 1;
+      color: rgba(31, 27, 25, 0.32);
+    }
+
+    .display-card-state {
+      width: 0.56rem;
+      height: 0.56rem;
+      border-radius: 999px;
+      background: rgba(203, 122, 71, 0.32);
+      box-shadow: 0 0 0 6px rgba(203, 122, 71, 0.08);
+    }
+
+    .display-card-body {
+      position: relative;
+      z-index: 3;
+      display: grid;
+      gap: 0.5rem;
+      padding-top: 1.9rem;
+    }
+
+    .display-card-title {
+      font-family: var(--font-display);
+      font-size: clamp(0.84rem, 1.02vw, 1rem);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      max-width: 10ch;
+    }
+
+    .display-card-meta {
+      font-size: 0.64rem;
+      line-height: 1.4;
+      color: var(--text-secondary);
+    }
+
+    .display-card-lines {
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    .display-card-lines span {
+      display: block;
+      height: 0.36rem;
+      border-radius: 999px;
+      background: rgba(31, 27, 25, 0.08);
+    }
+
+    .display-card-lines span:nth-child(1) { width: 88%; }
+    .display-card-lines span:nth-child(2) { width: 64%; }
+    .display-card-lines span:nth-child(3) { width: 76%; }
+
+    .display-card-preview {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      z-index: 0;
+      padding: 0.55rem;
+    }
+
+    .display-card-preview::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 38%;
+      background: linear-gradient(180deg, transparent, rgba(245, 241, 232, 0.86));
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .display-card-canvas {
+      position: relative;
+      width: 640px;
+      height: 400px;
+      transform: scale(0.19);
+      transform-origin: center center;
+      pointer-events: none;
+      filter: saturate(0.88) contrast(0.96);
+    }
+
+    .display-card-canvas .page {
+      padding-right: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .display-card-canvas .sheet {
+      border-radius: 1.4rem;
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
+      border-color: rgba(31, 27, 25, 0.08);
+    }
+
+    .display-card-canvas .tabs,
+    .display-card-canvas .binder,
+    .display-card-canvas .footer,
+    .display-card-canvas .copy-btn {
+      display: none !important;
+    }
+
+    .display-card-canvas .inner {
+      padding: 1.5rem 1.6rem 1.2rem;
+      gap: 0.65rem;
+      transform: none !important;
+      opacity: 1 !important;
+    }
+
+    .display-card-canvas .slide-head,
+    .display-card-canvas .reveal,
+    .display-card-canvas .reveal-left,
+    .display-card-canvas .reveal-scale {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+
+    .display-card-canvas h1 {
+      font-size: 2.2rem;
+    }
+
+    .display-card-canvas h2 {
+      font-size: 1.75rem;
+    }
+
+    .display-card-canvas p,
+    .display-card-canvas li,
+    .display-card-canvas code,
+    .display-card-canvas .lead,
+    .display-card-canvas .subnote {
+      font-size: 0.82rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition:
+        opacity var(--duration-normal) var(--ease-out-expo),
+        transform var(--duration-normal) var(--ease-out-expo);
+    }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-32px);
+      transition:
+        opacity var(--duration-normal) var(--ease-out-expo),
+        transform var(--duration-normal) var(--ease-out-expo);
+    }
+
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.94);
+      transition:
+        opacity var(--duration-normal) var(--ease-out-expo),
+        transform var(--duration-normal) var(--ease-out-expo);
+    }
+
+    .slide.visible .reveal,
+    .slide.visible .reveal-left,
+    .slide.visible .reveal-scale {
+      opacity: 1;
+      transform: translate(0, 0) scale(1);
+    }
+
+    .stagger-1 { transition-delay: 0.08s; }
+    .stagger-2 { transition-delay: 0.16s; }
+    .stagger-3 { transition-delay: 0.24s; }
+    .stagger-4 { transition-delay: 0.32s; }
+    .stagger-5 { transition-delay: 0.4s; }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .two-col,
+      .three-col,
+      .four-col,
+      .detail-grid,
+      .copy-layout,
+      .compare-grid,
+      .scenario-flow,
+      .folder-grid,
+      .timeline,
+      .mini-row,
+      .folder-map,
+      .mindmap-pipeline {
+        grid-template-columns: 1fr;
+      }
+
+      .tabs {
+        display: none;
+      }
+
+      .page {
+        padding-right: 0;
+      }
+    }
+  </style>
+</head>
+<body data-theme="notebook">
+  <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+  <nav class="nav-dots" id="navDots"></nav>
+  <div class="keyboard-hint">↑ ↓ / Space 切页</div>
+
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
+    <symbol id="icon-target" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9h-2a7 7 0 1 1-7-7V3Zm0 4a5 5 0 1 0 5 5h-2a3 3 0 1 1-3-3V7Zm8-4v6h-2V6.41l-5.29 5.3-1.42-1.42 5.3-5.29H14V3h6Z"/></symbol>
+    <symbol id="icon-file" viewBox="0 0 24 24"><path d="M7 3h7l5 5v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm6 1.5V9h4.5"/><path d="M9 13h6M9 17h6M9 9h2"/></symbol>
+    <symbol id="icon-flow" viewBox="0 0 24 24"><path d="M7 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm14 14a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM5 7v4a3 3 0 0 0 3 3h5a3 3 0 0 1 3 3v0M19 17v-4a3 3 0 0 0-3-3h-5a3 3 0 0 1-3-3v0"/></symbol>
+    <symbol id="icon-stack" viewBox="0 0 24 24"><path d="m12 3 9 4.5-9 4.5L3 7.5 12 3Zm-9 9 9 4.5 9-4.5M3 16.5 12 21l9-4.5"/></symbol>
+    <symbol id="icon-folder" viewBox="0 0 24 24"><path d="M3 6.5A2.5 2.5 0 0 1 5.5 4H10l2 2h6.5A2.5 2.5 0 0 1 21 8.5v9A2.5 2.5 0 0 1 18.5 20h-13A2.5 2.5 0 0 1 3 17.5v-11Z"/></symbol>
+    <symbol id="icon-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0 0 18h1.2a2.3 2.3 0 0 0 0-4.6H12a1.6 1.6 0 0 1 0-3.2h2.7A6.3 6.3 0 0 0 21 6.9 3.9 3.9 0 0 0 17.1 3H12Zm-4 6a1.2 1.2 0 1 1 0 2.4A1.2 1.2 0 0 1 8 9Zm3-3a1.2 1.2 0 1 1 0 2.4A1.2 1.2 0 0 1 11 6Zm3 0a1.2 1.2 0 1 1 0 2.4A1.2 1.2 0 0 1 14 6Zm3 3a1.2 1.2 0 1 1 0 2.4A1.2 1.2 0 0 1 17 9Z"/></symbol>
+    <symbol id="icon-robot" viewBox="0 0 24 24"><path d="M9 2h6v2h-2v2.1A6 6 0 0 1 18 12v4a3 3 0 0 1-3 3h-1v3h-4v-3H9a3 3 0 0 1-3-3v-4a6 6 0 0 1 5-5.9V4H9V2Zm-1 9a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm8 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm-6 6h4v-2h-4v2Z"/></symbol>
+  </svg>
+
+  <!-- ===========================================
+       SLIDE 1: TITLE
+       =========================================== -->
+  <section class="slide visible" data-title="封面">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab mint">FLOW</div>
+            <div class="tab rose">TEAM</div>
+            <div class="tab sky">BUILD</div>
+            <div class="tab gold">TEMPLATE</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">Designer Vibecoding</div>
+              <div class="slide-index">01</div>
+            </div>
+            <div class="hero-grid">
+              <div class="reveal-left stagger-1">
+                <h1>设计师如何<br>从0-1搭1套<br><span style="white-space:nowrap;">vibecoding协作链路</span></h1>
+                <p class="lead" style="margin-top: 1rem;">
+                  这次最重要的收获，不是做出了一个思维导图工具，
+                  而是把“设计师怎么和 AI 一起做项目”沉淀成了一套能复用的模板。
+                </p>
+              </div>
+              <div class="card soft-rose reveal-scale stagger-3">
+                <div class="card-label">核心判断</div>
+                <div class="stat">AI 小团队</div>
+                <p class="lead" style="font-size: clamp(0.85rem, 1.2vw, 1.05rem); max-width: none;">
+                  从“我和 AI 聊一聊”，变成“我带着一个 AI 团队做项目”。
+                </p>
+              </div>
+            </div>
+            <div class="footer reveal stagger-4">
+              <span>分享提炼版 / HTML PPT</span>
+              <span>设计驱动 · 多模式协作 · 可模板化</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       SLIDE 2: PROJECT START
+       =========================================== -->
+  <section class="slide" data-title="立项">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab gold">MVP</div>
+            <div class="tab mint">SCOPE</div>
+            <div class="tab rose">VERIFY</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">Project Start</div>
+              <div class="slide-index">02</div>
+            </div>
+            <h2 class="reveal-left stagger-1">先确定 MVP 范围，以验证为目标</h2>
+            <p class="subnote reveal stagger-1">0-1 最重要的不是想得全，而是知道什么先不做。</p>
+            <div class="two-col" style="margin-top: 0.9rem;">
+              <div class="card soft-gold reveal stagger-2">
+                <div class="card-header"><div class="card-icon"><svg viewBox="0 0 24 24"><use href="#icon-file"></use></svg></div><div class="card-label">为什么做</div></div>
+                <ul class="bullet-list">
+                  <li>设计稿已经就绪，我对完整方案也足够熟悉</li>
+                  <li>文档整理和结构发散这个痛点一直没被解决</li>
+                  <li>思维导图刚好能把这个痛点转成一个真实产品</li>
+                </ul>
+              </div>
+              <div class="card soft-mint reveal stagger-3">
+                <div class="card-header"><div class="card-icon"><svg viewBox="0 0 24 24"><use href="#icon-target"></use></svg></div><div class="card-label">为什么先定 MVP 范围</div></div>
+                <ul class="bullet-list">
+                  <li>我当时并不确定 AI 能不能做出这么复杂的交互产品</li>
+                  <li>所以先把范围压成最小闭环，用来验证 vibecoding 的能力</li>
+                  <li>先验证“能不能跑通”，再决定要不要继续往深处做</li>
+                </ul>
+              </div>
+            </div>
+            <div class="sequence" style="margin-top: 0.8rem;">
+              <div class="card reveal stagger-2">
+                <div class="card-label">MVP</div>
+                <h3>创建 / 编辑 / 保存</h3>
+              </div>
+              <div class="arrow reveal stagger-3">→</div>
+              <div class="card reveal stagger-3">
+                <div class="card-label">MVP</div>
+                <h3>拖拽 / 缩放 / 导出</h3>
+              </div>
+              <div class="arrow reveal stagger-4">→</div>
+              <div class="card reveal stagger-4">
+                <div class="card-label">原则</div>
+                <h3>先跑通闭环，再谈扩展</h3>
+              </div>
+            </div>
+            <div class="quote reveal stagger-5">范围不是压小了，而是被压成了一个可以被验证的 MVP。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       SLIDE 3: LEVERAGE
+       =========================================== -->
+  <section class="slide" data-title="借力启动">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab sky">OSS</div>
+            <div class="tab gold">RESEARCH</div>
+            <div class="tab rose">CHOICE</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">Start Smart</div>
+              <div class="slide-index">03</div>
+            </div>
+            <h2 class="reveal-left stagger-1">0-1 不等于从零造轮子</h2>
+            <p class="subnote reveal stagger-1">AI 先做研究和技术选型，人再做取舍。下面用这个思维导图项目举例。</p>
+            <div class="mindmap-pipeline">
+              <div class="card soft-sky reveal stagger-2">
+                <div class="card-header"><div class="card-icon"><svg viewBox="0 0 24 24"><use href="#icon-stack"></use></svg></div><div class="card-label">候选方案</div></div>
+                <ul class="bullet-list">
+                  <li>MindElixir</li>
+                  <li>React Flow / XYFlow</li>
+                  <li>Markmap</li>
+                </ul>
+              </div>
+              <div class="arrow reveal stagger-2">→</div>
+              <div class="card soft-rose reveal stagger-3">
+                <div class="card-header"><div class="card-icon"><svg viewBox="0 0 24 24"><use href="#icon-flow"></use></svg></div><div class="card-label">筛选标准</div></div>
+                <ul class="bullet-list">
+                  <li>交互控制力</li>
+                  <li>扩展性</li>
+                  <li>导出与状态管理</li>
+                </ul>
+              </div>
+              <div class="arrow reveal stagger-3">→</div>
+              <div class="mindmap-final reveal-scale stagger-4">
+                <div class="card-label">最终技术方案</div>
+                <div class="mindmap-center">React + XYFlow</div>
+                <div class="node" style="left: 10%; top: 18%;">Zustand</div>
+                <div class="node" style="right: 10%; top: 18%;">dagre</div>
+                <div class="node" style="left: 12%; bottom: 16%;">localforage</div>
+                <div class="node" style="right: 8%; bottom: 16%;">jsPDF</div>
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                  <line x1="50" y1="50" x2="22" y2="24" stroke="rgba(31,27,25,0.24)" stroke-width="1.2"/>
+                  <line x1="50" y1="50" x2="78" y2="24" stroke="rgba(31,27,25,0.24)" stroke-width="1.2"/>
+                  <line x1="50" y1="50" x2="24" y2="76" stroke="rgba(31,27,25,0.24)" stroke-width="1.2"/>
+                  <line x1="50" y1="50" x2="79" y2="76" stroke="rgba(31,27,25,0.24)" stroke-width="1.2"/>
+                </svg>
+              </div>
+            </div>
+            <div class="command reveal stagger-5">技术选型的核心不是“全从零做”，而是“先快速筛出能承载产品方向的底座”。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       SLIDE 4: MODEL SPLIT
+       =========================================== -->
+  <section class="slide" data-title="模型分工">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab mint">PM</div>
+            <div class="tab rose">BUILD</div>
+            <div class="tab sky">COST</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">Early Collaboration</div>
+              <div class="slide-index">04</div>
+            </div>
+            <h2 class="reveal-left stagger-1">为什么我最早选择 Claude Code + Codex</h2>
+            <p class="subnote reveal stagger-1">一个现实前提：公司 CodeWiz 给了 Claude Code 的 tokens 配额，所以我会优先把高上下文的规划工作放在 Claude 侧。</p>
+            <div class="sequence" style="margin-top: 1rem;">
+              <div class="card soft-gold reveal stagger-2">
+                <div class="card-header"><div class="card-icon"><svg viewBox="0 0 24 24"><use href="#icon-target"></use></svg></div><div class="card-label">Manager</div></div>
+                <h3>Claude Code</h3>
+                <ul class="bullet-list">
+                  <li>需求澄清</li>
+                  <li>上下文管理</li>
+                  <li>任务拆解与 handoff</li>
+                </ul>
+              </div>
+              <div class="arrow reveal stagger-3">→</div>
+              <div class="card soft-mint reveal stagger-3">
+                <div class="card-header"><div class="card-icon"><svg viewBox="0 0 24 24"><use href="#icon-robot"></use></svg></div><div class="card-label">Builder</div></div>
+                <h3>Codex</h3>
+                <ul class="bullet-list">
+                  <li>实现与多文件修改</li>
+                  <li>测试与修问题</li>
+                  <li>补完整验证链路</li>
+                </ul>
+              </div>
+            </div>
+            <div class="card soft-sky reveal stagger-4" style="margin-top: 0.8rem;">
+              <div class="card-label">Tips</div>
+              <p class="lead" style="font-size: clamp(0.78rem, 1.02vw, 0.92rem); max-width: none;">公司 CodeWiz 有 Claude Code 的 tokens 配额，所以这条链路一开始既解决了上下文问题，也符合成本结构。</p>
+            </div>
+            <div class="three-col" style="margin-top: 0.8rem;">
+              <div class="card reveal stagger-2">
+                <div class="card-label">解决点 1</div>
+                <h3>上下文精简</h3>
+                <p class="lead" style="font-size: clamp(0.78rem, 1.05vw, 0.96rem); max-width: none;">Claude 收束长上下文，Codex 只接执行必需信息。</p>
+              </div>
+              <div class="card reveal stagger-3">
+                <div class="card-label">解决点 2</div>
+                <h3>控制成本</h3>
+                <p class="lead" style="font-size: clamp(0.78rem, 1.05vw, 0.96rem); max-width: none;">高价值规划交给更稳的模型，高频执行交给更适合落地的模型。</p>
+              </div>
+              <div class="card reveal stagger-4">
+                <div class="card-label">额外收益</div>
+                <h3>天然带 review</h3>
+                <p class="lead" style="font-size: clamp(0.78rem, 1.05vw, 0.96rem); max-width: none;">规划和执行拆开之后，模型之间会自然形成校正。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       SLIDE 5: EVOLUTION
+       =========================================== -->
+  <section class="slide" data-title="演进">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab rose">V1</div>
+            <div class="tab mint">V2</div>
+            <div class="tab sky">V3</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">Evolution</div>
+              <div class="slide-index">05</div>
+            </div>
+            <h2 class="reveal-left stagger-1">协作模式是怎么一步步长成团队的</h2>
+            <p class="subnote reveal stagger-1">阶段 1 到阶段 2 不只是角色变多了，也因为 Claude Code 的 tokens 更贵，耗光后必须有一条能独立顶上的替代链路。</p>
+            <div class="timeline" style="margin-top: 1rem;">
+              <div class="phase reveal stagger-2">阶段 1</div>
+              <div class="card soft-gold reveal stagger-2">
+                <h3>Claude Code + Codex</h3>
+                <p class="lead" style="font-size: clamp(0.8rem, 1.05vw, 0.96rem); max-width: none;">先把“想明白”和“做出来”拆开，用 Claude 管上下文，用 Codex 管执行。</p>
+              </div>
+              <div class="phase reveal stagger-3">阶段 2</div>
+              <div class="card soft-sky reveal stagger-3">
+                <h3>Codex 多 agent</h3>
+                <p class="lead" style="font-size: clamp(0.8rem, 1.05vw, 0.96rem); max-width: none;">执行端拆成研究、实现、验证、review，同时承担 Claude tokens 用光后的替代方案。</p>
+              </div>
+              <div class="phase reveal stagger-4">阶段 3</div>
+              <div class="card soft-rose reveal stagger-4">
+                <h3>Figma MCP + design-analyst</h3>
+                <p class="lead" style="font-size: clamp(0.8rem, 1.05vw, 0.96rem); max-width: none;">设计角色正式接进来，AI 协作开始更像一个完整的小团队。</p>
+              </div>
+            </div>
+            <div class="quote reveal stagger-5">最后追求的不是“一个更强的 AI”，而是“一套分工更顺的小团队”。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       SLIDE 6: HABITS
+       =========================================== -->
+  <section class="slide" data-title="工作习惯">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab mint">PLAN</div>
+            <div class="tab gold">LESSONS</div>
+            <div class="tab sky">VERIFY</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">Workflow Habits</div>
+              <div class="slide-index">06</div>
+            </div>
+            <h2 class="reveal-left stagger-1">真正让项目不跑偏的，不是 prompt，而是工作习惯</h2>
+            <p class="subnote reveal stagger-1">这页我不想只讲抽象原则，而是直接讲这套习惯具体怎么落到项目里。</p>
+            <div class="copy-layout">
+              <div class="copy-stack">
+                <div class="detail-grid">
+                  <div class="card reveal stagger-2">
+                    <div class="card-label">Plan</div>
+                    <h3>复杂任务先进 Plan</h3>
+                    <p class="lead" style="font-size: clamp(0.74rem, 0.98vw, 0.88rem); max-width: none;">超过 3 步、涉及架构判断，就先写 spec、范围、验收和风险。</p>
+                  </div>
+                  <div class="card reveal stagger-3">
+                    <div class="card-label">Subagents</div>
+                    <h3>研究和并行分析拆出去</h3>
+                    <p class="lead" style="font-size: clamp(0.74rem, 0.98vw, 0.88rem); max-width: none;">让主上下文只保留当前决策，避免一个窗口里塞满所有细节。</p>
+                  </div>
+                  <div class="card reveal stagger-4">
+                    <div class="card-label">Lessons</div>
+                    <h3>每次纠正都写进 lessons</h3>
+                    <p class="lead" style="font-size: clamp(0.74rem, 0.98vw, 0.88rem); max-width: none;">把反复出现的错误变成默认规则，而不是每次重新提醒。</p>
+                  </div>
+                  <div class="card reveal stagger-5">
+                    <div class="card-label">Verify</div>
+                    <h3>完成前必须留下证据</h3>
+                    <p class="lead" style="font-size: clamp(0.74rem, 0.98vw, 0.88rem); max-width: none;">测试、日志、diff、行为对比，至少要证明这件事真的跑通了。</p>
+                  </div>
+                </div>
+              </div>
+              <div class="copy-wrap reveal stagger-4" style="display:flex; flex-direction:column;">
+                <div class="copy-head" style="flex-shrink:0;">
+                  <span>Agent 配置文件（可直接复制）</span>
+                  <button class="copy-btn" data-copy-target="agent-config">复制</button>
+                </div>
+                <pre class="copy-pre" id="agent-config" style="flex:1; overflow-y:auto; min-height:0; max-height: min(52vh, 420px);">工作流编排（Workflow Orchestration）
+1. 默认进入 Plan 模式
+- 任何非简单任务（3 步以上或涉及架构决策）都进入 plan 模式
+- 一旦出现偏差，立刻停止并重新规划
+- plan 模式不仅用于搭建，也用于验证步骤
+- 先写详细规格说明（spec）降低歧义
+
+2. 子代理策略（Subagent Strategy）
+- 大量使用子代理，让主上下文窗口保持干净
+- 研究、探索和并行分析交给子代理处理
+- 面对复杂问题，用子代理堆算力
+- 每个子代理只负责一条思路
+
+3. 自我改进闭环（Self-Improvement Loop）
+- 用户每次纠正后：写入 tasks/lessons.md
+- 给自己写规则，避免同类错误再次发生
+- 持续迭代这些经验，直到错误率下降
+- 每次会话开始时，先回顾 lessons
+
+4. 完成前必须验证（Verification Before Done）
+- 没有证明能跑通，就不要标记任务完成
+- 必要时对比主分支与修改后的行为差异（diff）
+- 自问：一个 Staff Engineer 会认可吗？
+- 跑测试、查日志、给出可验证证据
+
+5. 追求优雅（Demand Elegance）
+- 对非简单改动：先问有没有更优雅的方式
+- 如果修复很 hack：问基于现在认知应该怎么做才优雅
+- 对简单显然的修复不必过度设计
+- 对外呈现前先挑战自己的实现方案
+
+6. 自主修 Bug（Autonomous Bug Fixing）
+- 收到 bug 报告：直接修，不要让用户手把手带
+- 指向日志、错误信息、失败测试，然后解决它
+- 不要求用户做额外上下文切换
+- 不用别人告诉你怎么做，也能把 CI 挂掉的测试修好
+
+任务管理（Task Management）
+- 先写计划：把 plan 写到 tasks/todo.md，用可勾选清单列出
+- 验证计划：开始实现前先确认/对齐计划
+- 跟踪进度：做一项勾一项
+- 解释改动：每一步给出高层概述
+- 记录结果：在 tasks/todo.md 增加 review 小节
+- 沉淀经验：用户纠正后更新 tasks/lessons.md</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       SLIDE 7: DESIGN-DRIVEN
+       =========================================== -->
+  <section class="slide" data-title="设计转译">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab sky">FIGMA</div>
+            <div class="tab rose">PRD</div>
+            <div class="tab mint">QA</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">Design Driven</div>
+              <div class="slide-index">07</div>
+            </div>
+            <h2 class="reveal-left stagger-1">加入 design-analyst 之后，PRD 变得完全不一样</h2>
+            <p class="subnote reveal stagger-1">这页不讲抽象原则，直接看加入设计分析角色前后，需求描述长什么样。</p>
+            <div class="compare-grid">
+              <div class="compare-card bad reveal stagger-2">
+                <div class="compare-top">没有 design-analyst 时</div>
+                <pre class="compare-pre">PRD 节选
+
+目标：
+实现首页导航区域
+
+需求：
+- 页面风格和 Figma 保持一致
+- 顶部有搜索、切换按钮和操作区
+- 卡片要有 hover 状态
+- 颜色和间距尽量还原
+
+问题：
+- 哪些是组件，哪些只是视觉相似，没写清楚
+- 状态只有 hover，没有 disabled / loading
+- spacing、颜色、字号没有 token 映射
+- 工程拿到后仍然要自己猜</pre>
+              </div>
+              <div class="compare-card good reveal stagger-3">
+                <div class="compare-top">加入 design-analyst 后</div>
+                <pre class="compare-pre">PRD 节选
+
+模块：Header / Toolbar
+
+组件映射：
+- SearchInput → 使用 Input/Search 组件
+- ViewSwitch → SegmentedControl，2 个状态：map / document
+- PrimaryAction → Button/Primary
+
+设计约束：
+- 间距：gap-16 / padding-x-24
+- 字体：title-sm / body-sm
+- 颜色：surface-default / text-primary / border-subtle
+- 状态：default / hover / active / disabled / loading
+
+验收：
+- 所有颜色与间距必须走 tokens
+- 图标尺寸固定 20px
+- Header 高度 72px，不允许自由漂移</pre>
+              </div>
+            </div>
+            <div class="command reveal stagger-4">设计稿不是直接交给开发，而是先被翻译成：组件映射 + token 约束 + 状态定义 + 验收标准。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       SLIDE 8: PRODUCTIZED SYSTEM
+       =========================================== -->
+  <section class="slide" data-title="产品化">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab gold">PATHS</div>
+            <div class="tab mint">MODES</div>
+            <div class="tab rose">SWITCH</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">Productized System</div>
+              <div class="slide-index">08</div>
+            </div>
+            <h2 class="reveal-left stagger-1">最后我把它收成了 2 种开发路径 + 3 条协作模式</h2>
+            <p class="subnote reveal stagger-1">其中 Codex 多子 agent 这条链路，并不绑定某个单一模型，它的重点是把角色拆开而不是把能力绑死。</p>
+            <div class="two-col" style="margin-top: 0.9rem;">
+              <div class="card soft-gold reveal stagger-2">
+                <div class="card-label">开发路径 1</div>
+                <h3>0-1 无设计稿项目</h3>
+                <ul class="bullet-list">
+                  <li>意图理解</li>
+                  <li>产品规划</li>
+                  <li>PRD / spec / handoff</li>
+                  <li>开发 / 测试 / 验收</li>
+                </ul>
+              </div>
+              <div class="card soft-rose reveal stagger-3">
+                <div class="card-label">开发路径 2</div>
+                <h3>基于设计稿的项目</h3>
+                <ul class="bullet-list">
+                  <li>设计分析</li>
+                  <li>设计转 PRD</li>
+                  <li>产品校验</li>
+                  <li>开发 / 测试 / Design QA</li>
+                </ul>
+              </div>
+            </div>
+            <div class="mini-table reveal stagger-4" style="margin-top: 0.8rem;">
+              <div class="mini-row head">
+                <div>协作模式</div>
+                <div>适用场景</div>
+                <div>角色分配</div>
+              </div>
+              <div class="mini-row">
+                <div><strong>Claude + Codex</strong></div>
+                <div>Claude 还有配额，需求复杂、上下文长</div>
+                <div>Claude 管规划，Codex 管执行</div>
+              </div>
+              <div class="mini-row">
+                <div><strong>Codex 多 agent</strong></div>
+                <div>需求较清楚，希望端到端推进；任何单一模型都能按这条拆角色情况来跑</div>
+                <div>重点不是模型名，而是 product / architect / engineer / tester / reviewer 的角色拆分</div>
+              </div>
+              <div class="mini-row">
+                <div><strong>OpenClaw</strong></div>
+                <div>希望任务在后台持续工作</div>
+                <div>叠加在前两条模式上，负责执行与回传</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       SLIDE 9: SINGLE SOURCE OF TRUTH
+       =========================================== -->
+  <section class="slide" data-title="统一入口">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab mint">STATE</div>
+            <div class="tab sky">HANDOFF</div>
+            <div class="tab gold">RUN</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">No Chaos</div>
+              <div class="slide-index">09</div>
+            </div>
+            <h2 class="reveal-left stagger-1">三条模式混着用，怎么保证不乱</h2>
+            <p class="subnote reveal stagger-1">真实使用里，用户可能上午还在 Claude Code + Codex，下午 tokens 用光切到 Codex 多 agent，晚上回家再用 OpenClaw 远程继续跑。关键是无缝衔接，不丢上下文。</p>
+            <div class="scenario-flow">
+              <div class="scenario-card soft-gold reveal stagger-2">
+                <div class="card-label">上午</div>
+                <h3>Claude + Codex</h3>
+                <p class="lead" style="font-size: clamp(0.72rem, 0.96vw, 0.86rem); max-width: none;">用 Claude 管上下文，Codex 执行。</p>
+              </div>
+              <div class="scenario-card soft-sky reveal stagger-3">
+                <div class="card-label">下午</div>
+                <h3>Claude tokens 用光</h3>
+                <p class="lead" style="font-size: clamp(0.72rem, 0.96vw, 0.86rem); max-width: none;">切到 Codex 多 agent，继续沿当前任务推进。</p>
+              </div>
+              <div class="scenario-card soft-rose reveal stagger-4">
+                <div class="card-label">晚上</div>
+                <h3>回家继续做</h3>
+                <p class="lead" style="font-size: clamp(0.72rem, 0.96vw, 0.86rem); max-width: none;">用 OpenClaw 后台拉 handoff，继续执行。</p>
+              </div>
+              <div class="scenario-card soft-mint reveal stagger-5">
+                <div class="card-label">结果</div>
+                <h3>无缝衔接</h3>
+                <p class="lead" style="font-size: clamp(0.72rem, 0.96vw, 0.86rem); max-width: none;">任务线不断，状态线不断，上下文线也不断。</p>
+              </div>
+            </div>
+            <div class="four-col" style="margin-top: 0.8rem;">
+              <div class="card reveal stagger-2">
+                <div class="card-label">唯一开关</div>
+                <h3><code>current-workflow.md</code></h3>
+                <p class="lead" style="font-size: clamp(0.74rem, 1vw, 0.9rem); max-width: none;">现在到底走哪条主工作流</p>
+              </div>
+              <div class="card reveal stagger-3">
+                <div class="card-label">唯一任务源</div>
+                <h3><code>.agent/handoff.json</code></h3>
+                <p class="lead" style="font-size: clamp(0.74rem, 1vw, 0.9rem); max-width: none;">所有任务统一从这里进入执行层</p>
+              </div>
+              <div class="card reveal stagger-4">
+                <div class="card-label">唯一状态源</div>
+                <h3><code>.agent/status.json</code></h3>
+                <p class="lead" style="font-size: clamp(0.74rem, 1vw, 0.9rem); max-width: none;">运行状态、阻塞、完成情况都看这里</p>
+              </div>
+              <div class="card reveal stagger-5">
+                <div class="card-label">唯一执行入口</div>
+                <h3><code>scripts/agent_run.sh</code></h3>
+                <p class="lead" style="font-size: clamp(0.74rem, 1vw, 0.9rem); max-width: none;">本地和远程都走同一入口</p>
+              </div>
+            </div>
+            <div class="two-col" style="margin-top: 0.8rem;">
+              <div class="command reveal stagger-4">npm run workflow:intent -- "用 Claude Code + Codex 协作，有设计稿"</div>
+              <div class="command reveal stagger-5">npm run workflow:intent -- "跟我用 Codex 协作链路，有设计稿，并在后台继续跑"</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       SLIDE 10: AUTOMATION LOOP
+       =========================================== -->
+  <section class="slide" data-title="自动化">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab rose">AUTO</div>
+            <div class="tab mint">REMOTE</div>
+            <div class="tab sky">QA</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">Automation Loop</div>
+              <div class="slide-index">10</div>
+            </div>
+            <h2 class="reveal-left stagger-1">自动化闭环长什么样</h2>
+            <div class="sequence" style="margin-top: 1rem;">
+              <div class="card soft-gold reveal stagger-2">
+                <div class="card-label">PM</div>
+                <h3>Claude / Product</h3>
+                <p class="lead" style="font-size: clamp(0.78rem, 1.02vw, 0.92rem); max-width: none;">需求澄清、冻结范围、产出 handoff</p>
+              </div>
+              <div class="arrow reveal stagger-3">→</div>
+              <div class="card soft-rose reveal stagger-3">
+                <div class="card-label">Design</div>
+                <h3>design-analyst</h3>
+                <p class="lead" style="font-size: clamp(0.78rem, 1.02vw, 0.92rem); max-width: none;">设计分析、PRD、Design QA</p>
+              </div>
+              <div class="arrow reveal stagger-4">→</div>
+              <div class="card soft-sky reveal stagger-4">
+                <div class="card-label">Build</div>
+                <h3>Codex 多 agent</h3>
+                <p class="lead" style="font-size: clamp(0.78rem, 1.02vw, 0.92rem); max-width: none;">architect / engineer / tester / reviewer</p>
+              </div>
+              <div class="arrow reveal stagger-5">→</div>
+              <div class="card soft-mint reveal stagger-5">
+                <div class="card-label">Remote</div>
+                <h3>OpenClaw</h3>
+                <p class="lead" style="font-size: clamp(0.78rem, 1.02vw, 0.92rem); max-width: none;">后台执行、状态回传、日志回传</p>
+              </div>
+            </div>
+            <div class="quote reveal stagger-5">目标不是“我一直盯着 AI 干活”，而是“需求一旦明确，后面能自动推进到测试和验收”。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       SLIDE 11: TEMPLATE FOLDER
+       =========================================== -->
+  <section class="slide" data-title="模板文件夹">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab gold">FILES</div>
+            <div class="tab mint">RULES</div>
+            <div class="tab rose">ENTRY</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">Template Output</div>
+              <div class="slide-index">11</div>
+            </div>
+            <h2 class="reveal-left stagger-1">最终产出物：一个可一键初始化的项目模板</h2>
+            <p class="subnote reveal stagger-1">这一页用简版"模板解剖图"。中间火箭是整个 skill，四周小字号标签是支撑这套系统的关键文件。</p>
+            <a class="reveal stagger-1" href="file:///Users/zhangzhongwei/Desktop/vibcoding%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/presentations/designer-vibecoding-share/skill-landing.html#setup" target="_blank" style="display:inline-flex;align-items:center;gap:0.45rem;margin-top:-0.1rem;font-size:var(--small-size);font-weight:700;letter-spacing:0.06em;color:var(--accent-warm);text-decoration:none;border-bottom:1px solid rgba(203,122,71,0.4);padding-bottom:1px;">
+              🔗 Skill 介绍站点 →
+            </a>
+            <div class="exploded-map reveal-scale stagger-2">
+              <div class="diagram-meta-left">FIG-011</div>
+              <div class="diagram-meta-right">[ DESIGNER VIBECODING TEMPLATE ]</div>
+              <div class="diagram-title">SKILL TEMPLATE ASSEMBLY<br>DETAILED ANATOMY VIEW</div>
+
+              <svg class="diagram-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M16 15 H32 L47 28"></path>
+                <path d="M13 33 H28 L43 43"></path>
+                <path d="M13 49 H28 L40 60"></path>
+                <path d="M82 17 H72 L60 28"></path>
+                <path d="M82 35 H72 L61 44"></path>
+                <path d="M82 57 H72 L58 66"></path>
+              </svg>
+
+              <div class="exploded-art-wrap">
+                <img class="exploded-art" src="./assets/skillpaint.png" alt="Skill template anatomy illustration">
+              </div>
+
+              <div class="anno left" style="left: 2.2rem; top: 4.1rem;">
+                <div class="file">AGENTS.md</div><br>
+                <div class="desc">总规则入口。流程、边界、DoD 都从这里开始。</div>
+              </div>
+
+              <div class="anno left" style="left: 1.9rem; top: 11rem;">
+                <div class="file">current-workflow.md</div><br>
+                <div class="desc">唯一工作流开关，决定当前到底走哪条主链路。</div>
+              </div>
+
+              <div class="anno left" style="left: 1.9rem; top: 17.6rem;">
+                <div class="file">handoff.json</div><br>
+                <div class="desc">唯一任务源。规划好的任务都从这里进入执行层。</div>
+              </div>
+
+              <div class="anno right" style="right: 2.3rem; top: 5rem;">
+                <div class="file">ai-workflows/</div><br>
+                <div class="desc">两条主工作流与共享模板，固化协作模式和角色分工。</div>
+              </div>
+
+              <div class="anno right" style="right: 2.3rem; top: 12.8rem;">
+                <div class="file">status.json</div><br>
+                <div class="desc">唯一状态源。运行进度、阻塞和完成状态都在这里看。</div>
+              </div>
+
+              <div class="anno right" style="right: 2.4rem; top: 21.2rem;">
+                <div class="file">agent_run.sh</div><br>
+                <div class="desc">统一执行入口。本地跑和远程跑，最终都落到这里。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       SLIDE 12: GET THE SKILL
+       =========================================== -->
+  <!-- ===========================================
+       SLIDE 12: CLOSING
+       =========================================== -->
+  <section class="slide" data-title="总结">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab sky">SCOPE</div>
+            <div class="tab rose">FLOW</div>
+            <div class="tab mint">SKILL</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">Takeaways</div>
+              <div class="slide-index">12</div>
+            </div>
+            <h2 class="reveal-left stagger-1">最后我想沉淀的，不只是经验，而是一个 skill</h2>
+            <div class="three-col" style="margin-top: 1rem;">
+              <div class="card soft-gold reveal stagger-2">
+                <div class="card-label">Takeaway 1</div>
+                <h3>先学会控 scope</h3>
+                <p class="lead" style="font-size: clamp(0.8rem, 1.05vw, 0.96rem); max-width: none;">0-1 最重要的不是做得全，而是先跑通最小闭环。</p>
+              </div>
+              <div class="card soft-rose reveal stagger-3">
+                <div class="card-label">Takeaway 2</div>
+                <h3>先搭流程，再拼 prompt</h3>
+                <p class="lead" style="font-size: clamp(0.8rem, 1.05vw, 0.96rem); max-width: none;">稳定产出靠工作流、角色和验证，不是一句神奇提问。</p>
+              </div>
+              <div class="card soft-mint reveal stagger-4">
+                <div class="card-label">Takeaway 3</div>
+                <h3>把方法做成模板</h3>
+                <p class="lead" style="font-size: clamp(0.8rem, 1.05vw, 0.96rem); max-width: none;">最终目标是一个启动即问"有没有设计稿"的设计师 vibecoding skill。</p>
+              </div>
+            </div>
+            <div class="quote reveal stagger-5">分享不是终点。最后留下来的，应该是一套别人也能直接启动的项目模板。</div>
+            <div class="footer reveal stagger-5">
+              <span>HTML Presentation / Frontend Slides Style</span>
+              <span>End</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       SLIDE 13: GET THE SKILL
+       =========================================== -->
+  <section class="slide" data-title="获取 Skill">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab mint">INSTALL</div>
+            <div class="tab gold">START</div>
+            <div class="tab rose">LINK</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">Get The Skill</div>
+              <div class="slide-index">13</div>
+            </div>
+            <h2 class="reveal-left stagger-1">一条命令，把这套模板带走</h2>
+            <p class="subnote reveal stagger-1">复制命令，直接告诉 AI 让他帮你安装。</p>
+
+            <div class="two-col" style="margin-top: 0.9rem; align-items: start;">
+              <div style="display:grid; gap: 0.75rem;">
+                <div class="copy-wrap reveal stagger-2">
+                  <div class="copy-head">
+                    <span>安装命令</span>
+                    <button class="copy-btn" onclick="copyText('claude skills install github.com/YOUR_USERNAME/designer-vibecoding-starter', this)">复制</button>
+                  </div>
+                  <pre class="copy-pre" id="install-cmd">claude skills install github.com/YOUR_USERNAME/designer-vibecoding-starter</pre>
+                </div>
+
+                <div class="copy-wrap reveal stagger-3">
+                  <div class="copy-head">
+                    <span>安装完成后的第一步</span>
+                  </div>
+                  <pre class="copy-pre" style="color: #9dcab4;"># 1. 打开任意项目，告诉 Claude：
+"帮我搭一套协作脚手架"
+
+# 2. Claude 弹出对话框，回答 4 个问题：
+#    - 项目名称
+#    - 是否有设计稿
+#    - 协作模式
+#    - 是否需要 OpenClaw
+
+# 3. 脚手架自动生成，打开 AGENTS.md 开始</pre>
+                </div>
+              </div>
+
+              <div style="display:grid; gap: 0.75rem;">
+                <div class="card soft-gold reveal stagger-2">
+                  <div class="card-label">Skill 介绍站点</div>
+                  <h3 style="font-size: clamp(0.9rem, 1.3vw, 1.1rem); margin-bottom: 0.5rem;">完整功能说明 & 在线体验</h3>
+                  <a href="file:///Users/zhangzhongwei/Desktop/vibcoding%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/presentations/designer-vibecoding-share/skill-landing.html#setup" target="_blank" style="display:inline-block; font-size:var(--small-size); color:var(--accent-warm); font-weight:700; word-break:break-all; text-decoration:none; border-bottom: 1px solid rgba(203,122,71,0.4);">
+                    skill-landing.html →
+                  </a>
+                </div>
+
+                <div class="card soft-mint reveal stagger-3">
+                  <div class="card-label">包含什么</div>
+                  <ul class="bullet-list">
+                    <li>2 条开发路径（有/无设计稿）</li>
+                    <li>3 条协作链路（Claude+Codex / Codex 全流程 / OpenClaw）</li>
+                    <li>初始化脚本 + 12 个核心文件</li>
+                    <li>中文意图切换命令</li>
+                  </ul>
+                </div>
+
+                <div class="card soft-sky reveal stagger-4">
+                  <div class="card-label">适合谁</div>
+                  <ul class="bullet-list">
+                    <li>想用 AI 做项目但不知道从哪搭流程的设计师</li>
+                    <li>需要 Claude + Codex 协作的开发者</li>
+                    <li>想把项目初始化标准化的团队</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    /* ===========================================
+       SLIDE PRESENTATION CONTROLLER
+       =========================================== */
+    class SlidePresentation {
+      constructor() {
+        this.slides = [...document.querySelectorAll(".slide")];
+        this.progressBar = document.getElementById("progressBar");
+        this.navDots = document.getElementById("navDots");
+        this.currentSlide = 0;
+        this.isScrolling = false;
+        this.setupIntersectionObserver();
+        this.setupKeyboardNav();
+        this.setupWheelNav();
+        this.setupTouchNav();
+        this.setupNavDots();
+        this.updateProgressBar();
+      }
+
+      setupIntersectionObserver() {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                this.currentSlide = this.slides.indexOf(entry.target);
+                this.updateProgressBar();
+                this.updateNavDots();
+              }
+            });
+          },
+          {
+            threshold: 0.55
+          }
+        );
+
+        this.slides.forEach((slide) => observer.observe(slide));
+      }
+
+      scrollToSlide(index) {
+        const safeIndex = Math.max(0, Math.min(index, this.slides.length - 1));
+        this.slides[safeIndex].scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      setupKeyboardNav() {
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "ArrowDown" || event.key === "PageDown" || event.key === " ") {
+            event.preventDefault();
+            this.scrollToSlide(this.currentSlide + 1);
+          }
+
+          if (event.key === "ArrowUp" || event.key === "PageUp") {
+            event.preventDefault();
+            this.scrollToSlide(this.currentSlide - 1);
+          }
+
+          if (event.key === "Home") {
+            event.preventDefault();
+            this.scrollToSlide(0);
+          }
+
+          if (event.key === "End") {
+            event.preventDefault();
+            this.scrollToSlide(this.slides.length - 1);
+          }
+        });
+      }
+
+      setupWheelNav() {
+        window.addEventListener(
+          "wheel",
+          (event) => {
+            if (this.isScrolling) return;
+            if (Math.abs(event.deltaY) < 16) return;
+            this.isScrolling = true;
+            const direction = event.deltaY > 0 ? 1 : -1;
+            this.scrollToSlide(this.currentSlide + direction);
+            setTimeout(() => {
+              this.isScrolling = false;
+            }, 700);
+          },
+          { passive: true }
+        );
+      }
+
+      setupTouchNav() {
+        let startY = 0;
+        let endY = 0;
+
+        window.addEventListener("touchstart", (event) => {
+          startY = event.changedTouches[0].clientY;
+        }, { passive: true });
+
+        window.addEventListener("touchend", (event) => {
+          endY = event.changedTouches[0].clientY;
+          const delta = startY - endY;
+          if (Math.abs(delta) < 50) return;
+          this.scrollToSlide(this.currentSlide + (delta > 0 ? 1 : -1));
+        }, { passive: true });
+      }
+
+      setupNavDots() {
+        this.slides.forEach((slide, index) => {
+          const button = document.createElement("button");
+          button.className = "nav-dot";
+          button.setAttribute("aria-label", slide.dataset.title || `Slide ${index + 1}`);
+          button.addEventListener("click", () => this.scrollToSlide(index));
+          this.navDots.appendChild(button);
+        });
+        this.updateNavDots();
+      }
+
+      updateNavDots() {
+        [...this.navDots.children].forEach((dot, index) => {
+          dot.classList.toggle("active", index === this.currentSlide);
+        });
+      }
+
+      updateProgressBar() {
+        const progress = ((this.currentSlide + 1) / this.slides.length) * 100;
+        this.progressBar.style.width = `${progress}%`;
+      }
+    }
+
+    new SlidePresentation();
+
+    document.querySelectorAll(".copy-btn").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const targetId = button.getAttribute("data-copy-target");
+        const target = document.getElementById(targetId);
+        if (!target) return;
+        const text = target.innerText;
+        try {
+          await navigator.clipboard.writeText(text);
+          const original = button.textContent;
+          button.textContent = "已复制";
+          setTimeout(() => {
+            button.textContent = original;
+          }, 1200);
+        } catch (error) {
+          button.textContent = "复制失败";
+          setTimeout(() => {
+            button.textContent = "复制";
+          }, 1200);
+        }
+      });
+    });
+
+    async function copyText(text, btn) {
+      try {
+        await navigator.clipboard.writeText(text);
+        const original = btn.textContent;
+        btn.textContent = "已复制";
+        setTimeout(() => { btn.textContent = original; }, 1200);
+      } catch {
+        btn.textContent = "失败";
+        setTimeout(() => { btn.textContent = "复制"; }, 1200);
+      }
+    }
+  </script>
+</body>
+</html>

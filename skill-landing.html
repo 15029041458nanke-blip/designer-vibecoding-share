@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<!-- skill-landing.html — designer-vibecoding-starter 落地页 -->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Designer Vibecoding Starter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --ink:      oklch(14% 0.02 60);
+    --ink-2:    oklch(28% 0.025 60);
+    --ink-3:    oklch(42% 0.02 60);
+    --paper:    oklch(97% 0.012 80);
+    --paper-2:  oklch(94% 0.016 78);
+    --amber:    oklch(68% 0.18 65);
+    --amber-d:  oklch(54% 0.19 55);
+    --amber-l:  oklch(90% 0.09 75);
+    --rule:     oklch(82% 0.015 75);
+    --f-display: 'Cormorant Garamond', Georgia, serif;
+    --f-body:    'Instrument Sans', system-ui, sans-serif;
+    --space-xs: clamp(0.5rem, 1vw, 0.75rem);
+    --space-s:  clamp(0.75rem, 1.5vw, 1.25rem);
+    --space-m:  clamp(1.25rem, 3vw, 2rem);
+    --space-l:  clamp(2rem, 5vw, 4rem);
+    --space-xl: clamp(3.5rem, 8vw, 7rem);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 1rem; line-height: 1.6; overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem clamp(1.5rem, 5vw, 4rem);
+    background: color-mix(in oklch, var(--paper) 92%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-logo { font-family: var(--f-display); font-size: 1.1rem; font-weight: 600; color: var(--ink); text-decoration: none; }
+  .nav-logo span { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--amber); margin-left: 6px; vertical-align: middle; position: relative; top: -1px; }
+  .nav-links { display: flex; gap: var(--space-m); list-style: none; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  .nav-links a { color: var(--ink-3); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+
+  .hero { min-height: 100svh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 5rem; }
+  .hero-left { padding: var(--space-xl) clamp(1.5rem, 5vw, 4rem) var(--space-l); display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--rule); }
+  .hero-eyebrow { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber-d); margin-bottom: var(--space-m); opacity: 0; transform: translateY(16px); animation: rise 0.7s 0.1s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .hero-title { font-family: var(--f-display); font-size: clamp(3.2rem, 8vw, 7.5rem); font-weight: 300; line-height: 0.92; letter-spacing: -0.02em; opacity: 0; transform: translateY(24px); animation: rise 0.8s 0.25s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .hero-title em { font-style: italic; color: var(--amber-d); }
+  .hero-subtitle { margin-top: var(--space-m); font-size: clamp(0.95rem, 1.5vw, 1.1rem); color: var(--ink-3); max-width: 36ch; line-height: 1.7; opacity: 0; transform: translateY(20px); animation: rise 0.8s 0.4s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .hero-actions { margin-top: var(--space-l); display: flex; align-items: center; gap: var(--space-m); opacity: 0; transform: translateY(16px); animation: rise 0.7s 0.55s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--ink); color: var(--paper); font-family: var(--f-body); font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; padding: 0.85rem 1.75rem; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; }
+  .btn-primary:hover { background: var(--ink-2); transform: translateY(-1px); }
+  .btn-ghost { font-family: var(--f-body); font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+  .btn-ghost:hover { color: var(--ink); border-color: var(--ink-3); }
+
+  .hero-right { background: var(--paper-2); display: flex; flex-direction: column; justify-content: center; padding: var(--space-l) clamp(2rem, 4vw, 4rem); gap: var(--space-m); position: relative; overflow: hidden; }
+  .hero-right::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, var(--amber), var(--amber-d)); }
+  .file-tree { opacity: 0; transform: translateX(20px); animation: rise-x 0.9s 0.6s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .file-tree-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); margin-bottom: var(--space-s); }
+  .tree { font-size: 0.82rem; line-height: 1.9; color: var(--ink-2); }
+  .tree .folder { color: var(--ink); font-weight: 500; }
+  .tree .new { color: var(--amber-d); }
+  .tree .indent { padding-left: 1.2em; }
+  .tree .line { display: flex; align-items: center; gap: 0.4em; }
+  .tree .bullet { width: 4px; height: 4px; border-radius: 50%; background: currentColor; flex-shrink: 0; display: inline-block; }
+  .mode-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; opacity: 0; transform: translateX(20px); animation: rise-x 0.9s 0.75s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .mode-card { background: var(--paper); border: 1px solid var(--rule); padding: 1rem; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s; position: relative; }
+  .mode-card:hover, .mode-card.active { border-color: var(--amber); box-shadow: 0 0 0 1px var(--amber); }
+  .mode-card.active::after { content: '✓'; position: absolute; top: 0.75rem; right: 0.75rem; width: 18px; height: 18px; background: var(--amber); color: var(--paper); font-size: 0.65rem; font-weight: 700; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+  .mode-card-name { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); margin-bottom: 0.25rem; }
+  .mode-card-desc { font-size: 0.72rem; color: var(--ink-3); line-height: 1.5; }
+
+  .divider { border: none; border-top: 1px solid var(--rule); margin: 0; }
+  .section { padding: var(--space-xl) clamp(1.5rem, 5vw, 4rem); }
+  .section-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber-d); margin-bottom: var(--space-m); display: flex; align-items: center; gap: 0.75rem; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+
+  .paths { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 0; }
+  .path-divider { background: var(--rule); margin: var(--space-xl) 0; }
+  .path { padding: 0 clamp(1.5rem, 4vw, 4rem); }
+  .path:first-child { padding-left: 0; }
+  .path:last-child  { padding-right: 0; }
+  .path-number { font-family: var(--f-display); font-size: clamp(5rem, 10vw, 9rem); font-weight: 300; line-height: 1; color: var(--rule); margin-bottom: -0.3em; }
+  .path-name { font-family: var(--f-display); font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 600; line-height: 1.15; color: var(--ink); margin-bottom: var(--space-s); }
+  .path-tag { display: inline-block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; background: var(--amber-l); color: var(--amber-d); padding: 0.2em 0.6em; margin-bottom: var(--space-s); }
+  .path-desc { font-size: 0.9rem; color: var(--ink-3); line-height: 1.75; max-width: 38ch; }
+  .path-steps { margin-top: var(--space-m); list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .path-steps li { display: flex; align-items: baseline; gap: 0.75rem; font-size: 0.85rem; color: var(--ink-2); }
+  .step-num { font-family: var(--f-display); font-size: 0.7rem; font-weight: 600; color: var(--amber-d); min-width: 1.2em; }
+
+  .workflow-strip { background: var(--ink); color: var(--paper); padding: var(--space-xl) clamp(1.5rem, 5vw, 4rem); }
+  .workflow-strip .section-label { color: var(--amber); }
+  .workflow-strip .section-label::after { background: oklch(30% 0.02 60); }
+  .workflow-title { font-family: var(--f-display); font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 300; line-height: 1.15; margin-bottom: var(--space-l); max-width: 20ch; color: var(--paper); }
+  .workflow-title em { font-style: italic; color: var(--amber); }
+  .chains { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: oklch(22% 0.02 60); }
+  .chain { background: oklch(16% 0.02 60); padding: var(--space-m); position: relative; transition: background 0.2s; }
+  .chain:hover { background: oklch(19% 0.02 60); }
+  .chain-letter { font-family: var(--f-display); font-size: clamp(3.5rem, 6vw, 5.5rem); font-weight: 300; line-height: 1; color: oklch(28% 0.015 60); margin-bottom: -0.1em; }
+  .chain-name { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper); margin-bottom: 0.5rem; }
+  .chain-tag { display: inline-block; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; background: color-mix(in oklch, var(--amber) 20%, transparent); color: var(--amber); border: 1px solid color-mix(in oklch, var(--amber) 40%, transparent); padding: 0.2em 0.6em; margin-bottom: 0.75rem; }
+  .chain-desc { font-size: 0.82rem; color: oklch(70% 0.02 60); line-height: 1.65; }
+  .chain-list { margin-top: var(--space-s); list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+  .chain-list li { font-size: 0.78rem; color: oklch(60% 0.02 60); display: flex; align-items: baseline; gap: 0.5rem; }
+  .chain-list li::before { content: '—'; color: var(--amber); font-size: 0.65rem; flex-shrink: 0; }
+
+  .setup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items: start; }
+  .setup-title { font-family: var(--f-display); font-size: clamp(2.2rem, 4vw, 3.8rem); font-weight: 300; line-height: 1.1; margin-bottom: var(--space-m); }
+  .setup-title strong { font-weight: 700; display: block; }
+  .setup-desc { font-size: 0.9rem; color: var(--ink-3); line-height: 1.75; max-width: 40ch; margin-bottom: var(--space-l); }
+  .setup-questions { display: flex; flex-direction: column; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+  .setup-q { background: var(--paper); padding: 1rem 1.25rem; display: flex; align-items: flex-start; gap: 1rem; cursor: pointer; transition: background 0.15s; }
+  .setup-q:hover { background: var(--paper-2); }
+  .q-num { font-family: var(--f-display); font-size: 1.5rem; font-weight: 300; color: var(--amber-d); line-height: 1; min-width: 1.5em; }
+  .q-content { flex: 1; }
+  .q-text { font-size: 0.85rem; font-weight: 500; color: var(--ink); margin-bottom: 0.25rem; }
+  .q-hint { font-size: 0.75rem; color: var(--ink-3); }
+  .setup-right { position: sticky; top: 6rem; }
+  .code-window { background: var(--ink); border-top: 3px solid var(--amber); }
+  .code-bar { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; border-bottom: 1px solid oklch(22% 0.02 60); }
+  .code-dots { display: flex; gap: 0.4rem; }
+  .code-dots span { width: 10px; height: 10px; border-radius: 50%; background: oklch(28% 0.02 60); }
+  .code-filename { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; color: oklch(55% 0.02 60); }
+  .code-body { padding: 1.5rem; font-family: 'Courier New', monospace; font-size: 0.78rem; line-height: 1.8; color: oklch(82% 0.02 60); overflow-x: auto; }
+  .c-comment { color: oklch(45% 0.02 60); }
+  .c-cmd     { color: var(--amber); }
+  .c-flag    { color: oklch(70% 0.12 200); }
+  .c-val     { color: oklch(80% 0.1 140); }
+
+  /* Install block */
+  .install-block { background: var(--ink); padding: var(--space-l) clamp(1.5rem, 5vw, 4rem); }
+  .install-block .section-label { color: var(--amber); }
+  .install-block .section-label::after { background: oklch(28% 0.015 60); }
+  .install-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-l); align-items: start; margin-top: var(--space-m); }
+  .install-title { font-family: var(--f-display); font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 300; color: var(--paper); line-height: 1.1; margin-bottom: var(--space-s); }
+  .install-title em { font-style: italic; color: var(--amber); }
+  .install-desc { font-size: 0.88rem; color: oklch(65% 0.018 75); line-height: 1.7; max-width: 36ch; }
+  .install-code { background: oklch(10% 0.015 60); border-top: 3px solid var(--amber); overflow: hidden; }
+  .install-code-bar { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; background: oklch(14% 0.015 60); border-bottom: 1px solid oklch(22% 0.015 60); }
+  .install-code-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; color: oklch(50% 0.015 60); }
+  .install-copy-btn { border: none; border-radius: 999px; background: oklch(22% 0.015 60); color: oklch(75% 0.015 60); padding: 0.3rem 0.8rem; font-size: 0.68rem; cursor: pointer; font-family: var(--f-body); transition: background 0.15s; }
+  .install-copy-btn:hover { background: oklch(28% 0.015 60); }
+  .install-pre { margin: 0; padding: 1.25rem; font-family: 'Courier New', monospace; font-size: 0.78rem; line-height: 1.8; color: oklch(82% 0.015 75); overflow-x: auto; }
+
+  .output-section { background: var(--paper-2); padding: var(--space-xl) clamp(1.5rem, 5vw, 4rem); }
+  .output-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-top: var(--space-l); }
+  .output-item { background: var(--paper-2); padding: var(--space-m); transition: background 0.15s; }
+  .output-item:hover { background: var(--paper); }
+  .output-icon { font-size: 1.5rem; margin-bottom: 0.75rem; display: block; }
+  .output-name { font-family: 'Courier New', monospace; font-size: 0.78rem; font-weight: 700; color: var(--ink); margin-bottom: 0.35rem; }
+  .output-desc { font-size: 0.75rem; color: var(--ink-3); line-height: 1.55; }
+
+  .cta { padding: var(--space-xl) clamp(1.5rem, 5vw, 4rem); display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: var(--space-xl); border-top: 1px solid var(--rule); }
+  .cta-headline { font-family: var(--f-display); font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 300; line-height: 1.05; margin-bottom: var(--space-s); }
+  .cta-headline em { font-style: italic; color: var(--amber-d); }
+  .cta-sub { font-size: 0.9rem; color: var(--ink-3); line-height: 1.7; max-width: 36ch; }
+  .cta-panel { background: var(--ink); padding: var(--space-l); }
+  .cta-trigger { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-bottom: var(--space-s); }
+  .cta-phrases { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .cta-phrases li { font-family: var(--f-display); font-size: 1.2rem; font-style: italic; color: var(--paper); padding: 0.75rem 1rem; border-left: 2px solid oklch(25% 0.02 60); cursor: pointer; transition: border-color 0.2s, color 0.2s; }
+  .cta-phrases li:hover { border-color: var(--amber); color: var(--amber-l); }
+  .cta-hint { margin-top: var(--space-m); font-size: 0.72rem; color: oklch(40% 0.02 60); line-height: 1.5; }
+
+  footer { border-top: 1px solid var(--rule); padding: var(--space-m) clamp(1.5rem, 5vw, 4rem); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .footer-brand { font-family: var(--f-display); font-size: 0.9rem; color: var(--ink-3); }
+  .footer-meta { font-size: 0.72rem; color: oklch(65% 0.015 75); letter-spacing: 0.06em; }
+
+  @keyframes rise   { to { opacity: 1; transform: translateY(0); } }
+  @keyframes rise-x { to { opacity: 1; transform: translateX(0); } }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { border-right: none; border-bottom: 1px solid var(--rule); }
+    .paths { grid-template-columns: 1fr; }
+    .path-divider { display: none; }
+    .path { padding: 0; padding-top: var(--space-l); }
+    .path:first-child { padding-top: 0; }
+    .chains { grid-template-columns: 1fr; }
+    .setup-grid, .install-grid { grid-template-columns: 1fr; }
+    .setup-right { position: static; }
+    .output-grid { grid-template-columns: 1fr 1fr; }
+    .cta { grid-template-columns: 1fr; }
+    nav .nav-links { display: none; }
+    .mode-cards { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">designer-vibecoding-starter<span></span></a>
+  <ul class="nav-links">
+    <li><a href="#paths">路径</a></li>
+    <li><a href="#workflow">协作链路</a></li>
+    <li><a href="#setup">使用方式</a></li>
+    <li><a href="#install">安装</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Claude Skill · v2.0</p>
+    <h1 class="hero-title">Design&shy;er<br/><em>Vibe&shy;coding</em><br/>Starter</h1>
+    <p class="hero-subtitle">一句话初始化你的协作项目骨架——工作流文件、执行入口、任务管理，一次配齐，拿到就能开始工作。</p>
+    <div class="hero-actions">
+      <a href="#setup" class="btn-primary">开始初始化 →</a>
+      <a href="#workflow" class="btn-ghost">了解协作链路</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="file-tree">
+      <p class="file-tree-label">生成的项目结构</p>
+      <div class="tree">
+        <div class="line"><span class="bullet folder"></span><span class="folder">my-project/</span></div>
+        <div class="indent">
+          <div class="line"><span class="bullet new"></span><span class="new">AGENTS.md</span></div>
+          <div class="line"><span class="bullet new"></span><span class="new">agent-context/</span></div>
+          <div class="indent">
+            <div class="line"><span class="bullet"></span>current-workflow.md</div>
+            <div class="line"><span class="bullet"></span>default-context.md</div>
+          </div>
+          <div class="line"><span class="bullet new"></span><span class="new">ai-workflows/</span></div>
+          <div class="indent">
+            <div class="line"><span class="bullet"></span>claude-planner-codex-builder/</div>
+            <div class="line"><span class="bullet"></span>codex-fullstack-workflow/</div>
+          </div>
+          <div class="line"><span class="bullet new"></span><span class="new">project-management/</span></div>
+          <div class="line"><span class="bullet new"></span><span class="new">tasks/ &amp; .agent/</span></div>
+          <div class="line"><span class="bullet new"></span><span class="new">scripts/</span></div>
+          <div class="line"><span class="bullet new"></span><span class="new">package.json</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="mode-cards" id="mode-cards">
+      <div class="mode-card active" onclick="selectMode(this)">
+        <p class="mode-card-name">Claude + Codex</p>
+        <p class="mode-card-desc">多模型协作：Claude 规划，Codex 执行</p>
+      </div>
+      <div class="mode-card" onclick="selectMode(this)">
+        <p class="mode-card-name">Codex 全流程</p>
+        <p class="mode-card-desc">单模型多角色：PM / 架构师 / 工程师 / 测试</p>
+      </div>
+      <div class="mode-card" onclick="selectMode(this)">
+        <p class="mode-card-name">zero-to-one</p>
+        <p class="mode-card-desc">无设计稿，从产品想法出发</p>
+      </div>
+      <div class="mode-card" onclick="selectMode(this)">
+        <p class="mode-card-name">design-driven</p>
+        <p class="mode-card-desc">有设计稿，驱动分析与开发</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- Paths -->
+<section class="section" id="paths">
+  <p class="section-label reveal">两条开发路径</p>
+  <div class="paths">
+    <div class="path reveal">
+      <p class="path-number">01</p>
+      <span class="path-tag">无设计稿</span>
+      <h2 class="path-name">Zero to One</h2>
+      <p class="path-desc">从一个产品想法出发，不需要任何设计资产。脚手架自动配置从意图到 PRD 到 handoff 的全链路模板。</p>
+      <ul class="path-steps">
+        <li><span class="step-num">①</span>明确产品意图与目标用户</li>
+        <li><span class="step-num">②</span>填写 active-prd.md，拆分首个 PRD 切片</li>
+        <li><span class="step-num">③</span>写 todo.md，创建第一份 handoff.json</li>
+        <li><span class="step-num">④</span>运行 <code>npm run agent:run</code></li>
+      </ul>
+    </div>
+    <div class="path-divider"></div>
+    <div class="path reveal" style="transition-delay: 0.15s">
+      <p class="path-number">02</p>
+      <span class="path-tag">有设计稿</span>
+      <h2 class="path-name">Design Driven</h2>
+      <p class="path-desc">以 Figma 设计稿为输入源，自动生成设计分析、设计合约、Design QA 四份核心文件，驱动整个开发流程。</p>
+      <ul class="path-steps">
+        <li><span class="step-num">①</span>填写 docs/design/figma-source.md</li>
+        <li><span class="step-num">②</span>完成 design-analysis.md 与 design-contract.md</li>
+        <li><span class="step-num">③</span>按设计合约驱动 PRD 与开发</li>
+        <li><span class="step-num">④</span>开发完成后运行 design-qa.md 校验</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- Workflow strip -->
+<section class="workflow-strip" id="workflow">
+  <p class="section-label reveal">三条协作链路</p>
+  <h2 class="workflow-title reveal">选择你的<br/><em>AI 协作方式</em></h2>
+  <div class="chains">
+    <div class="chain reveal">
+      <p class="chain-letter">A</p>
+      <p class="chain-name">多模型协作</p>
+      <span class="chain-tag">Claude + Codex</span>
+      <p class="chain-desc">Claude 负责长上下文规划与任务拆解，Codex 专注执行。适合复杂任务、长会话场景。</p>
+      <ul class="chain-list">
+        <li>Claude 配额充足时优先</li>
+        <li>任务复杂、上下文长</li>
+        <li>希望规划与执行分离</li>
+      </ul>
+    </div>
+    <div class="chain reveal" style="transition-delay:0.1s">
+      <p class="chain-letter">B</p>
+      <p class="chain-name">单模型多角色</p>
+      <span class="chain-tag">Codex 全流程</span>
+      <p class="chain-desc">一个模型独立扮演 PM、架构师、工程师、测试、reviewer 五个角色，一个环境跑完全部流程。</p>
+      <ul class="chain-list">
+        <li>想在一个环境里完成全部</li>
+        <li>Claude 配额用尽时切换</li>
+        <li>适合独立开发者场景</li>
+      </ul>
+    </div>
+    <div class="chain reveal" style="transition-delay:0.2s">
+      <p class="chain-letter">C</p>
+      <p class="chain-name">OpenClaw 后台</p>
+      <span class="chain-tag">叠加层 · 可选</span>
+      <p class="chain-desc">C 不替代 A/B，而是在其上叠加后台执行能力。任务挂起后台跑，不用一直盯着窗口。</p>
+      <ul class="chain-list">
+        <li>需要远程或后台工作</li>
+        <li>通过 Git 触发任务执行</li>
+        <li>配合 A 或 B 同时使用</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Setup -->
+<section class="section" id="setup">
+  <p class="section-label reveal">使用方式</p>
+  <div class="setup-grid">
+    <div class="setup-left">
+      <h2 class="setup-title reveal">只问 4 个<br/><strong>关键问题</strong></h2>
+      <p class="setup-desc reveal">告诉 Claude 这 4 个答案，脚手架自动生成，不需要手动创建任何文件。Claude 会弹出 UI 对话框逐项引导。</p>
+      <div class="setup-questions reveal">
+        <div class="setup-q">
+          <span class="q-num">1</span>
+          <div class="q-content">
+            <p class="q-text">目标目录或项目名称</p>
+            <p class="q-hint">可以是路径，也可以只说项目名</p>
+          </div>
+        </div>
+        <div class="setup-q">
+          <span class="q-num">2</span>
+          <div class="q-content">
+            <p class="q-text">是否已有设计稿？</p>
+            <p class="q-hint">有 → design-driven，没有 → zero-to-one</p>
+          </div>
+        </div>
+        <div class="setup-q">
+          <span class="q-num">3</span>
+          <div class="q-content">
+            <p class="q-text">默认协作模式</p>
+            <p class="q-hint">多模型协作 还是 单模型多角色</p>
+          </div>
+        </div>
+        <div class="setup-q">
+          <span class="q-num">4</span>
+          <div class="q-content">
+            <p class="q-text">是否启用 OpenClaw？</p>
+            <p class="q-hint">需要后台执行时才选 yes</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="setup-right reveal" style="transition-delay:0.2s">
+      <div class="code-window">
+        <div class="code-bar">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-filename">terminal</span>
+        </div>
+        <pre class="code-body"><span class="c-comment"># Claude 自动生成并运行</span>
+
+<span class="c-cmd">python3</span> scripts/init_designer_vibecoding_project.py \
+  <span class="c-flag">--target</span>    <span class="c-val">"~/projects/my-app"</span> \
+  <span class="c-flag">--project-name</span> <span class="c-val">"my-app"</span> \
+  <span class="c-flag">--path-mode</span> <span class="c-val">design-driven</span> \
+  <span class="c-flag">--workflow</span>  <span class="c-val">claude-planner-codex-builder</span> \
+  <span class="c-flag">--openclaw</span>
+
+<span class="c-comment"># 初始化完成后开始工作</span>
+
+<span class="c-cmd">npm run</span> <span class="c-val">workflow:intent</span>  <span class="c-comment"># 中文切换协作模式</span>
+<span class="c-cmd">npm run</span> <span class="c-val">agent:run</span>        <span class="c-comment"># 执行当前 handoff</span>
+<span class="c-cmd">npm run</span> <span class="c-val">openclaw:daemon</span>  <span class="c-comment"># 开启后台守护</span></pre>
+      </div>
+      <div style="margin-top: 1rem; background: var(--amber-l); padding: 1rem 1.25rem; border-left: 3px solid var(--amber-d);">
+        <p style="font-size:0.75rem; color: var(--amber-d); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.35rem;">中文意图切换</p>
+        <p style="font-size: 0.82rem; color: var(--ink-2); line-height: 1.6;">直接说"切换到多模型协作"或"开启 OpenClaw 后台执行"，脚本会自动识别意图并更新协作模式。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Output -->
+<section class="output-section" id="output">
+  <p class="section-label reveal">初始化后你会拿到什么</p>
+  <p class="reveal" style="font-size:0.9rem; color: var(--ink-3); max-width: 50ch; line-height:1.7;">这些不是空模板——每个文件开箱即用，打开就能开始填写第一轮任务。</p>
+  <div class="output-grid">
+    <div class="output-item reveal"><span class="output-icon">📋</span><p class="output-name">AGENTS.md</p><p class="output-desc">项目协作规则入口，定义工作流、角色约束与完成定义</p></div>
+    <div class="output-item reveal" style="transition-delay:0.05s"><span class="output-icon">🔀</span><p class="output-name">current-workflow.md</p><p class="output-desc">当前激活的协作模式，是唯一的工作流状态源</p></div>
+    <div class="output-item reveal" style="transition-delay:0.1s"><span class="output-icon">📦</span><p class="output-name">handoff.json</p><p class="output-desc">单一任务交接源，填写后即可运行 agent_run.sh</p></div>
+    <div class="output-item reveal" style="transition-delay:0.15s"><span class="output-icon">📡</span><p class="output-name">status.json</p><p class="output-desc">实时执行状态：idle / running / done / failed</p></div>
+    <div class="output-item reveal" style="transition-delay:0.2s"><span class="output-icon">🎯</span><p class="output-name">active-sprint.md</p><p class="output-desc">当前冲刺目标、检查清单与进度追踪</p></div>
+    <div class="output-item reveal" style="transition-delay:0.25s"><span class="output-icon">✅</span><p class="output-name">todo.md</p><p class="output-desc">当前执行计划，按路径模式预填路径相关 checklist</p></div>
+    <div class="output-item reveal" style="transition-delay:0.3s"><span class="output-icon">🔧</span><p class="output-name">agent_run.sh</p><p class="output-desc">单一执行入口，填写执行命令后即可通过 npm 触发</p></div>
+    <div class="output-item reveal" style="transition-delay:0.35s"><span class="output-icon">🌐</span><p class="output-name">workflow_intent.sh</p><p class="output-desc">中文意图识别，自动更新 current-workflow.md</p></div>
+  </div>
+</section>
+
+<!-- Install -->
+<section class="install-block" id="install">
+  <p class="section-label reveal">安装命令</p>
+  <div class="install-grid">
+    <div>
+      <h2 class="install-title reveal">一条命令<br/><em>带走这套模板</em></h2>
+      <p class="install-desc reveal" style="transition-delay:0.1s">
+        把 <code style="background: oklch(20% 0.015 60); color: var(--amber); padding: 0.1em 0.4em; border-radius: 4px; font-size:0.85em;">YOUR_USERNAME</code> 替换成你的 GitHub 用户名，推送仓库后即可分享给任何人一键安装。
+      </p>
+    </div>
+    <div class="reveal" style="transition-delay: 0.2s;">
+      <div class="install-code">
+        <div class="install-code-bar">
+          <span class="install-code-label">INSTALL</span>
+          <button class="install-copy-btn" onclick="copyInstall(this)">复制</button>
+        </div>
+        <pre class="install-pre" id="install-cmd-landing"><span style="color:oklch(50% 0.015 60)"># 安装 skill</span>
+<span style="color:var(--amber)">claude skills install</span> <span style="color:oklch(75% 0.1 140)">github.com/YOUR_USERNAME/designer-vibecoding-starter</span>
+
+<span style="color:oklch(50% 0.015 60)"># 安装后，向 Claude 说：</span>
+<span style="color: oklch(85% 0.015 75)">"帮我初始化一个新的 vibecoding 项目"</span>
+<span style="color:oklch(50% 0.015 60)"># Claude 会弹出对话框完成 4 个问题的配置</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta">
+  <div class="cta-text">
+    <h2 class="cta-headline reveal">说一句话<br/><em>开始项目</em></h2>
+    <p class="cta-sub reveal" style="transition-delay:0.1s">告诉 Claude 你想做什么，剩下的交给 skill——问题、脚手架、协作配置，一轮完成。</p>
+  </div>
+  <div class="cta-panel reveal" style="transition-delay:0.2s">
+    <p class="cta-trigger">触发短语</p>
+    <ul class="cta-phrases">
+      <li>帮我初始化一个新的 vibecoding 项目</li>
+      <li>帮我搭一套协作脚手架</li>
+      <li>新建一个 design-driven 项目</li>
+      <li>创建项目模板，走 Codex 全流程</li>
+    </ul>
+    <p class="cta-hint">以上任意短语发送给 Claude 即可触发 designer-vibecoding-starter skill。也可以直接说"新建 vibecoding 项目"。</p>
+  </div>
+</section>
+
+<footer>
+  <p class="footer-brand">Designer Vibecoding Starter &mdash; Claude Skill</p>
+  <p class="footer-meta">Round 3 · 2026-03-18 · 对照 WORKING_SPEC.md 构建</p>
+</footer>
+
+<script>
+  function selectMode(el) {
+    document.querySelectorAll('#mode-cards .mode-card').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  function copyInstall(btn) {
+    const text = document.getElementById('install-cmd-landing').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '已复制';
+      setTimeout(() => btn.textContent = '复制', 1400);
+    });
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
