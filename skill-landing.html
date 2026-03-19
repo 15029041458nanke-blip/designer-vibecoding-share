@@ -223,6 +223,246 @@
   .cp-add { color: oklch(48% 0.15 80); font-weight: 600; }
   .cp-note { font-size: 0.7rem; color: var(--ink-3); margin-top: 0.5rem; font-style: italic; line-height: 1.5; }
 
+<!-- Rules strip -->
+<div class="rules-strip">
+  <p class="section-label reveal">强制规则体系</p>
+  <p class="rules-eyebrow reveal">7 类还原规则 &mdash; <em>每类均有根因与真实案例支撑</em></p>
+  <div class="rules-grid-7 reveal" style="transition-delay:0.1s">
+
+    <div class="rule-item">
+      <span class="rule-num">1</span>
+      <div class="rule-body">
+        <p class="rule-name">图标规则</p>
+        <p class="rule-detail">Figma <code style="font-size:0.85em">IMAGE-SVG</code> 节点无法通过 MCP 导出路径数据。统一用 <code style="font-size:0.85em">IconPlaceholder</code> 占位，<strong>禁止</strong>用文字替代或自行绘制语义化图标。</p>
+        <span class="rule-trap">型号固定：20px 容器 · 18px 圆 · 1.5px stroke</span>
+      </div>
+    </div>
+
+    <div class="rule-item">
+      <span class="rule-num">2</span>
+      <div class="rule-body">
+        <p class="rule-name">Border 规则</p>
+        <p class="rule-detail">Figma Inside stroke 不压缩 fill 子内容；CSS <code style="font-size:0.85em">border-box</code> 会真实压缩。含 fill 子元素的结构性容器，边框必须用 <code style="font-size:0.85em">outline</code>，不用 <code style="font-size:0.85em">border</code>。</p>
+        <span class="rule-trap">验证：渲染尺寸 == Figma 标注尺寸</span>
+      </div>
+    </div>
+
+    <div class="rule-item">
+      <span class="rule-num">3</span>
+      <div class="rule-body">
+        <p class="rule-name">尺寸规则</p>
+        <p class="rule-detail">sizing 类型（hug / fixed / fill）必须从组件自身 Component Set 的 layout token 直接读取，<strong>禁止</strong>从使用侧实例推断。</p>
+        <span class="rule-trap">sizing → componentSetId → layout_xxx.sizing</span>
+      </div>
+    </div>
+
+    <div class="rule-item">
+      <span class="rule-num">4</span>
+      <div class="rule-body">
+        <p class="rule-name">节点类型识别</p>
+        <p class="rule-detail">实现任何内容前，先查 Figma 节点 <code style="font-size:0.85em">type</code> 字段。<code style="font-size:0.85em">TEXT</code> 才可用文字；<code style="font-size:0.85em">IMAGE-SVG / VECTOR / BOOLEAN_OPERATION</code> 一律用 IconPlaceholder。</p>
+        <span class="rule-trap">未查 type → 凭语义猜 → 自造内容</span>
+      </div>
+    </div>
+
+    <div class="rule-item">
+      <span class="rule-num">5</span>
+      <div class="rule-body">
+        <p class="rule-name">布局对齐规则</p>
+        <p class="rule-detail">MCP 对 Auto Layout 元素直接返回 <code style="font-size:0.85em">alignItems / justifyContent</code>；绝对定位元素只返回 <code style="font-size:0.85em">locationRelativeToParent: {x, y}</code>——需手动判断居中意图。</p>
+        <span class="rule-trap">x == (父-子)/2 → inset:0 + flex，禁止字面翻译坐标</span>
+      </div>
+    </div>
+
+    <div class="rule-item">
+      <span class="rule-num">6</span>
+      <div class="rule-body">
+        <p class="rule-name">组件系统规则</p>
+        <p class="rule-detail">变体必须从 Component Set 顶层节点枚举，<strong>不能</strong>从使用侧嵌套实例读取。使用侧只展示当前被用到的变体，可能遗漏其余变体。</p>
+        <span class="rule-trap">正确路径：componentSetId → children → 完整变体</span>
+      </div>
+    </div>
+
+    <div class="rule-item" style="grid-column:span 2">
+      <span class="rule-num">7</span>
+      <div class="rule-body">
+        <p class="rule-name">QA 走查清单</p>
+        <p class="rule-detail">逐层验证：<strong>图标</strong>（无文字替代）→ <strong>尺寸</strong>（±0.5px）→ <strong>Border</strong>（渲染尺寸一致 / fill容器用outline）→ <strong>布局</strong>（行列数量 / 绝对定位居中判断）→ <strong>变体</strong>（Component Set 完整覆盖）→ <strong>Token</strong>（颜色变量绑定）。</p>
+        <span class="rule-trap">每实现一个组件，必须按顺序过一遍此清单</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Before/After comparison -->
+<section class="compare-section">
+  <p class="section-label reveal">还原前 vs 还原后</p>
+  <div class="compare-intro reveal">
+    <h3 class="compare-headline">菜单组件的 <em>5 个典型修复</em></h3>
+    <p class="compare-sub">以下问题均来自 vibcoding 思维导图菜单组件（menu atom）的真实质检过程，每一项都在规则手册中留有案例记录。</p>
+  </div>
+  <div class="compare-list reveal" style="transition-delay:0.1s">
+
+    <!-- Bug 1 -->
+    <div class="compare-item">
+      <div class="compare-meta">
+        <span class="compare-tag">§5 布局对齐</span>
+        <span class="compare-name">ColorDot<br/>check 图标偏移</span>
+        <span class="compare-cause">Figma x:6 y:6 = (28-16)/2 居中值，字面翻译后 border:2px 使坐标原点偏移 2px</span>
+      </div>
+      <div class="compare-before">
+        <span class="cp-label">❌ 还原前</span>
+        <div class="cp-code">
+          .color-dot__check {<br/>
+          &nbsp;&nbsp;position: absolute;<br/>
+          &nbsp;&nbsp;<span class="cp-del">top: 6px;</span><br/>
+          &nbsp;&nbsp;<span class="cp-del">left: 6px;</span><br/>
+          }
+        </div>
+        <p class="cp-note">→ 图标实际距外边 8px，视觉偏上偏左 2px</p>
+      </div>
+      <div class="compare-after">
+        <span class="cp-label">✓ 还原后</span>
+        <div class="cp-code">
+          .color-dot__check {<br/>
+          &nbsp;&nbsp;position: absolute;<br/>
+          &nbsp;&nbsp;<span class="cp-add">inset: 0;</span><br/>
+          &nbsp;&nbsp;<span class="cp-add">display: flex;</span><br/>
+          &nbsp;&nbsp;<span class="cp-add">align-items: center;</span><br/>
+          &nbsp;&nbsp;<span class="cp-add">justify-content: center;</span><br/>
+          }
+        </div>
+        <p class="cp-note">→ 居中意图 → 用 flex 对齐，与 border 无关</p>
+      </div>
+    </div>
+
+    <!-- Bug 2 -->
+    <div class="compare-item">
+      <div class="compare-meta">
+        <span class="compare-tag">§2 Border 规则</span>
+        <span class="compare-name">颜色面板<br/>5 列 → 4 列</span>
+        <span class="compare-cause">Figma Inside stroke 不压缩 fill 子内容，CSS border-box 真实压缩内容区，208px → 207px，装不下第 5 个圆点</span>
+      </div>
+      <div class="compare-before">
+        <span class="cp-label">❌ 还原前</span>
+        <div class="cp-code">
+          .dropdown {<br/>
+          &nbsp;&nbsp;width: 208px;<br/>
+          &nbsp;&nbsp;<span class="cp-del">border: 0.5px solid rgba(0,0,0,0.08);</span><br/>
+          &nbsp;&nbsp;<span class="cp-del">box-sizing: border-box;</span><br/>
+          &nbsp;&nbsp;<span style="color:var(--ink-3)">/* 内容区 207px */</span><br/>
+          }
+        </div>
+        <p class="cp-note">→ 5×28px + 4×11px = 184px > 183px，只排 4 列</p>
+      </div>
+      <div class="compare-after">
+        <span class="cp-label">✓ 还原后</span>
+        <div class="cp-code">
+          .dropdown {<br/>
+          &nbsp;&nbsp;width: 208px;<br/>
+          &nbsp;&nbsp;<span class="cp-add">outline: 0.5px solid rgba(0,0,0,0.08);</span><br/>
+          &nbsp;&nbsp;<span class="cp-add">border: none;</span><br/>
+          &nbsp;&nbsp;<span style="color:var(--ink-3)">/* 内容区 208px */</span><br/>
+          }
+        </div>
+        <p class="cp-note">→ outline 不参与盒模型，5 列正常排布</p>
+      </div>
+    </div>
+
+    <!-- Bug 3 -->
+    <div class="compare-item">
+      <div class="compare-meta">
+        <span class="compare-tag">§3 尺寸规则</span>
+        <span class="compare-name">FocusBtn<br/>宽度错误</span>
+        <span class="compare-cause">从使用侧父容器推断 sizing = fill，未直接查 FocusBtn Component Set</span>
+      </div>
+      <div class="compare-before">
+        <span class="cp-label">❌ 还原前</span>
+        <div class="cp-code">
+          .focus-btn {<br/>
+          &nbsp;&nbsp;<span class="cp-del">width: 100%;</span> <span style="color:var(--ink-3)">/* fill? */</span><br/>
+          &nbsp;&nbsp;height: 36px;<br/>
+          }
+        </div>
+        <p class="cp-note">→ 从使用侧推断 fill，实际 Figma 是 fixed</p>
+      </div>
+      <div class="compare-after">
+        <span class="cp-label">✓ 还原后</span>
+        <div class="cp-code">
+          .focus-btn {<br/>
+          &nbsp;&nbsp;<span class="cp-add">width: 40px;</span> <span style="color:var(--ink-3)">/* fixed */</span><br/>
+          &nbsp;&nbsp;<span class="cp-add">height: 36px;</span><br/>
+          }
+        </div>
+        <p class="cp-note">→ 查 Component Set 5018:73659 → sizing: fixed, 40×36</p>
+      </div>
+    </div>
+
+    <!-- Bug 4 -->
+    <div class="compare-item">
+      <div class="compare-meta">
+        <span class="compare-tag">§4 节点类型</span>
+        <span class="compare-name">BorderColorPanel<br/>线型图标用文字</span>
+        <span class="compare-cause">未查 Figma 节点 type，凭业务语义（实线/虚线/点线）自造文字内容</span>
+      </div>
+      <div class="compare-before">
+        <span class="cp-label">❌ 还原前</span>
+        <div class="cp-code">
+          <span style="color:var(--ink-3)">// 自造文字按钮</span><br/>
+          <FocusBtn><span class="cp-del">实线</span></FocusBtn><br/>
+          <FocusBtn><span class="cp-del">虚线</span></FocusBtn><br/>
+          <FocusBtn><span class="cp-del">点线</span></FocusBtn>
+        </div>
+        <p class="cp-note">→ Figma 节点 5023:57260 实际 type = IMAGE-SVG</p>
+      </div>
+      <div class="compare-after">
+        <span class="cp-label">✓ 还原后</span>
+        <div class="cp-code">
+          <span style="color:var(--ink-3)">// 图标占位</span><br/>
+          <FocusBtn<br/>
+          &nbsp;&nbsp;<span class="cp-add">icon={<IconPlaceholder size={20}/>}</span><br/>
+          &nbsp;&nbsp;aria-label="实线"<br/>
+          />
+        </div>
+        <p class="cp-note">→ 查节点 type 后改为 IconPlaceholder</p>
+      </div>
+    </div>
+
+    <!-- Bug 5 -->
+    <div class="compare-item">
+      <div class="compare-meta">
+        <span class="compare-tag">§6 组件系统</span>
+        <span class="compare-name">ColorDot<br/>漏掉 hover 变体</span>
+        <span class="compare-cause">从使用侧父 Frame 下嵌套实例读取变体，使用侧只展示了部分变体，遗漏 hover</span>
+      </div>
+      <div class="compare-before">
+        <span class="cp-label">❌ 还原前（只有 2 变体）</span>
+        <div class="cp-code">
+          <span class="cp-del">type Variant =</span><br/>
+          <span class="cp-del">&nbsp;&nbsp;'default' | 'selected'</span><br/>
+          <br/>
+          <span style="color:var(--ink-3)">// hover 变体遗漏</span>
+        </div>
+        <p class="cp-note">→ 从 5005:29748 使用侧读取，仅见 2 个状态</p>
+      </div>
+      <div class="compare-after">
+        <span class="cp-label">✓ 还原后（完整 6 变体）</span>
+        <div class="cp-code">
+          <span class="cp-add">type Variant =</span><br/>
+          <span class="cp-add">&nbsp;&nbsp;'default' | 'hover' | 'selected'</span><br/>
+          <br/>
+          <span style="color:var(--ink-3)">// 查 5023:54209 Component Set</span><br/>
+          <span style="color:var(--ink-3)">// → 3态 × empty(T/F) = 6 变体</span>
+        </div>
+        <p class="cp-note">→ componentSetId 顶层 children 枚举完整变体</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
   /* ── Component Output Quality ────────────────────────────────── */
   .quality-section { padding: var(--space-xl) clamp(1.5rem, 5vw, 4rem); background: var(--paper); }
   .quality-header { margin-bottom: var(--space-xl); }
@@ -523,245 +763,6 @@
       <p class="insight-detail">预览组件 NodeShell 输出与真实 MindmapNode 完全相同的 CSS class，而不是 inline style 另起炉灶——两者视觉 100% 一致，且共享同一套样式维护。</p>
       <span class="insight-trap">child-style--* × child-fill--* 正交叠加</span>
     </div>
-  </div>
-</section>
-
-<!-- Rules strip -->
-<div class="rules-strip">
-  <p class="section-label reveal">强制规则体系</p>
-  <p class="rules-eyebrow reveal">7 类还原规则 &mdash; <em>每类均有根因与真实案例支撑</em></p>
-  <div class="rules-grid-7 reveal" style="transition-delay:0.1s">
-
-    <div class="rule-item">
-      <span class="rule-num">1</span>
-      <div class="rule-body">
-        <p class="rule-name">图标规则</p>
-        <p class="rule-detail">Figma <code style="font-size:0.85em">IMAGE-SVG</code> 节点无法通过 MCP 导出路径数据。统一用 <code style="font-size:0.85em">IconPlaceholder</code> 占位，<strong>禁止</strong>用文字替代或自行绘制语义化图标。</p>
-        <span class="rule-trap">型号固定：20px 容器 · 18px 圆 · 1.5px stroke</span>
-      </div>
-    </div>
-
-    <div class="rule-item">
-      <span class="rule-num">2</span>
-      <div class="rule-body">
-        <p class="rule-name">Border 规则</p>
-        <p class="rule-detail">Figma Inside stroke 不压缩 fill 子内容；CSS <code style="font-size:0.85em">border-box</code> 会真实压缩。含 fill 子元素的结构性容器，边框必须用 <code style="font-size:0.85em">outline</code>，不用 <code style="font-size:0.85em">border</code>。</p>
-        <span class="rule-trap">验证：渲染尺寸 == Figma 标注尺寸</span>
-      </div>
-    </div>
-
-    <div class="rule-item">
-      <span class="rule-num">3</span>
-      <div class="rule-body">
-        <p class="rule-name">尺寸规则</p>
-        <p class="rule-detail">sizing 类型（hug / fixed / fill）必须从组件自身 Component Set 的 layout token 直接读取，<strong>禁止</strong>从使用侧实例推断。</p>
-        <span class="rule-trap">sizing → componentSetId → layout_xxx.sizing</span>
-      </div>
-    </div>
-
-    <div class="rule-item">
-      <span class="rule-num">4</span>
-      <div class="rule-body">
-        <p class="rule-name">节点类型识别</p>
-        <p class="rule-detail">实现任何内容前，先查 Figma 节点 <code style="font-size:0.85em">type</code> 字段。<code style="font-size:0.85em">TEXT</code> 才可用文字；<code style="font-size:0.85em">IMAGE-SVG / VECTOR / BOOLEAN_OPERATION</code> 一律用 IconPlaceholder。</p>
-        <span class="rule-trap">未查 type → 凭语义猜 → 自造内容</span>
-      </div>
-    </div>
-
-    <div class="rule-item">
-      <span class="rule-num">5</span>
-      <div class="rule-body">
-        <p class="rule-name">布局对齐规则</p>
-        <p class="rule-detail">MCP 对 Auto Layout 元素直接返回 <code style="font-size:0.85em">alignItems / justifyContent</code>；绝对定位元素只返回 <code style="font-size:0.85em">locationRelativeToParent: {x, y}</code>——需手动判断居中意图。</p>
-        <span class="rule-trap">x == (父-子)/2 → inset:0 + flex，禁止字面翻译坐标</span>
-      </div>
-    </div>
-
-    <div class="rule-item">
-      <span class="rule-num">6</span>
-      <div class="rule-body">
-        <p class="rule-name">组件系统规则</p>
-        <p class="rule-detail">变体必须从 Component Set 顶层节点枚举，<strong>不能</strong>从使用侧嵌套实例读取。使用侧只展示当前被用到的变体，可能遗漏其余变体。</p>
-        <span class="rule-trap">正确路径：componentSetId → children → 完整变体</span>
-      </div>
-    </div>
-
-    <div class="rule-item" style="grid-column:span 2">
-      <span class="rule-num">7</span>
-      <div class="rule-body">
-        <p class="rule-name">QA 走查清单</p>
-        <p class="rule-detail">逐层验证：<strong>图标</strong>（无文字替代）→ <strong>尺寸</strong>（±0.5px）→ <strong>Border</strong>（渲染尺寸一致 / fill容器用outline）→ <strong>布局</strong>（行列数量 / 绝对定位居中判断）→ <strong>变体</strong>（Component Set 完整覆盖）→ <strong>Token</strong>（颜色变量绑定）。</p>
-        <span class="rule-trap">每实现一个组件，必须按顺序过一遍此清单</span>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- Before/After comparison -->
-<section class="compare-section">
-  <p class="section-label reveal">还原前 vs 还原后</p>
-  <div class="compare-intro reveal">
-    <h3 class="compare-headline">菜单组件的 <em>5 个典型修复</em></h3>
-    <p class="compare-sub">以下问题均来自 vibcoding 思维导图菜单组件（menu atom）的真实质检过程，每一项都在规则手册中留有案例记录。</p>
-  </div>
-  <div class="compare-list reveal" style="transition-delay:0.1s">
-
-    <!-- Bug 1 -->
-    <div class="compare-item">
-      <div class="compare-meta">
-        <span class="compare-tag">§5 布局对齐</span>
-        <span class="compare-name">ColorDot<br/>check 图标偏移</span>
-        <span class="compare-cause">Figma x:6 y:6 = (28-16)/2 居中值，字面翻译后 border:2px 使坐标原点偏移 2px</span>
-      </div>
-      <div class="compare-before">
-        <span class="cp-label">❌ 还原前</span>
-        <div class="cp-code">
-          .color-dot__check {<br/>
-          &nbsp;&nbsp;position: absolute;<br/>
-          &nbsp;&nbsp;<span class="cp-del">top: 6px;</span><br/>
-          &nbsp;&nbsp;<span class="cp-del">left: 6px;</span><br/>
-          }
-        </div>
-        <p class="cp-note">→ 图标实际距外边 8px，视觉偏上偏左 2px</p>
-      </div>
-      <div class="compare-after">
-        <span class="cp-label">✓ 还原后</span>
-        <div class="cp-code">
-          .color-dot__check {<br/>
-          &nbsp;&nbsp;position: absolute;<br/>
-          &nbsp;&nbsp;<span class="cp-add">inset: 0;</span><br/>
-          &nbsp;&nbsp;<span class="cp-add">display: flex;</span><br/>
-          &nbsp;&nbsp;<span class="cp-add">align-items: center;</span><br/>
-          &nbsp;&nbsp;<span class="cp-add">justify-content: center;</span><br/>
-          }
-        </div>
-        <p class="cp-note">→ 居中意图 → 用 flex 对齐，与 border 无关</p>
-      </div>
-    </div>
-
-    <!-- Bug 2 -->
-    <div class="compare-item">
-      <div class="compare-meta">
-        <span class="compare-tag">§2 Border 规则</span>
-        <span class="compare-name">颜色面板<br/>5 列 → 4 列</span>
-        <span class="compare-cause">Figma Inside stroke 不压缩 fill 子内容，CSS border-box 真实压缩内容区，208px → 207px，装不下第 5 个圆点</span>
-      </div>
-      <div class="compare-before">
-        <span class="cp-label">❌ 还原前</span>
-        <div class="cp-code">
-          .dropdown {<br/>
-          &nbsp;&nbsp;width: 208px;<br/>
-          &nbsp;&nbsp;<span class="cp-del">border: 0.5px solid rgba(0,0,0,0.08);</span><br/>
-          &nbsp;&nbsp;<span class="cp-del">box-sizing: border-box;</span><br/>
-          &nbsp;&nbsp;<span style="color:var(--ink-3)">/* 内容区 207px */</span><br/>
-          }
-        </div>
-        <p class="cp-note">→ 5×28px + 4×11px = 184px > 183px，只排 4 列</p>
-      </div>
-      <div class="compare-after">
-        <span class="cp-label">✓ 还原后</span>
-        <div class="cp-code">
-          .dropdown {<br/>
-          &nbsp;&nbsp;width: 208px;<br/>
-          &nbsp;&nbsp;<span class="cp-add">outline: 0.5px solid rgba(0,0,0,0.08);</span><br/>
-          &nbsp;&nbsp;<span class="cp-add">border: none;</span><br/>
-          &nbsp;&nbsp;<span style="color:var(--ink-3)">/* 内容区 208px */</span><br/>
-          }
-        </div>
-        <p class="cp-note">→ outline 不参与盒模型，5 列正常排布</p>
-      </div>
-    </div>
-
-    <!-- Bug 3 -->
-    <div class="compare-item">
-      <div class="compare-meta">
-        <span class="compare-tag">§3 尺寸规则</span>
-        <span class="compare-name">FocusBtn<br/>宽度错误</span>
-        <span class="compare-cause">从使用侧父容器推断 sizing = fill，未直接查 FocusBtn Component Set</span>
-      </div>
-      <div class="compare-before">
-        <span class="cp-label">❌ 还原前</span>
-        <div class="cp-code">
-          .focus-btn {<br/>
-          &nbsp;&nbsp;<span class="cp-del">width: 100%;</span> <span style="color:var(--ink-3)">/* fill? */</span><br/>
-          &nbsp;&nbsp;height: 36px;<br/>
-          }
-        </div>
-        <p class="cp-note">→ 从使用侧推断 fill，实际 Figma 是 fixed</p>
-      </div>
-      <div class="compare-after">
-        <span class="cp-label">✓ 还原后</span>
-        <div class="cp-code">
-          .focus-btn {<br/>
-          &nbsp;&nbsp;<span class="cp-add">width: 40px;</span> <span style="color:var(--ink-3)">/* fixed */</span><br/>
-          &nbsp;&nbsp;<span class="cp-add">height: 36px;</span><br/>
-          }
-        </div>
-        <p class="cp-note">→ 查 Component Set 5018:73659 → sizing: fixed, 40×36</p>
-      </div>
-    </div>
-
-    <!-- Bug 4 -->
-    <div class="compare-item">
-      <div class="compare-meta">
-        <span class="compare-tag">§4 节点类型</span>
-        <span class="compare-name">BorderColorPanel<br/>线型图标用文字</span>
-        <span class="compare-cause">未查 Figma 节点 type，凭业务语义（实线/虚线/点线）自造文字内容</span>
-      </div>
-      <div class="compare-before">
-        <span class="cp-label">❌ 还原前</span>
-        <div class="cp-code">
-          <span style="color:var(--ink-3)">// 自造文字按钮</span><br/>
-          <FocusBtn><span class="cp-del">实线</span></FocusBtn><br/>
-          <FocusBtn><span class="cp-del">虚线</span></FocusBtn><br/>
-          <FocusBtn><span class="cp-del">点线</span></FocusBtn>
-        </div>
-        <p class="cp-note">→ Figma 节点 5023:57260 实际 type = IMAGE-SVG</p>
-      </div>
-      <div class="compare-after">
-        <span class="cp-label">✓ 还原后</span>
-        <div class="cp-code">
-          <span style="color:var(--ink-3)">// 图标占位</span><br/>
-          <FocusBtn<br/>
-          &nbsp;&nbsp;<span class="cp-add">icon={<IconPlaceholder size={20}/>}</span><br/>
-          &nbsp;&nbsp;aria-label="实线"<br/>
-          />
-        </div>
-        <p class="cp-note">→ 查节点 type 后改为 IconPlaceholder</p>
-      </div>
-    </div>
-
-    <!-- Bug 5 -->
-    <div class="compare-item">
-      <div class="compare-meta">
-        <span class="compare-tag">§6 组件系统</span>
-        <span class="compare-name">ColorDot<br/>漏掉 hover 变体</span>
-        <span class="compare-cause">从使用侧父 Frame 下嵌套实例读取变体，使用侧只展示了部分变体，遗漏 hover</span>
-      </div>
-      <div class="compare-before">
-        <span class="cp-label">❌ 还原前（只有 2 变体）</span>
-        <div class="cp-code">
-          <span class="cp-del">type Variant =</span><br/>
-          <span class="cp-del">&nbsp;&nbsp;'default' | 'selected'</span><br/>
-          <br/>
-          <span style="color:var(--ink-3)">// hover 变体遗漏</span>
-        </div>
-        <p class="cp-note">→ 从 5005:29748 使用侧读取，仅见 2 个状态</p>
-      </div>
-      <div class="compare-after">
-        <span class="cp-label">✓ 还原后（完整 6 变体）</span>
-        <div class="cp-code">
-          <span class="cp-add">type Variant =</span><br/>
-          <span class="cp-add">&nbsp;&nbsp;'default' | 'hover' | 'selected'</span><br/>
-          <br/>
-          <span style="color:var(--ink-3)">// 查 5023:54209 Component Set</span><br/>
-          <span style="color:var(--ink-3)">// → 3态 × empty(T/F) = 6 变体</span>
-        </div>
-        <p class="cp-note">→ componentSetId 顶层 children 枚举完整变体</p>
-      </div>
-    </div>
-
   </div>
 </section>
 
