@@ -223,6 +223,40 @@
   .cp-add { color: oklch(48% 0.15 80); font-weight: 600; }
   .cp-note { font-size: 0.7rem; color: var(--ink-3); margin-top: 0.5rem; font-style: italic; line-height: 1.5; }
 
+  /* ── Component Output Quality ────────────────────────────────── */
+  .quality-section { padding: var(--space-xl) clamp(1.5rem, 5vw, 4rem); background: var(--paper); }
+  .quality-header { margin-bottom: var(--space-xl); }
+  .quality-title { font-family: var(--f-display); font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 300; line-height: 1.15; margin-bottom: var(--space-m); }
+  .quality-title em { font-style: italic; color: var(--amber-d); }
+  .quality-lead { font-size: 0.9rem; color: var(--ink-3); line-height: 1.8; max-width: 52ch; }
+  .quality-meta { display: flex; gap: var(--space-m); margin-top: var(--space-s); flex-wrap: wrap; }
+  .quality-tag { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; background: var(--amber-l); color: var(--amber-d); padding: 0.25em 0.7em; }
+  .variant-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-bottom: var(--space-l); }
+  .variant-cell { background: var(--paper-2); padding: var(--space-m) var(--space-s); display: flex; flex-direction: column; gap: 0.6rem; align-items: flex-start; }
+  .variant-preview { border-radius: 8px; padding: 3px 8px; font-size: 14px; font-family: 'PingFang SC', 'Helvetica Neue', sans-serif; display: inline-block; white-space: nowrap; }
+  .variant-preview.outlined { border: 2px solid #A278FE; background: #fff; color: rgba(0,0,0,0.85); }
+  .variant-preview.filled   { background: #A278FE; color: rgba(255,255,255,0.9); border: none; }
+  .variant-preview.full-radius.outlined { border-radius: 18px; }
+  .variant-preview.full-radius.filled   { border-radius: 18px; }
+  .variant-preview.bottom-border { border-radius: 4px 4px 0 0; border: none; background: #fff; color: rgba(0,0,0,0.85); border-bottom: 2px solid #A278FE; }
+  .variant-preview.bottom-border.filled { background: #A278FE; color: rgba(255,255,255,0.9); border-bottom: 2px solid #fff; }
+  .variant-preview.hollow { border: none; background: transparent; color: rgba(0,0,0,0.55); }
+  .variant-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.07em; color: var(--ink); }
+  .variant-class { font-family: 'Courier New', monospace; font-size: 0.65rem; color: var(--ink-3); line-height: 1.5; }
+  .variant-figma-id { font-family: 'Courier New', monospace; font-size: 0.62rem; color: oklch(75% 0.015 75); }
+  .icon-strip { background: var(--paper-2); border: 1px solid var(--rule); padding: var(--space-m); }
+  .icon-strip-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: var(--space-s); }
+  .icon-items { display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; align-items: center; }
+  .icon-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .icon-box { width: 32px; height: 32px; background: #fff; border: 1px solid var(--rule); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #A278FE; font-weight: 700; font-family: monospace; }
+  .icon-name { font-size: 0.6rem; color: var(--ink-3); font-family: monospace; text-align: center; max-width: 60px; }
+  .quality-insight { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-top: var(--space-l); }
+  .insight-item { background: var(--paper-2); padding: var(--space-m); }
+  .insight-num { font-family: var(--f-display); font-size: 2rem; font-weight: 300; color: var(--amber-d); line-height: 1; margin-bottom: 0.4rem; }
+  .insight-title { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink); margin-bottom: 0.35rem; }
+  .insight-detail { font-size: 0.78rem; color: var(--ink-3); line-height: 1.65; }
+  .insight-trap { display: inline-block; margin-top: 0.4rem; font-size: 0.68rem; font-family: 'Courier New', monospace; color: var(--amber-d); background: color-mix(in oklch, var(--amber-l) 50%, transparent); padding: 0.15em 0.5em; }
+
   @media (max-width: 900px) {
     .hero { grid-template-columns: 1fr; }
     .hero-left { border-right: none; border-bottom: 1px solid var(--rule); }
@@ -242,6 +276,8 @@
     .cta { grid-template-columns: 1fr; }
     nav .nav-links { display: none; }
     .mode-cards { grid-template-columns: 1fr; }
+    .variant-grid { grid-template-columns: 1fr 1fr; }
+    .quality-insight { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -253,6 +289,7 @@
     <li><a href="#paths">路径</a></li>
     <li><a href="#workflow">协作链路</a></li>
     <li><a href="#design-case">设计案例</a></li>
+    <li><a href="#component-quality">生成质量</a></li>
     <li><a href="#setup">使用方式</a></li>
     <li><a href="#install">安装</a></li>
   </ul>
@@ -417,6 +454,116 @@
         <span class="case-metric-val">80%</span>
         <span class="case-metric-label">第一稿还原率目标</span>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Component Output Quality ─────────────────────────────────── -->
+<hr class="divider" />
+<section class="quality-section" id="component-quality">
+  <p class="section-label reveal">一次生成的质量</p>
+  <div class="quality-header reveal">
+    <h2 class="quality-title">拿到 Figma 链接<br/><em>一次生成的还原效果</em></h2>
+    <p class="quality-lead">以下展示 design-driven 路径下，design-analyst 角色通过 Figma MCP 读取 Component Set、提取完整变体矩阵、一次生成的组件系统。子节点 7 个风格变体 + 10 个菜单图标，均在单轮对话中完成还原。</p>
+    <div class="quality-meta">
+      <span class="quality-tag">Figma → CSS class 体系</span>
+      <span class="quality-tag">7 个节点变体</span>
+      <span class="quality-tag">10 个真实 SVG 图标</span>
+      <span class="quality-tag">零 IconPlaceholder</span>
+    </div>
+  </div>
+
+  <!-- 子节点 atom 风格：7 变体 -->
+  <p style="font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:0.75rem;">子节点 atom-风格 · Figma <code style="font-size:0.9em">4956:32564</code></p>
+  <div class="variant-grid reveal" style="transition-delay:0.05s">
+    <div class="variant-cell">
+      <span class="variant-preview outlined">输入文本</span>
+      <span class="variant-label">小圆角 / 描边</span>
+      <span class="variant-class">.child-style--small-radius<br/>.child-fill--outlined</span>
+      <span class="variant-figma-id">4956:32567</span>
+    </div>
+    <div class="variant-cell">
+      <span class="variant-preview filled">输入文本</span>
+      <span class="variant-label">小圆角 / 填充</span>
+      <span class="variant-class">.child-style--small-radius<br/>.child-fill--filled</span>
+      <span class="variant-figma-id">4956:32565</span>
+    </div>
+    <div class="variant-cell">
+      <span class="variant-preview full-radius outlined">输入文本</span>
+      <span class="variant-label">全圆角 / 描边</span>
+      <span class="variant-class">.child-style--full-radius<br/>.child-fill--outlined</span>
+      <span class="variant-figma-id">4956:32571</span>
+    </div>
+    <div class="variant-cell">
+      <span class="variant-preview full-radius filled">输入文本</span>
+      <span class="variant-label">全圆角 / 填充</span>
+      <span class="variant-class">.child-style--full-radius<br/>.child-fill--filled</span>
+      <span class="variant-figma-id">4956:32569</span>
+    </div>
+    <div class="variant-cell">
+      <span class="variant-preview bottom-border">输入文本</span>
+      <span class="variant-label">镂空底边 / 描边</span>
+      <span class="variant-class">.child-style--bottom-border<br/>.child-fill--outlined</span>
+      <span class="variant-figma-id">4956:32573</span>
+    </div>
+    <div class="variant-cell">
+      <span class="variant-preview bottom-border filled">输入文本</span>
+      <span class="variant-label">镂空底边 / 填充</span>
+      <span class="variant-class">.child-style--bottom-border<br/>.child-fill--filled</span>
+      <span class="variant-figma-id">4956:32576</span>
+    </div>
+    <div class="variant-cell">
+      <span class="variant-preview hollow">输入文本</span>
+      <span class="variant-label">完全镂空</span>
+      <span class="variant-class">.child-style--hollow<br/>.child-fill--outlined</span>
+      <span class="variant-figma-id">4967:33294</span>
+    </div>
+    <div class="variant-cell" style="background:var(--paper);justify-content:center;align-items:center;padding:var(--space-m);">
+      <p style="font-size:0.75rem;color:var(--ink-3);line-height:1.7;text-align:center;">正交叠加<br/>child-style × child-fill<br/><span style="color:var(--amber-d);font-weight:600;">与 MindmapNode<br/>共享同一 CSS class</span></p>
+    </div>
+  </div>
+
+  <!-- 菜单图标 -->
+  <p style="font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:0.75rem;margin-top:var(--space-l);">menu btn 图标 · Figma <code style="font-size:0.9em">5005:29745</code> · Figma REST API 下载</p>
+  <div class="icon-strip reveal" style="transition-delay:0.1s">
+    <p class="icon-strip-label">10 个真实 SVG · 零占位符</p>
+    <div class="icon-items">
+      <div class="icon-item"><div class="icon-box" title="ThemeIcon">T</div><span class="icon-name">icon-theme</span></div>
+      <div class="icon-item"><div class="icon-box" title="FillColorIcon" style="background:linear-gradient(135deg,#A278FE 50%,#fff 50%);border-radius:4px;"></div><span class="icon-name">icon-fill-color</span></div>
+      <div class="icon-item"><div class="icon-box" title="BorderColorIcon" style="border:2px solid #A278FE;"></div><span class="icon-name">icon-border-color</span></div>
+      <div class="icon-item"><div class="icon-box" title="ShapeIcon">□</div><span class="icon-name">icon-shape</span></div>
+      <div class="icon-item"><div class="icon-box" title="ConnectorIcon">—</div><span class="icon-name">icon-connector</span></div>
+      <div class="icon-item"><div class="icon-box" title="FontSizeIcon">Aa</div><span class="icon-name">icon-font-size</span></div>
+      <div class="icon-item"><div class="icon-box" title="FontStyleIcon"><em>B</em></div><span class="icon-name">icon-font-style</span></div>
+      <div class="icon-item"><div class="icon-box" title="FontAlignIcon">≡</div><span class="icon-name">icon-font-align</span></div>
+      <div class="icon-item"><div class="icon-box" title="FontColorIcon" style="border-bottom:3px solid #A278FE;">A</div><span class="icon-name">icon-font-color</span></div>
+      <div class="icon-item"><div class="icon-box" title="AddMenuIcon">+</div><span class="icon-name">icon-add-menu</span></div>
+    </div>
+    <p style="font-size:0.72rem;color:var(--ink-3);margin-top:0.75rem;font-family:'Courier New',monospace;">
+      python3 scripts/download-figma-icons.py --token $FIGMA_TOKEN
+      <span style="color:var(--amber-d);margin-left:0.5em;">→ src/assets/icons/ → vite-plugin-svgr → MenuBtn.tsx</span>
+    </p>
+  </div>
+
+  <!-- 关键经验 -->
+  <div class="quality-insight reveal" style="transition-delay:0.15s">
+    <div class="insight-item">
+      <p class="insight-num">Ⅰ</p>
+      <p class="insight-title">变体要从 Component Set 顶层提取</p>
+      <p class="insight-detail">用 <code style="font-size:0.85em">get_figma_data(depth=3)</code> 从 componentSetId 顶层读取，使用侧实例只展示部分变体——会漏掉「镂空底边」「完全镂空」。</p>
+      <span class="insight-trap">componentSetId → children → 完整变体</span>
+    </div>
+    <div class="insight-item">
+      <p class="insight-num">Ⅱ</p>
+      <p class="insight-title">Component 定义节点无法 API 导出</p>
+      <p class="insight-detail">Figma Images API 对 Component 定义节点返回 null，需改用对应的 <strong>instance 节点 ID</strong>（在 menu btn 使用侧里找到的 IMAGE-SVG 实例）。</p>
+      <span class="insight-trap">nodeId → null → 找 instance → 成功</span>
+    </div>
+    <div class="insight-item">
+      <p class="insight-num">Ⅲ</p>
+      <p class="insight-title">NodeShell 应扩展而非新建</p>
+      <p class="insight-detail">预览组件 NodeShell 输出与真实 MindmapNode 完全相同的 CSS class，而不是 inline style 另起炉灶——两者视觉 100% 一致，且共享同一套样式维护。</p>
+      <span class="insight-trap">child-style--* × child-fill--* 正交叠加</span>
     </div>
   </div>
 </section>
@@ -790,7 +937,7 @@
 
 <footer>
   <p class="footer-brand">Designer Vibecoding Starter &mdash; Claude Skill</p>
-  <p class="footer-meta">Round 6 · 2026-03-19 · Design Analyst 实战案例 · design-role-rules.md v1.8 · 7类还原规则 + 5个Before/After对比</p>
+  <p class="footer-meta">Round 7 · 2026-03-19 · 组件系统一次生成质量展示 · 7变体子节点 + 10图标 REST API 下载 · download-figma-icons.py 图标下载链路</p>
 </footer>
 
 <script>
