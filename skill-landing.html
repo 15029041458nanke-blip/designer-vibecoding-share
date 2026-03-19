@@ -257,6 +257,18 @@
   .insight-detail { font-size: 0.78rem; color: var(--ink-3); line-height: 1.65; }
   .insight-trap { display: inline-block; margin-top: 0.4rem; font-size: 0.68rem; font-family: 'Courier New', monospace; color: var(--amber-d); background: color-mix(in oklch, var(--amber-l) 50%, transparent); padding: 0.15em 0.5em; }
 
+  /* component-preview embed */
+  .preview-embed-wrap { border: 1px solid var(--rule); background: var(--paper-2); overflow: hidden; margin-bottom: var(--space-l); }
+  .preview-embed-bar { display: flex; align-items: center; gap: 6px; padding: 0.5rem 0.8rem; background: #f0f0f0; border-bottom: 1px solid var(--rule); }
+  .preview-embed-dot { width: 10px; height: 10px; border-radius: 50%; background: #ddd; flex-shrink: 0; }
+  .preview-embed-dot:nth-child(1) { background: #ff5f57; }
+  .preview-embed-dot:nth-child(2) { background: #febc2e; }
+  .preview-embed-dot:nth-child(3) { background: #28c840; }
+  .preview-embed-url { flex: 1; font-size: 0.72rem; font-family: 'Courier New', monospace; color: var(--ink-3); text-align: center; }
+  .preview-embed-badge { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber-d); background: var(--amber-l); padding: 0.15em 0.55em; flex-shrink: 0; }
+  .preview-embed-frame { width: 100%; height: 700px; overflow: hidden; position: relative; }
+  .preview-embed-frame iframe { width: 100%; height: 100%; border: none; display: block; overflow: auto; }
+
   @media (max-width: 900px) {
     .hero { grid-template-columns: 1fr; }
     .hero-left { border-right: none; border-bottom: 1px solid var(--rule); }
@@ -278,6 +290,7 @@
     .mode-cards { grid-template-columns: 1fr; }
     .variant-grid { grid-template-columns: 1fr 1fr; }
     .quality-insight { grid-template-columns: 1fr; }
+    .preview-embed-frame { height: 480px; }
   }
 </style>
 </head>
@@ -473,76 +486,21 @@
     </div>
   </div>
 
-  <!-- 子节点 atom 风格：7 变体 -->
-  <p style="font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:0.75rem;">子节点 atom-风格 · Figma <code style="font-size:0.9em">4956:32564</code></p>
-  <div class="variant-grid reveal" style="transition-delay:0.05s">
-    <div class="variant-cell">
-      <span class="variant-preview outlined">输入文本</span>
-      <span class="variant-label">小圆角 / 描边</span>
-      <span class="variant-class">.child-style--small-radius<br/>.child-fill--outlined</span>
-      <span class="variant-figma-id">4956:32567</span>
+  <!-- /component-preview 原始页面嵌入 -->
+  <div class="preview-embed-wrap reveal" style="transition-delay:0.05s">
+    <div class="preview-embed-bar">
+      <span class="preview-embed-dot"></span><span class="preview-embed-dot"></span><span class="preview-embed-dot"></span>
+      <span class="preview-embed-url">localhost:5173/component-preview</span>
+      <span class="preview-embed-badge">原始页面 · 未修改</span>
     </div>
-    <div class="variant-cell">
-      <span class="variant-preview filled">输入文本</span>
-      <span class="variant-label">小圆角 / 填充</span>
-      <span class="variant-class">.child-style--small-radius<br/>.child-fill--filled</span>
-      <span class="variant-figma-id">4956:32565</span>
+    <div class="preview-embed-frame">
+      <iframe
+        src="http://localhost:5173/component-preview"
+        title="Component Preview — 组件系统还原效果"
+        scrolling="yes"
+        loading="lazy"
+      ></iframe>
     </div>
-    <div class="variant-cell">
-      <span class="variant-preview full-radius outlined">输入文本</span>
-      <span class="variant-label">全圆角 / 描边</span>
-      <span class="variant-class">.child-style--full-radius<br/>.child-fill--outlined</span>
-      <span class="variant-figma-id">4956:32571</span>
-    </div>
-    <div class="variant-cell">
-      <span class="variant-preview full-radius filled">输入文本</span>
-      <span class="variant-label">全圆角 / 填充</span>
-      <span class="variant-class">.child-style--full-radius<br/>.child-fill--filled</span>
-      <span class="variant-figma-id">4956:32569</span>
-    </div>
-    <div class="variant-cell">
-      <span class="variant-preview bottom-border">输入文本</span>
-      <span class="variant-label">镂空底边 / 描边</span>
-      <span class="variant-class">.child-style--bottom-border<br/>.child-fill--outlined</span>
-      <span class="variant-figma-id">4956:32573</span>
-    </div>
-    <div class="variant-cell">
-      <span class="variant-preview bottom-border filled">输入文本</span>
-      <span class="variant-label">镂空底边 / 填充</span>
-      <span class="variant-class">.child-style--bottom-border<br/>.child-fill--filled</span>
-      <span class="variant-figma-id">4956:32576</span>
-    </div>
-    <div class="variant-cell">
-      <span class="variant-preview hollow">输入文本</span>
-      <span class="variant-label">完全镂空</span>
-      <span class="variant-class">.child-style--hollow<br/>.child-fill--outlined</span>
-      <span class="variant-figma-id">4967:33294</span>
-    </div>
-    <div class="variant-cell" style="background:var(--paper);justify-content:center;align-items:center;padding:var(--space-m);">
-      <p style="font-size:0.75rem;color:var(--ink-3);line-height:1.7;text-align:center;">正交叠加<br/>child-style × child-fill<br/><span style="color:var(--amber-d);font-weight:600;">与 MindmapNode<br/>共享同一 CSS class</span></p>
-    </div>
-  </div>
-
-  <!-- 菜单图标 -->
-  <p style="font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:0.75rem;margin-top:var(--space-l);">menu btn 图标 · Figma <code style="font-size:0.9em">5005:29745</code> · Figma REST API 下载</p>
-  <div class="icon-strip reveal" style="transition-delay:0.1s">
-    <p class="icon-strip-label">10 个真实 SVG · 零占位符</p>
-    <div class="icon-items">
-      <div class="icon-item"><div class="icon-box" title="ThemeIcon">T</div><span class="icon-name">icon-theme</span></div>
-      <div class="icon-item"><div class="icon-box" title="FillColorIcon" style="background:linear-gradient(135deg,#A278FE 50%,#fff 50%);border-radius:4px;"></div><span class="icon-name">icon-fill-color</span></div>
-      <div class="icon-item"><div class="icon-box" title="BorderColorIcon" style="border:2px solid #A278FE;"></div><span class="icon-name">icon-border-color</span></div>
-      <div class="icon-item"><div class="icon-box" title="ShapeIcon">□</div><span class="icon-name">icon-shape</span></div>
-      <div class="icon-item"><div class="icon-box" title="ConnectorIcon">—</div><span class="icon-name">icon-connector</span></div>
-      <div class="icon-item"><div class="icon-box" title="FontSizeIcon">Aa</div><span class="icon-name">icon-font-size</span></div>
-      <div class="icon-item"><div class="icon-box" title="FontStyleIcon"><em>B</em></div><span class="icon-name">icon-font-style</span></div>
-      <div class="icon-item"><div class="icon-box" title="FontAlignIcon">≡</div><span class="icon-name">icon-font-align</span></div>
-      <div class="icon-item"><div class="icon-box" title="FontColorIcon" style="border-bottom:3px solid #A278FE;">A</div><span class="icon-name">icon-font-color</span></div>
-      <div class="icon-item"><div class="icon-box" title="AddMenuIcon">+</div><span class="icon-name">icon-add-menu</span></div>
-    </div>
-    <p style="font-size:0.72rem;color:var(--ink-3);margin-top:0.75rem;font-family:'Courier New',monospace;">
-      python3 scripts/download-figma-icons.py --token $FIGMA_TOKEN
-      <span style="color:var(--amber-d);margin-left:0.5em;">→ src/assets/icons/ → vite-plugin-svgr → MenuBtn.tsx</span>
-    </p>
   </div>
 
   <!-- 关键经验 -->
