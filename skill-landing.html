@@ -223,6 +223,225 @@
   .cp-add { color: oklch(48% 0.15 80); font-weight: 600; }
   .cp-note { font-size: 0.7rem; color: var(--ink-3); margin-top: 0.5rem; font-style: italic; line-height: 1.5; }
 
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { border-right: none; border-bottom: 1px solid var(--rule); }
+    .paths { grid-template-columns: 1fr; }
+    .path-divider { display: none; }
+    .path { padding: 0; padding-top: var(--space-l); }
+    .path:first-child { padding-top: 0; }
+    .chains { grid-template-columns: 1fr; }
+    .rules-grid-7 { grid-template-columns: 1fr; }
+    .rule-item:last-child:nth-child(odd) { grid-column: span 1; }
+    .compare-item { grid-template-columns: 1fr; }
+    .case-header { grid-template-columns: 1fr; }
+    .case-metrics { align-items: flex-start; text-align: left; }
+    .setup-grid, .install-grid { grid-template-columns: 1fr; }
+    .setup-right { position: static; }
+    .output-grid { grid-template-columns: 1fr 1fr; }
+    .cta { grid-template-columns: 1fr; }
+    nav .nav-links { display: none; }
+    .mode-cards { grid-template-columns: 1fr; }
+  }
+
+  /* component-preview embed */
+  .quality-section { padding: var(--space-xl) clamp(1.5rem, 5vw, 4rem); background: var(--paper); }
+  .quality-header { margin-bottom: var(--space-xl); }
+  .quality-title { font-family: var(--f-display); font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 300; line-height: 1.15; margin-bottom: var(--space-m); }
+  .quality-title em { font-style: italic; color: var(--amber-d); }
+  .quality-lead { font-size: 0.9rem; color: var(--ink-3); line-height: 1.8; max-width: 52ch; }
+  .quality-meta { display: flex; gap: var(--space-m); margin-top: var(--space-s); flex-wrap: wrap; }
+  .quality-tag { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; background: var(--amber-l); color: var(--amber-d); padding: 0.25em 0.7em; }
+  .preview-embed-wrap { border: 1px solid var(--rule); background: var(--paper-2); overflow: hidden; }
+  .preview-embed-bar { display: flex; align-items: center; gap: 6px; padding: 0.5rem 0.8rem; background: #f0f0f0; border-bottom: 1px solid var(--rule); }
+  .preview-embed-dot { width: 10px; height: 10px; border-radius: 50%; background: #ddd; flex-shrink: 0; }
+  .preview-embed-dot:nth-child(1) { background: #ff5f57; }
+  .preview-embed-dot:nth-child(2) { background: #febc2e; }
+  .preview-embed-dot:nth-child(3) { background: #28c840; }
+  .preview-embed-url { flex: 1; font-size: 0.72rem; font-family: 'Courier New', monospace; color: var(--ink-3); text-align: center; }
+  .preview-embed-badge { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber-d); background: var(--amber-l); padding: 0.15em 0.55em; flex-shrink: 0; }
+  .preview-embed-frame { width: 100%; height: 700px; overflow: hidden; }
+  .preview-embed-frame iframe { width: 100%; height: 100%; border: none; display: block; }
+  @media (max-width: 900px) { .preview-embed-frame { height: 480px; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">designer-vibecoding-starter<span></span></a>
+  <ul class="nav-links">
+    <li><a href="#paths">路径</a></li>
+    <li><a href="#workflow">协作链路</a></li>
+    <li><a href="#design-case">设计案例</a></li>
+    <li><a href="#component-quality">生成质量</a></li>
+    <li><a href="#setup">使用方式</a></li>
+    <li><a href="#install">安装</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Claude Skill · v2.0</p>
+    <h1 class="hero-title">Design&shy;er<br/><em>Vibe&shy;coding</em><br/>Starter</h1>
+    <p class="hero-subtitle">一句话初始化你的协作项目骨架——工作流文件、执行入口、任务管理，一次配齐，拿到就能开始工作。</p>
+    <div class="hero-actions">
+      <a href="#setup" class="btn-primary">开始初始化 →</a>
+      <a href="#workflow" class="btn-ghost">了解协作链路</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="file-tree">
+      <p class="file-tree-label">生成的项目结构</p>
+      <div class="tree">
+        <div class="line"><span class="bullet folder"></span><span class="folder">my-project/</span></div>
+        <div class="indent">
+          <div class="line"><span class="bullet new"></span><span class="new">AGENTS.md</span></div>
+          <div class="line"><span class="bullet new"></span><span class="new">agent-context/</span></div>
+          <div class="indent">
+            <div class="line"><span class="bullet"></span>current-workflow.md</div>
+            <div class="line"><span class="bullet"></span>default-context.md</div>
+            <div class="line"><span class="bullet new"></span><span class="new">design-role-rules.md</span> <span style="font-size:0.65rem;color:var(--amber-d);margin-left:0.4em;">design-driven</span></div>
+          </div>
+          <div class="line"><span class="bullet new"></span><span class="new">ai-workflows/</span></div>
+          <div class="indent">
+            <div class="line"><span class="bullet"></span>claude-planner-codex-builder/</div>
+            <div class="line"><span class="bullet"></span>codex-fullstack-workflow/</div>
+          </div>
+          <div class="line"><span class="bullet new"></span><span class="new">project-management/</span></div>
+          <div class="line"><span class="bullet new"></span><span class="new">tasks/ &amp; .agent/</span></div>
+          <div class="line"><span class="bullet new"></span><span class="new">scripts/</span></div>
+          <div class="line"><span class="bullet new"></span><span class="new">package.json</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="mode-cards" id="mode-cards">
+      <div class="mode-card active" onclick="selectMode(this)">
+        <p class="mode-card-name">Claude + Codex</p>
+        <p class="mode-card-desc">完整角色团队 + 双模型分工：Claude 驱动规划侧，Codex 驱动执行侧</p>
+      </div>
+      <div class="mode-card" onclick="selectMode(this)">
+        <p class="mode-card-name">Codex 全流程</p>
+        <p class="mode-card-desc">完整角色团队 + 单模型驱动：Codex 串联所有角色完成全流程</p>
+      </div>
+      <div class="mode-card" onclick="selectMode(this)">
+        <p class="mode-card-name">zero-to-one</p>
+        <p class="mode-card-desc">无设计稿，从产品想法出发</p>
+      </div>
+      <div class="mode-card" onclick="selectMode(this)">
+        <p class="mode-card-name">design-driven</p>
+        <p class="mode-card-desc">有设计稿，驱动分析与开发</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- Paths -->
+<section class="section" id="paths">
+  <p class="section-label reveal">两条开发路径</p>
+  <div class="paths">
+    <div class="path reveal">
+      <p class="path-number">01</p>
+      <span class="path-tag">无设计稿</span>
+      <h2 class="path-name">Zero to One</h2>
+      <p class="path-desc">从一个产品想法出发，不需要任何设计资产。脚手架自动配置从意图到 PRD 到 handoff 的全链路模板。</p>
+      <ul class="path-steps">
+        <li><span class="step-num">①</span>明确产品意图与目标用户</li>
+        <li><span class="step-num">②</span>填写 active-prd.md，拆分首个 PRD 切片</li>
+        <li><span class="step-num">③</span>写 todo.md，创建第一份 handoff.json</li>
+        <li><span class="step-num">④</span>运行 <code>npm run agent:run</code></li>
+      </ul>
+    </div>
+    <div class="path-divider"></div>
+    <div class="path reveal" style="transition-delay: 0.15s">
+      <p class="path-number">02</p>
+      <span class="path-tag">有设计稿</span>
+      <h2 class="path-name">Design Driven</h2>
+      <p class="path-desc">以 Figma 设计稿为输入源，由 <strong>design-analyst</strong> 角色先做设计转译，产出设计驱动 PRD 与设计合约，再驱动开发与 Design QA 闭环。</p>
+      <ul class="path-steps">
+        <li><span class="step-num">①</span>design-analyst 分析 Figma，产出 design-analysis.md + design-contract.md</li>
+        <li><span class="step-num">②</span>product-strategist / project-manager 校验范围，形成最终 PRD</li>
+        <li><span class="step-num">③</span>architect 定义边界，engineer + tester 按 handoff 实施验证</li>
+        <li><span class="step-num">④</span>design-analyst 执行 Design QA，确认实现与设计一致</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- Workflow strip -->
+<section class="workflow-strip" id="workflow">
+  <p class="section-label reveal">三条协作链路</p>
+  <h2 class="workflow-title reveal">完整角色团队<br/><em>双模型分工</em></h2>
+  <div class="chains">
+    <div class="chain reveal">
+      <p class="chain-letter">A</p>
+      <p class="chain-name">多模型协作</p>
+      <span class="chain-tag">Claude + Codex</span>
+      <p class="chain-desc">两条链路共享同一套完整角色团队。链路 A 中，Claude 主导规划侧全部角色，Codex 主导执行侧角色。</p>
+      <ul class="chain-list">
+        <li>Claude 侧：design-analyst · product-strategist · project-manager · architect · reviewer</li>
+        <li>Codex 侧：engineer · tester</li>
+        <li>适合复杂任务、上下文长、需规划与执行分离的场景</li>
+      </ul>
+    </div>
+    <div class="chain reveal" style="transition-delay:0.1s">
+      <p class="chain-letter">B</p>
+      <p class="chain-name">单模型多角色</p>
+      <span class="chain-tag">Codex 全流程</span>
+      <p class="chain-desc">链路 B 同样使用完整角色团队，由 Codex 一个模型依次驱动所有角色，在单个环境跑完全部流程。</p>
+      <ul class="chain-list">
+        <li>Codex 串联：PM · architect · engineer · tester · reviewer</li>
+        <li>Claude 配额用尽或想在一个环境完成全部时选用</li>
+        <li>适合独立开发者、快速迭代场景</li>
+      </ul>
+    </div>
+    <div class="chain reveal" style="transition-delay:0.2s">
+      <p class="chain-letter">C</p>
+      <p class="chain-name">OpenClaw 后台</p>
+      <span class="chain-tag">叠加层 · 可选</span>
+      <p class="chain-desc">C 不替代 A/B，而是在其上叠加后台执行能力。Worker 轮询 GitHub handoff，执行后自动推回结果——不用一直盯着窗口。</p>
+      <ul class="chain-list">
+        <li>前置：git init + push 到 GitHub、安装 jq、配置 SSH/Token 免交互凭据</li>
+        <li>初始化后脚手架会输出完整 6 步 git 配置清单</li>
+        <li>支持演练模式：<code>OPENCLAW_DRY_RUN=true npm run openclaw:worker</code></li>
+        <li>配合 A 或 B 同时使用，三条链路不互斥</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<hr class="divider" />
+
+<!-- ── Design Analyst Case Study ──────────────────────────────── -->
+<section class="case-section" id="design-case">
+  <p class="section-label reveal">Design Analyst &middot; 实战案例</p>
+  <div class="case-header">
+    <div>
+      <h2 class="case-title reveal">从 Figma 到代码的<br/><em>精准还原体系</em></h2>
+      <p class="case-lead reveal">在 vibcoding 思维导图项目中，多轮 Figma → 代码还原与质检，将发现的 6 类典型根因系统化为 7 条强制规则，落地为团队共同维护的 <code style="font-size:0.82em;background:var(--amber-l);padding:0.1em 0.4em;">design-role-rules.md</code>——第一稿还原率从约 60% 提升至 80%+。</p>
+    </div>
+    <div class="case-metrics reveal" style="transition-delay:0.12s">
+      <div class="case-metric">
+        <span class="case-metric-val">7</span>
+        <span class="case-metric-label">还原规则类别</span>
+      </div>
+      <div class="case-metric">
+        <span class="case-metric-val">6</span>
+        <span class="case-metric-label">典型根因归档</span>
+      </div>
+      <div class="case-metric">
+        <span class="case-metric-val">80%</span>
+        <span class="case-metric-label">第一稿还原率目标</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Rules strip -->
 <div class="rules-strip">
   <p class="section-label reveal">强制规则体系</p>
@@ -462,255 +681,6 @@
   </div>
 </section>
 
-
-  /* ── Component Output Quality ────────────────────────────────── */
-  .quality-section { padding: var(--space-xl) clamp(1.5rem, 5vw, 4rem); background: var(--paper); }
-  .quality-header { margin-bottom: var(--space-xl); }
-  .quality-title { font-family: var(--f-display); font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 300; line-height: 1.15; margin-bottom: var(--space-m); }
-  .quality-title em { font-style: italic; color: var(--amber-d); }
-  .quality-lead { font-size: 0.9rem; color: var(--ink-3); line-height: 1.8; max-width: 52ch; }
-  .quality-meta { display: flex; gap: var(--space-m); margin-top: var(--space-s); flex-wrap: wrap; }
-  .quality-tag { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; background: var(--amber-l); color: var(--amber-d); padding: 0.25em 0.7em; }
-  .variant-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-bottom: var(--space-l); }
-  .variant-cell { background: var(--paper-2); padding: var(--space-m) var(--space-s); display: flex; flex-direction: column; gap: 0.6rem; align-items: flex-start; }
-  .variant-preview { border-radius: 8px; padding: 3px 8px; font-size: 14px; font-family: 'PingFang SC', 'Helvetica Neue', sans-serif; display: inline-block; white-space: nowrap; }
-  .variant-preview.outlined { border: 2px solid #A278FE; background: #fff; color: rgba(0,0,0,0.85); }
-  .variant-preview.filled   { background: #A278FE; color: rgba(255,255,255,0.9); border: none; }
-  .variant-preview.full-radius.outlined { border-radius: 18px; }
-  .variant-preview.full-radius.filled   { border-radius: 18px; }
-  .variant-preview.bottom-border { border-radius: 4px 4px 0 0; border: none; background: #fff; color: rgba(0,0,0,0.85); border-bottom: 2px solid #A278FE; }
-  .variant-preview.bottom-border.filled { background: #A278FE; color: rgba(255,255,255,0.9); border-bottom: 2px solid #fff; }
-  .variant-preview.hollow { border: none; background: transparent; color: rgba(0,0,0,0.55); }
-  .variant-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.07em; color: var(--ink); }
-  .variant-class { font-family: 'Courier New', monospace; font-size: 0.65rem; color: var(--ink-3); line-height: 1.5; }
-  .variant-figma-id { font-family: 'Courier New', monospace; font-size: 0.62rem; color: oklch(75% 0.015 75); }
-  .icon-strip { background: var(--paper-2); border: 1px solid var(--rule); padding: var(--space-m); }
-  .icon-strip-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: var(--space-s); }
-  .icon-items { display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; align-items: center; }
-  .icon-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-  .icon-box { width: 32px; height: 32px; background: #fff; border: 1px solid var(--rule); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #A278FE; font-weight: 700; font-family: monospace; }
-  .icon-name { font-size: 0.6rem; color: var(--ink-3); font-family: monospace; text-align: center; max-width: 60px; }
-  .quality-insight { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-top: var(--space-l); }
-  .insight-item { background: var(--paper-2); padding: var(--space-m); }
-  .insight-num { font-family: var(--f-display); font-size: 2rem; font-weight: 300; color: var(--amber-d); line-height: 1; margin-bottom: 0.4rem; }
-  .insight-title { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink); margin-bottom: 0.35rem; }
-  .insight-detail { font-size: 0.78rem; color: var(--ink-3); line-height: 1.65; }
-  .insight-trap { display: inline-block; margin-top: 0.4rem; font-size: 0.68rem; font-family: 'Courier New', monospace; color: var(--amber-d); background: color-mix(in oklch, var(--amber-l) 50%, transparent); padding: 0.15em 0.5em; }
-
-  /* component-preview embed */
-  .preview-embed-wrap { border: 1px solid var(--rule); background: var(--paper-2); overflow: hidden; margin-bottom: var(--space-l); }
-  .preview-embed-bar { display: flex; align-items: center; gap: 6px; padding: 0.5rem 0.8rem; background: #f0f0f0; border-bottom: 1px solid var(--rule); }
-  .preview-embed-dot { width: 10px; height: 10px; border-radius: 50%; background: #ddd; flex-shrink: 0; }
-  .preview-embed-dot:nth-child(1) { background: #ff5f57; }
-  .preview-embed-dot:nth-child(2) { background: #febc2e; }
-  .preview-embed-dot:nth-child(3) { background: #28c840; }
-  .preview-embed-url { flex: 1; font-size: 0.72rem; font-family: 'Courier New', monospace; color: var(--ink-3); text-align: center; }
-  .preview-embed-badge { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber-d); background: var(--amber-l); padding: 0.15em 0.55em; flex-shrink: 0; }
-  .preview-embed-frame { width: 100%; height: 700px; overflow: hidden; position: relative; }
-  .preview-embed-frame iframe { width: 100%; height: 100%; border: none; display: block; overflow: auto; }
-
-  @media (max-width: 900px) {
-    .hero { grid-template-columns: 1fr; }
-    .hero-left { border-right: none; border-bottom: 1px solid var(--rule); }
-    .paths { grid-template-columns: 1fr; }
-    .path-divider { display: none; }
-    .path { padding: 0; padding-top: var(--space-l); }
-    .path:first-child { padding-top: 0; }
-    .chains { grid-template-columns: 1fr; }
-    .rules-grid-7 { grid-template-columns: 1fr; }
-    .rule-item:last-child:nth-child(odd) { grid-column: span 1; }
-    .compare-item { grid-template-columns: 1fr; }
-    .case-header { grid-template-columns: 1fr; }
-    .case-metrics { align-items: flex-start; text-align: left; }
-    .setup-grid, .install-grid { grid-template-columns: 1fr; }
-    .setup-right { position: static; }
-    .output-grid { grid-template-columns: 1fr 1fr; }
-    .cta { grid-template-columns: 1fr; }
-    nav .nav-links { display: none; }
-    .mode-cards { grid-template-columns: 1fr; }
-    .variant-grid { grid-template-columns: 1fr 1fr; }
-    .quality-insight { grid-template-columns: 1fr; }
-    .preview-embed-frame { height: 480px; }
-  }
-</style>
-</head>
-<body>
-
-<nav>
-  <a href="#" class="nav-logo">designer-vibecoding-starter<span></span></a>
-  <ul class="nav-links">
-    <li><a href="#paths">路径</a></li>
-    <li><a href="#workflow">协作链路</a></li>
-    <li><a href="#design-case">设计案例</a></li>
-    <li><a href="#component-quality">生成质量</a></li>
-    <li><a href="#setup">使用方式</a></li>
-    <li><a href="#install">安装</a></li>
-  </ul>
-</nav>
-
-<!-- Hero -->
-<section class="hero">
-  <div class="hero-left">
-    <p class="hero-eyebrow">Claude Skill · v2.0</p>
-    <h1 class="hero-title">Design&shy;er<br/><em>Vibe&shy;coding</em><br/>Starter</h1>
-    <p class="hero-subtitle">一句话初始化你的协作项目骨架——工作流文件、执行入口、任务管理，一次配齐，拿到就能开始工作。</p>
-    <div class="hero-actions">
-      <a href="#setup" class="btn-primary">开始初始化 →</a>
-      <a href="#workflow" class="btn-ghost">了解协作链路</a>
-    </div>
-  </div>
-  <div class="hero-right">
-    <div class="file-tree">
-      <p class="file-tree-label">生成的项目结构</p>
-      <div class="tree">
-        <div class="line"><span class="bullet folder"></span><span class="folder">my-project/</span></div>
-        <div class="indent">
-          <div class="line"><span class="bullet new"></span><span class="new">AGENTS.md</span></div>
-          <div class="line"><span class="bullet new"></span><span class="new">agent-context/</span></div>
-          <div class="indent">
-            <div class="line"><span class="bullet"></span>current-workflow.md</div>
-            <div class="line"><span class="bullet"></span>default-context.md</div>
-            <div class="line"><span class="bullet new"></span><span class="new">design-role-rules.md</span> <span style="font-size:0.65rem;color:var(--amber-d);margin-left:0.4em;">design-driven</span></div>
-          </div>
-          <div class="line"><span class="bullet new"></span><span class="new">ai-workflows/</span></div>
-          <div class="indent">
-            <div class="line"><span class="bullet"></span>claude-planner-codex-builder/</div>
-            <div class="line"><span class="bullet"></span>codex-fullstack-workflow/</div>
-          </div>
-          <div class="line"><span class="bullet new"></span><span class="new">project-management/</span></div>
-          <div class="line"><span class="bullet new"></span><span class="new">tasks/ &amp; .agent/</span></div>
-          <div class="line"><span class="bullet new"></span><span class="new">scripts/</span></div>
-          <div class="line"><span class="bullet new"></span><span class="new">package.json</span></div>
-        </div>
-      </div>
-    </div>
-    <div class="mode-cards" id="mode-cards">
-      <div class="mode-card active" onclick="selectMode(this)">
-        <p class="mode-card-name">Claude + Codex</p>
-        <p class="mode-card-desc">完整角色团队 + 双模型分工：Claude 驱动规划侧，Codex 驱动执行侧</p>
-      </div>
-      <div class="mode-card" onclick="selectMode(this)">
-        <p class="mode-card-name">Codex 全流程</p>
-        <p class="mode-card-desc">完整角色团队 + 单模型驱动：Codex 串联所有角色完成全流程</p>
-      </div>
-      <div class="mode-card" onclick="selectMode(this)">
-        <p class="mode-card-name">zero-to-one</p>
-        <p class="mode-card-desc">无设计稿，从产品想法出发</p>
-      </div>
-      <div class="mode-card" onclick="selectMode(this)">
-        <p class="mode-card-name">design-driven</p>
-        <p class="mode-card-desc">有设计稿，驱动分析与开发</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<hr class="divider" />
-
-<!-- Paths -->
-<section class="section" id="paths">
-  <p class="section-label reveal">两条开发路径</p>
-  <div class="paths">
-    <div class="path reveal">
-      <p class="path-number">01</p>
-      <span class="path-tag">无设计稿</span>
-      <h2 class="path-name">Zero to One</h2>
-      <p class="path-desc">从一个产品想法出发，不需要任何设计资产。脚手架自动配置从意图到 PRD 到 handoff 的全链路模板。</p>
-      <ul class="path-steps">
-        <li><span class="step-num">①</span>明确产品意图与目标用户</li>
-        <li><span class="step-num">②</span>填写 active-prd.md，拆分首个 PRD 切片</li>
-        <li><span class="step-num">③</span>写 todo.md，创建第一份 handoff.json</li>
-        <li><span class="step-num">④</span>运行 <code>npm run agent:run</code></li>
-      </ul>
-    </div>
-    <div class="path-divider"></div>
-    <div class="path reveal" style="transition-delay: 0.15s">
-      <p class="path-number">02</p>
-      <span class="path-tag">有设计稿</span>
-      <h2 class="path-name">Design Driven</h2>
-      <p class="path-desc">以 Figma 设计稿为输入源，由 <strong>design-analyst</strong> 角色先做设计转译，产出设计驱动 PRD 与设计合约，再驱动开发与 Design QA 闭环。</p>
-      <ul class="path-steps">
-        <li><span class="step-num">①</span>design-analyst 分析 Figma，产出 design-analysis.md + design-contract.md</li>
-        <li><span class="step-num">②</span>product-strategist / project-manager 校验范围，形成最终 PRD</li>
-        <li><span class="step-num">③</span>architect 定义边界，engineer + tester 按 handoff 实施验证</li>
-        <li><span class="step-num">④</span>design-analyst 执行 Design QA，确认实现与设计一致</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<hr class="divider" />
-
-<!-- Workflow strip -->
-<section class="workflow-strip" id="workflow">
-  <p class="section-label reveal">三条协作链路</p>
-  <h2 class="workflow-title reveal">完整角色团队<br/><em>双模型分工</em></h2>
-  <div class="chains">
-    <div class="chain reveal">
-      <p class="chain-letter">A</p>
-      <p class="chain-name">多模型协作</p>
-      <span class="chain-tag">Claude + Codex</span>
-      <p class="chain-desc">两条链路共享同一套完整角色团队。链路 A 中，Claude 主导规划侧全部角色，Codex 主导执行侧角色。</p>
-      <ul class="chain-list">
-        <li>Claude 侧：design-analyst · product-strategist · project-manager · architect · reviewer</li>
-        <li>Codex 侧：engineer · tester</li>
-        <li>适合复杂任务、上下文长、需规划与执行分离的场景</li>
-      </ul>
-    </div>
-    <div class="chain reveal" style="transition-delay:0.1s">
-      <p class="chain-letter">B</p>
-      <p class="chain-name">单模型多角色</p>
-      <span class="chain-tag">Codex 全流程</span>
-      <p class="chain-desc">链路 B 同样使用完整角色团队，由 Codex 一个模型依次驱动所有角色，在单个环境跑完全部流程。</p>
-      <ul class="chain-list">
-        <li>Codex 串联：PM · architect · engineer · tester · reviewer</li>
-        <li>Claude 配额用尽或想在一个环境完成全部时选用</li>
-        <li>适合独立开发者、快速迭代场景</li>
-      </ul>
-    </div>
-    <div class="chain reveal" style="transition-delay:0.2s">
-      <p class="chain-letter">C</p>
-      <p class="chain-name">OpenClaw 后台</p>
-      <span class="chain-tag">叠加层 · 可选</span>
-      <p class="chain-desc">C 不替代 A/B，而是在其上叠加后台执行能力。Worker 轮询 GitHub handoff，执行后自动推回结果——不用一直盯着窗口。</p>
-      <ul class="chain-list">
-        <li>前置：git init + push 到 GitHub、安装 jq、配置 SSH/Token 免交互凭据</li>
-        <li>初始化后脚手架会输出完整 6 步 git 配置清单</li>
-        <li>支持演练模式：<code>OPENCLAW_DRY_RUN=true npm run openclaw:worker</code></li>
-        <li>配合 A 或 B 同时使用，三条链路不互斥</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-
-<hr class="divider" />
-
-<!-- ── Design Analyst Case Study ──────────────────────────────── -->
-<section class="case-section" id="design-case">
-  <p class="section-label reveal">Design Analyst &middot; 实战案例</p>
-  <div class="case-header">
-    <div>
-      <h2 class="case-title reveal">从 Figma 到代码的<br/><em>精准还原体系</em></h2>
-      <p class="case-lead reveal">在 vibcoding 思维导图项目中，多轮 Figma → 代码还原与质检，将发现的 6 类典型根因系统化为 7 条强制规则，落地为团队共同维护的 <code style="font-size:0.82em;background:var(--amber-l);padding:0.1em 0.4em;">design-role-rules.md</code>——第一稿还原率从约 60% 提升至 80%+。</p>
-    </div>
-    <div class="case-metrics reveal" style="transition-delay:0.12s">
-      <div class="case-metric">
-        <span class="case-metric-val">7</span>
-        <span class="case-metric-label">还原规则类别</span>
-      </div>
-      <div class="case-metric">
-        <span class="case-metric-val">6</span>
-        <span class="case-metric-label">典型根因归档</span>
-      </div>
-      <div class="case-metric">
-        <span class="case-metric-val">80%</span>
-        <span class="case-metric-label">第一稿还原率目标</span>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ── Component Output Quality ─────────────────────────────────── -->
 <hr class="divider" />
 <section class="quality-section" id="component-quality">
@@ -726,7 +696,6 @@
     </div>
   </div>
 
-  <!-- /component-preview 原始页面嵌入 -->
   <div class="preview-embed-wrap reveal" style="transition-delay:0.05s">
     <div class="preview-embed-bar">
       <span class="preview-embed-dot"></span><span class="preview-embed-dot"></span><span class="preview-embed-dot"></span>
@@ -740,28 +709,6 @@
         scrolling="yes"
         loading="lazy"
       ></iframe>
-    </div>
-  </div>
-
-  <!-- 关键经验 -->
-  <div class="quality-insight reveal" style="transition-delay:0.15s">
-    <div class="insight-item">
-      <p class="insight-num">Ⅰ</p>
-      <p class="insight-title">变体要从 Component Set 顶层提取</p>
-      <p class="insight-detail">用 <code style="font-size:0.85em">get_figma_data(depth=3)</code> 从 componentSetId 顶层读取，使用侧实例只展示部分变体——会漏掉「镂空底边」「完全镂空」。</p>
-      <span class="insight-trap">componentSetId → children → 完整变体</span>
-    </div>
-    <div class="insight-item">
-      <p class="insight-num">Ⅱ</p>
-      <p class="insight-title">Component 定义节点无法 API 导出</p>
-      <p class="insight-detail">Figma Images API 对 Component 定义节点返回 null，需改用对应的 <strong>instance 节点 ID</strong>（在 menu btn 使用侧里找到的 IMAGE-SVG 实例）。</p>
-      <span class="insight-trap">nodeId → null → 找 instance → 成功</span>
-    </div>
-    <div class="insight-item">
-      <p class="insight-num">Ⅲ</p>
-      <p class="insight-title">NodeShell 应扩展而非新建</p>
-      <p class="insight-detail">预览组件 NodeShell 输出与真实 MindmapNode 完全相同的 CSS class，而不是 inline style 另起炉灶——两者视觉 100% 一致，且共享同一套样式维护。</p>
-      <span class="insight-trap">child-style--* × child-fill--* 正交叠加</span>
     </div>
   </div>
 </section>
@@ -896,7 +843,7 @@
 
 <footer>
   <p class="footer-brand">Designer Vibecoding Starter &mdash; Claude Skill</p>
-  <p class="footer-meta">Round 7 · 2026-03-19 · 组件系统一次生成质量展示 · 7变体子节点 + 10图标 REST API 下载 · download-figma-icons.py 图标下载链路</p>
+  <p class="footer-meta">Round 6 · 2026-03-19 · Design Analyst 实战案例 · design-role-rules.md v1.8 · 7类还原规则 + 5个Before/After对比</p>
 </footer>
 
 <script>
