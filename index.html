@@ -2150,80 +2150,6 @@ agent C：对比主流 mindmap 库
   </section>
 
   <!-- ===========================================
-       SLIDE 9: SINGLE SOURCE OF TRUTH
-       =========================================== -->
-  <section class="slide" data-title="统一入口">
-    <div class="slide-content">
-      <div class="page">
-        <div class="sheet">
-          <div class="binder"><span></span></div>
-          <div class="tabs">
-            <div class="tab mint">STATE</div>
-            <div class="tab sky">HANDOFF</div>
-            <div class="tab gold">RUN</div>
-          </div>
-          <div class="inner">
-            <div class="slide-head reveal">
-              <div class="eyebrow">No Chaos</div>
-              <div class="slide-index">09</div>
-            </div>
-            <h2 class="reveal-left stagger-1">三条模式混着用，怎么保证不乱</h2>
-            <p class="subnote reveal stagger-1">真实使用里，用户可能上午还在 Claude Code + Codex，下午 tokens 用光切到 Codex 多 agent，晚上回家再用 OpenClaw 远程继续跑。关键是无缝衔接，不丢上下文。</p>
-            <div class="scenario-flow">
-              <div class="scenario-card soft-gold reveal stagger-2">
-                <div class="card-label">上午</div>
-                <h3>Claude + Codex</h3>
-                <p class="lead" style="font-size: clamp(0.72rem, 0.96vw, 0.86rem); max-width: none;">用 Claude 管上下文，Codex 执行。</p>
-              </div>
-              <div class="scenario-card soft-sky reveal stagger-3">
-                <div class="card-label">下午</div>
-                <h3>Claude tokens 用光</h3>
-                <p class="lead" style="font-size: clamp(0.72rem, 0.96vw, 0.86rem); max-width: none;">切到 Codex 多 agent，继续沿当前任务推进。</p>
-              </div>
-              <div class="scenario-card soft-rose reveal stagger-4">
-                <div class="card-label">晚上</div>
-                <h3>回家继续做</h3>
-                <p class="lead" style="font-size: clamp(0.72rem, 0.96vw, 0.86rem); max-width: none;">用 OpenClaw 后台拉 handoff，继续执行。</p>
-              </div>
-              <div class="scenario-card soft-mint reveal stagger-5">
-                <div class="card-label">结果</div>
-                <h3>无缝衔接</h3>
-                <p class="lead" style="font-size: clamp(0.72rem, 0.96vw, 0.86rem); max-width: none;">任务线不断，状态线不断，上下文线也不断。</p>
-              </div>
-            </div>
-            <div class="four-col" style="margin-top: 0.8rem;">
-              <div class="card reveal stagger-2">
-                <div class="card-label">唯一开关</div>
-                <h3><code>current-workflow.md</code></h3>
-                <p class="lead" style="font-size: clamp(0.74rem, 1vw, 0.9rem); max-width: none;">现在到底走哪条主工作流</p>
-              </div>
-              <div class="card reveal stagger-3">
-                <div class="card-label">唯一任务源</div>
-                <h3><code>.agent/handoff.json</code></h3>
-                <p class="lead" style="font-size: clamp(0.74rem, 1vw, 0.9rem); max-width: none;">所有任务统一从这里进入执行层</p>
-              </div>
-              <div class="card reveal stagger-4">
-                <div class="card-label">唯一状态源</div>
-                <h3><code>.agent/status.json</code></h3>
-                <p class="lead" style="font-size: clamp(0.74rem, 1vw, 0.9rem); max-width: none;">运行状态、阻塞、完成情况都看这里</p>
-              </div>
-              <div class="card reveal stagger-5">
-                <div class="card-label">唯一执行入口</div>
-                <h3><code>scripts/agent_run.sh</code></h3>
-                <p class="lead" style="font-size: clamp(0.74rem, 1vw, 0.9rem); max-width: none;">本地和远程都走同一入口</p>
-              </div>
-            </div>
-            <div class="two-col" style="margin-top: 0.8rem;">
-              <div class="command reveal stagger-4">npm run workflow:intent -- "用 Claude Code + Codex 协作，有设计稿"</div>
-              <div class="command reveal stagger-5">npm run workflow:intent -- "跟我用 Codex 协作链路，有设计稿，并在后台继续跑"</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===========================================
        SLIDE 10: TEMPLATE FOLDER
        =========================================== -->
   <section class="slide" data-title="模板文件夹">
@@ -2426,6 +2352,315 @@ agent C：对比主流 mindmap 库
                   </ul>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       ONE MORE THING — SLIDE A: 片头
+       =========================================== -->
+  <section class="slide" data-title="One More Thing">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab rose">ARCH</div>
+            <div class="tab gold">DEBT</div>
+            <div class="tab mint">RULE</div>
+          </div>
+          <div class="inner" style="justify-content: center; gap: 1.1rem;">
+            <div class="slide-head reveal">
+              <div class="eyebrow">One More Thing</div>
+              <div class="slide-index">13</div>
+            </div>
+
+            <!-- 大标题 -->
+            <h2 class="reveal-left stagger-1" style="font-size: clamp(1.5rem, 3.8vw, 3rem); max-width: 18ch; line-height: 1.08;">
+              一直在迭代，<br>也一直在还债
+            </h2>
+            <p class="subnote reveal stagger-2" style="max-width: 52ch; font-size: clamp(0.76rem, 1.15vw, 0.98rem); line-height: 1.6;">
+              深入做一个产品后，我们遭遇了第一次真实的<strong style="color: var(--accent-warm);">技术债危机</strong>。<br>
+              这是它的来龙去脉，以及我们如何用一次架构治理把它解决的。
+            </p>
+
+            <!-- 四步索引标签 -->
+            <div class="reveal stagger-3" style="display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.2rem;">
+              <span style="background: rgba(203,122,71,0.1); border: 1px solid rgba(203,122,71,0.28); color: var(--accent-warm); padding: 0.28rem 0.85rem; border-radius: 999px; font-size: var(--small-size); font-weight: 800; letter-spacing: 0.07em;">① 问题来源</span>
+              <span style="background: rgba(227,183,196,0.18); border: 1px solid rgba(227,183,196,0.45); color: #b06080; padding: 0.28rem 0.85rem; border-radius: 999px; font-size: var(--small-size); font-weight: 800; letter-spacing: 0.07em;">② 问题定义</span>
+              <span style="background: rgba(157,202,180,0.18); border: 1px solid rgba(157,202,180,0.45); color: #3d8a6b; padding: 0.28rem 0.85rem; border-radius: 999px; font-size: var(--small-size); font-weight: 800; letter-spacing: 0.07em;">③ 治理方案</span>
+              <span style="background: rgba(171,204,229,0.18); border: 1px solid rgba(171,204,229,0.45); color: #3a7aa0; padding: 0.28rem 0.85rem; border-radius: 999px; font-size: var(--small-size); font-weight: 800; letter-spacing: 0.07em;">④ 前后对比</span>
+            </div>
+
+            <!-- 底部格言引用 -->
+            <div class="quote reveal stagger-4" style="margin-top: auto; font-size: clamp(0.9rem, 1.5vw, 1.3rem); max-width: 36ch;">
+              随着深入进去，遇到各种问题，需要持续学习并迭代优化。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       ONE MORE THING — SLIDE B: 问题来源
+       =========================================== -->
+  <section class="slide" data-title="问题来源">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab rose">SOURCE</div>
+            <div class="tab" style="background: rgba(31,27,25,0.08); color: var(--text-secondary);">DEFINE</div>
+            <div class="tab" style="background: rgba(31,27,25,0.08); color: var(--text-secondary);">AFTER</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">① 问题来源</div>
+              <div class="slide-index">14</div>
+            </div>
+            <h2 class="reveal-left stagger-1">思维导图加了 LR/TB 两种布局——Bug 悄悄出现了</h2>
+            <p class="subnote reveal stagger-1">上线 TB（上下）布局后，导出 PNG 时连接线方向全部错误。进一步排查发现：布局规则散落在 5 个不同文件，互不知晓。</p>
+
+            <div class="three-col" style="margin-top: 0.75rem; gap: 0.65rem;">
+              <div class="card reveal stagger-2" style="border-top: 3px solid var(--accent-rose);">
+                <div class="card-label">直接 Bug</div>
+                <h3 style="font-size: clamp(0.88rem, 1.15vw, 1.05rem);">导出 PNG 连接线方向错误</h3>
+                <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.55; margin-top: 0.4rem;">
+                  <code style="background: rgba(203,122,71,0.1); color: var(--accent-warm); padding: 0.1rem 0.35rem; border-radius: 4px; font-size: 0.9em;">snapshot.ts</code> 里
+                  <code style="background: rgba(203,122,71,0.1); color: var(--accent-warm); padding: 0.1rem 0.35rem; border-radius: 4px; font-size: 0.9em;">normalizeEdge</code>
+                  硬编码了 LR 的连接线方向，TB 布局导出时全部走错。
+                </p>
+              </div>
+              <div class="card reveal stagger-3" style="border-top: 3px solid var(--accent-gold);">
+                <div class="card-label">深层问题</div>
+                <h3 style="font-size: clamp(0.88rem, 1.15vw, 1.05rem);">布局规则散落 5 个文件</h3>
+                <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.55; margin-top: 0.4rem;">
+                  同一套"方向"逻辑分别存在于
+                  <code style="background: rgba(203,122,71,0.1); color: var(--accent-warm); padding: 0.1rem 0.35rem; border-radius: 4px; font-size: 0.9em;">EditorPage</code>、
+                  <code style="background: rgba(203,122,71,0.1); color: var(--accent-warm); padding: 0.1rem 0.35rem; border-radius: 4px; font-size: 0.9em;">MindmapNode</code>、
+                  <code style="background: rgba(203,122,71,0.1); color: var(--accent-warm); padding: 0.1rem 0.35rem; border-radius: 4px; font-size: 0.9em;">snapshot.ts</code>、CSS 等文件，互相独立维护。
+                </p>
+              </div>
+              <div class="card reveal stagger-4" style="border-top: 3px solid var(--accent-mint);">
+                <div class="card-label">本质原因</div>
+                <h3 style="font-size: clamp(0.88rem, 1.15vw, 1.05rem);">项目启动时没有架构设计</h3>
+                <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.55; margin-top: 0.4rem;">
+                  "先快速跑起来"的做法积累了技术债：每新增一种布局，就需要在多个文件同时修改，极易遗漏。
+                </p>
+              </div>
+            </div>
+
+            <div class="quote reveal stagger-5">
+              根因：无单一数据源 → 新增布局 = 全文件搜索 + 祈祷不漏改
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       ONE MORE THING — SLIDE C: 问题定义 & 方案
+       =========================================== -->
+  <section class="slide" data-title="架构问题定义">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab" style="background: rgba(31,27,25,0.08); color: var(--text-secondary);">SOURCE</div>
+            <div class="tab sky">DEFINE</div>
+            <div class="tab" style="background: rgba(31,27,25,0.08); color: var(--text-secondary);">AFTER</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">② 问题定义</div>
+              <div class="slide-index">15</div>
+            </div>
+            <h2 class="reveal-left stagger-1">这是什么行为？应该在什么时机做？</h2>
+
+            <div class="two-col" style="margin-top: 0.8rem; gap: 0.85rem; align-items: start;">
+              <!-- 左列 -->
+              <div style="display: grid; gap: 0.65rem;">
+                <div class="card reveal stagger-2">
+                  <div class="card-label">行为定义</div>
+                  <h3 style="font-size: clamp(0.88rem, 1.15vw, 1.05rem);">架构治理 + 技术债重构</h3>
+                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.6; margin-top: 0.4rem;">
+                    不是在修 Bug，而是在建立「让同类 Bug 不再发生」的机制。属于
+                    <strong style="color: var(--accent-warm);">演进式架构</strong>（Evolutionary Architecture）——在系统运行中识别结构性问题并主动修复。
+                  </p>
+                </div>
+                <div class="card reveal stagger-3">
+                  <div class="card-label">理想时机</div>
+                  <h3 style="font-size: clamp(0.88rem, 1.15vw, 1.05rem);">项目启动阶段（Phase 1）</h3>
+                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.6; margin-top: 0.4rem;">
+                    复杂项目在写第一行业务代码之前，应完成领域分层设计 + 配置文件规划。
+                    <strong style="color: var(--accent-warm);">早期 2 小时 ≈ 省去后期 20 小时技术债。</strong>
+                  </p>
+                </div>
+              </div>
+              <!-- 右列 -->
+              <div style="display: grid; gap: 0.65rem;">
+                <div class="card reveal stagger-2">
+                  <div class="card-label">核心建议：单一数据源原则</div>
+                  <ul class="bullet-list" style="margin-top: 0.3rem;">
+                    <li>每个「维度」（布局/主题/导出格式）有且只有一个配置入口</li>
+                    <li>业务逻辑层只读配置，不再硬编码</li>
+                    <li>新增一种变体 = 追加一条配置，其余文件零改动</li>
+                    <li>违反则在 decision-log.md 记录并获确认</li>
+                  </ul>
+                </div>
+                <div class="card reveal stagger-3">
+                  <div class="card-label">进行中守护</div>
+                  <ul class="bullet-list" style="margin-top: 0.3rem;">
+                    <li>同逻辑出现在 2+ 文件？→ 必须抽取</li>
+                    <li>新功能依赖布局假设？→ 必须走配置层</li>
+                    <li>单文件超 500 行？→ 提前拆分 hook</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       ONE MORE THING — SLIDE D: 前后对比
+       =========================================== -->
+  <section class="slide" data-title="治理前后对比">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab" style="background: rgba(31,27,25,0.08); color: var(--text-secondary);">SOURCE</div>
+            <div class="tab" style="background: rgba(31,27,25,0.08); color: var(--text-secondary);">DEFINE</div>
+            <div class="tab mint">AFTER</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">③④ 治理前后对比</div>
+              <div class="slide-index">16</div>
+            </div>
+            <h2 class="reveal-left stagger-1">新增一种布局：改 5 处 → 改 1 处</h2>
+
+            <div class="two-col reveal stagger-2" style="margin-top: 0.75rem; gap: 0.85rem; align-items: start;">
+              <!-- Before -->
+              <div style="display: grid; gap: 0.5rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem; padding-bottom: 0.4rem; border-bottom: 1px solid rgba(203,122,71,0.2);">
+                  <span style="width: 1.6rem; height: 1.6rem; border-radius: 50%; background: rgba(203,122,71,0.12); display: grid; place-items: center; font-size: 0.72rem; font-weight: 900; color: var(--accent-warm);">✗</span>
+                  <span style="font-size: var(--small-size); font-weight: 800; letter-spacing: 0.08em; color: var(--accent-warm); text-transform: uppercase;">Before — 布局规则散落 5 处</span>
+                </div>
+                <div style="background: rgba(203,122,71,0.05); border: 1px solid rgba(203,122,71,0.15); border-radius: 0.85rem; padding: 0.8rem 0.9rem; font-family: ui-monospace, monospace; font-size: clamp(0.56rem, 0.78vw, 0.7rem); color: var(--text-secondary); line-height: 1.85;">
+                  <div style="color: var(--accent-warm); font-weight: 700;">// EditorPage.tsx</div>
+                  <div style="color: rgba(31,27,25,0.5);">if (isLR) sourceHandle = 'source-right'</div>
+                  <div style="color: rgba(31,27,25,0.5);">else      sourceHandle = 'source-bottom'</div>
+                  <div style="color: var(--accent-warm); font-weight: 700; margin-top: 0.4rem;">// MindmapNode.tsx</div>
+                  <div style="color: rgba(31,27,25,0.5);">if (mode==='left-right') position=Right</div>
+                  <div style="color: rgba(31,27,25,0.5);">else                    position=Bottom</div>
+                  <div style="color: var(--accent-warm); font-weight: 700; margin-top: 0.4rem;">// snapshot.ts</div>
+                  <div style="color: rgba(31,27,25,0.5);">sourcePosition: Position.Right <span style="color: #c0392b; font-weight: 900;">← 硬编码!</span></div>
+                  <div style="color: rgba(31,27,25,0.5);">targetPosition: Position.Left</div>
+                  <div style="color: var(--accent-warm); font-weight: 700; margin-top: 0.4rem;">// + FoldButton.css / AddButton.css ...</div>
+                </div>
+                <div style="background: rgba(203,122,71,0.08); border-radius: 0.6rem; padding: 0.38rem 0.8rem; font-size: var(--small-size); color: var(--accent-warm); font-weight: 700;">
+                  新增布局 RL → 需要改 5 个文件，极易漏改
+                </div>
+              </div>
+
+              <!-- After -->
+              <div style="display: grid; gap: 0.5rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem; padding-bottom: 0.4rem; border-bottom: 1px solid rgba(157,202,180,0.3);">
+                  <span style="width: 1.6rem; height: 1.6rem; border-radius: 50%; background: rgba(157,202,180,0.2); display: grid; place-items: center; font-size: 0.72rem; font-weight: 900; color: #3d8a6b;">✓</span>
+                  <span style="font-size: var(--small-size); font-weight: 800; letter-spacing: 0.08em; color: #3d8a6b; text-transform: uppercase;">After — 单一数据源 layoutConfig.ts</span>
+                </div>
+                <div style="background: rgba(157,202,180,0.07); border: 1px solid rgba(157,202,180,0.25); border-radius: 0.85rem; padding: 0.8rem 0.9rem; font-family: ui-monospace, monospace; font-size: clamp(0.56rem, 0.78vw, 0.7rem); color: var(--text-secondary); line-height: 1.85;">
+                  <div style="color: #3d8a6b; font-weight: 700;">// layout/layoutConfig.ts  ← 唯一改动处</div>
+                  <div style="color: rgba(31,27,25,0.6);">'right-left': {</div>
+                  <div style="color: rgba(31,27,25,0.6);">&nbsp;&nbsp;sourceHandleId:       'source-left',</div>
+                  <div style="color: rgba(31,27,25,0.6);">&nbsp;&nbsp;sourcePosition:       Position.Left,</div>
+                  <div style="color: rgba(31,27,25,0.6);">&nbsp;&nbsp;exportSourcePosition: Position.Left,</div>
+                  <div style="color: rgba(31,27,25,0.6);">&nbsp;&nbsp;foldButton: { side: 'left', ... },</div>
+                  <div style="color: rgba(31,27,25,0.6);">}</div>
+                  <div style="color: #3d8a6b; font-weight: 700; margin-top: 0.4rem;">// EditorPage / MindmapNode / snapshot.ts</div>
+                  <div style="color: rgba(31,27,25,0.5);">const cfg = getLayoutConfig(mode) // 自动适配</div>
+                </div>
+                <div style="background: rgba(157,202,180,0.12); border-radius: 0.6rem; padding: 0.38rem 0.8rem; font-size: var(--small-size); color: #3d8a6b; font-weight: 700;">
+                  新增布局 RL → 只改 1 个文件，其余自动适配
+                </div>
+              </div>
+            </div>
+
+            <div class="quote reveal stagger-4">
+              架构治理的本质：把「聪明地硬编码」变成「傻瓜式地追加配置」。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       ONE MORE THING — SLIDE E: 新规则沉淀
+       =========================================== -->
+  <section class="slide" data-title="沉淀新规则">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab gold">RULE</div>
+            <div class="tab rose">EARLY</div>
+            <div class="tab mint">GUARD</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">新沉淀的规则</div>
+              <div class="slide-index">17</div>
+            </div>
+            <h2 class="reveal-left stagger-1">这次治理，把两条规则写进了 AGENTS.md</h2>
+            <p class="subnote reveal stagger-1">从被动修复 → 主动预防。两条规则在每个新项目启动时自动生效。</p>
+
+            <div class="two-col" style="margin-top: 0.8rem; gap: 0.85rem; align-items: start;">
+              <div class="card reveal stagger-2" style="border-top: 3px solid var(--accent-warm);">
+                <div class="card-label">规则 1 — 项目启动阶段</div>
+                <h3 style="font-size: clamp(0.9rem, 1.2vw, 1.05rem);">判定复杂项目 → 强制先做架构</h3>
+                <ul class="bullet-list" style="margin-top: 0.5rem;">
+                  <li>超过 5 个功能模块 → 视为复杂项目</li>
+                  <li>多视图 / 多主题 / 多导出格式 → 视为复杂项目</li>
+                  <li>跨组件共享状态 → 视为复杂项目</li>
+                  <li>触发后：调研选型 → 定分层 → 建配置文件 → 输出架构文档</li>
+                </ul>
+                <div style="margin-top: 0.75rem; padding-top: 0.6rem; border-top: 1px solid var(--line); font-family: var(--font-display); font-size: clamp(0.75rem, 1.05vw, 0.9rem); color: var(--accent-warm); line-height: 1.3;">
+                  "早期多花 2 小时做架构，等于省去后期 20 小时的技术债偿还。"
+                </div>
+              </div>
+
+              <div class="card reveal stagger-3" style="border-top: 3px solid var(--accent-mint);">
+                <div class="card-label">规则 2 — 项目进行阶段</div>
+                <h3 style="font-size: clamp(0.9rem, 1.2vw, 1.05rem);">每次新需求 → 主动架构扫描</h3>
+                <ul class="bullet-list" style="margin-top: 0.5rem;">
+                  <li>相同逻辑出现 2+ 处？→ 必须抽取</li>
+                  <li>新功能引入新「维度」？→ 必须建配置入口</li>
+                  <li>若需调整架构：先说明技术债，阐明收益，获用户确认</li>
+                  <li>禁止沉默：明知架构问题不能继续叠加功能</li>
+                </ul>
+                <div style="margin-top: 0.75rem; padding-top: 0.6rem; border-top: 1px solid var(--line); font-family: var(--font-display); font-size: clamp(0.75rem, 1.05vw, 0.9rem); color: #3d8a6b; line-height: 1.3;">
+                  已写入 AGENTS.md §9，在每个项目中自动生效。
+                </div>
+              </div>
+            </div>
+
+            <div class="footer reveal stagger-5">
+              <span>Architecture Guardian · AGENTS.md §9</span>
+              <span style="color: var(--accent-warm); font-weight: 700;">持续迭代，持续进化</span>
             </div>
           </div>
         </div>
