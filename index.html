@@ -602,6 +602,67 @@
       padding-top: 1rem;
     }
 
+    .agent-flow {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0.45rem;
+      align-items: stretch;
+      margin-top: 0.8rem;
+      position: relative;
+    }
+
+    .agent-flow::before {
+      content: "";
+      position: absolute;
+      left: 6%;
+      right: 6%;
+      top: 50%;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(203, 122, 71, 0.4), rgba(203, 122, 71, 0.08));
+      z-index: 0;
+    }
+
+    .agent-node {
+      position: relative;
+      z-index: 1;
+      min-height: 5.8rem;
+      border-radius: 1rem;
+      border: 1px solid rgba(203, 122, 71, 0.18);
+      background: rgba(255,255,255,0.95);
+      padding: 0.65rem 0.6rem 0.7rem;
+      box-shadow: 0 10px 20px rgba(203, 122, 71, 0.08);
+    }
+
+    .agent-role {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.22rem 0.45rem;
+      border-radius: 999px;
+      background: rgba(203, 122, 71, 0.12);
+      color: #b65f2f;
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 0.45rem;
+    }
+
+    .agent-flow.stage3 {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    .agent-node h4 {
+      font-size: clamp(0.72rem, 0.9vw, 0.84rem);
+      line-height: 1.25;
+      margin-bottom: 0.25rem;
+    }
+
+    .agent-node p {
+      font-size: clamp(0.62rem, 0.78vw, 0.72rem);
+      line-height: 1.45;
+      color: var(--text-secondary);
+    }
+
     .quote {
       margin-top: auto;
       padding: clamp(0.6rem, 1.1vw, 0.9rem);
@@ -673,27 +734,34 @@
       margin-top: 0.9rem;
     }
 
+    .detail-grid > .card {
+      min-height: 15.2rem;
+    }
+
     .copy-layout {
       display: grid;
-      grid-template-columns: 0.78fr 1.22fr;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
       gap: 0.8rem;
       margin-top: 0.9rem;
-      align-items: start;
+      align-items: stretch;
     }
 
     .copy-stack {
       display: grid;
       gap: 0.7rem;
-      padding-bottom: 28px;
+      height: 100%;
+      padding-bottom: 0;
     }
 
     .copy-wrap {
       position: relative;
       border-radius: 1rem;
-      background: #1d2228;
-      color: #f4f1ea;
+      background: #161210;
+      color: #f4efe7;
       border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
       overflow: hidden;
+      height: 100%;
     }
 
     .copy-head {
@@ -701,30 +769,52 @@
       align-items: center;
       justify-content: space-between;
       gap: 0.8rem;
-      padding: 0.55rem 0.75rem;
-      background: rgba(255,255,255,0.05);
-      font-size: 0.72rem;
+      padding: 0.7rem 0.85rem;
+      background: rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.7rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
 
     .copy-btn {
       border: none;
       border-radius: 999px;
-      background: rgba(255,255,255,0.12);
-      color: #fff;
+      background: rgba(255,255,255,0.08);
+      color: #fff7ed;
       padding: 0.35rem 0.7rem;
       font-size: 0.68rem;
       cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
     .copy-pre {
       margin: 0;
-      padding: 0.75rem;
+      padding: 0.9rem 0.95rem;
       font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
       font-size: clamp(0.5rem, 0.7vw, 0.65rem);
-      line-height: 1.34;
+      line-height: 1.45;
       white-space: pre-wrap;
+      color: #e8dfd3;
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+    }
+
+    .mini-code {
+      margin-top: 0.75rem;
+      padding: 0.72rem 0.8rem;
+      border-radius: 0.9rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: #1b1613;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: clamp(0.58rem, 0.76vw, 0.68rem);
+      line-height: 1.46;
+      white-space: pre-wrap;
+      color: #efe6d8;
+      min-height: 6.6rem;
     }
 
     .compare-grid {
@@ -1567,8 +1657,10 @@
                 <div class="card-header"><div class="card-icon"><svg viewBox="0 0 24 24"><use href="#icon-flow"></use></svg></div><div class="card-label">筛选标准</div></div>
                 <ul class="bullet-list">
                   <li>交互控制力</li>
-                  <li>扩展性</li>
+                  <li>React 集成友好度（能接现有基建）</li>
+                  <li>扩展性（更多功能 / 白板方向）</li>
                   <li>导出与状态管理</li>
+                  <li>社区活跃度与性能表现</li>
                 </ul>
               </div>
               <div class="arrow reveal stagger-3">→</div>
@@ -1587,7 +1679,7 @@
                 </svg>
               </div>
             </div>
-            <div class="command reveal stagger-5">技术选型的核心不是“全从零做”，而是“先快速筛出能承载产品方向的底座”。</div>
+            <div class="command reveal stagger-5">技术选型的核心不是“全从零做”，而是“先快速筛出能承载产品方向的底座”。对我来说，关键不是一步到位支持白板，而是这套基建未来往白板方向扩展时没有大的阻力。</div>
           </div>
         </div>
       </div>
@@ -1613,7 +1705,7 @@
               <div class="slide-index">04</div>
             </div>
             <h2 class="reveal-left stagger-1">为什么我最早选择 Claude Code + Codex</h2>
-            <p class="subnote reveal stagger-1">一个现实前提：公司 CodeWiz 给了 Claude Code 的 tokens 配额，所以我会优先把高上下文的规划工作放在 Claude 侧。</p>
+            <p class="subnote reveal stagger-1">这条链路最早来自我学习的一位设计师的 vibecoding 协作方式。它的核心不是固定用哪两个模型，而是把规划和执行拆开，用来提高还原质量、避免上下文过载，同时发挥不同模型各自更擅长的部分。</p>
             <div class="sequence" style="margin-top: 1rem;">
               <div class="card soft-gold reveal stagger-2">
                 <div class="card-header"><div class="card-icon"><svg viewBox="0 0 24 24"><use href="#icon-target"></use></svg></div><div class="card-label">Manager</div></div>
@@ -1634,10 +1726,6 @@
                   <li>补完整验证链路</li>
                 </ul>
               </div>
-            </div>
-            <div class="card soft-sky reveal stagger-4" style="margin-top: 0.8rem;">
-              <div class="card-label">Tips</div>
-              <p class="lead" style="font-size: clamp(0.78rem, 1.02vw, 0.92rem); max-width: none;">公司 CodeWiz 有 Claude Code 的 tokens 配额，所以这条链路一开始既解决了上下文问题，也符合成本结构。</p>
             </div>
             <div class="three-col" style="margin-top: 0.8rem;">
               <div class="card reveal stagger-2">
@@ -1663,51 +1751,7 @@
   </section>
 
   <!-- ===========================================
-       SLIDE 5: EVOLUTION
-       =========================================== -->
-  <section class="slide" data-title="演进">
-    <div class="slide-content">
-      <div class="page">
-        <div class="sheet">
-          <div class="binder"><span></span></div>
-          <div class="tabs">
-            <div class="tab rose">V1</div>
-            <div class="tab mint">V2</div>
-            <div class="tab sky">V3</div>
-          </div>
-          <div class="inner">
-            <div class="slide-head reveal">
-              <div class="eyebrow">Evolution</div>
-              <div class="slide-index">05</div>
-            </div>
-            <h2 class="reveal-left stagger-1">协作模式是怎么一步步长成团队的</h2>
-            <p class="subnote reveal stagger-1">阶段 1 到阶段 2 不只是角色变多了，也因为 Claude Code 的 tokens 更贵，耗光后必须有一条能独立顶上的替代链路。</p>
-            <div class="timeline" style="margin-top: 1rem;">
-              <div class="phase reveal stagger-2">阶段 1</div>
-              <div class="card soft-gold reveal stagger-2">
-                <h3>Claude Code + Codex</h3>
-                <p class="lead" style="font-size: clamp(0.8rem, 1.05vw, 0.96rem); max-width: none;">先把“想明白”和“做出来”拆开，用 Claude 管上下文，用 Codex 管执行。</p>
-              </div>
-              <div class="phase reveal stagger-3">阶段 2</div>
-              <div class="card soft-sky reveal stagger-3">
-                <h3>Codex 多 agent</h3>
-                <p class="lead" style="font-size: clamp(0.8rem, 1.05vw, 0.96rem); max-width: none;">执行端拆成研究、实现、验证、review，同时承担 Claude tokens 用光后的替代方案。</p>
-              </div>
-              <div class="phase reveal stagger-4">阶段 3</div>
-              <div class="card soft-rose reveal stagger-4">
-                <h3>Figma MCP + design-analyst</h3>
-                <p class="lead" style="font-size: clamp(0.8rem, 1.05vw, 0.96rem); max-width: none;">设计角色正式接进来，AI 协作开始更像一个完整的小团队。</p>
-              </div>
-            </div>
-            <div class="quote reveal stagger-5">最后追求的不是“一个更强的 AI”，而是“一套分工更顺的小团队”。</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===========================================
-       SLIDE 6: HABITS
+       SLIDE 5: HABITS
        =========================================== -->
   <section class="slide" data-title="工作习惯">
     <div class="slide-content">
@@ -1717,14 +1761,14 @@
           <div class="tabs">
             <div class="tab mint">PLAN</div>
             <div class="tab gold">LESSONS</div>
-            <div class="tab sky">VERIFY</div>
+            <div class="tab sky">TASKS</div>
           </div>
           <div class="inner">
             <div class="slide-head reveal">
               <div class="eyebrow">Workflow Habits</div>
-              <div class="slide-index">06</div>
+              <div class="slide-index">05</div>
             </div>
-            <h2 class="reveal-left stagger-1">真正让项目不跑偏的，不是 prompt，而是工作习惯</h2>
+            <h2 class="reveal-left stagger-1">参考优秀的 agent 配置，真正让项目不跑偏的不是 prompt，而是工作习惯</h2>
             <p class="subnote reveal stagger-1">这页我不想只讲抽象原则，而是直接讲这套习惯具体怎么落到项目里。</p>
             <div class="copy-layout">
               <div class="copy-stack">
@@ -1733,30 +1777,50 @@
                     <div class="card-label">Plan</div>
                     <h3>复杂任务先进 Plan</h3>
                     <p class="lead" style="font-size: clamp(0.74rem, 0.98vw, 0.88rem); max-width: none;">超过 3 步、涉及架构判断，就先写 spec、范围、验收和风险。</p>
+                    <pre class="mini-code">## spec
+- 目标：完成导出链路
+- 范围：仅 PDF / PNG
+- 验收：能导出且不丢节点
+- 风险：大图性能、分页裁切</pre>
                   </div>
                   <div class="card reveal stagger-3">
                     <div class="card-label">Subagents</div>
                     <h3>研究和并行分析拆出去</h3>
                     <p class="lead" style="font-size: clamp(0.74rem, 0.98vw, 0.88rem); max-width: none;">让主上下文只保留当前决策，避免一个窗口里塞满所有细节。</p>
+                    <pre class="mini-code">agent A：研究导出方案
+agent B：排查状态持久化
+agent C：对比主流 mindmap 库
+
+主线程只保留结论与决策</pre>
                   </div>
                   <div class="card reveal stagger-4">
                     <div class="card-label">Lessons</div>
                     <h3>每次纠正都写进 lessons</h3>
                     <p class="lead" style="font-size: clamp(0.74rem, 0.98vw, 0.88rem); max-width: none;">把反复出现的错误变成默认规则，而不是每次重新提醒。</p>
+                    <pre class="mini-code">## lessons
+- 设计稿不能直接进开发
+- 先转 PRD 再 handoff
+- 任务完成前必须留验证证据
+- 新会话先读 current-workflow</pre>
                   </div>
                   <div class="card reveal stagger-5">
-                    <div class="card-label">Verify</div>
-                    <h3>完成前必须留下证据</h3>
-                    <p class="lead" style="font-size: clamp(0.74rem, 0.98vw, 0.88rem); max-width: none;">测试、日志、diff、行为对比，至少要证明这件事真的跑通了。</p>
+                    <div class="card-label">Task Management</div>
+                    <h3>任务清单要持续勾选推进</h3>
+                    <p class="lead" style="font-size: clamp(0.74rem, 0.98vw, 0.88rem); max-width: none;">计划、进度、review 都落在同一个 todo 文件里，做完一项勾一项。</p>
+                    <pre class="mini-code">## tasks/todo.md
+- [x] 明确导出范围
+- [x] 拆分实现步骤
+- [ ] 跑回归测试
+- [ ] 补 review 小结</pre>
                   </div>
                 </div>
               </div>
-              <div class="copy-wrap reveal stagger-4" style="display:flex; flex-direction:column;">
-                <div class="copy-head" style="flex-shrink:0;">
-                  <span>Agent 配置文件（可直接复制）</span>
+              <div class="copy-wrap reveal stagger-4">
+                <div class="copy-head">
+                  <span>Agent Config / Terminal</span>
                   <button class="copy-btn" data-copy-target="agent-config">复制</button>
                 </div>
-                <pre class="copy-pre" id="agent-config" style="flex:1; overflow-y:auto; min-height:0; max-height: min(52vh, 420px);">工作流编排（Workflow Orchestration）
+                <pre class="copy-pre" id="agent-config">工作流编排（Workflow Orchestration）
 1. 默认进入 Plan 模式
 - 任何非简单任务（3 步以上或涉及架构决策）都进入 plan 模式
 - 一旦出现偏差，立刻停止并重新规划
@@ -1809,6 +1873,109 @@
   </section>
 
   <!-- ===========================================
+       SLIDE 6: EVOLUTION
+       =========================================== -->
+  <section class="slide" data-title="演进">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab rose">V1</div>
+            <div class="tab mint">V2</div>
+            <div class="tab sky">V3</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">Evolution</div>
+              <div class="slide-index">06</div>
+            </div>
+            <h2 class="reveal-left stagger-1">协作模式是怎么一步步长成团队的</h2>
+            <p class="subnote reveal stagger-1">阶段 1 到阶段 2 不只是角色变多了，也因为 Claude Code 的 tokens 更贵，耗光后必须有一条能独立顶上的替代链路。</p>
+            <div class="timeline" style="margin-top: 1rem;">
+              <div class="phase reveal stagger-2">阶段 1</div>
+              <div class="card soft-gold reveal stagger-2">
+                <h3>Claude Code + Codex</h3>
+                <p class="lead" style="font-size: clamp(0.8rem, 1.05vw, 0.96rem); max-width: none;">先把“想明白”和“做出来”拆开，用 Claude 管上下文，用 Codex 管执行。</p>
+              </div>
+              <div class="phase reveal stagger-3">阶段 2</div>
+              <div class="card soft-sky reveal stagger-3">
+                <h3>Codex 多 agent</h3>
+                <p class="lead" style="font-size: clamp(0.8rem, 1.05vw, 0.96rem); max-width: none;">执行端不再是单个执行者，而是拆成多个角色协作的小组，同时承担 Claude tokens 用光后的替代方案。</p>
+                <div class="agent-flow">
+                  <div class="agent-node">
+                    <div class="agent-role">PM</div>
+                    <h4>project-manager</h4>
+                    <p>收口目标、范围、优先级</p>
+                  </div>
+                  <div class="agent-node">
+                    <div class="agent-role">Arch</div>
+                    <h4>architect</h4>
+                    <p>设计路径、拆模块、做关键判断</p>
+                  </div>
+                  <div class="agent-node">
+                    <div class="agent-role">Build</div>
+                    <h4>engineer</h4>
+                    <p>完成实现、联调与多文件修改</p>
+                  </div>
+                  <div class="agent-node">
+                    <div class="agent-role">Test</div>
+                    <h4>tester</h4>
+                    <p>跑验证、补测试、守关键路径</p>
+                  </div>
+                  <div class="agent-node">
+                    <div class="agent-role">Review</div>
+                    <h4>reviewer</h4>
+                    <p>看回归风险、实现质量和交付完整度</p>
+                  </div>
+                </div>
+              </div>
+              <div class="phase reveal stagger-4">阶段 3</div>
+              <div class="card soft-rose reveal stagger-4">
+                <h3>Figma MCP + design-analyst</h3>
+                <p class="lead" style="font-size: clamp(0.8rem, 1.05vw, 0.96rem); max-width: none;">设计角色正式接进来之后，前置分析和后置 review 都被补齐，AI 协作开始更像一个完整的小团队。</p>
+                <div class="agent-flow stage3">
+                  <div class="agent-node">
+                    <div class="agent-role">Design</div>
+                    <h4>design-analyst</h4>
+                    <p>拆设计、做组件映射和 token 约束</p>
+                  </div>
+                  <div class="agent-node">
+                    <div class="agent-role">PM</div>
+                    <h4>project-manager</h4>
+                    <p>收口目标、范围和 handoff</p>
+                  </div>
+                  <div class="agent-node">
+                    <div class="agent-role">Arch</div>
+                    <h4>architect</h4>
+                    <p>设计实现路径与模块拆分</p>
+                  </div>
+                  <div class="agent-node">
+                    <div class="agent-role">Build</div>
+                    <h4>engineer</h4>
+                    <p>完成实现、联调与修问题</p>
+                  </div>
+                  <div class="agent-node">
+                    <div class="agent-role">Test</div>
+                    <h4>tester / reviewer</h4>
+                    <p>跑验证、看回归、确认交付完整</p>
+                  </div>
+                  <div class="agent-node">
+                    <div class="agent-role">QA</div>
+                    <h4>design-analyst</h4>
+                    <p>做后置 Design QA，检查还原质量</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="quote reveal stagger-5">最后追求的不是“一个更强的 AI”，而是“一套分工更顺的小团队”。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
        SLIDE 7: DESIGN-DRIVEN
        =========================================== -->
   <section class="slide" data-title="设计转译">
@@ -1827,8 +1994,41 @@
               <div class="slide-index">07</div>
             </div>
             <h2 class="reveal-left stagger-1">加入 design-analyst 之后，PRD 变得完全不一样</h2>
-            <p class="subnote reveal stagger-1">这页不讲抽象原则，直接看加入设计分析角色前后，需求描述长什么样。</p>
-            <div class="compare-grid">
+            <p class="subnote reveal stagger-1">先看它怎么从整份设计稿里拆出完整需求，再看单个 PRD 片段会被描述得多具体。</p>
+            <div class="card soft-mint reveal stagger-2" style="margin-top: 0.8rem;">
+              <div class="card-label">完整需求拆解</div>
+              <h3>先整理整个需求范围，再批量生成更精准的 PRD</h3>
+              <div class="sequence" style="margin-top: 0.8rem;">
+                <div class="card">
+                  <div class="card-label">Input</div>
+                  <h3>完整设计稿</h3>
+                  <p class="lead" style="font-size: clamp(0.74rem, 0.96vw, 0.86rem); max-width: none;">页面、状态、组件、异常态一次性读全。</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="card">
+                  <div class="card-label">Analyze</div>
+                  <h3>需求范围整理</h3>
+                  <p class="lead" style="font-size: clamp(0.74rem, 0.96vw, 0.86rem); max-width: none;">先把首页、编辑页、导出链路、空状态等模块框清楚。</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="card">
+                  <div class="card-label">Map</div>
+                  <h3>组件 / 状态 / Token 映射</h3>
+                  <p class="lead" style="font-size: clamp(0.74rem, 0.96vw, 0.86rem); max-width: none;">把能复用的组件、交互状态、设计约束统一整理出来。</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="card">
+                  <div class="card-label">Output</div>
+                  <h3>批量生成 PRD</h3>
+                  <p class="lead" style="font-size: clamp(0.74rem, 0.96vw, 0.86rem); max-width: none;">每个 PRD 都直接带模块边界、组件映射、状态定义和验收口径。</p>
+                </div>
+              </div>
+            </div>
+            <div class="command reveal stagger-3" style="margin-top: 0.8rem;">design-analyst 上线后，重点不只是把一个模块写细，而是先帮我把整份设计稿拆成完整需求，再批量生成更适合开发接手的 PRD，节省大量语言输入和来回补充成本。</div>
+            <div class="card soft-gold reveal stagger-4" style="margin-top: 0.8rem; padding-bottom: 0.95rem;">
+              <div class="card-label">PRD 细节片段</div>
+              <h3>把设计细节翻译成更精准的需求描述，直接提升一稿还原率</h3>
+              <div class="compare-grid" style="margin-top: 0.8rem;">
               <div class="compare-card bad reveal stagger-2">
                 <div class="compare-top">没有 design-analyst 时</div>
                 <pre class="compare-pre">PRD 节选
@@ -1871,7 +2071,8 @@
 - Header 高度 72px，不允许自由漂移</pre>
               </div>
             </div>
-            <div class="command reveal stagger-4">设计稿不是直接交给开发，而是先被翻译成：组件映射 + token 约束 + 状态定义 + 验收标准。</div>
+            </div>
+            <div class="command reveal stagger-4">单个 PRD 片段的价值在于：它会把设计细节直接翻译成组件映射、token 约束、状态定义和验收标准，从而显著提高一稿还原率。</div>
           </div>
         </div>
       </div>
@@ -2023,58 +2224,7 @@
   </section>
 
   <!-- ===========================================
-       SLIDE 10: AUTOMATION LOOP
-       =========================================== -->
-  <section class="slide" data-title="自动化">
-    <div class="slide-content">
-      <div class="page">
-        <div class="sheet">
-          <div class="binder"><span></span></div>
-          <div class="tabs">
-            <div class="tab rose">AUTO</div>
-            <div class="tab mint">REMOTE</div>
-            <div class="tab sky">QA</div>
-          </div>
-          <div class="inner">
-            <div class="slide-head reveal">
-              <div class="eyebrow">Automation Loop</div>
-              <div class="slide-index">10</div>
-            </div>
-            <h2 class="reveal-left stagger-1">自动化闭环长什么样</h2>
-            <div class="sequence" style="margin-top: 1rem;">
-              <div class="card soft-gold reveal stagger-2">
-                <div class="card-label">PM</div>
-                <h3>Claude / Product</h3>
-                <p class="lead" style="font-size: clamp(0.78rem, 1.02vw, 0.92rem); max-width: none;">需求澄清、冻结范围、产出 handoff</p>
-              </div>
-              <div class="arrow reveal stagger-3">→</div>
-              <div class="card soft-rose reveal stagger-3">
-                <div class="card-label">Design</div>
-                <h3>design-analyst</h3>
-                <p class="lead" style="font-size: clamp(0.78rem, 1.02vw, 0.92rem); max-width: none;">设计分析、PRD、Design QA</p>
-              </div>
-              <div class="arrow reveal stagger-4">→</div>
-              <div class="card soft-sky reveal stagger-4">
-                <div class="card-label">Build</div>
-                <h3>Codex 多 agent</h3>
-                <p class="lead" style="font-size: clamp(0.78rem, 1.02vw, 0.92rem); max-width: none;">architect / engineer / tester / reviewer</p>
-              </div>
-              <div class="arrow reveal stagger-5">→</div>
-              <div class="card soft-mint reveal stagger-5">
-                <div class="card-label">Remote</div>
-                <h3>OpenClaw</h3>
-                <p class="lead" style="font-size: clamp(0.78rem, 1.02vw, 0.92rem); max-width: none;">后台执行、状态回传、日志回传</p>
-              </div>
-            </div>
-            <div class="quote reveal stagger-5">目标不是“我一直盯着 AI 干活”，而是“需求一旦明确，后面能自动推进到测试和验收”。</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===========================================
-       SLIDE 11: TEMPLATE FOLDER
+       SLIDE 10: TEMPLATE FOLDER
        =========================================== -->
   <section class="slide" data-title="模板文件夹">
     <div class="slide-content">
@@ -2089,7 +2239,7 @@
           <div class="inner">
             <div class="slide-head reveal">
               <div class="eyebrow">Template Output</div>
-              <div class="slide-index">11</div>
+              <div class="slide-index">10</div>
             </div>
             <h2 class="reveal-left stagger-1">最终产出物：一个可一键初始化的项目模板</h2>
             <p class="subnote reveal stagger-1">这一页用简版"模板解剖图"。中间火箭是整个 skill，四周小字号标签是支撑这套系统的关键文件。</p>
@@ -2154,7 +2304,7 @@
        SLIDE 12: GET THE SKILL
        =========================================== -->
   <!-- ===========================================
-       SLIDE 12: CLOSING
+       SLIDE 11: CLOSING
        =========================================== -->
   <section class="slide" data-title="总结">
     <div class="slide-content">
@@ -2169,7 +2319,7 @@
           <div class="inner">
             <div class="slide-head reveal">
               <div class="eyebrow">Takeaways</div>
-              <div class="slide-index">12</div>
+              <div class="slide-index">11</div>
             </div>
             <h2 class="reveal-left stagger-1">最后我想沉淀的，不只是经验，而是一个 skill</h2>
             <div class="three-col" style="margin-top: 1rem;">
@@ -2201,7 +2351,7 @@
   </section>
 
   <!-- ===========================================
-       SLIDE 13: GET THE SKILL
+       SLIDE 12: GET THE SKILL
        =========================================== -->
   <section class="slide" data-title="获取 Skill">
     <div class="slide-content">
@@ -2216,7 +2366,7 @@
           <div class="inner">
             <div class="slide-head reveal">
               <div class="eyebrow">Get The Skill</div>
-              <div class="slide-index">13</div>
+              <div class="slide-index">12</div>
             </div>
             <h2 class="reveal-left stagger-1">一条命令，把这套模板带走</h2>
             <p class="subnote reveal stagger-1">复制命令，直接告诉 AI 让他帮你安装。</p>
