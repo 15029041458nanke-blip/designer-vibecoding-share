@@ -1,872 +1,722 @@
 <!DOCTYPE html>
-<!-- skill-landing.html — designer-vibecoding-starter 落地页 -->
+<!-- skill-landing.html — designer-vibecoding-starter v4.0 落地页 -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Designer Vibecoding Starter</title>
+<title>Designer Vibecoding Starter · 从想法到上线</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-
 <style>
-  :root {
-    --ink:      oklch(14% 0.02 60);
-    --ink-2:    oklch(28% 0.025 60);
-    --ink-3:    oklch(42% 0.02 60);
-    --paper:    oklch(97% 0.012 80);
-    --paper-2:  oklch(94% 0.016 78);
-    --amber:    oklch(68% 0.18 65);
-    --amber-d:  oklch(54% 0.19 55);
-    --amber-l:  oklch(90% 0.09 75);
-    --rule:     oklch(82% 0.015 75);
-    --f-display: 'Cormorant Garamond', Georgia, serif;
-    --f-body:    'Instrument Sans', system-ui, sans-serif;
-    --space-xs: clamp(0.5rem, 1vw, 0.75rem);
-    --space-s:  clamp(0.75rem, 1.5vw, 1.25rem);
-    --space-m:  clamp(1.25rem, 3vw, 2rem);
-    --space-l:  clamp(2rem, 5vw, 4rem);
-    --space-xl: clamp(3.5rem, 8vw, 7rem);
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { font-size: 16px; scroll-behavior: smooth; }
-  body { background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 1rem; line-height: 1.6; overflow-x: hidden; }
+:root {
+  --ink:     oklch(14% 0.02 60);
+  --ink-2:   oklch(30% 0.025 60);
+  --ink-3:   oklch(45% 0.02 60);
+  --paper:   oklch(97% 0.012 80);
+  --paper-2: oklch(93% 0.016 78);
+  --paper-3: oklch(89% 0.02 76);
+  --amber:   oklch(68% 0.18 65);
+  --amber-d: oklch(52% 0.19 55);
+  --amber-l: oklch(91% 0.08 76);
+  --rule:    oklch(83% 0.014 76);
+  --green:   oklch(60% 0.16 148);
+  --green-l: oklch(93% 0.05 148);
+  --f-d: 'Cormorant Garamond', Georgia, serif;
+  --f-b: 'Instrument Sans', system-ui, sans-serif;
+  --sp-xs: clamp(.4rem,.8vw,.65rem);
+  --sp-s:  clamp(.75rem,1.5vw,1.25rem);
+  --sp-m:  clamp(1.25rem,3vw,2rem);
+  --sp-l:  clamp(2rem,5vw,4rem);
+  --sp-xl: clamp(3.5rem,8vw,7rem);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-b);line-height:1.6;overflow-x:hidden}
 
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.25rem clamp(1.5rem, 5vw, 4rem);
-    background: color-mix(in oklch, var(--paper) 92%, transparent);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--rule);
-  }
-  .nav-logo { font-family: var(--f-display); font-size: 1.1rem; font-weight: 600; color: var(--ink); text-decoration: none; }
-  .nav-logo span { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--amber); margin-left: 6px; vertical-align: middle; position: relative; top: -1px; }
-  .nav-links { display: flex; gap: var(--space-m); list-style: none; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; }
-  .nav-links a { color: var(--ink-3); text-decoration: none; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--ink); }
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem clamp(1.5rem,5vw,4rem);background:color-mix(in oklch,var(--paper) 90%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--rule)}
+.nav-logo{font-family:var(--f-d);font-size:1rem;font-weight:600;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:.5rem}
+.nav-badge{font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--amber);color:var(--paper);padding:.15em .55em}
+.nav-links{display:flex;gap:var(--sp-m);list-style:none;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase}
+.nav-links a{color:var(--ink-3);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--ink)}
 
-  .hero { min-height: 100svh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 5rem; }
-  .hero-left { padding: var(--space-xl) clamp(1.5rem, 5vw, 4rem) var(--space-l); display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--rule); }
-  .hero-eyebrow { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber-d); margin-bottom: var(--space-m); opacity: 0; transform: translateY(16px); animation: rise 0.7s 0.1s cubic-bezier(0.22,1,0.36,1) forwards; }
-  .hero-title { font-family: var(--f-display); font-size: clamp(3.2rem, 8vw, 7.5rem); font-weight: 300; line-height: 0.92; letter-spacing: -0.02em; opacity: 0; transform: translateY(24px); animation: rise 0.8s 0.25s cubic-bezier(0.22,1,0.36,1) forwards; }
-  .hero-title em { font-style: italic; color: var(--amber-d); }
-  .hero-subtitle { margin-top: var(--space-m); font-size: clamp(0.95rem, 1.5vw, 1.1rem); color: var(--ink-3); max-width: 36ch; line-height: 1.7; opacity: 0; transform: translateY(20px); animation: rise 0.8s 0.4s cubic-bezier(0.22,1,0.36,1) forwards; }
-  .hero-actions { margin-top: var(--space-l); display: flex; align-items: center; gap: var(--space-m); opacity: 0; transform: translateY(16px); animation: rise 0.7s 0.55s cubic-bezier(0.22,1,0.36,1) forwards; }
-  .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--ink); color: var(--paper); font-family: var(--f-body); font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; padding: 0.85rem 1.75rem; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; }
-  .btn-primary:hover { background: var(--ink-2); transform: translateY(-1px); }
-  .btn-ghost { font-family: var(--f-body); font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
-  .btn-ghost:hover { color: var(--ink); border-color: var(--ink-3); }
+/* Shared */
+hr.div{border:none;border-top:1px solid var(--rule)}
+.section{padding:var(--sp-xl) clamp(1.5rem,5vw,4rem)}
+.section-label{font-size:.66rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--amber-d);margin-bottom:var(--sp-m);display:flex;align-items:center;gap:.75rem}
+.section-label::after{content:'';flex:1;height:1px;background:var(--rule)}
+@keyframes rise{to{opacity:1;transform:translateY(0)}}
+@keyframes rise-x{to{opacity:1;transform:translateX(0)}}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
 
-  .hero-right { background: var(--paper-2); display: flex; flex-direction: column; justify-content: center; padding: var(--space-l) clamp(2rem, 4vw, 4rem); gap: var(--space-m); position: relative; overflow: hidden; }
-  .hero-right::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, var(--amber), var(--amber-d)); }
-  .file-tree { opacity: 0; transform: translateX(20px); animation: rise-x 0.9s 0.6s cubic-bezier(0.22,1,0.36,1) forwards; }
-  .file-tree-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); margin-bottom: var(--space-s); }
-  .tree { font-size: 0.82rem; line-height: 1.9; color: var(--ink-2); }
-  .tree .folder { color: var(--ink); font-weight: 500; }
-  .tree .new { color: var(--amber-d); }
-  .tree .indent { padding-left: 1.2em; }
-  .tree .line { display: flex; align-items: center; gap: 0.4em; }
-  .tree .bullet { width: 4px; height: 4px; border-radius: 50%; background: currentColor; flex-shrink: 0; display: inline-block; }
-  .mode-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; opacity: 0; transform: translateX(20px); animation: rise-x 0.9s 0.75s cubic-bezier(0.22,1,0.36,1) forwards; }
-  .mode-card { background: var(--paper); border: 1px solid var(--rule); padding: 1rem; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s; position: relative; }
-  .mode-card:hover, .mode-card.active { border-color: var(--amber); box-shadow: 0 0 0 1px var(--amber); }
-  .mode-card.active::after { content: '✓'; position: absolute; top: 0.75rem; right: 0.75rem; width: 18px; height: 18px; background: var(--amber); color: var(--paper); font-size: 0.65rem; font-weight: 700; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
-  .mode-card-name { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); margin-bottom: 0.25rem; }
-  .mode-card-desc { font-size: 0.72rem; color: var(--ink-3); line-height: 1.5; }
+/* ── Hero ── */
+.hero{min-height:100svh;display:grid;grid-template-columns:1fr 1fr;padding-top:4.5rem}
+.hero-left{padding:var(--sp-xl) clamp(1.5rem,5vw,4rem) var(--sp-l);display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--rule)}
+.hero-eyebrow{font-size:.66rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--amber-d);margin-bottom:var(--sp-m);opacity:0;transform:translateY(12px);animation:rise .7s .1s cubic-bezier(.22,1,.36,1) forwards}
+.hero-title{font-family:var(--f-d);font-size:clamp(3rem,7.5vw,7rem);font-weight:300;line-height:.9;letter-spacing:-.02em;opacity:0;transform:translateY(22px);animation:rise .85s .22s cubic-bezier(.22,1,.36,1) forwards}
+.hero-title em{font-style:italic;color:var(--amber-d)}
+.hero-lc{margin-top:var(--sp-m);display:flex;align-items:center;gap:0;opacity:0;transform:translateY(14px);animation:rise .7s .4s cubic-bezier(.22,1,.36,1) forwards;flex-wrap:wrap}
+.lc-step{font-size:.68rem;font-weight:600;letter-spacing:.05em;color:var(--ink-3);white-space:nowrap}
+.lc-step.hi{color:var(--amber-d)}
+.lc-arr{width:22px;height:1px;background:var(--rule);margin:0 6px;position:relative;flex-shrink:0}
+.lc-arr::after{content:'›';position:absolute;right:-5px;top:-9px;font-size:.9rem;color:var(--rule)}
+.hero-sub{margin-top:var(--sp-m);font-size:clamp(.88rem,1.4vw,1rem);color:var(--ink-3);max-width:38ch;line-height:1.75;opacity:0;transform:translateY(14px);animation:rise .75s .5s cubic-bezier(.22,1,.36,1) forwards}
+.hero-actions{margin-top:var(--sp-l);display:flex;align-items:center;gap:var(--sp-m);opacity:0;transform:translateY(12px);animation:rise .7s .62s cubic-bezier(.22,1,.36,1) forwards}
+.btn-p{display:inline-flex;align-items:center;gap:.5rem;background:var(--ink);color:var(--paper);font-family:var(--f-b);font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;padding:.9rem 1.8rem;border:none;cursor:pointer;transition:background .2s,transform .15s}
+.btn-p:hover{background:var(--ink-2);transform:translateY(-1px)}
+.btn-g{font-family:var(--f-b);font-size:.78rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);text-decoration:none;border-bottom:1px solid var(--rule);padding-bottom:2px;transition:color .2s,border-color .2s}
+.btn-g:hover{color:var(--ink);border-color:var(--ink-3)}
+.hero-right{background:var(--paper-2);display:flex;flex-direction:column;justify-content:center;padding:var(--sp-l) clamp(2rem,4vw,4rem);gap:var(--sp-m);position:relative;overflow:hidden}
+.hero-right::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--amber),var(--amber-d))}
+.ftree{opacity:0;transform:translateX(18px);animation:rise-x .9s .6s cubic-bezier(.22,1,.36,1) forwards}
+.ftree-label{font-size:.64rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:var(--sp-s)}
+.tree{font-size:.76rem;line-height:2.05;color:var(--ink-2);font-family:'Courier New',monospace}
+.tree .fd{color:var(--ink);font-weight:600}
+.tree .nw{color:var(--amber-d);font-weight:500}
+.tree .cd{color:var(--green);font-weight:500}
+.tree .ind{padding-left:1.1em}
+.bsm{font-size:.56rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--amber-l);color:var(--amber-d);padding:.1em .4em;margin-left:.4em;font-family:var(--f-b);vertical-align:middle}
+.bsm.g{background:var(--green-l);color:var(--green)}
 
-  .divider { border: none; border-top: 1px solid var(--rule); margin: 0; }
-  .section { padding: var(--space-xl) clamp(1.5rem, 5vw, 4rem); }
-  .section-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber-d); margin-bottom: var(--space-m); display: flex; align-items: center; gap: 0.75rem; }
-  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+/* ── Phases ── */
+.phases-s{background:var(--ink);padding:var(--sp-xl) clamp(1.5rem,5vw,4rem)}
+.phases-s .section-label{color:var(--amber)}
+.phases-s .section-label::after{background:oklch(28% .02 60)}
+.phases-hl{font-family:var(--f-d);font-size:clamp(2.2rem,4.5vw,4rem);font-weight:300;line-height:1.1;color:var(--paper);margin-bottom:var(--sp-l);max-width:22ch}
+.phases-hl em{font-style:italic;color:var(--amber)}
+.phases-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:oklch(22% .02 60)}
+.phase-card{background:oklch(16% .02 60);padding:var(--sp-m);display:flex;flex-direction:column;gap:var(--sp-s);transition:background .2s}
+.phase-card:hover{background:oklch(19% .02 60)}
+.phase-card.hi{background:oklch(14% .02 60);border-top:2px solid var(--amber)}
+.ph-num{font-family:var(--f-d);font-size:clamp(3.8rem,6vw,6rem);font-weight:300;line-height:1;color:oklch(24% .015 60)}
+.ph-name{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--paper)}
+.ph-tag{display:inline-block;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:color-mix(in oklch,var(--amber) 18%,transparent);color:var(--amber);border:1px solid color-mix(in oklch,var(--amber) 35%,transparent);padding:.2em .55em;align-self:flex-start}
+.ph-desc{font-size:.79rem;color:oklch(65% .018 70);line-height:1.65;flex:1}
+.ph-items{list-style:none;display:flex;flex-direction:column;gap:.3rem;margin-top:auto}
+.ph-items li{font-size:.74rem;color:oklch(50% .018 70);display:flex;align-items:baseline;gap:.5rem}
+.ph-items li::before{content:'→';color:var(--amber);font-size:.6rem;flex-shrink:0}
 
-  .paths { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 0; }
-  .path-divider { background: var(--rule); margin: var(--space-xl) 0; }
-  .path { padding: 0 clamp(1.5rem, 4vw, 4rem); }
-  .path:first-child { padding-left: 0; }
-  .path:last-child  { padding-right: 0; }
-  .path-number { font-family: var(--f-display); font-size: clamp(5rem, 10vw, 9rem); font-weight: 300; line-height: 1; color: var(--rule); margin-bottom: -0.3em; }
-  .path-name { font-family: var(--f-display); font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 600; line-height: 1.15; color: var(--ink); margin-bottom: var(--space-s); }
-  .path-tag { display: inline-block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; background: var(--amber-l); color: var(--amber-d); padding: 0.2em 0.6em; margin-bottom: var(--space-s); }
-  .path-desc { font-size: 0.9rem; color: var(--ink-3); line-height: 1.75; max-width: 38ch; }
-  .path-steps { margin-top: var(--space-m); list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
-  .path-steps li { display: flex; align-items: baseline; gap: 0.75rem; font-size: 0.85rem; color: var(--ink-2); }
-  .step-num { font-family: var(--f-display); font-size: 0.7rem; font-weight: 600; color: var(--amber-d); min-width: 1.2em; }
+/* ── Paths ── */
+.paths{display:grid;grid-template-columns:1fr 1px 1fr}
+.path-dv{background:var(--rule);margin:var(--sp-xl) 0}
+.path{padding:0 clamp(1.5rem,4vw,4rem)}
+.path:first-child{padding-left:0}
+.path:last-child{padding-right:0}
+.path-n{font-family:var(--f-d);font-size:clamp(5rem,10vw,9rem);font-weight:300;line-height:1;color:var(--rule);margin-bottom:-.25em}
+.path-tag{display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--amber-l);color:var(--amber-d);padding:.2em .6em;margin-bottom:var(--sp-s)}
+.path-name{font-family:var(--f-d);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:600;line-height:1.1;margin-bottom:var(--sp-s)}
+.path-desc{font-size:.88rem;color:var(--ink-3);line-height:1.75;max-width:36ch}
+.path-steps{margin-top:var(--sp-m);list-style:none;display:flex;flex-direction:column;gap:.55rem}
+.path-steps li{display:flex;align-items:baseline;gap:.75rem;font-size:.83rem;color:var(--ink-2)}
+.sn{font-family:var(--f-d);font-size:.68rem;font-weight:700;color:var(--amber-d);min-width:1.2em}
 
-  .workflow-strip { background: var(--ink); color: var(--paper); padding: var(--space-xl) clamp(1.5rem, 5vw, 4rem); }
-  .workflow-strip .section-label { color: var(--amber); }
-  .workflow-strip .section-label::after { background: oklch(30% 0.02 60); }
-  .workflow-title { font-family: var(--f-display); font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 300; line-height: 1.15; margin-bottom: var(--space-l); max-width: 20ch; color: var(--paper); }
-  .workflow-title em { font-style: italic; color: var(--amber); }
-  .chains { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: oklch(22% 0.02 60); }
-  .chain { background: oklch(16% 0.02 60); padding: var(--space-m); position: relative; transition: background 0.2s; }
-  .chain:hover { background: oklch(19% 0.02 60); }
-  .chain-letter { font-family: var(--f-display); font-size: clamp(3.5rem, 6vw, 5.5rem); font-weight: 300; line-height: 1; color: oklch(28% 0.015 60); margin-bottom: -0.1em; }
-  .chain-name { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper); margin-bottom: 0.5rem; }
-  .chain-tag { display: inline-block; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; background: color-mix(in oklch, var(--amber) 20%, transparent); color: var(--amber); border: 1px solid color-mix(in oklch, var(--amber) 40%, transparent); padding: 0.2em 0.6em; margin-bottom: 0.75rem; }
-  .chain-desc { font-size: 0.82rem; color: oklch(70% 0.02 60); line-height: 1.65; }
-  .chain-list { margin-top: var(--space-s); list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
-  .chain-list li { font-size: 0.78rem; color: oklch(60% 0.02 60); display: flex; align-items: baseline; gap: 0.5rem; }
-  .chain-list li::before { content: '—'; color: var(--amber); font-size: 0.65rem; flex-shrink: 0; }
+/* ── Chat / Q-flow ── */
+.qflow-s{background:var(--paper-2);padding:var(--sp-xl) clamp(1.5rem,5vw,4rem)}
+.qflow-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-xl);align-items:start}
+.qflow-title{font-family:var(--f-d);font-size:clamp(2.2rem,4vw,3.8rem);font-weight:300;line-height:1.1;margin-bottom:var(--sp-s)}
+.qflow-title strong{font-weight:700}
+.qflow-desc{font-size:.88rem;color:var(--ink-3);line-height:1.75;max-width:38ch;margin-bottom:var(--sp-m)}
+.feat-list{display:flex;flex-direction:column;gap:.55rem}
+.feat-item{display:flex;align-items:baseline;gap:.7rem;font-size:.84rem;color:var(--ink-2)}
+.feat-item::before{content:'✓';color:var(--green);font-weight:700;font-size:.75rem;flex-shrink:0}
+.chat-win{background:var(--ink);border-top:3px solid var(--amber)}
+.chat-bar{display:flex;align-items:center;justify-content:space-between;padding:.7rem 1rem;border-bottom:1px solid oklch(22% .02 60)}
+.chat-dots{display:flex;gap:.35rem}
+.chat-dots span{width:9px;height:9px;border-radius:50%;background:oklch(28% .02 60)}
+.chat-titlebar{font-size:.67rem;font-weight:600;letter-spacing:.08em;color:oklch(50% .02 60)}
+.chat-body{padding:1.25rem;display:flex;flex-direction:column;gap:.7rem;min-height:220px}
+.msg{display:flex;gap:.6rem;align-items:flex-start}
+.msg-av{width:22px;height:22px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;margin-top:2px;letter-spacing:0}
+.msg.ai .msg-av{background:var(--amber);color:var(--ink)}
+.msg.hu .msg-av{background:oklch(28% .02 60);color:oklch(72% .02 60)}
+.msg-b{font-size:.76rem;line-height:1.65;padding:.65rem .9rem;max-width:82%}
+.msg.ai .msg-b{background:oklch(20% .02 60);color:oklch(82% .018 72);border-left:2px solid var(--amber)}
+.msg.hu{flex-direction:row-reverse}
+.msg.hu .msg-b{background:oklch(24% .02 60);color:oklch(78% .018 72);border-right:2px solid oklch(40% .02 60)}
+.chat-steps{display:flex;align-items:center;gap:.4rem;padding:.5rem 1.25rem .8rem}
+.cs-dot{width:7px;height:7px;border-radius:50%;background:oklch(28% .02 60);transition:background .3s;cursor:pointer}
+.cs-dot.on{background:var(--amber)}
+.cs-prog{font-size:.62rem;font-weight:700;letter-spacing:.08em;color:oklch(42% .02 60);margin-left:auto}
 
-  .setup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items: start; }
-  .setup-title { font-family: var(--f-display); font-size: clamp(2.2rem, 4vw, 3.8rem); font-weight: 300; line-height: 1.1; margin-bottom: var(--space-m); }
-  .setup-title strong { font-weight: 700; display: block; }
-  .setup-desc { font-size: 0.9rem; color: var(--ink-3); line-height: 1.75; max-width: 40ch; margin-bottom: var(--space-l); }
-  .setup-questions { display: flex; flex-direction: column; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
-  .setup-q { background: var(--paper); padding: 1rem 1.25rem; display: flex; align-items: flex-start; gap: 1rem; cursor: pointer; transition: background 0.15s; }
-  .setup-q:hover { background: var(--paper-2); }
-  .q-num { font-family: var(--f-display); font-size: 1.5rem; font-weight: 300; color: var(--amber-d); line-height: 1; min-width: 1.5em; }
-  .q-content { flex: 1; }
-  .q-text { font-size: 0.85rem; font-weight: 500; color: var(--ink); margin-bottom: 0.25rem; }
-  .q-hint { font-size: 0.75rem; color: var(--ink-3); }
-  .setup-right { position: sticky; top: 6rem; }
-  .code-window { background: var(--ink); border-top: 3px solid var(--amber); }
-  .code-bar { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; border-bottom: 1px solid oklch(22% 0.02 60); }
-  .code-dots { display: flex; gap: 0.4rem; }
-  .code-dots span { width: 10px; height: 10px; border-radius: 50%; background: oklch(28% 0.02 60); }
-  .code-filename { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; color: oklch(55% 0.02 60); }
-  .code-body { padding: 1.5rem; font-family: 'Courier New', monospace; font-size: 0.78rem; line-height: 1.8; color: oklch(82% 0.02 60); overflow-x: auto; }
-  .c-comment { color: oklch(45% 0.02 60); }
-  .c-cmd     { color: var(--amber); }
-  .c-flag    { color: oklch(70% 0.12 200); }
-  .c-val     { color: oklch(80% 0.1 140); }
+/* ── Code gen ── */
+.cg-s{padding:var(--sp-xl) clamp(1.5rem,5vw,4rem)}
+.cg-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-xl);align-items:start}
+.cg-title{font-family:var(--f-d);font-size:clamp(2rem,4vw,3.5rem);font-weight:300;line-height:1.15;margin-bottom:var(--sp-s)}
+.cg-title em{font-style:italic;color:var(--amber-d)}
+.cg-desc{font-size:.88rem;color:var(--ink-3);line-height:1.75;max-width:40ch}
+.code-panel{background:var(--ink);border-top:3px solid var(--green)}
+.cp-bar{display:flex;align-items:center;gap:6px;padding:.7rem 1rem;background:oklch(12% .015 60);border-bottom:1px solid oklch(22% .015 60)}
+.cp-dots span{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:4px;background:oklch(28% .02 60)}
+.cp-fn{font-size:.67rem;font-weight:500;letter-spacing:.06em;color:oklch(52% .02 60);margin-left:auto}
+.cp-body{padding:1.25rem;font-family:'Courier New',monospace;font-size:.76rem;line-height:1.9;color:oklch(80% .018 72);overflow-x:auto}
+.kw{color:oklch(72% .14 270)}
+.fn{color:oklch(76% .13 55)}
+.st{color:oklch(72% .14 148)}
+.cm{color:oklch(38% .015 70)}
+.tg{color:oklch(72% .12 18)}
+.at{color:oklch(74% .1 200)}
 
-  /* Install block */
-  .install-block { background: var(--ink); padding: var(--space-l) clamp(1.5rem, 5vw, 4rem); }
-  .install-block .section-label { color: var(--amber); }
-  .install-block .section-label::after { background: oklch(28% 0.015 60); }
-  .install-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-l); align-items: start; margin-top: var(--space-m); }
-  .install-title { font-family: var(--f-display); font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 300; color: var(--paper); line-height: 1.1; margin-bottom: var(--space-s); }
-  .install-title em { font-style: italic; color: var(--amber); }
-  .install-desc { font-size: 0.88rem; color: oklch(65% 0.018 75); line-height: 1.7; max-width: 36ch; }
-  .install-code { background: oklch(10% 0.015 60); border-top: 3px solid var(--amber); overflow: hidden; }
-  .install-code-bar { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; background: oklch(14% 0.015 60); border-bottom: 1px solid oklch(22% 0.015 60); }
-  .install-code-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; color: oklch(50% 0.015 60); }
-  .install-copy-btn { border: none; border-radius: 999px; background: oklch(22% 0.015 60); color: oklch(75% 0.015 60); padding: 0.3rem 0.8rem; font-size: 0.68rem; cursor: pointer; font-family: var(--f-body); transition: background 0.15s; }
-  .install-copy-btn:hover { background: oklch(28% 0.015 60); }
-  .install-pre { margin: 0; padding: 1.25rem; font-family: 'Courier New', monospace; font-size: 0.78rem; line-height: 1.8; color: oklch(82% 0.015 75); overflow-x: auto; }
+/* ── Deploy ── */
+.dep-s{background:var(--paper-2);padding:var(--sp-xl) clamp(1.5rem,5vw,4rem);border-top:1px solid var(--rule)}
+.dep-title{font-family:var(--f-d);font-size:clamp(2.2rem,4vw,3.8rem);font-weight:300;line-height:1.1;margin-bottom:var(--sp-s)}
+.dep-title em{font-style:italic;color:var(--amber-d)}
+.dep-sub{font-size:.88rem;color:var(--ink-3);line-height:1.75;max-width:46ch}
+.dep-trigger{display:inline-flex;align-items:center;gap:.6rem;margin-top:var(--sp-s);font-size:.72rem;font-weight:700;letter-spacing:.1em;color:var(--amber-d);text-transform:uppercase}
+.dep-trigger::before{content:'↗';font-size:.85rem}
+.dep-q{margin:var(--sp-l) 0 var(--sp-m);background:var(--paper-3);border:1px solid var(--rule);padding:1.2rem 1.5rem}
+.dep-q-text{font-size:.88rem;font-weight:600;color:var(--ink)}
+.dep-q-hint{font-size:.78rem;color:var(--ink-3);margin-top:.3rem}
+.dep-platforms{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.plat{background:var(--paper);padding:var(--sp-m)}
+.plat.rec{background:oklch(98% .01 76)}
+.plat-label{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:var(--sp-s)}
+.plat-name{font-family:var(--f-d);font-size:clamp(2rem,2.5vw,2.8rem);font-weight:600;line-height:1;margin-bottom:.4rem}
+.plat-tag{display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.2em .6em;margin-bottom:var(--sp-s)}
+.plat-tag.free{background:var(--green-l);color:var(--green)}
+.plat-tag.fs{background:var(--amber-l);color:var(--amber-d)}
+.plat-desc{font-size:.82rem;color:var(--ink-3);line-height:1.7;margin-bottom:var(--sp-s);max-width:34ch}
+.plat-steps{list-style:none;display:flex;flex-direction:column;gap:.45rem}
+.plat-steps li{font-size:.78rem;color:var(--ink-2);display:flex;align-items:baseline;gap:.6rem}
+.ps-n{font-family:var(--f-d);font-size:.65rem;font-weight:700;color:var(--amber-d);min-width:1em}
+.plat-time{margin-top:var(--sp-s);font-size:.72rem;font-weight:600;letter-spacing:.06em;color:var(--ink-3);display:flex;align-items:center;gap:.4rem}
+.plat-time strong{color:var(--green)}
 
-  .output-section { background: var(--paper-2); padding: var(--space-xl) clamp(1.5rem, 5vw, 4rem); }
-  .output-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-top: var(--space-l); }
-  .output-item { background: var(--paper-2); padding: var(--space-m); transition: background 0.15s; }
-  .output-item:hover { background: var(--paper); }
-  .output-icon { font-size: 1.5rem; margin-bottom: 0.75rem; display: block; }
-  .output-name { font-family: 'Courier New', monospace; font-size: 0.78rem; font-weight: 700; color: var(--ink); margin-bottom: 0.35rem; }
-  .output-desc { font-size: 0.75rem; color: var(--ink-3); line-height: 1.55; }
+/* ── Output files ── */
+.out-s{padding:var(--sp-xl) clamp(1.5rem,5vw,4rem)}
+.out-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:var(--sp-l)}
+.out-item{background:var(--paper);padding:var(--sp-m);transition:background .15s}
+.out-item:hover{background:var(--paper-2)}
+.out-item.gc{background:oklch(97.5% .01 148)}
+.out-item.gc:hover{background:oklch(95% .015 148)}
+.out-cat{font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-bottom:.4rem}
+.out-item.gc .out-cat{color:var(--green)}
+.out-name{font-family:'Courier New',monospace;font-size:.76rem;font-weight:700;color:var(--ink);margin-bottom:.35rem}
+.out-desc{font-size:.72rem;color:var(--ink-3);line-height:1.55}
 
-  .cta { padding: var(--space-xl) clamp(1.5rem, 5vw, 4rem); display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: var(--space-xl); border-top: 1px solid var(--rule); }
-  .cta-headline { font-family: var(--f-display); font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 300; line-height: 1.05; margin-bottom: var(--space-s); }
-  .cta-headline em { font-style: italic; color: var(--amber-d); }
-  .cta-sub { font-size: 0.9rem; color: var(--ink-3); line-height: 1.7; max-width: 36ch; }
-  .cta-panel { background: var(--ink); padding: var(--space-l); }
-  .cta-trigger { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-bottom: var(--space-s); }
-  .cta-phrases { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-  .cta-phrases li { font-family: var(--f-display); font-size: 1.2rem; font-style: italic; color: var(--paper); padding: 0.75rem 1rem; border-left: 2px solid oklch(25% 0.02 60); cursor: pointer; transition: border-color 0.2s, color 0.2s; }
-  .cta-phrases li:hover { border-color: var(--amber); color: var(--amber-l); }
-  .cta-hint { margin-top: var(--space-m); font-size: 0.72rem; color: oklch(40% 0.02 60); line-height: 1.5; }
+/* ── Install ── */
+.inst-s{background:var(--ink);padding:var(--sp-l) clamp(1.5rem,5vw,4rem)}
+.inst-s .section-label{color:var(--amber)}
+.inst-s .section-label::after{background:oklch(28% .015 60)}
+.inst-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-l);align-items:start;margin-top:var(--sp-m)}
+.inst-title{font-family:var(--f-d);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:300;color:var(--paper);line-height:1.1;margin-bottom:var(--sp-s)}
+.inst-title em{font-style:italic;color:var(--amber)}
+.inst-desc{font-size:.85rem;color:oklch(62% .018 72);line-height:1.7;max-width:36ch}
+.inst-code{background:oklch(10% .015 60);border-top:3px solid var(--amber)}
+.inst-bar{display:flex;align-items:center;justify-content:space-between;padding:.7rem 1rem;background:oklch(14% .015 60);border-bottom:1px solid oklch(22% .015 60)}
+.inst-bar-label{font-size:.66rem;font-weight:700;letter-spacing:.1em;color:oklch(48% .015 60)}
+.copy-btn{border:none;background:oklch(22% .015 60);color:oklch(72% .015 60);padding:.3rem .85rem;font-size:.66rem;cursor:pointer;font-family:var(--f-b);font-weight:600;letter-spacing:.06em;transition:background .15s}
+.copy-btn:hover{background:oklch(28% .015 60)}
+.inst-pre{margin:0;padding:1.25rem;font-family:'Courier New',monospace;font-size:.76rem;line-height:1.9;color:oklch(80% .015 72);overflow-x:auto}
 
-  footer { border-top: 1px solid var(--rule); padding: var(--space-m) clamp(1.5rem, 5vw, 4rem); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-  .footer-brand { font-family: var(--f-display); font-size: 0.9rem; color: var(--ink-3); }
-  .footer-meta { font-size: 0.72rem; color: oklch(65% 0.015 75); letter-spacing: 0.06em; }
+/* ── CTA ── */
+.cta-s{padding:var(--sp-xl) clamp(1.5rem,5vw,4rem);display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:var(--sp-xl);border-top:1px solid var(--rule)}
+.cta-hl{font-family:var(--f-d);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:300;line-height:1.05;margin-bottom:var(--sp-s)}
+.cta-hl em{font-style:italic;color:var(--amber-d)}
+.cta-sub{font-size:.88rem;color:var(--ink-3);line-height:1.75;max-width:36ch}
+.cta-panel{background:var(--ink);padding:var(--sp-l)}
+.cta-trig{font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:var(--sp-s)}
+.cta-phrases{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+.cta-phrases li{font-family:var(--f-d);font-size:1.15rem;font-style:italic;color:var(--paper);padding:.7rem 1rem;border-left:2px solid oklch(24% .02 60);cursor:pointer;transition:border-color .2s,color .2s}
+.cta-phrases li:hover{border-color:var(--amber);color:var(--amber-l)}
+.cta-hint{margin-top:var(--sp-m);font-size:.7rem;color:oklch(38% .02 60);line-height:1.55}
 
-  @keyframes rise   { to { opacity: 1; transform: translateY(0); } }
-  @keyframes rise-x { to { opacity: 1; transform: translateX(0); } }
-  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
+/* Footer */
+footer{border-top:1px solid var(--rule);padding:var(--sp-m) clamp(1.5rem,5vw,4rem);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.f-brand{font-family:var(--f-d);font-size:.88rem;color:var(--ink-3)}
+.f-meta{font-size:.68rem;color:oklch(62% .015 72);letter-spacing:.05em}
 
-
-  /* ── Design Case Study ───────────────────────────────────────── */
-  .case-section { padding: var(--space-xl) clamp(1.5rem, 5vw, 4rem); }
-  .case-header { display: grid; grid-template-columns: 1fr auto; gap: var(--space-xl); align-items: start; margin-bottom: var(--space-xl); }
-  .case-title { font-family: var(--f-display); font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 300; line-height: 1.15; margin-bottom: var(--space-m); }
-  .case-title em { font-style: italic; color: var(--amber-d); }
-  .case-lead { font-size: 0.9rem; color: var(--ink-3); line-height: 1.8; max-width: 42ch; }
-  .case-metrics { display: flex; flex-direction: column; gap: var(--space-s); align-items: flex-end; text-align: right; padding-top: 0.5rem; }
-  .case-metric-val { font-family: var(--f-display); font-size: clamp(2.5rem, 4vw, 3.8rem); font-weight: 300; color: var(--amber-d); line-height: 1; display: block; }
-  .case-metric-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); display: block; margin-top: 0.1rem; }
-  .case-metric { border-top: 1px solid var(--rule); padding-top: var(--space-s); width: 100%; }
-
-  /* Rules strip */
-  .rules-strip { background: var(--paper-2); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: var(--space-xl) clamp(1.5rem, 5vw, 4rem); }
-  .rules-eyebrow { font-family: var(--f-display); font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 300; margin-bottom: var(--space-l); }
-  .rules-eyebrow em { font-style: italic; color: var(--amber-d); }
-  .rules-grid-7 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
-  .rule-item { background: var(--paper-2); padding: var(--space-m) var(--space-m); display: grid; grid-template-columns: 2.2rem 1fr; gap: 0.75rem; align-items: start; transition: background 0.15s; }
-  .rule-item:hover { background: var(--paper); }
-  .rule-item:last-child:nth-child(odd) { grid-column: span 2; }
-  .rule-num { font-family: var(--f-display); font-size: 2.2rem; font-weight: 300; color: var(--rule); line-height: 1; padding-top: 0.1rem; }
-  .rule-body {}
-  .rule-name { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink); margin-bottom: 0.35rem; }
-  .rule-detail { font-size: 0.78rem; color: var(--ink-3); line-height: 1.65; }
-  .rule-trap { display: inline-block; margin-top: 0.4rem; font-size: 0.7rem; font-family: 'Courier New', monospace; color: var(--amber-d); background: color-mix(in oklch, var(--amber-l) 50%, transparent); padding: 0.15em 0.5em; }
-
-  /* Before/After comparison */
-  .compare-section { padding: var(--space-xl) clamp(1.5rem, 5vw, 4rem); }
-  .compare-intro { margin-bottom: var(--space-xl); }
-  .compare-headline { font-family: var(--f-display); font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 300; margin-bottom: var(--space-s); }
-  .compare-headline em { font-style: italic; color: var(--amber-d); }
-  .compare-sub { font-size: 0.85rem; color: var(--ink-3); line-height: 1.7; }
-  .compare-list { display: flex; flex-direction: column; gap: 2px; }
-  .compare-item { display: grid; grid-template-columns: 13rem 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
-  .compare-meta { background: var(--paper-2); padding: 1rem 1.25rem; display: flex; flex-direction: column; justify-content: center; }
-  .compare-tag { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber-d); margin-bottom: 0.35rem; }
-  .compare-name { font-size: 0.85rem; font-weight: 600; color: var(--ink); line-height: 1.35; }
-  .compare-cause { font-size: 0.72rem; color: var(--ink-3); margin-top: 0.4rem; line-height: 1.5; font-style: italic; }
-  .compare-before { background: oklch(98% 0.008 25); padding: 1rem 1.25rem; border-left: 3px solid oklch(72% 0.14 25); }
-  .compare-after  { background: oklch(98% 0.008 80); padding: 1rem 1.25rem; border-left: 3px solid var(--amber-d); }
-  .cp-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.5rem; display: block; }
-  .compare-before .cp-label { color: oklch(55% 0.15 25); }
-  .compare-after  .cp-label { color: var(--amber-d); }
-  .cp-code { font-family: 'Courier New', monospace; font-size: 0.72rem; line-height: 1.75; color: var(--ink-2); }
-  .cp-del { color: oklch(55% 0.15 25); text-decoration: line-through; opacity: 0.7; }
-  .cp-add { color: oklch(48% 0.15 80); font-weight: 600; }
-  .cp-note { font-size: 0.7rem; color: var(--ink-3); margin-top: 0.5rem; font-style: italic; line-height: 1.5; }
-
-  @media (max-width: 900px) {
-    .hero { grid-template-columns: 1fr; }
-    .hero-left { border-right: none; border-bottom: 1px solid var(--rule); }
-    .paths { grid-template-columns: 1fr; }
-    .path-divider { display: none; }
-    .path { padding: 0; padding-top: var(--space-l); }
-    .path:first-child { padding-top: 0; }
-    .chains { grid-template-columns: 1fr; }
-    .rules-grid-7 { grid-template-columns: 1fr; }
-    .rule-item:last-child:nth-child(odd) { grid-column: span 1; }
-    .compare-item { grid-template-columns: 1fr; }
-    .case-header { grid-template-columns: 1fr; }
-    .case-metrics { align-items: flex-start; text-align: left; }
-    .setup-grid, .install-grid { grid-template-columns: 1fr; }
-    .setup-right { position: static; }
-    .output-grid { grid-template-columns: 1fr 1fr; }
-    .cta { grid-template-columns: 1fr; }
-    nav .nav-links { display: none; }
-    .mode-cards { grid-template-columns: 1fr; }
-  }
-
-  /* component-preview embed */
-  .quality-section { padding: var(--space-xl) clamp(1.5rem, 5vw, 4rem); background: var(--paper); }
-  .quality-header { margin-bottom: var(--space-xl); }
-  .quality-title { font-family: var(--f-display); font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 300; line-height: 1.15; margin-bottom: var(--space-m); }
-  .quality-title em { font-style: italic; color: var(--amber-d); }
-  .quality-lead { font-size: 0.9rem; color: var(--ink-3); line-height: 1.8; max-width: 52ch; }
-  .quality-meta { display: flex; gap: var(--space-m); margin-top: var(--space-s); flex-wrap: wrap; }
-  .quality-tag { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; background: var(--amber-l); color: var(--amber-d); padding: 0.25em 0.7em; }
-  .preview-embed-wrap { border: 1px solid var(--rule); background: var(--paper-2); overflow: hidden; }
-  .preview-embed-bar { display: flex; align-items: center; gap: 6px; padding: 0.5rem 0.8rem; background: #f0f0f0; border-bottom: 1px solid var(--rule); }
-  .preview-embed-dot { width: 10px; height: 10px; border-radius: 50%; background: #ddd; flex-shrink: 0; }
-  .preview-embed-dot:nth-child(1) { background: #ff5f57; }
-  .preview-embed-dot:nth-child(2) { background: #febc2e; }
-  .preview-embed-dot:nth-child(3) { background: #28c840; }
-  .preview-embed-url { flex: 1; font-size: 0.72rem; font-family: 'Courier New', monospace; color: var(--ink-3); text-align: center; }
-  .preview-embed-badge { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber-d); background: var(--amber-l); padding: 0.15em 0.55em; flex-shrink: 0; }
-  .preview-embed-frame { width: 100%; height: 700px; overflow: hidden; }
-  .preview-embed-frame iframe { width: 100%; height: 100%; border: none; display: block; }
-  @media (max-width: 900px) { .preview-embed-frame { height: 480px; } }
+/* Responsive */
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr}
+  .hero-left{border-right:none;border-bottom:1px solid var(--rule)}
+  .phases-grid{grid-template-columns:1fr 1fr}
+  .paths{grid-template-columns:1fr}
+  .path-dv{display:none}
+  .path{padding:0;padding-top:var(--sp-l)}
+  .path:first-child{padding-top:0}
+  .qflow-grid,.cg-grid,.inst-grid{grid-template-columns:1fr}
+  .dep-platforms{grid-template-columns:1fr}
+  .out-grid{grid-template-columns:1fr 1fr}
+  .cta-s{grid-template-columns:1fr}
+  nav .nav-links{display:none}
+}
+@media(max-width:600px){
+  .phases-grid{grid-template-columns:1fr}
+  .out-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="#" class="nav-logo">designer-vibecoding-starter<span></span></a>
+  <a href="#" class="nav-logo">designer-vibecoding-starter <span class="nav-badge">v4.0</span></a>
   <ul class="nav-links">
-    <li><a href="#paths">路径</a></li>
-    <li><a href="#workflow">协作链路</a></li>
-    <li><a href="#design-case">设计案例</a></li>
-    <li><a href="#component-quality">生成质量</a></li>
-    <li><a href="#setup">使用方式</a></li>
+    <li><a href="#lifecycle">全流程</a></li>
+    <li><a href="#paths">两条路径</a></li>
+    <li><a href="#questions">智能追问</a></li>
+    <li><a href="#codegen">代码生成</a></li>
+    <li><a href="#deploy">部署上线</a></li>
     <li><a href="#install">安装</a></li>
   </ul>
 </nav>
 
-<!-- Hero -->
+<!-- ═══ HERO ═══ -->
 <section class="hero">
   <div class="hero-left">
-    <p class="hero-eyebrow">Claude Skill · v2.0</p>
-    <h1 class="hero-title">Design&shy;er<br/><em>Vibe&shy;coding</em><br/>Starter</h1>
-    <p class="hero-subtitle">一句话初始化你的协作项目骨架——工作流文件、执行入口、任务管理，一次配齐，拿到就能开始工作。</p>
+    <p class="hero-eyebrow">Claude Skill · v4.0 · 设计师全生命周期</p>
+    <h1 class="hero-title">从<em>想法</em><br/>到上线</h1>
+    <div class="hero-lc">
+      <span class="lc-step hi">想法</span>
+      <span class="lc-arr"></span>
+      <span class="lc-step">需求</span>
+      <span class="lc-arr"></span>
+      <span class="lc-step">代码</span>
+      <span class="lc-arr"></span>
+      <span class="lc-step hi">上线</span>
+    </div>
+    <p class="hero-sub">没有代码经验？没关系。说出你的想法或粘贴 Figma 链接——Skill 引导你走完从需求澄清到代码跑起来、再到发布上线的完整链路。中间所有环节自动编排。</p>
     <div class="hero-actions">
-      <a href="#setup" class="btn-primary">开始初始化 →</a>
-      <a href="#workflow" class="btn-ghost">了解协作链路</a>
+      <a href="#lifecycle" class="btn-p">看全流程 →</a>
+      <a href="#deploy" class="btn-g">了解部署引导</a>
     </div>
   </div>
+
   <div class="hero-right">
-    <div class="file-tree">
-      <p class="file-tree-label">生成的项目结构</p>
+    <div class="ftree">
+      <p class="ftree-label">初始化后生成的完整结构</p>
       <div class="tree">
-        <div class="line"><span class="bullet folder"></span><span class="folder">my-project/</span></div>
-        <div class="indent">
-          <div class="line"><span class="bullet new"></span><span class="new">AGENTS.md</span></div>
-          <div class="line"><span class="bullet new"></span><span class="new">agent-context/</span></div>
-          <div class="indent">
-            <div class="line"><span class="bullet"></span>current-workflow.md</div>
-            <div class="line"><span class="bullet"></span>default-context.md</div>
-            <div class="line"><span class="bullet new"></span><span class="new">design-role-rules.md</span> <span style="font-size:0.65rem;color:var(--amber-d);margin-left:0.4em;">design-driven</span></div>
+        <div><span class="fd">my-project/</span></div>
+        <div class="ind">
+          <div><span class="nw">AGENTS.md</span><span class="bsm">规则入口</span></div>
+          <div><span class="nw">LEARNINGS.md</span></div>
+          <div><span class="nw">agent-context/</span></div>
+          <div class="ind">
+            <div>current-workflow.md</div>
+            <div><span class="nw">design-role-rules.md</span><span class="bsm">设计驱动</span></div>
           </div>
-          <div class="line"><span class="bullet new"></span><span class="new">ai-workflows/</span></div>
-          <div class="indent">
-            <div class="line"><span class="bullet"></span>claude-planner-codex-builder/</div>
-            <div class="line"><span class="bullet"></span>codex-fullstack-workflow/</div>
+          <div><span class="nw">skills/</span><span class="bsm">7 个 Skill</span></div>
+          <div class="ind">
+            <div>design-analysis / SKILL.md</div>
+            <div>requirements-refinement / ...</div>
+            <div>two-stage-review / ...</div>
           </div>
-          <div class="line"><span class="bullet new"></span><span class="new">project-management/</span></div>
-          <div class="line"><span class="bullet new"></span><span class="new">tasks/ &amp; .agent/</span></div>
-          <div class="line"><span class="bullet new"></span><span class="new">scripts/</span></div>
-          <div class="line"><span class="bullet new"></span><span class="new">package.json</span></div>
+          <div><span class="nw">project-management/</span></div>
+          <div class="ind">
+            <div><span class="nw">prd-registry.md</span><span class="bsm">PRD主控</span></div>
+            <div>active-sprint.md &middot; changelog.md</div>
+          </div>
+          <div><span class="nw">tasks/prd/PRD-001-mvp.md</span></div>
+          <div><span class="cd">src/</span><span class="bsm g">真实代码 Phase 2B</span></div>
+          <div class="ind">
+            <div><span class="cd">main.tsx &middot; App.tsx &middot; router/</span></div>
+            <div><span class="cd">pages/ &middot; components/ &middot; styles/</span></div>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="mode-cards" id="mode-cards">
-      <div class="mode-card active" onclick="selectMode(this)">
-        <p class="mode-card-name">Claude + Codex</p>
-        <p class="mode-card-desc">完整角色团队 + 双模型分工：Claude 驱动规划侧，Codex 驱动执行侧</p>
-      </div>
-      <div class="mode-card" onclick="selectMode(this)">
-        <p class="mode-card-name">Codex 全流程</p>
-        <p class="mode-card-desc">完整角色团队 + 单模型驱动：Codex 串联所有角色完成全流程</p>
-      </div>
-      <div class="mode-card" onclick="selectMode(this)">
-        <p class="mode-card-name">zero-to-one</p>
-        <p class="mode-card-desc">无设计稿，从产品想法出发</p>
-      </div>
-      <div class="mode-card" onclick="selectMode(this)">
-        <p class="mode-card-name">design-driven</p>
-        <p class="mode-card-desc">有设计稿，驱动分析与开发</p>
       </div>
     </div>
   </div>
 </section>
 
-<hr class="divider" />
+<hr class="div" />
 
-<!-- Paths -->
+<!-- ═══ PHASES ═══ -->
+<section class="phases-s" id="lifecycle">
+  <p class="section-label reveal">全生命周期 · 四个阶段</p>
+  <h2 class="phases-hl reveal">一个 Skill<br/>覆盖<em>全部环节</em></h2>
+  <div class="phases-grid">
+
+    <div class="phase-card reveal">
+      <p class="ph-num">01</p>
+      <p class="ph-name">需求确认</p>
+      <span class="ph-tag">对话驱动</span>
+      <p class="ph-desc">两条路径：0-1 路径用 6 步逐步追问建立 PRD；设计驱动路径拉取 Figma 数据，判断 3 种场景，疑点逐一消除后生成 PRD。</p>
+      <ul class="ph-items">
+        <li>一次只问一个问题，不催促</li>
+        <li>用户确认 PRD 后才继续</li>
+        <li>Figma MCP 自动拉取结构</li>
+      </ul>
+    </div>
+
+    <div class="phase-card reveal" style="transition-delay:.08s">
+      <p class="ph-num">02</p>
+      <p class="ph-name">脚手架初始化</p>
+      <span class="ph-tag">自动生成</span>
+      <p class="ph-desc">治理文件一键生成：AGENTS.md、7 个 SKILL.md、prd-registry.md、active-sprint.md……不需要手动创建任何文件。</p>
+      <ul class="ph-items">
+        <li>单模型多 Agent 规则体系</li>
+        <li>PRD 主控 + Sprint 生命周期</li>
+        <li>7 个 Skill 内联，开箱即用</li>
+      </ul>
+    </div>
+
+    <div class="phase-card hi reveal" style="transition-delay:.16s">
+      <p class="ph-num">03</p>
+      <p class="ph-name">真实代码生成</p>
+      <span class="ph-tag">npm run dev 即可跑</span>
+      <p class="ph-desc">不是空模板。配置文件、设计 Token、路由骨架、每个功能的 Page 组件，一次生成。浏览器打开就能看到初始界面。</p>
+      <ul class="ph-items">
+        <li>package.json / vite / tailwind 全套</li>
+        <li>设计 Token CSS（从 Figma 提取）</li>
+        <li>每个 MVP 功能对应 Page 骨架</li>
+      </ul>
+    </div>
+
+    <div class="phase-card reveal" style="transition-delay:.24s">
+      <p class="ph-num">04</p>
+      <p class="ph-name">部署上线</p>
+      <span class="ph-tag">5 分钟上线</span>
+      <p class="ph-desc">随时触发，无需等开发完成。1 个问题判断项目类型，精确引导 Vercel 或 Railway 部署，每步都有精确操作说明。</p>
+      <ul class="ph-items">
+        <li>无 GitHub → 引导注册 + 推送</li>
+        <li>Vercel（纯前端）/ Railway（有后端）</li>
+        <li>git push 后自动重新部署</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<hr class="div" />
+
+<!-- ═══ PATHS ═══ -->
 <section class="section" id="paths">
-  <p class="section-label reveal">两条开发路径</p>
+  <p class="section-label reveal">选择你的起点</p>
   <div class="paths">
     <div class="path reveal">
-      <p class="path-number">01</p>
-      <span class="path-tag">无设计稿</span>
-      <h2 class="path-name">Zero to One</h2>
-      <p class="path-desc">从一个产品想法出发，不需要任何设计资产。脚手架自动配置从意图到 PRD 到 handoff 的全链路模板。</p>
+      <p class="path-n">01</p>
+      <span class="path-tag">没有设计稿</span>
+      <h2 class="path-name">0-1 路径</h2>
+      <p class="path-desc">从一句话描述出发，Codewiz 像产品经理一样逐步追问，6 个问题后生成完整 PRD，确认后立即进入代码生成。</p>
       <ul class="path-steps">
-        <li><span class="step-num">①</span>明确产品意图与目标用户</li>
-        <li><span class="step-num">②</span>填写 active-prd.md，拆分首个 PRD 切片</li>
-        <li><span class="step-num">③</span>写 todo.md，创建第一份 handoff.json</li>
-        <li><span class="step-num">④</span>运行 <code>npm run agent:run</code></li>
+        <li><span class="sn">①</span>你想构建的是什么？（一句话）</li>
+        <li><span class="sn">②</span>目标用户是谁？他们现在怎么解决这个问题？</li>
+        <li><span class="sn">③</span>你的核心差异点是什么？</li>
+        <li><span class="sn">④</span>MVP 3 个核心功能（严格上限）</li>
+        <li><span class="sn">⑤</span>技术栈偏好？（可跳过，自动推荐）</li>
+        <li><span class="sn">⑥</span>界面风格倾向？（可跳过）</li>
       </ul>
     </div>
-    <div class="path-divider"></div>
-    <div class="path reveal" style="transition-delay: 0.15s">
-      <p class="path-number">02</p>
-      <span class="path-tag">有设计稿</span>
-      <h2 class="path-name">Design Driven</h2>
-      <p class="path-desc">以 Figma 设计稿为输入源，由 <strong>design-analyst</strong> 角色先做设计转译，产出设计驱动 PRD 与设计合约，再驱动开发与 Design QA 闭环。</p>
+    <div class="path-dv"></div>
+    <div class="path reveal" style="transition-delay:.12s">
+      <p class="path-n">02</p>
+      <span class="path-tag">有 Figma 设计稿</span>
+      <h2 class="path-name">设计驱动路径</h2>
+      <p class="path-desc">粘贴 Figma 链接，Skill 自动拉取设计数据，判断 3 种场景，逐步消除设计疑点，生成含设计规格的完整 PRD。</p>
       <ul class="path-steps">
-        <li><span class="step-num">①</span>design-analyst 分析 Figma，产出 design-analysis.md + design-contract.md</li>
-        <li><span class="step-num">②</span>product-strategist / project-manager 校验范围，形成最终 PRD</li>
-        <li><span class="step-num">③</span>architect 定义边界，engineer + tester 按 handoff 实施验证</li>
-        <li><span class="step-num">④</span>design-analyst 执行 Design QA，确认实现与设计一致</li>
+        <li><span class="sn">①</span>粘贴 Figma 链接，MCP 自动拉取顶层结构</li>
+        <li><span class="sn">②</span>判断场景 A/B/C，决定 PRD 拆分方案</li>
+        <li><span class="sn">③</span>提取组件层级、状态矩阵、间距、颜色 Token</li>
+        <li><span class="sn">④</span>识别设计疑点，一次一问逐一消除</li>
+        <li><span class="sn">⑤</span>输出设计分析包 → PRD + Acceptance Criteria</li>
+        <li><span class="sn">⑥</span>用户确认 → 代码生成 → Design QA 闭环</li>
       </ul>
     </div>
   </div>
 </section>
 
-<hr class="divider" />
+<hr class="div" />
 
-<!-- Workflow strip -->
-<section class="workflow-strip" id="workflow">
-  <p class="section-label reveal">三条协作链路</p>
-  <h2 class="workflow-title reveal">完整角色团队<br/><em>双模型分工</em></h2>
-  <div class="chains">
-    <div class="chain reveal">
-      <p class="chain-letter">A</p>
-      <p class="chain-name">多模型协作</p>
-      <span class="chain-tag">Claude + Codex</span>
-      <p class="chain-desc">两条链路共享同一套完整角色团队。链路 A 中，Claude 主导规划侧全部角色，Codex 主导执行侧角色。</p>
-      <ul class="chain-list">
-        <li>Claude 侧：design-analyst · product-strategist · project-manager · architect · reviewer</li>
-        <li>Codex 侧：engineer · tester</li>
-        <li>适合复杂任务、上下文长、需规划与执行分离的场景</li>
-      </ul>
-    </div>
-    <div class="chain reveal" style="transition-delay:0.1s">
-      <p class="chain-letter">B</p>
-      <p class="chain-name">单模型多角色</p>
-      <span class="chain-tag">Codex 全流程</span>
-      <p class="chain-desc">链路 B 同样使用完整角色团队，由 Codex 一个模型依次驱动所有角色，在单个环境跑完全部流程。</p>
-      <ul class="chain-list">
-        <li>Codex 串联：PM · architect · engineer · tester · reviewer</li>
-        <li>Claude 配额用尽或想在一个环境完成全部时选用</li>
-        <li>适合独立开发者、快速迭代场景</li>
-      </ul>
-    </div>
-    <div class="chain reveal" style="transition-delay:0.2s">
-      <p class="chain-letter">C</p>
-      <p class="chain-name">OpenClaw 后台</p>
-      <span class="chain-tag">叠加层 · 可选</span>
-      <p class="chain-desc">C 不替代 A/B，而是在其上叠加后台执行能力。Worker 轮询 GitHub handoff，执行后自动推回结果——不用一直盯着窗口。</p>
-      <ul class="chain-list">
-        <li>前置：git init + push 到 GitHub、安装 jq、配置 SSH/Token 免交互凭据</li>
-        <li>初始化后脚手架会输出完整 6 步 git 配置清单</li>
-        <li>支持演练模式：<code>OPENCLAW_DRY_RUN=true npm run openclaw:worker</code></li>
-        <li>配合 A 或 B 同时使用，三条链路不互斥</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-
-<hr class="divider" />
-
-<!-- ── Design Analyst Case Study ──────────────────────────────── -->
-<section class="case-section" id="design-case">
-  <p class="section-label reveal">Design Analyst &middot; 实战案例</p>
-  <div class="case-header">
+<!-- ═══ QUESTIONING FLOW ═══ -->
+<section class="qflow-s" id="questions">
+  <p class="section-label reveal">智能追问</p>
+  <div class="qflow-grid">
     <div>
-      <h2 class="case-title reveal">从 Figma 到代码的<br/><em>精准还原体系</em></h2>
-      <p class="case-lead reveal">在 vibcoding 思维导图项目中，多轮 Figma → 代码还原与质检，将发现的 6 类典型根因系统化为 7 条强制规则，落地为团队共同维护的 <code style="font-size:0.82em;background:var(--amber-l);padding:0.1em 0.4em;">design-role-rules.md</code>——第一稿还原率从约 60% 提升至 80%+。</p>
+      <h2 class="qflow-title reveal">一次只问<br/><strong>一个问题</strong></h2>
+      <p class="qflow-desc reveal" style="transition-delay:.08s">不会一次性抛出问题列表让你填表。像和产品经理对话一样——问完一个、等你回答、再问下一个。</p>
+      <div class="feat-list reveal" style="transition-delay:.14s">
+        <div class="feat-item">等用户回答后才问下一题，绝不跳步</div>
+        <div class="feat-item">可选问题（技术栈/风格）跳过时自动给出合理默认值</div>
+        <div class="feat-item">6 步完成后生成 PRD 草稿，先让用户确认</div>
+        <div class="feat-item">确认后才进入代码生成，不提前开始</div>
+        <div class="feat-item">设计驱动路径：设计疑点同样一次一问消除</div>
+      </div>
     </div>
-    <div class="case-metrics reveal" style="transition-delay:0.12s">
-      <div class="case-metric">
-        <span class="case-metric-val">7</span>
-        <span class="case-metric-label">还原规则类别</span>
-      </div>
-      <div class="case-metric">
-        <span class="case-metric-val">6</span>
-        <span class="case-metric-label">典型根因归档</span>
-      </div>
-      <div class="case-metric">
-        <span class="case-metric-val">80%</span>
-        <span class="case-metric-label">第一稿还原率目标</span>
+    <div class="reveal" style="transition-delay:.2s">
+      <div class="chat-win">
+        <div class="chat-bar">
+          <div class="chat-dots"><span></span><span></span><span></span></div>
+          <span class="chat-titlebar">Codewiz · 0-1 路径对话示例</span>
+        </div>
+        <div class="chat-body" id="chat-body">
+          <div class="msg ai" data-step="0">
+            <div class="msg-av">AI</div>
+            <div class="msg-b">你想构建的是什么？用一句话描述你的产品/应用。</div>
+          </div>
+          <div class="msg hu" data-step="0">
+            <div class="msg-av">你</div>
+            <div class="msg-b">一个帮助设计师快速整理灵感的看板工具</div>
+          </div>
+          <div class="msg ai" data-step="1" style="display:none">
+            <div class="msg-av">AI</div>
+            <div class="msg-b">好的，「灵感看板」的主要用户是谁？他们现在是怎么解决这个问题的？</div>
+          </div>
+          <div class="msg hu" data-step="1" style="display:none">
+            <div class="msg-av">你</div>
+            <div class="msg-b">UI 设计师，现在用截图 + Notion 手动整理，很麻烦</div>
+          </div>
+          <div class="msg ai" data-step="2" style="display:none">
+            <div class="msg-av">AI</div>
+            <div class="msg-b">你的产品比现有方案好在哪里？最核心的差异点是什么？</div>
+          </div>
+          <div class="msg hu" data-step="2" style="display:none">
+            <div class="msg-av">你</div>
+            <div class="msg-b">可以直接拖拽截图分组，自动提取颜色和字体</div>
+          </div>
+          <div class="msg ai" data-step="3" style="display:none">
+            <div class="msg-av">AI</div>
+            <div class="msg-b">如果只做 3 个核心功能验证这个想法，你会选哪 3 个？（3 个是上限）</div>
+          </div>
+          <div class="msg hu" data-step="3" style="display:none">
+            <div class="msg-av">你</div>
+            <div class="msg-b">① 拖拽上传截图 ② 自动分组 ③ 一键提取颜色板</div>
+          </div>
+          <div class="msg ai" data-step="4" style="display:none">
+            <div class="msg-av">AI</div>
+            <div class="msg-b">技术栈有偏好吗？没有的话我来推荐。（跳过也可以）</div>
+          </div>
+          <div class="msg hu" data-step="4" style="display:none">
+            <div class="msg-av">你</div>
+            <div class="msg-b">React 就行，其他不懂</div>
+          </div>
+          <div class="msg ai" data-step="5" style="display:none">
+            <div class="msg-av">AI</div>
+            <div class="msg-b">好，我将使用 React + TypeScript + Vite + TailwindCSS。最后，界面风格有倾向吗？（跳过也可以）</div>
+          </div>
+        </div>
+        <div class="chat-steps">
+          <div class="cs-dot on" onclick="goStep(0)"></div>
+          <div class="cs-dot" onclick="goStep(1)"></div>
+          <div class="cs-dot" onclick="goStep(2)"></div>
+          <div class="cs-dot" onclick="goStep(3)"></div>
+          <div class="cs-dot" onclick="goStep(4)"></div>
+          <div class="cs-dot" onclick="goStep(5)"></div>
+          <span class="cs-prog" id="cs-prog">步骤 1 / 6 — 点击圆点浏览对话</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Rules strip -->
-<div class="rules-strip">
-  <p class="section-label reveal">强制规则体系</p>
-  <p class="rules-eyebrow reveal">7 类还原规则 &mdash; <em>每类均有根因与真实案例支撑</em></p>
-  <div class="rules-grid-7 reveal" style="transition-delay:0.1s">
+<hr class="div" />
 
-    <div class="rule-item">
-      <span class="rule-num">1</span>
-      <div class="rule-body">
-        <p class="rule-name">图标规则</p>
-        <p class="rule-detail">Figma <code style="font-size:0.85em">IMAGE-SVG</code> 节点无法通过 MCP 导出路径数据。统一用 <code style="font-size:0.85em">IconPlaceholder</code> 占位，<strong>禁止</strong>用文字替代或自行绘制语义化图标。</p>
-        <span class="rule-trap">型号固定：20px 容器 · 18px 圆 · 1.5px stroke</span>
+<!-- ═══ CODE GEN ═══ -->
+<section class="cg-s" id="codegen">
+  <p class="section-label reveal">真实代码生成</p>
+  <div class="cg-grid">
+    <div>
+      <h2 class="cg-title reveal">PRD 确认后<br/><em>立即生成代码</em></h2>
+      <p class="cg-desc reveal" style="transition-delay:.08s">不是空模板——是 <code style="background:var(--amber-l);color:var(--amber-d);padding:.1em .4em;font-size:.85em">npm install &amp;&amp; npm run dev</code> 就能在浏览器里跑起来的真实项目。</p>
+      <div class="feat-list reveal" style="transition-delay:.14s" style="margin-top:var(--sp-m)">
+        <div class="feat-item">package.json / tsconfig / vite.config / tailwind.config 全套</div>
+        <div class="feat-item">设计 Token CSS（0-1 按风格；设计驱动从 Figma 提取颜色/间距/圆角）</div>
+        <div class="feat-item">main.tsx + App.tsx + React Router 路由骨架</div>
+        <div class="feat-item">每个 MVP 功能 → 一个有 UI 骨架的 Page 组件（不是空白页）</div>
+        <div class="feat-item">Layout + Navbar，菜单项对应各功能页面，开箱即可导航</div>
       </div>
     </div>
-
-    <div class="rule-item">
-      <span class="rule-num">2</span>
-      <div class="rule-body">
-        <p class="rule-name">Border 规则</p>
-        <p class="rule-detail">Figma Inside stroke 不压缩 fill 子内容；CSS <code style="font-size:0.85em">border-box</code> 会真实压缩。含 fill 子元素的结构性容器，边框必须用 <code style="font-size:0.85em">outline</code>，不用 <code style="font-size:0.85em">border</code>。</p>
-        <span class="rule-trap">验证：渲染尺寸 == Figma 标注尺寸</span>
-      </div>
-    </div>
-
-    <div class="rule-item">
-      <span class="rule-num">3</span>
-      <div class="rule-body">
-        <p class="rule-name">尺寸规则</p>
-        <p class="rule-detail">sizing 类型（hug / fixed / fill）必须从组件自身 Component Set 的 layout token 直接读取，<strong>禁止</strong>从使用侧实例推断。</p>
-        <span class="rule-trap">sizing → componentSetId → layout_xxx.sizing</span>
-      </div>
-    </div>
-
-    <div class="rule-item">
-      <span class="rule-num">4</span>
-      <div class="rule-body">
-        <p class="rule-name">节点类型识别</p>
-        <p class="rule-detail">实现任何内容前，先查 Figma 节点 <code style="font-size:0.85em">type</code> 字段。<code style="font-size:0.85em">TEXT</code> 才可用文字；<code style="font-size:0.85em">IMAGE-SVG / VECTOR / BOOLEAN_OPERATION</code> 一律用 IconPlaceholder。</p>
-        <span class="rule-trap">未查 type → 凭语义猜 → 自造内容</span>
-      </div>
-    </div>
-
-    <div class="rule-item">
-      <span class="rule-num">5</span>
-      <div class="rule-body">
-        <p class="rule-name">布局对齐规则</p>
-        <p class="rule-detail">MCP 对 Auto Layout 元素直接返回 <code style="font-size:0.85em">alignItems / justifyContent</code>；绝对定位元素只返回 <code style="font-size:0.85em">locationRelativeToParent: {x, y}</code>——需手动判断居中意图。</p>
-        <span class="rule-trap">x == (父-子)/2 → inset:0 + flex，禁止字面翻译坐标</span>
-      </div>
-    </div>
-
-    <div class="rule-item">
-      <span class="rule-num">6</span>
-      <div class="rule-body">
-        <p class="rule-name">组件系统规则</p>
-        <p class="rule-detail">变体必须从 Component Set 顶层节点枚举，<strong>不能</strong>从使用侧嵌套实例读取。使用侧只展示当前被用到的变体，可能遗漏其余变体。</p>
-        <span class="rule-trap">正确路径：componentSetId → children → 完整变体</span>
-      </div>
-    </div>
-
-    <div class="rule-item" style="grid-column:span 2">
-      <span class="rule-num">7</span>
-      <div class="rule-body">
-        <p class="rule-name">QA 走查清单</p>
-        <p class="rule-detail">逐层验证：<strong>图标</strong>（无文字替代）→ <strong>尺寸</strong>（±0.5px）→ <strong>Border</strong>（渲染尺寸一致 / fill容器用outline）→ <strong>布局</strong>（行列数量 / 绝对定位居中判断）→ <strong>变体</strong>（Component Set 完整覆盖）→ <strong>Token</strong>（颜色变量绑定）。</p>
-        <span class="rule-trap">每实现一个组件，必须按顺序过一遍此清单</span>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- Before/After comparison -->
-<section class="compare-section">
-  <p class="section-label reveal">还原前 vs 还原后</p>
-  <div class="compare-intro reveal">
-    <h3 class="compare-headline">菜单组件的 <em>5 个典型修复</em></h3>
-    <p class="compare-sub">以下问题均来自 vibcoding 思维导图菜单组件（menu atom）的真实质检过程，每一项都在规则手册中留有案例记录。</p>
-  </div>
-  <div class="compare-list reveal" style="transition-delay:0.1s">
-
-    <!-- Bug 1 -->
-    <div class="compare-item">
-      <div class="compare-meta">
-        <span class="compare-tag">§5 布局对齐</span>
-        <span class="compare-name">ColorDot<br/>check 图标偏移</span>
-        <span class="compare-cause">Figma x:6 y:6 = (28-16)/2 居中值，字面翻译后 border:2px 使坐标原点偏移 2px</span>
-      </div>
-      <div class="compare-before">
-        <span class="cp-label">❌ 还原前</span>
-        <div class="cp-code">
-          .color-dot__check {<br/>
-          &nbsp;&nbsp;position: absolute;<br/>
-          &nbsp;&nbsp;<span class="cp-del">top: 6px;</span><br/>
-          &nbsp;&nbsp;<span class="cp-del">left: 6px;</span><br/>
-          }
+    <div class="reveal" style="transition-delay:.2s">
+      <div class="code-panel">
+        <div class="cp-bar">
+          <div class="cp-dots"><span></span><span></span><span></span></div>
+          <span class="cp-fn">src/pages/InspirationBoard/Page.tsx</span>
         </div>
-        <p class="cp-note">→ 图标实际距外边 8px，视觉偏上偏左 2px</p>
-      </div>
-      <div class="compare-after">
-        <span class="cp-label">✓ 还原后</span>
-        <div class="cp-code">
-          .color-dot__check {<br/>
-          &nbsp;&nbsp;position: absolute;<br/>
-          &nbsp;&nbsp;<span class="cp-add">inset: 0;</span><br/>
-          &nbsp;&nbsp;<span class="cp-add">display: flex;</span><br/>
-          &nbsp;&nbsp;<span class="cp-add">align-items: center;</span><br/>
-          &nbsp;&nbsp;<span class="cp-add">justify-content: center;</span><br/>
-          }
-        </div>
-        <p class="cp-note">→ 居中意图 → 用 flex 对齐，与 border 无关</p>
-      </div>
-    </div>
+        <pre class="cp-body"><span class="cm">// PRD-001 · Feature 1: 灵感看板</span>
+<span class="cm">// AC-1: 用户可拖拽截图上传</span>
+<span class="cm">// AC-2: 自动提取颜色生成色板</span>
 
-    <!-- Bug 2 -->
-    <div class="compare-item">
-      <div class="compare-meta">
-        <span class="compare-tag">§2 Border 规则</span>
-        <span class="compare-name">颜色面板<br/>5 列 → 4 列</span>
-        <span class="compare-cause">Figma Inside stroke 不压缩 fill 子内容，CSS border-box 真实压缩内容区，208px → 207px，装不下第 5 个圆点</span>
-      </div>
-      <div class="compare-before">
-        <span class="cp-label">❌ 还原前</span>
-        <div class="cp-code">
-          .dropdown {<br/>
-          &nbsp;&nbsp;width: 208px;<br/>
-          &nbsp;&nbsp;<span class="cp-del">border: 0.5px solid rgba(0,0,0,0.08);</span><br/>
-          &nbsp;&nbsp;<span class="cp-del">box-sizing: border-box;</span><br/>
-          &nbsp;&nbsp;<span style="color:var(--ink-3)">/* 内容区 207px */</span><br/>
-          }
-        </div>
-        <p class="cp-note">→ 5×28px + 4×11px = 184px > 183px，只排 4 列</p>
-      </div>
-      <div class="compare-after">
-        <span class="cp-label">✓ 还原后</span>
-        <div class="cp-code">
-          .dropdown {<br/>
-          &nbsp;&nbsp;width: 208px;<br/>
-          &nbsp;&nbsp;<span class="cp-add">outline: 0.5px solid rgba(0,0,0,0.08);</span><br/>
-          &nbsp;&nbsp;<span class="cp-add">border: none;</span><br/>
-          &nbsp;&nbsp;<span style="color:var(--ink-3)">/* 内容区 208px */</span><br/>
-          }
-        </div>
-        <p class="cp-note">→ outline 不参与盒模型，5 列正常排布</p>
-      </div>
-    </div>
+<span class="kw">import</span> <span class="fn">React</span>, { <span class="fn">useCallback</span> } <span class="kw">from</span> <span class="st">'react'</span>
+<span class="kw">import</span> { <span class="fn">UploadZone</span>, <span class="fn">BoardGrid</span>, <span class="fn">ColorPalette</span> }
+  <span class="kw">from</span> <span class="st">'./components'</span>
+<span class="kw">import</span> { <span class="fn">useBoardStore</span> } <span class="kw">from</span> <span class="st">'@/stores/board'</span>
 
-    <!-- Bug 3 -->
-    <div class="compare-item">
-      <div class="compare-meta">
-        <span class="compare-tag">§3 尺寸规则</span>
-        <span class="compare-name">FocusBtn<br/>宽度错误</span>
-        <span class="compare-cause">从使用侧父容器推断 sizing = fill，未直接查 FocusBtn Component Set</span>
-      </div>
-      <div class="compare-before">
-        <span class="cp-label">❌ 还原前</span>
-        <div class="cp-code">
-          .focus-btn {<br/>
-          &nbsp;&nbsp;<span class="cp-del">width: 100%;</span> <span style="color:var(--ink-3)">/* fill? */</span><br/>
-          &nbsp;&nbsp;height: 36px;<br/>
-          }
-        </div>
-        <p class="cp-note">→ 从使用侧推断 fill，实际 Figma 是 fixed</p>
-      </div>
-      <div class="compare-after">
-        <span class="cp-label">✓ 还原后</span>
-        <div class="cp-code">
-          .focus-btn {<br/>
-          &nbsp;&nbsp;<span class="cp-add">width: 40px;</span> <span style="color:var(--ink-3)">/* fixed */</span><br/>
-          &nbsp;&nbsp;<span class="cp-add">height: 36px;</span><br/>
-          }
-        </div>
-        <p class="cp-note">→ 查 Component Set 5018:73659 → sizing: fixed, 40×36</p>
-      </div>
-    </div>
+<span class="kw">export default function</span> <span class="fn">InspirationBoard</span>() {
+  <span class="kw">const</span> { items, addItem } = <span class="fn">useBoardStore</span>()
 
-    <!-- Bug 4 -->
-    <div class="compare-item">
-      <div class="compare-meta">
-        <span class="compare-tag">§4 节点类型</span>
-        <span class="compare-name">BorderColorPanel<br/>线型图标用文字</span>
-        <span class="compare-cause">未查 Figma 节点 type，凭业务语义（实线/虚线/点线）自造文字内容</span>
-      </div>
-      <div class="compare-before">
-        <span class="cp-label">❌ 还原前</span>
-        <div class="cp-code">
-          <span style="color:var(--ink-3)">// 自造文字按钮</span><br/>
-          <FocusBtn><span class="cp-del">实线</span></FocusBtn><br/>
-          <FocusBtn><span class="cp-del">虚线</span></FocusBtn><br/>
-          <FocusBtn><span class="cp-del">点线</span></FocusBtn>
-        </div>
-        <p class="cp-note">→ Figma 节点 5023:57260 实际 type = IMAGE-SVG</p>
-      </div>
-      <div class="compare-after">
-        <span class="cp-label">✓ 还原后</span>
-        <div class="cp-code">
-          <span style="color:var(--ink-3)">// 图标占位</span><br/>
-          <FocusBtn<br/>
-          &nbsp;&nbsp;<span class="cp-add">icon={<IconPlaceholder size={20}/>}</span><br/>
-          &nbsp;&nbsp;aria-label="实线"<br/>
-          />
-        </div>
-        <p class="cp-note">→ 查节点 type 后改为 IconPlaceholder</p>
-      </div>
-    </div>
+  <span class="kw">const</span> handleDrop = <span class="fn">useCallback</span>((files: File[]) <span class="kw">=></span> {
+    <span class="cm">// TODO: 提取颜色 → 更新 store</span>
+    files.<span class="fn">forEach</span>(f => <span class="fn">addItem</span>({ file: f }))
+  }, [addItem])
 
-    <!-- Bug 5 -->
-    <div class="compare-item">
-      <div class="compare-meta">
-        <span class="compare-tag">§6 组件系统</span>
-        <span class="compare-name">ColorDot<br/>漏掉 hover 变体</span>
-        <span class="compare-cause">从使用侧父 Frame 下嵌套实例读取变体，使用侧只展示了部分变体，遗漏 hover</span>
-      </div>
-      <div class="compare-before">
-        <span class="cp-label">❌ 还原前（只有 2 变体）</span>
-        <div class="cp-code">
-          <span class="cp-del">type Variant =</span><br/>
-          <span class="cp-del">&nbsp;&nbsp;'default' | 'selected'</span><br/>
-          <br/>
-          <span style="color:var(--ink-3)">// hover 变体遗漏</span>
-        </div>
-        <p class="cp-note">→ 从 5005:29748 使用侧读取，仅见 2 个状态</p>
-      </div>
-      <div class="compare-after">
-        <span class="cp-label">✓ 还原后（完整 6 变体）</span>
-        <div class="cp-code">
-          <span class="cp-add">type Variant =</span><br/>
-          <span class="cp-add">&nbsp;&nbsp;'default' | 'hover' | 'selected'</span><br/>
-          <br/>
-          <span style="color:var(--ink-3)">// 查 5023:54209 Component Set</span><br/>
-          <span style="color:var(--ink-3)">// → 3态 × empty(T/F) = 6 变体</span>
-        </div>
-        <p class="cp-note">→ componentSetId 顶层 children 枚举完整变体</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ── Component Output Quality ─────────────────────────────────── -->
-<hr class="divider" />
-<section class="quality-section" id="component-quality">
-  <p class="section-label reveal">一次生成的质量</p>
-  <div class="quality-header reveal">
-    <h2 class="quality-title">拿到 Figma 链接<br/><em>一次生成的还原效果</em></h2>
-    <p class="quality-lead">以下展示 design-driven 路径下，design-analyst 角色通过 Figma MCP 读取 Component Set、提取完整变体矩阵、一次生成的组件系统。子节点 7 个风格变体 + 10 个菜单图标，均在单轮对话中完成还原。</p>
-    <div class="quality-meta">
-      <span class="quality-tag">Figma → CSS class 体系</span>
-      <span class="quality-tag">7 个节点变体</span>
-      <span class="quality-tag">10 个真实 SVG 图标</span>
-      <span class="quality-tag">零 IconPlaceholder</span>
-    </div>
-  </div>
-
-  <div class="preview-embed-wrap reveal" style="transition-delay:0.05s">
-    <div class="preview-embed-bar">
-      <span class="preview-embed-dot"></span><span class="preview-embed-dot"></span><span class="preview-embed-dot"></span>
-      <span class="preview-embed-url">localhost:5173/component-preview</span>
-      <span class="preview-embed-badge">原始页面 · 未修改</span>
-    </div>
-    <div class="preview-embed-frame">
-      <iframe
-        src="http://localhost:5173/component-preview"
-        title="Component Preview — 组件系统还原效果"
-        scrolling="yes"
-        loading="lazy"
-      ></iframe>
-    </div>
-  </div>
-</section>
-
-<!-- Setup -->
-<section class="section" id="setup">
-  <p class="section-label reveal">使用方式</p>
-  <div class="setup-grid">
-    <div class="setup-left">
-      <h2 class="setup-title reveal">只问 4 个<br/><strong>关键问题</strong></h2>
-      <p class="setup-desc reveal">告诉 Claude 这 4 个答案，脚手架自动生成，不需要手动创建任何文件。Claude 会弹出 UI 对话框逐项引导。</p>
-      <div class="setup-questions reveal">
-        <div class="setup-q">
-          <span class="q-num">1</span>
-          <div class="q-content">
-            <p class="q-text">目标目录或项目名称</p>
-            <p class="q-hint">可以是路径，也可以只说项目名</p>
-          </div>
-        </div>
-        <div class="setup-q">
-          <span class="q-num">2</span>
-          <div class="q-content">
-            <p class="q-text">是否已有设计稿？</p>
-            <p class="q-hint">有 → design-driven，没有 → zero-to-one</p>
-          </div>
-        </div>
-        <div class="setup-q">
-          <span class="q-num">3</span>
-          <div class="q-content">
-            <p class="q-text">默认协作模式</p>
-            <p class="q-hint">多模型协作 还是 单模型多角色</p>
-          </div>
-        </div>
-        <div class="setup-q">
-          <span class="q-num">4</span>
-          <div class="q-content">
-            <p class="q-text">是否启用 OpenClaw？</p>
-            <p class="q-hint">需要后台/远程执行时选 yes — 需要 GitHub 仓库 + jq + 免交互 Git 凭据；脚手架会在完成后输出 6 步配置清单</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="setup-right reveal" style="transition-delay:0.2s">
-      <div class="code-window">
-        <div class="code-bar">
-          <div class="code-dots"><span></span><span></span><span></span></div>
-          <span class="code-filename">terminal</span>
-        </div>
-        <pre class="code-body"><span class="c-comment"># Claude 自动生成并运行</span>
-
-<span class="c-cmd">python3</span> scripts/init_designer_vibecoding_project.py \
-  <span class="c-flag">--target</span>    <span class="c-val">"~/projects/my-app"</span> \
-  <span class="c-flag">--project-name</span> <span class="c-val">"my-app"</span> \
-  <span class="c-flag">--path-mode</span> <span class="c-val">design-driven</span> \
-  <span class="c-flag">--workflow</span>  <span class="c-val">claude-planner-codex-builder</span> \
-  <span class="c-flag">--openclaw</span>
-
-<span class="c-comment"># 初始化完成后开始工作</span>
-
-<span class="c-cmd">npm run</span> <span class="c-val">workflow:intent</span>  <span class="c-comment"># 中文切换协作模式</span>
-<span class="c-cmd">npm run</span> <span class="c-val">agent:run</span>        <span class="c-comment"># 执行当前 handoff</span>
-<span class="c-cmd">npm run</span> <span class="c-val">openclaw:daemon</span>  <span class="c-comment"># 开启后台守护</span></pre>
-      </div>
-      <div style="margin-top: 1rem; background: var(--amber-l); padding: 1rem 1.25rem; border-left: 3px solid var(--amber-d);">
-        <p style="font-size:0.75rem; color: var(--amber-d); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.35rem;">中文意图切换</p>
-        <p style="font-size: 0.82rem; color: var(--ink-2); line-height: 1.6;">直接说"切换到多模型协作"或"开启 OpenClaw 后台执行"，脚本会自动识别意图并更新协作模式。</p>
+  <span class="kw">return</span> (
+    <span class="tg">&lt;div</span> <span class="at">className</span>=<span class="st">"board-page"</span><span class="tg">&gt;</span>
+      <span class="tg">&lt;UploadZone</span> <span class="at">onDrop</span>={handleDrop} <span class="tg">/&gt;</span>
+      <span class="tg">&lt;BoardGrid</span> <span class="at">items</span>={items} <span class="tg">/&gt;</span>
+      <span class="tg">&lt;ColorPalette</span> <span class="at">items</span>={items} <span class="tg">/&gt;</span>
+    <span class="tg">&lt;/div&gt;</span>
+  )
+}</pre>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Output -->
-<section class="output-section" id="output">
+<hr class="div" />
+
+<!-- ═══ DEPLOY ═══ -->
+<section class="dep-s" id="deploy">
+  <p class="section-label reveal">部署上线</p>
+  <div class="reveal">
+    <h2 class="dep-title">说"帮我部署"<br/><em>就能上线</em></h2>
+    <p class="dep-sub">可以在项目任意阶段触发，不必等开发完成。1 个问题判断项目类型，然后精确引导每一步操作，每步都有 URL 和界面操作描述。</p>
+    <p class="dep-trigger">触发词：帮我部署 / 怎么上线 / 生成一个链接分享给别人</p>
+  </div>
+  <div class="dep-q reveal" style="transition-delay:.1s">
+    <p class="dep-q-text">你的项目有后端服务吗（需要登录账号、保存数据到数据库、有 API 接口）？</p>
+    <p class="dep-q-hint">A) 没有，就是一个页面/工具（纯前端）→ 推荐 Vercel &nbsp;&nbsp;|&nbsp;&nbsp; B) 有，需要后端 API 或数据库 → 推荐 Railway</p>
+  </div>
+  <div class="dep-platforms reveal" style="transition-delay:.18s">
+
+    <div class="plat rec">
+      <p class="plat-label">纯前端 / 推荐首选</p>
+      <p class="plat-name">Vercel</p>
+      <span class="plat-tag free">免费 · 无需信用卡</span>
+      <p class="plat-desc">React / Next.js / Vite 最佳搭档。自动检测框架，自动 HTTPS，全球 CDN。每次 git push 自动重新部署。</p>
+      <ul class="plat-steps">
+        <li><span class="ps-n">①</span>确认代码已推送到 GitHub（没有 → 引导注册 + git push）</li>
+        <li><span class="ps-n">②</span>打开 vercel.com → 用 GitHub 登录</li>
+        <li><span class="ps-n">③</span>Import 你的仓库 → Vercel 自动检测框架</li>
+        <li><span class="ps-n">④</span>点 Deploy → 等待约 1-3 分钟</li>
+        <li><span class="ps-n">⑤</span>访问 your-project.vercel.app ✓</li>
+      </ul>
+      <p class="plat-time">上线时间约 <strong>5 分钟</strong>（含 GitHub 推送）</p>
+    </div>
+
+    <div class="plat">
+      <p class="plat-label">有后端 / 全栈项目</p>
+      <p class="plat-name">Railway</p>
+      <span class="plat-tag fs">$5/月免费额度</span>
+      <p class="plat-desc">Node.js / Python / 数据库一站式部署。环境变量管理友好，支持 PostgreSQL / MySQL 一键添加。</p>
+      <ul class="plat-steps">
+        <li><span class="ps-n">①</span>确认代码已推送到 GitHub</li>
+        <li><span class="ps-n">②</span>打开 railway.app → 用 GitHub 登录</li>
+        <li><span class="ps-n">③</span>New Project → Deploy from GitHub Repo</li>
+        <li><span class="ps-n">④</span>在 Variables 里配置环境变量（.env 内容）</li>
+        <li><span class="ps-n">⑤</span>Settings → Networking → Generate Domain ✓</li>
+      </ul>
+      <p class="plat-time">含数据库约 <strong>10 分钟</strong> 配置完成</p>
+    </div>
+
+  </div>
+</section>
+
+<hr class="div" />
+
+<!-- ═══ OUTPUT FILES ═══ -->
+<section class="out-s" id="output">
   <p class="section-label reveal">初始化后你会拿到什么</p>
-  <p class="reveal" style="font-size:0.9rem; color: var(--ink-3); max-width: 50ch; line-height:1.7;">这些不是空模板——每个文件开箱即用，打开就能开始填写第一轮任务。</p>
-  <div class="output-grid">
-    <div class="output-item reveal"><span class="output-icon">📋</span><p class="output-name">AGENTS.md</p><p class="output-desc">项目协作规则入口，定义工作流、角色约束与完成定义</p></div>
-    <div class="output-item reveal" style="transition-delay:0.05s"><span class="output-icon">🔀</span><p class="output-name">current-workflow.md</p><p class="output-desc">当前激活的协作模式，是唯一的工作流状态源</p></div>
-    <div class="output-item reveal" style="transition-delay:0.1s"><span class="output-icon">📦</span><p class="output-name">handoff.json</p><p class="output-desc">单一任务交接源，填写后即可运行 agent_run.sh</p></div>
-    <div class="output-item reveal" style="transition-delay:0.15s"><span class="output-icon">📡</span><p class="output-name">status.json</p><p class="output-desc">实时执行状态：idle / running / done / failed</p></div>
-    <div class="output-item reveal" style="transition-delay:0.2s"><span class="output-icon">🎯</span><p class="output-name">active-sprint.md</p><p class="output-desc">当前冲刺目标、检查清单与进度追踪</p></div>
-    <div class="output-item reveal" style="transition-delay:0.25s"><span class="output-icon">✅</span><p class="output-name">todo.md</p><p class="output-desc">当前执行计划，按路径模式预填路径相关 checklist</p></div>
-    <div class="output-item reveal" style="transition-delay:0.3s"><span class="output-icon">🔧</span><p class="output-name">agent_run.sh</p><p class="output-desc">单一执行入口，填写执行命令后即可通过 npm 触发</p></div>
-    <div class="output-item reveal" style="transition-delay:0.35s"><span class="output-icon">🌐</span><p class="output-name">workflow_intent.sh</p><p class="output-desc">中文意图识别，自动更新 current-workflow.md</p></div>
+  <p class="reveal" style="font-size:.88rem;color:var(--ink-3);max-width:50ch;line-height:1.75">绿色标注的是 Phase 2B 生成的真实业务代码，其余是治理结构文件——每个文件开箱即用。</p>
+  <div class="out-grid">
+    <div class="out-item reveal"><div class="out-cat">治理</div><p class="out-name">AGENTS.md</p><p class="out-desc">规则总入口，单模型多 Agent 协作规则体系 v2.1</p></div>
+    <div class="out-item reveal" style="transition-delay:.05s"><div class="out-cat">治理</div><p class="out-name">prd-registry.md</p><p class="out-desc">PRD 主控追踪，含会话启动协议 + Sprint 生命周期</p></div>
+    <div class="out-item reveal" style="transition-delay:.08s"><div class="out-cat">Skill × 7</div><p class="out-name">skills/*/SKILL.md</p><p class="out-desc">design-analysis · requirements-refinement · two-stage-review 等 7 个 Skill 内联</p></div>
+    <div class="out-item reveal" style="transition-delay:.11s"><div class="out-cat">治理</div><p class="out-name">PRD-001-mvp.md</p><p class="out-desc">第一个 PRD（从对话生成），含 User Story + AC + 功能范围</p></div>
+    <div class="out-item gc reveal" style="transition-delay:.14s"><div class="out-cat">代码 · Phase 2B</div><p class="out-name">package.json</p><p class="out-desc">React + TypeScript + Vite + TailwindCSS + Zustand 完整依赖</p></div>
+    <div class="out-item gc reveal" style="transition-delay:.17s"><div class="out-cat">代码 · Phase 2B</div><p class="out-name">styles/tokens.css</p><p class="out-desc">设计 Token CSS 变量（颜色/间距/圆角），0-1 按风格偏好生成，设计驱动从 Figma 提取</p></div>
+    <div class="out-item gc reveal" style="transition-delay:.2s"><div class="out-cat">代码 · Phase 2B</div><p class="out-name">src/pages/*</p><p class="out-desc">每个 MVP 功能对应一个 Page 组件，有真实 UI 骨架，不是空白页</p></div>
+    <div class="out-item gc reveal" style="transition-delay:.23s"><div class="out-cat">代码 · Phase 2B</div><p class="out-name">App.tsx + router/</p><p class="out-desc">React Router 路由骨架 + Layout + Navbar，npm run dev 即可看到初始界面</p></div>
   </div>
 </section>
 
-<!-- Install -->
-<section class="install-block" id="install">
-  <p class="section-label reveal">安装命令</p>
-  <div class="install-grid">
+<!-- ═══ INSTALL ═══ -->
+<section class="inst-s" id="install">
+  <p class="section-label reveal">安装</p>
+  <div class="inst-grid">
     <div>
-      <h2 class="install-title reveal">一条命令<br/><em>带走这套模板</em></h2>
-      <p class="install-desc reveal" style="transition-delay:0.1s">
-        把 <code style="background: oklch(20% 0.015 60); color: var(--amber); padding: 0.1em 0.4em; border-radius: 4px; font-size:0.85em;">YOUR_USERNAME</code> 替换成你的 GitHub 用户名，推送仓库后即可分享给任何人一键安装。
-      </p>
+      <h2 class="inst-title reveal">一条命令<br/><em>带走这套模板</em></h2>
+      <p class="inst-desc reveal" style="transition-delay:.1s">安装后，向 Codewiz 说任意触发词即可启动——「帮我初始化项目」、「从0开始做一个应用」、「我有设计稿要开发」、「帮我部署」。</p>
     </div>
-    <div class="reveal" style="transition-delay: 0.2s;">
-      <div class="install-code">
-        <div class="install-code-bar">
-          <span class="install-code-label">INSTALL</span>
-          <button class="install-copy-btn" onclick="copyInstall(this)">复制</button>
+    <div class="reveal" style="transition-delay:.2s">
+      <div class="inst-code">
+        <div class="inst-bar">
+          <span class="inst-bar-label">INSTALL</span>
+          <button class="copy-btn" onclick="copyInstall(this)">复制</button>
         </div>
-        <pre class="install-pre" id="install-cmd-landing"><span style="color:oklch(50% 0.015 60)"># 安装 skill</span>
-<span style="color:var(--amber)">claude skills install</span> <span style="color:oklch(75% 0.1 140)">github.com/15029041458nanke-blip/designer-vibecoding-starter</span>
+        <pre class="inst-pre" id="install-cmd"><span style="color:oklch(40% .015 70)"># 安装 skill</span>
+<span style="color:var(--amber)">claude skills install</span> <span style="color:oklch(72% .14 148)">github.com/15029041458nanke-blip/Your-flow</span>
 
-<span style="color:oklch(50% 0.015 60)"># 安装后，向 Claude 说：</span>
-<span style="color: oklch(85% 0.015 75)">"帮我初始化一个新的 vibecoding 项目"</span>
-<span style="color:oklch(50% 0.015 60)"># Claude 会弹出对话框完成 4 个问题的配置</span></pre>
+<span style="color:oklch(40% .015 70)"># 向 Codewiz 说（任选其一）：</span>
+<span style="color:oklch(82% .015 75)">"帮我初始化一个新的 vibecoding 项目"</span>
+<span style="color:oklch(82% .015 75)">"从0开始做一个应用"</span>
+<span style="color:oklch(82% .015 75)">"我有设计稿要开始开发"</span>
+<span style="color:oklch(82% .015 75)">"帮我部署上线"</span></pre>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta" id="cta">
-  <div class="cta-text">
-    <h2 class="cta-headline reveal">说一句话<br/><em>开始项目</em></h2>
-    <p class="cta-sub reveal" style="transition-delay:0.1s">告诉 Claude 你想做什么，剩下的交给 skill——问题、脚手架、协作配置，一轮完成。</p>
+<!-- ═══ CTA ═══ -->
+<section class="cta-s">
+  <div>
+    <h2 class="cta-hl reveal">说一句话<br/><em>开始项目</em></h2>
+    <p class="cta-sub reveal" style="transition-delay:.1s">告诉 Codewiz 你想做什么，剩下的交给 Skill——追问、脚手架、代码、部署，全程引导，你只需要在关键节点做决策。</p>
   </div>
-  <div class="cta-panel reveal" style="transition-delay:0.2s">
-    <p class="cta-trigger">触发短语</p>
+  <div class="cta-panel reveal" style="transition-delay:.2s">
+    <p class="cta-trig">触发短语 — 任意一句即可</p>
     <ul class="cta-phrases">
       <li>帮我初始化一个新的 vibecoding 项目</li>
-      <li>帮我搭一套协作脚手架</li>
-      <li>新建一个 design-driven 项目</li>
-      <li>创建项目模板，走 Codex 全流程</li>
+      <li>我有设计稿，帮我开始开发</li>
+      <li>从0开始做一个应用</li>
+      <li>帮我部署上线</li>
     </ul>
-    <p class="cta-hint">以上任意短语发送给 Claude 即可触发 designer-vibecoding-starter skill。也可以直接说"新建 vibecoding 项目"。</p>
+    <p class="cta-hint">以上任意短语发给 Codewiz 即可触发。不确定怎么说？直接描述你想做的事，Codewiz 会自动判断从哪里开始。</p>
   </div>
 </section>
 
 <footer>
-  <p class="footer-brand">Designer Vibecoding Starter &mdash; Claude Skill</p>
-  <p class="footer-meta">Round 6 · 2026-03-19 · Design Analyst 实战案例 · design-role-rules.md v1.8 · 7类还原规则 + 5个Before/After对比</p>
+  <p class="f-brand">Designer Vibecoding Starter &mdash; Claude Skill</p>
+  <p class="f-meta">v4.0 · 2026-03-26 · 全生命周期：需求 → 代码生成 → 开发协作 → 部署上线</p>
 </footer>
 
 <script>
-  function selectMode(el) {
-    document.querySelectorAll('#mode-cards .mode-card').forEach(c => c.classList.remove('active'));
-    el.classList.add('active');
-  }
+// ── Chat step walker ──
+const steps = [0,1,2,3,4,5];
+let cur = 0;
 
-  function copyInstall(btn) {
-    const text = document.getElementById('install-cmd-landing').innerText;
-    navigator.clipboard.writeText(text).then(() => {
-      btn.textContent = '已复制';
-      setTimeout(() => btn.textContent = '复制', 1400);
-    });
-  }
+function goStep(n) {
+  const msgs = document.querySelectorAll('#chat-body .msg');
+  msgs.forEach(m => {
+    const s = parseInt(m.dataset.step);
+    m.style.display = s <= n ? '' : 'none';
+  });
+  document.querySelectorAll('.cs-dot').forEach((d,i) => {
+    d.classList.toggle('on', i === n);
+  });
+  document.getElementById('cs-prog').textContent =
+    `步骤 ${n+1} / 6 — 点击圆点浏览对话`;
+  cur = n;
+}
 
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.1 });
+// Auto-advance
+let autoTimer = setInterval(() => {
+  const next = (cur + 1) % 6;
+  goStep(next);
+}, 2800);
 
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+document.querySelectorAll('.cs-dot').forEach(d => {
+  d.addEventListener('click', () => { clearInterval(autoTimer); });
+});
+
+// ── Copy button ──
+function copyInstall(btn) {
+  const text = document.getElementById('install-cmd').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '已复制';
+    setTimeout(() => btn.textContent = '复制', 1500);
+  });
+}
+
+// ── Scroll reveal ──
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
 </body>
 </html>
+<span style="color:oklch(82% .015 75)">"我有设计稿要开始开发"</span>
+<span style="color:oklch(82% .015 75)">"帮我部署上线"</span></pre>
