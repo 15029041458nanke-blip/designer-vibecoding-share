@@ -1155,10 +1155,10 @@
         <div class="sheet">
           <div class="binder"><span></span></div>
           <div class="tabs">
-            <div class="tab mint">FLOW</div>
-            <div class="tab rose">HABIT</div>
-            <div class="tab sky">SKILL</div>
-            <div class="tab gold">DEPLOY</div>
+            <div class="tab mint">EXPLORE</div>
+            <div class="tab rose">DESIGN</div>
+            <div class="tab sky">ARCH</div>
+            <div class="tab gold">SKILL</div>
           </div>
           <div class="inner">
             <div class="slide-head reveal">
@@ -1173,24 +1173,24 @@
                   迭代、沉淀的完整过程。
                 </p>
                 <div class="iter-tags" style="margin-top: 0.8rem;">
-                  <span class="iter-tag warm">V0 一问一答</span>
-                  <span class="iter-tag rose">V1 单模型多 Agent</span>
-                  <span class="iter-tag mint">V2 工作习惯</span>
-                  <span class="iter-tag sky">V3 Figma MCP</span>
-                  <span class="iter-tag gold">V4 完整 Skill</span>
+                  <span class="iter-tag warm">① 历史探索</span>
+                  <span class="iter-tag rose">② 工作习惯</span>
+                  <span class="iter-tag sky">③ 设计角色</span>
+                  <span class="iter-tag gold">④ 架构治理</span>
+                  <span class="iter-tag mint">⑤ Superpowers Skill</span>
                 </div>
               </div>
               <div class="card soft-rose reveal-scale stagger-3">
                 <div class="card-label">核心判断</div>
-                <div class="stat">工作习惯 &gt; Prompt</div>
-                <p class="lead" style="font-size: clamp(0.85rem, 1.2vw, 1.05rem); max-width: none;">
-                  真正让项目不跑偏的，不是一句神奇的提示词，
-                  而是一套被写进文件的工作方式。
+                <div class="stat">习惯 &gt; Prompt<br>Skill &gt; Agent</div>
+                <p class="lead" style="font-size: clamp(0.82rem, 1.1vw, 0.98rem); max-width: none; margin-top: 0.5rem;">
+                  不是一句神奇的提示词，而是写进文件的工作方式；
+                  不是随机的子 Agent，而是结构化的子 Skill。
                 </p>
               </div>
             </div>
             <div class="footer reveal stagger-4">
-              <span>设计驱动 · 单模型多 Agent · 可模板化</span>
+              <span>设计驱动 · 单模型多 Skill · 全生命周期</span>
               <span>卡恩 · 完整迭代版</span>
             </div>
           </div>
@@ -1200,75 +1200,99 @@
   </section>
 
   <!-- ===============================================
-       SLIDE 2: 起点 — 最粗糙的版本
+       SLIDE 2: 历史探索 — 四阶段演进
        =============================================== -->
-  <section class="slide" data-title="起点">
+  <section class="slide" data-title="历史探索">
     <div class="slide-content">
       <div class="page">
         <div class="sheet">
           <div class="binder"><span></span></div>
           <div class="tabs">
-            <div class="tab warm" style="background: rgba(203,122,71,0.35);">V0</div>
-            <div class="tab rose">PAIN</div>
-            <div class="tab sky">GAP</div>
+            <div class="tab warm" style="background: rgba(203,122,71,0.35);">EXPLORE</div>
+            <div class="tab rose">MODEL</div>
+            <div class="tab mint">TEAM</div>
           </div>
           <div class="inner">
             <div class="slide-head reveal">
-              <div class="eyebrow">V0 · 起点</div>
+              <div class="eyebrow">① 历史探索 · 从一问一答到 AI 团队</div>
               <div class="slide-index">02</div>
             </div>
-            <h2 class="reveal-left stagger-1">最开始，我和 AI 就是一问一答</h2>
-            <p class="subnote reveal stagger-1">没有流程，没有角色，没有验证。每次对话都从头说清楚背景，AI 做完给我看，我说不对，它改，如此循环。</p>
+            <h2 class="reveal-left stagger-1">四个阶段，一步步被上一个阶段的问题逼出来的</h2>
+            <p class="subnote reveal stagger-1">没有人告诉我正确答案，每一步都是在踩坑后主动调整的结果。</p>
 
-            <div class="two-col" style="margin-top: 0.8rem;">
-              <!-- 左：对话示意 -->
-              <div class="card reveal stagger-2" style="padding: 0.8rem;">
-                <div class="card-label">典型对话模式</div>
-                <div class="chat-bubble" style="margin-top: 0.5rem;">
-                  <div class="chat-avatar ai">我</div>
-                  <div class="chat-text">帮我把这个思维导图的节点拖拽做出来，参考这份设计稿……（粘贴了 800 字描述）</div>
+            <div class="four-col" style="margin-top: 0.75rem; gap: 0.6rem;">
+              <div class="card reveal stagger-2" style="border-top: 3px solid rgba(203,122,71,0.6);">
+                <div style="display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.5rem;">
+                  <span style="font-family: var(--font-display); font-size: clamp(1.1rem, 1.8vw, 1.6rem); color: rgba(203,122,71,0.35); line-height:1;">01</span>
+                  <div class="card-label" style="margin-bottom:0;">一问一答</div>
                 </div>
-                <div class="chat-bubble user">
-                  <div class="chat-avatar user">AI</div>
-                  <div class="chat-text">好的，我来实现拖拽功能，这里我用了 react-draggable……（生成了 200 行代码）</div>
-                </div>
-                <div class="chat-bubble">
-                  <div class="chat-avatar ai">我</div>
-                  <div class="chat-text">不对，不是 react-draggable，我们用的是 XYFlow，你没记住之前说的。</div>
-                </div>
-                <div class="chat-bubble user">
-                  <div class="chat-avatar user">AI</div>
-                  <div class="chat-text">抱歉，让我重新做……（新会话开始，又忘了之前的所有约定）</div>
+                <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.6;">每次交代背景，AI 无记忆，规则靠 prompt 口口相传，做完不等于做对，Context 越来越长质量越来越差。</p>
+                <div style="margin-top: 0.55rem; padding: 0.38rem 0.6rem; border-radius: 0.6rem; background: rgba(203,122,71,0.07); font-size: var(--small-size); color: var(--accent-warm); font-weight: 700;">
+                  痛点：上下文冲突 · 无验证 · 重复成本高
                 </div>
               </div>
 
-              <!-- 右：问题列表 -->
-              <div style="display: grid; gap: 0.65rem;">
-                <div class="card soft-rose reveal stagger-3">
-                  <div class="card-header">
-                    <div class="card-icon"><svg viewBox="0 0 24 24"><use href="#icon-target"></use></svg></div>
-                    <div class="card-label">核心问题</div>
-                  </div>
-                  <ul class="bullet-list">
-                    <li>每次对话要重新交代背景，成本极高</li>
-                    <li>AI 没有记忆，规则约定全靠 prompt 传递</li>
-                    <li>没有验证环节，"做完"不等于"做对"</li>
-                    <li>Context 越来越长，输出质量越来越差</li>
-                  </ul>
+              <div class="card reveal stagger-3" style="border-top: 3px solid rgba(232,216,159,0.8);">
+                <div style="display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.5rem;">
+                  <span style="font-family: var(--font-display); font-size: clamp(1.1rem, 1.8vw, 1.6rem); color: rgba(203,170,60,0.3); line-height:1;">02</span>
+                  <div class="card-label" style="margin-bottom:0;">站在巨人肩膀上</div>
                 </div>
-                <div class="card soft-gold reveal stagger-4">
-                  <div class="card-label">本质缺失</div>
-                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.65; margin-top: 0.3rem;">
-                    没有<strong style="color: var(--text-primary);">流程</strong>承载规则，
-                    没有<strong style="color: var(--text-primary);">角色</strong>划分职责，
-                    没有<strong style="color: var(--text-primary);">验证</strong>保证质量。
-                    这不是 AI 的能力问题，是协作方式的问题。
-                  </p>
+                <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.6;">先让 AI 做技术选型研究，找成熟开源框架（MindElixir / XYFlow / Markmap），构建扎实的技术地基，不从零造轮子。</p>
+                <div style="margin-top: 0.55rem; padding: 0.38rem 0.6rem; border-radius: 0.6rem; background: rgba(232,216,159,0.15); font-size: var(--small-size); color: #8a6e1a; font-weight: 700;">
+                  收益：有稳固底座 · 扩展方向无阻力
+                </div>
+              </div>
+
+              <div class="card reveal stagger-4" style="border-top: 3px solid rgba(171,204,229,0.8);">
+                <div style="display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.5rem;">
+                  <span style="font-family: var(--font-display); font-size: clamp(1.1rem, 1.8vw, 1.6rem); color: rgba(171,204,229,0.5); line-height:1;">03</span>
+                  <div class="card-label" style="margin-bottom:0;">多模型协作</div>
+                </div>
+                <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.6;">Claude Code 规划 + Codex 执行，把"想明白"和"做出来"拆开。解决上下文冲突和成本问题，规划执行间天然有 review。</p>
+                <div style="margin-top: 0.55rem; padding: 0.38rem 0.6rem; border-radius: 0.6rem; background: rgba(171,204,229,0.12); font-size: var(--small-size); color: #3a7aa0; font-weight: 700;">
+                  收益：上下文干净 · 成本可控 · 天然 review
+                </div>
+              </div>
+
+              <div class="card soft-mint reveal stagger-5" style="border-top: 3px solid rgba(157,202,180,0.8);">
+                <div style="display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.5rem;">
+                  <span style="font-family: var(--font-display); font-size: clamp(1.1rem, 1.8vw, 1.6rem); color: rgba(157,202,180,0.5); line-height:1;">04</span>
+                  <div class="card-label" style="margin-bottom:0;">单 Agent + 多角色</div>
+                </div>
+                <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.6;">不再绑定两个模型——一个主 Agent 编排多个角色子 Agent。更灵活，也解决了 Claude tokens 耗尽时的替代问题。</p>
+                <div style="margin-top: 0.55rem; padding: 0.38rem 0.6rem; border-radius: 0.6rem; background: rgba(157,202,180,0.18); font-size: var(--small-size); color: #3d8a6b; font-weight: 700;">
+                  收益：角色分工清晰 · AI 团队雏形
                 </div>
               </div>
             </div>
 
-            <div class="quote reveal stagger-5">我需要的不是"更好地和 AI 聊天"，而是"搭一套让 AI 能稳定工作的体系"。</div>
+            <div class="agent-flow reveal stagger-5" style="margin-top: 0.7rem;">
+              <div class="agent-node">
+                <div class="agent-role">PM</div>
+                <h4>project-manager</h4>
+                <p>收口目标、范围、优先级</p>
+              </div>
+              <div class="agent-node">
+                <div class="agent-role">Arch</div>
+                <h4>architect</h4>
+                <p>设计路径、拆模块、做关键判断</p>
+              </div>
+              <div class="agent-node">
+                <div class="agent-role">Build</div>
+                <h4>engineer</h4>
+                <p>完成实现、联调、多文件修改</p>
+              </div>
+              <div class="agent-node">
+                <div class="agent-role">Test</div>
+                <h4>tester</h4>
+                <p>跑验证、补测试、守关键路径</p>
+              </div>
+              <div class="agent-node">
+                <div class="agent-role">Review</div>
+                <h4>reviewer</h4>
+                <p>回归风险、实现质量、交付完整度</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1276,82 +1300,7 @@
   </section>
 
   <!-- ===============================================
-       SLIDE 3: 演进 — 单模型多 Agent
-       =============================================== -->
-  <section class="slide" data-title="单模型多 Agent">
-    <div class="slide-content">
-      <div class="page">
-        <div class="sheet">
-          <div class="binder"><span></span></div>
-          <div class="tabs">
-            <div class="tab mint">V1</div>
-            <div class="tab rose">ARCH</div>
-            <div class="tab gold">COST</div>
-          </div>
-          <div class="inner">
-            <div class="slide-head reveal">
-              <div class="eyebrow">V1 · 单模型多 Agent</div>
-              <div class="slide-index">03</div>
-            </div>
-            <h2 class="reveal-left stagger-1">把规划和执行拆开——这是最重要的一步</h2>
-            <p class="subnote reveal stagger-1">参考了优秀的 agent 配置实践后，核心判断是：一问一答不是 AI 的极限，而是协作架构的极限。把"想明白"和"做出来"拆开，才能真正发挥 AI 的潜力。</p>
-
-            <div class="two-col" style="margin-top: 0.75rem;">
-              <!-- 架构图 -->
-              <div class="card soft-mint reveal stagger-2">
-                <div class="card-label">单模型多 Agent 架构</div>
-                <div style="display: grid; gap: 0.5rem; margin-top: 0.5rem;">
-                  <div style="text-align: center; padding: 0.55rem 0.8rem; background: rgba(203,122,71,0.1); border-radius: 0.8rem; border: 1px solid rgba(203,122,71,0.25);">
-                    <div style="font-size: var(--small-size); font-weight: 900; color: var(--accent-warm);">用户</div>
-                  </div>
-                  <div style="text-align:center; font-size: 1.1rem; color: rgba(31,27,25,0.3);">↓</div>
-                  <div style="text-align: center; padding: 0.65rem 0.8rem; background: rgba(203,122,71,0.14); border-radius: 0.8rem; border: 2px solid rgba(203,122,71,0.3);">
-                    <div style="font-size: clamp(0.68rem, 0.9vw, 0.82rem); font-weight: 900; color: var(--accent-warm);">Codewiz 主 Agent</div>
-                    <div style="font-size: var(--small-size); color: var(--text-secondary); margin-top: 0.2rem;">规划 · 编排 · Review · 决策</div>
-                  </div>
-                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem; text-align: center;">
-                    <div style="font-size: 1.1rem; color: rgba(31,27,25,0.3); text-align:center; grid-column: span 2;">↙ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↘</div>
-                    <div style="padding: 0.45rem; background: rgba(255,255,255,0.85); border-radius: 0.65rem; border: 1px solid var(--line);">
-                      <div style="font-size: var(--small-size); font-weight: 800; color: var(--text-primary);">子 Agent 1</div>
-                      <div style="font-size: 0.58rem; color: var(--text-secondary);">独立上下文·执行 Task-1</div>
-                    </div>
-                    <div style="padding: 0.45rem; background: rgba(255,255,255,0.85); border-radius: 0.65rem; border: 1px solid var(--line);">
-                      <div style="font-size: var(--small-size); font-weight: 800; color: var(--text-primary);">子 Agent 2</div>
-                      <div style="font-size: 0.58rem; color: var(--text-secondary);">独立上下文·执行 Task-2</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 三条收益 -->
-              <div style="display: grid; gap: 0.65rem;">
-                <div class="card reveal stagger-3">
-                  <div class="card-label">收益 1 — 上下文精简</div>
-                  <h3 style="font-size: clamp(0.85rem, 1.1vw, 0.98rem);">主线程只留决策</h3>
-                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.6; margin-top: 0.3rem;">研究、探索和并行分析交给子 Agent。主上下文窗口保持干净，输出质量稳定。</p>
-                </div>
-                <div class="card reveal stagger-4">
-                  <div class="card-label">收益 2 — 天然带 Review</div>
-                  <h3 style="font-size: clamp(0.85rem, 1.1vw, 0.98rem);">规划与执行相互校正</h3>
-                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.6; margin-top: 0.3rem;">拆开之后，主 Agent 对子 Agent 的结果天然存在一道 Review 关卡。</p>
-                </div>
-                <div class="card reveal stagger-5">
-                  <div class="card-label">收益 3 — 成本可控</div>
-                  <h3 style="font-size: clamp(0.85rem, 1.1vw, 0.98rem);">高频执行用轻量 Agent</h3>
-                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.6; margin-top: 0.3rem;">高价值规划用更稳的模型，高频执行用成本更低的模型，整体成本可控。</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="quote reveal stagger-5">"从'我和 AI 聊一聊'，变成'我带着一个 AI 团队做项目'。"</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===============================================
-       SLIDE 4: 关键转折 — 工作习惯 + AGENTS.md
+       SLIDE 3: 工作习惯 — 参考优秀配置 + AGENTS.md
        =============================================== -->
   <section class="slide" data-title="工作习惯">
     <div class="slide-content">
@@ -1359,20 +1308,19 @@
         <div class="sheet">
           <div class="binder"><span></span></div>
           <div class="tabs">
-            <div class="tab gold">V2</div>
+            <div class="tab gold">HABIT</div>
             <div class="tab mint">AGENTS</div>
-            <div class="tab rose">HABIT</div>
+            <div class="tab rose">RULES</div>
           </div>
           <div class="inner">
             <div class="slide-head reveal">
-              <div class="eyebrow">V2 · 关键转折 — 工作习惯</div>
-              <div class="slide-index">04</div>
+              <div class="eyebrow">② 工作习惯 · 参考优秀配置指南</div>
+              <div class="slide-index">03</div>
             </div>
-            <h2 class="reveal-left stagger-1">参考优秀的 Agent 配置后，我意识到：<br>真正让项目不跑偏的不是 Prompt，而是工作习惯</h2>
-            <p class="subnote reveal stagger-1">规则要写进文件，不能靠对话传递。于是有了 AGENTS.md——一个每次会话启动时 AI 必须读取的"团队宪法"。</p>
+            <h2 class="reveal-left stagger-1">参考优秀但片段式的开发 Agent 配置指南后，<br>我意识到：真正让项目不跑偏的不是 Prompt，而是工作习惯</h2>
+            <p class="subnote reveal stagger-1">规则必须写进文件，不能靠对话传递。每次被纠正的错误要沉淀为规则，不靠每次重新提醒。于是有了 AGENTS.md。</p>
 
             <div class="copy-layout" style="margin-top: 0.75rem;">
-              <!-- 左：四条工作习惯 -->
               <div class="detail-grid" style="margin-top: 0;">
                 <div class="card reveal stagger-2">
                   <div class="card-label">Plan 优先</div>
@@ -1386,68 +1334,61 @@
                 </div>
                 <div class="card reveal stagger-3">
                   <div class="card-label">子 Agent 拆出去</div>
-                  <h3 style="font-size: clamp(0.85rem, 1.1vw, 0.98rem);">研究和并行分析独立</h3>
-                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.55; margin-top: 0.3rem;">主上下文只保留当前决策，避免一个窗口里塞满所有细节。</p>
+                  <h3 style="font-size: clamp(0.85rem, 1.1vw, 0.98rem);">主线程只留决策</h3>
+                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.55; margin-top: 0.3rem;">研究和并行分析交给子 Agent，主上下文只保留当前决策。</p>
                   <pre class="mini-code">agent A：研究导出方案
 agent B：排查状态持久化
 agent C：对比主流 mindmap 库
-
 主线程只保留结论与决策</pre>
                 </div>
                 <div class="card reveal stagger-4">
                   <div class="card-label">Lessons 沉淀</div>
-                  <h3 style="font-size: clamp(0.85rem, 1.1vw, 0.98rem);">每次纠正写进文件</h3>
-                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.55; margin-top: 0.3rem;">把反复出现的错误变成默认规则，不靠每次重新提醒。</p>
+                  <h3 style="font-size: clamp(0.85rem, 1.1vw, 0.98rem);">错误变成规则</h3>
+                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.55; margin-top: 0.3rem;">每次被纠正后写进文件，让它成为下次会话的默认行为。</p>
                   <pre class="mini-code">## lessons
 - 设计稿不能直接进开发
 - 先转 PRD 再 handoff
-- 任务完成前必须留验证证据</pre>
+- 完成前必须留验证证据</pre>
                 </div>
                 <div class="card reveal stagger-5">
-                  <div class="card-label">Task Management</div>
-                  <h3 style="font-size: clamp(0.85rem, 1.1vw, 0.98rem);">任务清单持续勾选</h3>
-                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.55; margin-top: 0.3rem;">计划、进度、review 都落在同一个文件，做完一项勾一项。</p>
-                  <pre class="mini-code">- [x] 明确导出范围
-- [x] 拆分实现步骤
-- [ ] 跑回归测试
-- [ ] 补 review 小结</pre>
+                  <div class="card-label">两阶段 Review</div>
+                  <h3 style="font-size: clamp(0.85rem, 1.1vw, 0.98rem);">做完 ≠ 做对</h3>
+                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.55; margin-top: 0.3rem;">Spec 合规 + 代码质量两关都过，才算完成任务。</p>
+                  <pre class="mini-code">阶段1：spec需求全实现了吗？
+        边界条件覆盖了吗？
+阶段2：类型安全？相同逻辑&gt;2处？
+        有回归风险吗？</pre>
                 </div>
               </div>
 
-              <!-- 右：AGENTS.md 摘要 -->
               <div class="copy-wrap reveal stagger-3">
                 <div class="copy-head">
-                  <span>AGENTS.md 核心条款</span>
+                  <span>AGENTS.md · 任务分级强制流程</span>
                 </div>
-                <pre class="copy-pre">## 任务分级与强制流程
+                <pre class="copy-pre">🟢 小任务（≤2步，单文件）
+直接实现 → verify → 完成
 
-🟢 小任务（≤2步，单文件）
-→ 直接实现 → verify → 完成
-
-🟡 中任务（3-6步，跨2个模块）
-→ 写 plan → 实现 → 两阶段 review → 完成
-
-🔴 大任务（跨模块/架构调整）
-→ brainstorming → 写 spec → 实现
+🟡 中任务（3-6步，跨2模块）
+写 plan → 子 Agent 实现
 → 两阶段 review → 完成
 
-## 两阶段 Review 门控
+🔴 大任务（跨模块/架构调整）
+brainstorming → 写 spec
+→ 子 Agent 实现（每 task 独立）
+→ 两阶段 review → 完成
 
-阶段 1：Spec 合规 Review
-- spec 中每条需求是否都有对应实现？
-- 边界条件和错误处理是否覆盖？
+不允许跳级：大任务不得直接
+进入实现，必须完成规划串联。
 
-阶段 2：代码质量 Review
-- 类型安全？相同逻辑是否超过 2 处？
-- 是否有明显的回归风险？
+── 完成定义（DoD）──
+☑ 功能可运行
+☑ npm run build 通过
+☑ 两阶段 Review 通过
+☑ 无明显回归风险
+☑ 关键变更有注释
 
 两关都通过才算完成。
-
-## 完成定义（DoD）
-- [ ] 功能可运行
-- [ ] npm run build 通过
-- [ ] 两阶段 review 通过
-- [ ] 无明显回归风险</pre>
+不满足 DoD 一律视为未完成。</pre>
               </div>
             </div>
           </div>
@@ -1457,73 +1398,83 @@ agent C：对比主流 mindmap 库
   </section>
 
   <!-- ===============================================
-       SLIDE 5: Figma MCP + 设计角色
+       SLIDE 4: 设计角色 — design-analyst 深度展示
        =============================================== -->
-  <section class="slide" data-title="Figma MCP + 设计角色">
+  <section class="slide" data-title="设计角色">
     <div class="slide-content">
       <div class="page">
         <div class="sheet">
           <div class="binder"><span></span></div>
           <div class="tabs">
-            <div class="tab sky">FIGMA</div>
-            <div class="tab rose">PRD</div>
-            <div class="tab mint">QA</div>
+            <div class="tab sky">DESIGN</div>
+            <div class="tab rose">RULES</div>
+            <div class="tab gold">PRD</div>
           </div>
           <div class="inner">
             <div class="slide-head reveal">
-              <div class="eyebrow">V3 · Figma MCP + 设计角色</div>
-              <div class="slide-index">05</div>
+              <div class="eyebrow">③ 设计角色 · design-analyst 的引入与迭代</div>
+              <div class="slide-index">04</div>
             </div>
-            <h2 class="reveal-left stagger-1">接入 Figma MCP 后，design-analyst 上线了</h2>
-            <p class="subnote reveal stagger-1">之前 PRD 靠我手写，设计细节经常遗漏。有了 design-analyst，它能直接读设计稿，把设计意图翻译成工程能接手的格式。</p>
+            <h2 class="reveal-left stagger-1">接入 Figma MCP，补上了设计角色——<br>这是让开发质量真正上台阶的一步</h2>
+            <p class="subnote reveal stagger-1">设计稿不能直接进开发：颜色没有 token 映射，组件边界不清，hover 状态靠猜。有了 design-analyst，设计意图变成工程可接手的 PRD。</p>
 
             <div class="two-col" style="margin-top: 0.75rem;">
-              <!-- 左：3 种场景 -->
-              <div style="display: grid; gap: 0.6rem;">
-                <div class="card reveal stagger-2" style="border-left: 3px solid var(--accent-sky);">
-                  <div class="card-label">场景 A — 大型设计稿</div>
-                  <div class="flow-chain" style="margin-top: 0.35rem;">
-                    <span class="flow-step">Figma 全稿</span>
-                    <span class="flow-arrow">→</span>
-                    <span class="flow-step accent">设计分析</span>
-                    <span class="flow-arrow">→</span>
-                    <span class="flow-step">识别模块</span>
-                    <span class="flow-arrow">→</span>
-                    <span class="flow-step">拆分多个 PRD</span>
+              <!-- 左列：演进过程 + 规范要求 -->
+              <div style="display: grid; gap: 0.55rem;">
+                <div class="card reveal stagger-2" style="border-left: 3px solid rgba(171,204,229,0.8);">
+                  <div class="card-label">引入背景 · 为什么需要这个角色</div>
+                  <ul class="bullet-list" style="margin-top: 0.35rem;">
+                    <li>手写 PRD 遗漏设计细节，工程执行靠猜</li>
+                    <li>颜色值散落、间距规则不统一，每次都要反复确认</li>
+                    <li>接入 Figma MCP 后，AI 能直接读设计稿数据</li>
+                    <li>design-analyst 上线，负责把设计翻译成工程格式</li>
+                  </ul>
+                </div>
+                <div class="card soft-rose reveal stagger-3">
+                  <div class="card-label">优化迭代过程 · 每踩一个坑，规范就多一条</div>
+                  <div style="display: grid; gap: 0.3rem; margin-top: 0.35rem;">
+                    <div style="display: flex; gap: 0.5rem; align-items: flex-start; font-size: var(--small-size);">
+                      <span style="color: var(--accent-rose); font-weight: 800; min-width: 1.2rem;">①</span>
+                      <span style="color: var(--text-secondary);">首版只输出组件名 → <strong style="color: var(--text-primary);">补充 token 映射要求</strong></span>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem; align-items: flex-start; font-size: var(--small-size);">
+                      <span style="color: var(--accent-rose); font-weight: 800; min-width: 1.2rem;">②</span>
+                      <span style="color: var(--text-secondary);">缺 hover/disabled 状态 → <strong style="color: var(--text-primary);">强制输出全状态定义</strong></span>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem; align-items: flex-start; font-size: var(--small-size);">
+                      <span style="color: var(--accent-rose); font-weight: 800; min-width: 1.2rem;">③</span>
+                      <span style="color: var(--text-secondary);">边界不清楚 → <strong style="color: var(--text-primary);">加入验收标准（像素级还原约束）</strong></span>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem; align-items: flex-start; font-size: var(--small-size);">
+                      <span style="color: var(--accent-rose); font-weight: 800; min-width: 1.2rem;">④</span>
+                      <span style="color: var(--text-secondary);">响应式没定义 → <strong style="color: var(--text-primary);">补充断点行为规范</strong></span>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem; align-items: flex-start; font-size: var(--small-size);">
+                      <span style="color: var(--accent-rose); font-weight: 800; min-width: 1.2rem;">⑤</span>
+                      <span style="color: var(--text-secondary);">Figma 特殊属性漏读 → <strong style="color: var(--text-primary);">沉淀成 7 章节规则库</strong></span>
+                    </div>
                   </div>
                 </div>
-                <div class="card reveal stagger-3" style="border-left: 3px solid var(--accent-rose);">
-                  <div class="card-label">场景 B — PRD + 设计稿</div>
-                  <div class="flow-chain" style="margin-top: 0.35rem;">
-                    <span class="flow-step">产品 PRD</span>
-                    <span class="flow-arrow">+</span>
-                    <span class="flow-step">设计稿</span>
-                    <span class="flow-arrow">→</span>
-                    <span class="flow-step accent">对齐分析</span>
-                    <span class="flow-arrow">→</span>
-                    <span class="flow-step">标注疑点/风险</span>
+                <div class="card soft-gold reveal stagger-4">
+                  <div class="card-label">最终产出 · design-role-rules.md</div>
+                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.55; margin-top: 0.3rem;">411 行实战沉淀的 Figma→CSS 还原规则库</p>
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.3rem; margin-top: 0.4rem;">
+                    <div style="padding: 0.28rem 0.5rem; border-radius: 0.4rem; background: rgba(203,170,60,0.1); font-size: 0.6rem; font-weight: 700; color: #8a6e1a;">字体 &amp; 行高</div>
+                    <div style="padding: 0.28rem 0.5rem; border-radius: 0.4rem; background: rgba(203,170,60,0.1); font-size: 0.6rem; font-weight: 700; color: #8a6e1a;">间距规则</div>
+                    <div style="padding: 0.28rem 0.5rem; border-radius: 0.4rem; background: rgba(203,170,60,0.1); font-size: 0.6rem; font-weight: 700; color: #8a6e1a;">颜色 Token</div>
+                    <div style="padding: 0.28rem 0.5rem; border-radius: 0.4rem; background: rgba(203,170,60,0.1); font-size: 0.6rem; font-weight: 700; color: #8a6e1a;">全状态定义</div>
+                    <div style="padding: 0.28rem 0.5rem; border-radius: 0.4rem; background: rgba(203,170,60,0.1); font-size: 0.6rem; font-weight: 700; color: #8a6e1a;">响应式断点</div>
+                    <div style="padding: 0.28rem 0.5rem; border-radius: 0.4rem; background: rgba(203,170,60,0.1); font-size: 0.6rem; font-weight: 700; color: #8a6e1a;">Figma 特殊属性</div>
+                    <div style="padding: 0.28rem 0.5rem; border-radius: 0.4rem; background: rgba(203,170,60,0.1); font-size: 0.6rem; font-weight: 700; color: #8a6e1a; grid-column: span 2; text-align: center;">组件 → 代码映射</div>
                   </div>
-                </div>
-                <div class="card reveal stagger-4" style="border-left: 3px solid var(--accent-mint);">
-                  <div class="card-label">场景 C — 单组件设计稿</div>
-                  <div class="flow-chain" style="margin-top: 0.35rem;">
-                    <span class="flow-step">单组件稿</span>
-                    <span class="flow-arrow">→</span>
-                    <span class="flow-step">检查现有 PRD</span>
-                    <span class="flow-arrow">→</span>
-                    <span class="flow-step accent">补充 UI 规格</span>
-                  </div>
-                </div>
-                <div class="card soft-gold reveal stagger-5">
-                  <div class="card-label">design-role-rules.md</div>
-                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.6; margin-top: 0.3rem;">411 行实战沉淀的 Figma→CSS 还原规则库，7 个章节：字体·间距·颜色·状态·响应式·Figma 特殊属性·组件映射。每次踩坑都更新。</p>
+                  <p style="font-size: 0.6rem; color: var(--text-secondary); margin-top: 0.4rem; font-style: italic;">每次踩坑都更新，越用越精准</p>
                 </div>
               </div>
 
-              <!-- 右：PRD 对比 -->
-              <div>
-                <div class="compare-card bad reveal stagger-2" style="border-radius: 1.1rem; margin-bottom: 0.6rem;">
-                  <div class="compare-top">没有 design-analyst</div>
+              <!-- 右列：PRD 前后对比 -->
+              <div style="display: grid; gap: 0.55rem; align-content: start;">
+                <div class="compare-card bad reveal stagger-2" style="border-radius: 1.1rem;">
+                  <div class="compare-top">没有 design-analyst · 手写 PRD</div>
                   <pre class="compare-pre">需求：
 - 页面风格和 Figma 保持一致
 - 顶部有搜索和操作区
@@ -1535,17 +1486,20 @@ agent C：对比主流 mindmap 库
 工程拿到后仍然要猜</pre>
                 </div>
                 <div class="compare-card good reveal stagger-3" style="border-radius: 1.1rem;">
-                  <div class="compare-top">加入 design-analyst 后</div>
+                  <div class="compare-top">加入 design-analyst · 自动解析</div>
                   <pre class="compare-pre">组件映射：
 - SearchInput → Input/Search
 - ViewSwitch → SegmentedControl
 - PrimaryAction → Button/Primary
 
 设计约束：gap-16 / padding-x-24
-状态：default/hover/active/disabled
-验收：所有颜色必须走 tokens
-       Header 高度 72px 不允许漂移</pre>
+状态定义：default/hover/active/disabled
+验收标准：
+  所有颜色必须走 design tokens
+  Header 高度 72px 不允许漂移
+  卡片 hover：shadow-md + bg-hover</pre>
                 </div>
+                <div class="quote reveal stagger-4" style="margin-top: 0; font-size: var(--small-size);">这不只是工具升级，而是从"描述设计"到"定义实现"的质变。</div>
               </div>
             </div>
           </div>
@@ -1555,7 +1509,7 @@ agent C：对比主流 mindmap 库
   </section>
 
   <!-- ===============================================
-       SLIDE 6: 治理体系建立
+       SLIDE 5: 治理体系 — PRD 驱动开发
        =============================================== -->
   <section class="slide" data-title="治理体系">
     <div class="slide-content">
@@ -1569,11 +1523,11 @@ agent C：对比主流 mindmap 库
           </div>
           <div class="inner">
             <div class="slide-head reveal">
-              <div class="eyebrow">治理体系 · prd-registry + DoR/DoD</div>
-              <div class="slide-index">06</div>
+              <div class="eyebrow">④ 治理体系 · prd-registry + DoR/DoD</div>
+              <div class="slide-index">05</div>
             </div>
-            <h2 class="reveal-left stagger-1">光靠工作习惯还不够，需要一套治理框架来管项目生命周期</h2>
-            <p class="subnote reveal stagger-1">多个 PRD 同时进行时，每次会话"从哪里接着做"变成了问题。于是引入 prd-registry.md 作为唯一主控文件。</p>
+            <h2 class="reveal-left stagger-1">光靠工作习惯还不够——需要一套治理框架<br>来管多个 PRD 并行时"从哪里接着做"的问题</h2>
+            <p class="subnote reveal stagger-1">多个 PRD 同时进行时，每次会话"从哪里接着做"变成了问题。于是引入 prd-registry.md 作为唯一主控文件，配合 DoR/DoD 构成完整治理闭环。</p>
 
             <div class="three-col" style="margin-top: 0.8rem;">
               <div class="card soft-gold reveal stagger-2">
@@ -1637,7 +1591,7 @@ agent C：对比主流 mindmap 库
   </section>
 
   <!-- ===============================================
-       SLIDE 7: 技术债危机 + 架构守护
+       SLIDE 6: 架构守护 — 技术债危机与单一数据源
        =============================================== -->
   <section class="slide" data-title="架构守护">
     <div class="slide-content">
@@ -1651,8 +1605,8 @@ agent C：对比主流 mindmap 库
           </div>
           <div class="inner">
             <div class="slide-head reveal">
-              <div class="eyebrow">架构守护 · 改 5 处 → 改 1 处</div>
-              <div class="slide-index">07</div>
+              <div class="eyebrow">⑤ 架构守护 · 改 5 处 → 改 1 处</div>
+              <div class="slide-index">06</div>
             </div>
             <h2 class="reveal-left stagger-1">加了 LR/TB 两种布局，布局 Bug 悄悄出现了</h2>
             <p class="subnote reveal stagger-1">导出 PNG 时连接线方向全部错误。深查发现：同一套"方向"逻辑散落在 5 个文件里互不知晓——这是"先快速跑起来"积累的典型技术债。</p>
@@ -1706,6 +1660,117 @@ const cfg = getLayoutConfig(mode) // 自动适配</div>
                     <li><span class="rule-num">2</span>新功能引入新"维度" → 必须建配置入口</li>
                     <li><span class="rule-num">3</span>发现架构问题 → 禁止沉默，必须向用户说明技术债和收益</li>
                   </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===============================================
+       SLIDE 7: Superpowers Skill + 子Agent→子SKILL 进化
+       =============================================== -->
+  <section class="slide" data-title="Superpowers Skill">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab gold">SUPER</div>
+            <div class="tab mint">SKILL</div>
+            <div class="tab rose">EVOL</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">⑥ Superpowers Skill · 子 Agent → 子 SKILL 的进化</div>
+              <div class="slide-index">07</div>
+            </div>
+            <h2 class="reveal-left stagger-1">引入 GitHub 高星开发全家桶 Skill 后，<br>随机子 Agent 变成了结构化的子 SKILL</h2>
+            <p class="subnote reveal stagger-1">Superpowers 是社区沉淀的最佳实践 Skill 集，引入后结合我们自己的 design-analyst 角色，最终构成了完整协作形态。最关键的进化是：从"随机调用子 Agent"到"有规范的子 SKILL"。</p>
+
+            <div class="two-col" style="margin-top: 0.75rem; align-items: start;">
+              <!-- 左：对比卡片，子Agent vs 子SKILL -->
+              <div style="display: grid; gap: 0.6rem;">
+                <div class="compare-card bad reveal stagger-2" style="border-radius: 1.1rem;">
+                  <div class="compare-top">以前 · 随机子 Agent（临时指派）</div>
+                  <pre class="compare-pre">每次临时说"你现在扮演 Reviewer"
+提示词散落在对话里，无法复用
+没有触发条件，靠记忆决定何时调用
+输出格式不固定，每次结果不一样
+新会话全部忘记，重新口头约定</pre>
+                </div>
+                <div class="compare-card good reveal stagger-3" style="border-radius: 1.1rem;">
+                  <div class="compare-top">现在 · 结构化子 SKILL（规范触发）</div>
+                  <pre class="compare-pre">skills/two-stage-review/SKILL.md
+  触发条件：每个 task 完成后
+  Phase-1：Spec 合规 Review
+  Phase-2：代码质量 Review
+  输出：通过/不通过 + 修复清单
+
+skills/design-analysis/SKILL.md
+  触发条件：有 Figma 链接输入时
+  Phase-1：设计分析包
+  Phase-2：Design QA（苛刻还原验收）</pre>
+                </div>
+              </div>
+
+              <!-- 右：7个SKILL全景 + 与design-analyst结合 -->
+              <div style="display: grid; gap: 0.55rem;">
+                <div class="card soft-gold reveal stagger-2">
+                  <div class="card-label">7 个结构化子 SKILL（Superpowers + 自定义）</div>
+                  <div style="display: grid; gap: 0.28rem; margin-top: 0.4rem;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; font-size: var(--small-size);">
+                      <span style="padding: 0.15rem 0.45rem; border-radius: 0.3rem; background: rgba(171,204,229,0.2); font-weight: 800; color: #3a7aa0; font-size: 0.58rem; min-width: 5.5rem; text-align: center;">design-analysis</span>
+                      <span style="color: var(--text-secondary);">Figma 读稿 → 设计分析包 → Design QA</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; font-size: var(--small-size);">
+                      <span style="padding: 0.15rem 0.45rem; border-radius: 0.3rem; background: rgba(203,170,60,0.15); font-weight: 800; color: #8a6e1a; font-size: 0.58rem; min-width: 5.5rem; text-align: center;">requirements</span>
+                      <span style="color: var(--text-secondary);">DoR 检查 + AC 补全 → 完整 PRD</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; font-size: var(--small-size);">
+                      <span style="padding: 0.15rem 0.45rem; border-radius: 0.3rem; background: rgba(227,183,196,0.25); font-weight: 800; color: #b06080; font-size: 0.58rem; min-width: 5.5rem; text-align: center;">sys-debugging</span>
+                      <span style="color: var(--text-secondary);">四阶段 Debug，根因必须先找到</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; font-size: var(--small-size);">
+                      <span style="padding: 0.15rem 0.45rem; border-radius: 0.3rem; background: rgba(157,202,180,0.2); font-weight: 800; color: #3d8a6b; font-size: 0.58rem; min-width: 5.5rem; text-align: center;">writing-plans</span>
+                      <span style="color: var(--text-secondary);">No Placeholder 规定，每步必须有验证</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; font-size: var(--small-size);">
+                      <span style="padding: 0.15rem 0.45rem; border-radius: 0.3rem; background: rgba(203,122,71,0.12); font-weight: 800; color: var(--accent-warm); font-size: 0.58rem; min-width: 5.5rem; text-align: center;">brainstorming</span>
+                      <span style="color: var(--text-secondary);">需求不清时的探索规范</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; font-size: var(--small-size);">
+                      <span style="padding: 0.15rem 0.45rem; border-radius: 0.3rem; background: rgba(203,170,60,0.15); font-weight: 800; color: #8a6e1a; font-size: 0.58rem; min-width: 5.5rem; text-align: center;">two-stage-review</span>
+                      <span style="color: var(--text-secondary);">Spec 合规 + 代码质量两关门控</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; font-size: var(--small-size);">
+                      <span style="padding: 0.15rem 0.45rem; border-radius: 0.3rem; background: rgba(171,204,229,0.2); font-weight: 800; color: #3a7aa0; font-size: 0.58rem; min-width: 5.5rem; text-align: center;">arch-check</span>
+                      <span style="color: var(--text-secondary);">架构变更前强制扫描，禁止沉默</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card soft-mint reveal stagger-4">
+                  <div class="card-label">最终协作形态 = Superpowers Skill + 自定义设计角色</div>
+                  <div class="flow-chain" style="margin-top: 0.4rem; flex-wrap: wrap; gap: 0.35rem;">
+                    <span class="flow-step accent">design-analysis</span>
+                    <span class="flow-arrow">+</span>
+                    <span class="flow-step">requirements</span>
+                    <span class="flow-arrow">+</span>
+                    <span class="flow-step">writing-plans</span>
+                    <span class="flow-arrow">+</span>
+                    <span class="flow-step accent">two-stage-review</span>
+                    <span class="flow-arrow">+</span>
+                    <span class="flow-step">arch-check</span>
+                  </div>
+                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.5; margin-top: 0.4rem;">每个 SKILL 都有：触发条件 · 执行步骤 · 输出产物 · 禁止清单。不靠记忆，一触即发，输出稳定。</p>
+                </div>
+
+                <div style="padding: 0.55rem 0.75rem; border-radius: 0.8rem; background: rgba(203,122,71,0.06); border: 1px dashed rgba(203,122,71,0.3);">
+                  <div style="font-size: var(--small-size); font-weight: 900; color: var(--accent-warm); margin-bottom: 0.25rem;">核心判断</div>
+                  <div style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.6;">习惯 &gt; Prompt &nbsp;·&nbsp; SKILL &gt; Agent &nbsp;·&nbsp; 规则写文件 &gt; 对话口述<br>子 SKILL 是最稳定、最可复用的协作单元。</div>
                 </div>
               </div>
             </div>
@@ -1921,17 +1986,18 @@ const cfg = getLayoutConfig(mode) // 自动适配</div>
               </div>
               <div class="card reveal stagger-4">
                 <div class="card-label">Lesson 5</div>
-                <h3 style="font-size: clamp(0.88rem, 1.2vw, 1.08rem);">把方法做成可复用 Skill</h3>
-                <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.6; margin-top: 0.35rem;">分享不是终点。最后留下来的，是一套别人也能直接启动的项目模板。</p>
+                <h3 style="font-size: clamp(0.88rem, 1.2vw, 1.08rem);">SKILL &gt; Agent · 结构化优于临时指派</h3>
+                <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.6; margin-top: 0.35rem;">随机子 Agent 靠记忆触发，每次结果不同。结构化子 SKILL 有触发条件、步骤、产物，输出稳定可复用。</p>
               </div>
               <div class="card soft-gold reveal stagger-5" style="background: rgba(203,122,71,0.07); border-color: rgba(203,122,71,0.25);">
-                <div class="card-label" style="background: rgba(203,122,71,0.15); color: var(--accent-warm);">迭代路径</div>
+                <div class="card-label" style="background: rgba(203,122,71,0.15); color: var(--accent-warm);">完整迭代路径</div>
                 <div class="iter-tags" style="margin-top: 0.4rem; flex-direction: column; gap: 0.3rem;">
-                  <span class="iter-tag warm" style="font-size: 0.56rem;">V0 · 一问一答（问题重重）</span>
-                  <span class="iter-tag rose" style="font-size: 0.56rem;">V1 · 单模型多 Agent</span>
-                  <span class="iter-tag mint" style="font-size: 0.56rem;">V2 · 工作习惯 + AGENTS.md</span>
-                  <span class="iter-tag sky" style="font-size: 0.56rem;">V3 · Figma MCP + 设计角色 + 治理</span>
-                  <span class="iter-tag gold" style="font-size: 0.56rem;">V4 · 完整 Skill（全生命周期）</span>
+                  <span class="iter-tag warm" style="font-size: 0.56rem;">① 历史探索：一问一答 → 开源底座 → 多模型 → AI 团队</span>
+                  <span class="iter-tag rose" style="font-size: 0.56rem;">② 工作习惯：参考优秀配置，规则写进 AGENTS.md</span>
+                  <span class="iter-tag sky" style="font-size: 0.56rem;">③ 设计角色：Figma MCP + design-analyst + 411行规则库</span>
+                  <span class="iter-tag mint" style="font-size: 0.56rem;">④ 治理体系：prd-registry + DoR/DoD，管好生命周期</span>
+                  <span class="iter-tag rose" style="font-size: 0.56rem;">⑤ 架构守护：单一数据源，改 5 处 → 改 1 处</span>
+                  <span class="iter-tag gold" style="font-size: 0.56rem;">⑥ Superpowers：子 Agent → 子 SKILL，完整协作形态</span>
                 </div>
               </div>
             </div>
