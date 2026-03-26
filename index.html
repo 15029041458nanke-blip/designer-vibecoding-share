@@ -108,6 +108,21 @@
       animation: fallingPatternFast 7s linear infinite;
     }
 
+    body[data-theme="notebook"] {
+      --bg-primary: #2f2c2a;
+      --bg-cream: #f5f1e8;
+      --bg-panel: rgba(255, 251, 244, 0.9);
+      --text-primary: #1f1b19;
+      --text-secondary: #655d57;
+      --accent-warm: #cb7a47;
+      --accent-rose: #e3b7c4;
+      --accent-mint: #9dcab4;
+      --accent-sky: #abcce5;
+      --accent-gold: #e8d89f;
+      --font-display: "Fraunces", serif;
+      --font-body: "Manrope", sans-serif;
+    }
+
     /* ===========================================
        VIEWPORT FITTING: MANDATORY BASE STYLES
        =========================================== */
@@ -267,13 +282,21 @@
     }
 
     @keyframes fallingPatternSlow {
-      from { transform: translate3d(0, -18vh, 0); }
-      to { transform: translate3d(0, 18vh, 0); }
+      from {
+        transform: translate3d(0, -18vh, 0);
+      }
+      to {
+        transform: translate3d(0, 18vh, 0);
+      }
     }
 
     @keyframes fallingPatternFast {
-      from { transform: translate3d(0, -24vh, 0); }
-      to { transform: translate3d(0, 24vh, 0); }
+      from {
+        transform: translate3d(0, -24vh, 0);
+      }
+      to {
+        transform: translate3d(0, 24vh, 0);
+      }
     }
 
     .tab {
@@ -499,6 +522,7 @@
       margin-bottom: 0.6rem;
     }
 
+    /* icon + label 横排对齐容器 */
     .card-header {
       display: flex;
       align-items: center;
@@ -578,67 +602,6 @@
       padding-top: 1rem;
     }
 
-    .agent-flow {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 0.45rem;
-      align-items: stretch;
-      margin-top: 0.8rem;
-      position: relative;
-    }
-
-    .agent-flow::before {
-      content: "";
-      position: absolute;
-      left: 6%;
-      right: 6%;
-      top: 50%;
-      height: 1px;
-      background: linear-gradient(90deg, rgba(203, 122, 71, 0.4), rgba(203, 122, 71, 0.08));
-      z-index: 0;
-    }
-
-    .agent-node {
-      position: relative;
-      z-index: 1;
-      min-height: 5.8rem;
-      border-radius: 1rem;
-      border: 1px solid rgba(203, 122, 71, 0.18);
-      background: rgba(255,255,255,0.95);
-      padding: 0.65rem 0.6rem 0.7rem;
-      box-shadow: 0 10px 20px rgba(203, 122, 71, 0.08);
-    }
-
-    .agent-role {
-      display: inline-flex;
-      align-items: center;
-      padding: 0.22rem 0.45rem;
-      border-radius: 999px;
-      background: rgba(203, 122, 71, 0.12);
-      color: #b65f2f;
-      font-size: 0.62rem;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 0.45rem;
-    }
-
-    .agent-flow.stage3 {
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-    }
-
-    .agent-node h4 {
-      font-size: clamp(0.72rem, 0.9vw, 0.84rem);
-      line-height: 1.25;
-      margin-bottom: 0.25rem;
-    }
-
-    .agent-node p {
-      font-size: clamp(0.62rem, 0.78vw, 0.72rem);
-      line-height: 1.45;
-      color: var(--text-secondary);
-    }
-
     .quote {
       margin-top: auto;
       padding: clamp(0.6rem, 1.1vw, 0.9rem);
@@ -651,30 +614,86 @@
       max-width: 30ch;
     }
 
+    .mindmap-pipeline {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1.15fr;
+      gap: 0.55rem;
+      align-items: stretch;
+      margin-top: 0.9rem;
+    }
+
+    .mindmap-final {
+      position: relative;
+      min-height: 12rem;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid var(--line);
+      border-radius: 1.3rem;
+      padding: 0.9rem;
+      overflow: hidden;
+    }
+
+    .mindmap-center {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      padding: 0.55rem 0.9rem;
+      border-radius: 999px;
+      background: var(--accent-warm);
+      color: #fff;
+      font-size: clamp(0.72rem, 0.95vw, 0.9rem);
+      font-weight: 800;
+      z-index: 2;
+      white-space: nowrap;
+    }
+
+    .node {
+      position: absolute;
+      padding: 0.38rem 0.6rem;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: clamp(0.62rem, 0.85vw, 0.78rem);
+      color: var(--text-primary);
+      z-index: 2;
+    }
+
+    .mindmap-final svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.7rem;
+      margin-top: 0.9rem;
+    }
+
     .copy-layout {
       display: grid;
-      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+      grid-template-columns: 0.78fr 1.22fr;
       gap: 0.8rem;
       margin-top: 0.9rem;
-      align-items: stretch;
+      align-items: start;
     }
 
     .copy-stack {
       display: grid;
       gap: 0.7rem;
-      height: 100%;
-      padding-bottom: 0;
+      padding-bottom: 28px;
     }
 
     .copy-wrap {
       position: relative;
       border-radius: 1rem;
-      background: #161210;
-      color: #f4efe7;
+      background: #1d2228;
+      color: #f4f1ea;
       border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
       overflow: hidden;
-      height: 100%;
     }
 
     .copy-head {
@@ -682,52 +701,30 @@
       align-items: center;
       justify-content: space-between;
       gap: 0.8rem;
-      padding: 0.7rem 0.85rem;
-      background: rgba(255,255,255,0.04);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      font-size: 0.7rem;
+      padding: 0.55rem 0.75rem;
+      background: rgba(255,255,255,0.05);
+      font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .copy-btn {
       border: none;
       border-radius: 999px;
-      background: rgba(255,255,255,0.08);
-      color: #fff7ed;
+      background: rgba(255,255,255,0.12);
+      color: #fff;
       padding: 0.35rem 0.7rem;
       font-size: 0.68rem;
       cursor: pointer;
-      border: 1px solid rgba(255,255,255,0.08);
     }
 
     .copy-pre {
       margin: 0;
-      padding: 0.9rem 0.95rem;
+      padding: 0.75rem;
       font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
       font-size: clamp(0.5rem, 0.7vw, 0.65rem);
-      line-height: 1.45;
+      line-height: 1.34;
       white-space: pre-wrap;
-      color: #e8dfd3;
-      flex: 1;
-      min-height: 0;
-      overflow-y: auto;
-    }
-
-    .mini-code {
-      margin-top: 0.75rem;
-      padding: 0.72rem 0.8rem;
-      border-radius: 0.9rem;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: #1b1613;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      font-size: clamp(0.58rem, 0.76vw, 0.68rem);
-      line-height: 1.46;
-      white-space: pre-wrap;
-      color: #efe6d8;
-      min-height: 6.6rem;
     }
 
     .compare-grid {
@@ -772,11 +769,275 @@
       color: var(--text-primary);
     }
 
-    .detail-grid {
+    .scenario-flow {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 0.7rem;
       margin-top: 0.9rem;
+    }
+
+    .scenario-card {
+      position: relative;
+      padding: 0.85rem;
+      border-radius: 1.15rem;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.84);
+    }
+
+    .scenario-card::after {
+      content: "→";
+      position: absolute;
+      right: -0.55rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(31, 27, 25, 0.35);
+      font-weight: 800;
+    }
+
+    .scenario-card:last-child::after {
+      display: none;
+    }
+
+    .folder-map {
+      position: relative;
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1.1fr 1fr;
+      gap: 0.9rem;
+      align-items: center;
+    }
+
+    .hub-center {
+      position: relative;
+      min-height: 21rem;
+      border-radius: 1.5rem;
+      border: 2px dashed rgba(31, 27, 25, 0.14);
+      background: rgba(255,255,255,0.78);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0.85rem;
+    }
+
+    .hub-center::before {
+      content: "";
+      position: absolute;
+      inset: 1.2rem;
+      border-radius: 1.1rem;
+      background: linear-gradient(180deg, rgba(203,122,71,0.08), rgba(157,202,180,0.08));
+    }
+
+    .hub-note {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hub-folder {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.7rem 1rem;
+      border-radius: 1rem;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid var(--line);
+      font-weight: 800;
+      margin-bottom: 0.6rem;
+      z-index: 2;
+      position: relative;
+    }
+
+    .rocket-art {
+      width: 100%;
+      max-width: 19rem;
+      max-height: 13.8rem;
+      object-fit: contain;
+      filter: saturate(1.02) contrast(1.02);
+      position: relative;
+      z-index: 1;
+      border-radius: 1rem;
+    }
+
+    .hub-caption {
+      position: relative;
+      z-index: 2;
+      margin-top: 0.35rem;
+      color: var(--text-secondary);
+      font-size: clamp(0.7rem, 0.9vw, 0.82rem);
+      line-height: 1.35;
+      max-width: 24ch;
+    }
+
+    .side-stack {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .map-card {
+      position: relative;
+      padding: 0.85rem 0.9rem;
+      border-radius: 1rem;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.85);
+      min-height: 5.8rem;
+    }
+
+    .exploded-map {
+      position: relative;
+      flex: 1;
+      min-height: 26rem;
+      margin-top: 0.4rem;
+      border-radius: 1.3rem;
+      background: transparent;
+      overflow: hidden;
+    }
+
+    .exploded-art-wrap {
+      position: absolute;
+      left: 51%;
+      top: 55%;
+      transform: translate(-50%, -50%);
+      width: min(max(45vw, 32rem), 50rem);
+      aspect-ratio: 1456 / 1678;
+      max-height: 84%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    .exploded-art {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: saturate(1.04) contrast(1.03);
+    }
+
+    .diagram-title {
+      position: absolute;
+      left: 2rem;
+      top: 2rem;
+      max-width: 19rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: clamp(0.8rem, 1.15vw, 1rem);
+      line-height: 1.45;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+    }
+
+    .diagram-meta-left,
+    .diagram-meta-right {
+      position: absolute;
+      top: 2rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: clamp(0.72rem, 0.95vw, 0.84rem);
+      letter-spacing: 0.18em;
+      color: rgba(31, 27, 25, 0.52);
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+    }
+
+    .diagram-meta-left {
+      left: 0.8rem;
+    }
+
+    .diagram-meta-right {
+      right: 0.8rem;
+    }
+
+    .anno {
+      position: absolute;
+      width: 15rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      color: #3557d3;
+      font-size: clamp(0.56rem, 0.78vw, 0.7rem);
+      line-height: 1.35;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .anno .file {
+      display: inline-block;
+      color: #2447c2;
+      font-weight: 800;
+      background: rgba(255,255,255,0.78);
+      padding: 0.12rem 0.28rem;
+    }
+
+    .anno .desc {
+      display: inline-block;
+      margin-top: 0.28rem;
+      max-width: 16rem;
+      color: rgba(36, 71, 194, 0.8);
+      text-transform: none;
+      letter-spacing: 0.01em;
+      line-height: 1.35;
+      background: rgba(255,255,255,0.58);
+    }
+
+    .anno svg {
+      display: none;
+    }
+
+    .anno.right {
+      text-align: left;
+    }
+
+    .anno.left {
+      text-align: right;
+    }
+
+    .diagram-lines {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .diagram-lines path,
+    .diagram-lines line {
+      stroke: #3557d3;
+      stroke-width: 1.1;
+      fill: none;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .map-card.left::after,
+    .map-card.right::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 1rem;
+      height: 1px;
+      background: rgba(31, 27, 25, 0.24);
+    }
+
+    .map-card.left::after {
+      right: -1rem;
+    }
+
+    .map-card.right::after {
+      left: -1rem;
+    }
+
+    .command {
+      border-radius: 1rem;
+      background: #1f2328;
+      color: #f5f1e8;
+      padding: 0.8rem 1rem;
+      font-size: clamp(0.72rem, 1vw, 0.92rem);
+      line-height: 1.5;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      overflow: hidden;
     }
 
     .mini-table {
@@ -818,7 +1079,7 @@
       right: 1.25rem;
       top: 50%;
       transform: translateY(-50%);
-      display: flex;
+      display: none;
       flex-direction: column;
       gap: 0.45rem;
       z-index: 20;
@@ -866,232 +1127,227 @@
       letter-spacing: 0.04em;
     }
 
-    /* ── 迭代路径导航标签 ── */
-    .iter-tags {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      margin-top: 0.3rem;
-    }
+    .display-dock { display: none; }
 
-    .iter-tag {
-      padding: 0.28rem 0.85rem;
-      border-radius: 999px;
-      font-size: var(--small-size);
-      font-weight: 800;
-      letter-spacing: 0.07em;
-      border: 1px solid;
-    }
-
-    .iter-tag.warm { background: rgba(203,122,71,0.1); border-color: rgba(203,122,71,0.28); color: var(--accent-warm); }
-    .iter-tag.rose { background: rgba(227,183,196,0.18); border-color: rgba(227,183,196,0.45); color: #b06080; }
-    .iter-tag.mint { background: rgba(157,202,180,0.18); border-color: rgba(157,202,180,0.45); color: #3d8a6b; }
-    .iter-tag.sky { background: rgba(171,204,229,0.18); border-color: rgba(171,204,229,0.45); color: #3a7aa0; }
-    .iter-tag.gold { background: rgba(232,216,159,0.25); border-color: rgba(203,170,60,0.4); color: #8a6e1a; }
-
-    /* ── 流程箭头链 ── */
-    .flow-chain {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      flex-wrap: wrap;
-      margin-top: 0.7rem;
-    }
-
-    .flow-step {
-      padding: 0.38rem 0.75rem;
-      border-radius: 0.7rem;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.85);
-      font-size: var(--small-size);
-      font-weight: 700;
-      color: var(--text-primary);
-      white-space: nowrap;
-    }
-
-    .flow-step.accent {
-      background: rgba(203,122,71,0.12);
-      border-color: rgba(203,122,71,0.28);
-      color: var(--accent-warm);
-    }
-
-    .flow-arrow {
-      color: rgba(31,27,25,0.35);
-      font-weight: 700;
-      font-size: 1rem;
-    }
-
-    /* ── 规则条目样式 ── */
-    .rule-list {
-      list-style: none;
-      display: grid;
-      gap: 0.55rem;
-      margin-top: 0.6rem;
-    }
-
-    .rule-list li {
-      display: flex;
-      gap: 0.55rem;
-      align-items: flex-start;
-      font-size: var(--small-size);
-      line-height: 1.55;
-      color: var(--text-secondary);
-    }
-
-    .rule-num {
-      flex-shrink: 0;
-      width: 1.4rem;
-      height: 1.4rem;
-      border-radius: 50%;
-      background: rgba(203,122,71,0.12);
-      color: var(--accent-warm);
-      display: grid;
-      place-items: center;
-      font-size: 0.6rem;
-      font-weight: 900;
-    }
-
-    /* ── 代码 diff 样式 ── */
-    .code-diff {
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      font-size: clamp(0.54rem, 0.74vw, 0.66rem);
-      line-height: 1.8;
-      white-space: pre-wrap;
-      border-radius: 0.85rem;
-      padding: 0.8rem 0.9rem;
-    }
-
-    .code-diff.before {
-      background: rgba(203,122,71,0.05);
-      border: 1px solid rgba(203,122,71,0.15);
-      color: var(--text-secondary);
-    }
-
-    .code-diff.after {
-      background: rgba(157,202,180,0.07);
-      border: 1px solid rgba(157,202,180,0.25);
-      color: var(--text-secondary);
-    }
-
-    .code-hi { color: var(--accent-warm); font-weight: 700; }
-    .code-ok { color: #3d8a6b; font-weight: 700; }
-    .code-err { color: #c0392b; font-weight: 900; }
-
-    /* ── Skill 阶段卡片 ── */
-    .phase-cards {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 0.55rem;
-      margin-top: 0.85rem;
-    }
-
-    .phase-card {
-      border-radius: 1.1rem;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.88);
-      padding: 0.75rem 0.7rem;
+    .display-card {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: clamp(10rem, 14vw, 14rem);
+      aspect-ratio: 16 / 10;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 1.4rem;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(249, 244, 235, 0.9)),
+        var(--bg-cream);
+      box-shadow:
+        0 20px 44px rgba(0, 0, 0, 0.28),
+        0 0 0 1px rgba(122, 153, 255, 0.08);
+      padding: 0.8rem 0.82rem;
       display: flex;
       flex-direction: column;
+      cursor: pointer;
+      pointer-events: auto;
+      transform-origin: 50% 100%;
+      transition:
+        transform 0.6s var(--ease-out-expo),
+        opacity 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease,
+        filter 0.35s ease;
+      color: var(--text-primary);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .display-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.18), transparent 32%),
+        linear-gradient(rgba(203, 122, 71, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(203, 122, 71, 0.018) 1px, transparent 1px);
+      background-size: auto, 14px 14px, 14px 14px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .display-card.active {
+      border-color: rgba(203, 122, 71, 0.45);
+      box-shadow:
+        0 32px 56px rgba(0, 0, 0, 0.36),
+        0 0 0 1px rgba(203, 122, 71, 0.18);
+      filter: saturate(1.02);
+    }
+
+    .display-card.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .display-card:hover {
+      border-color: rgba(203, 122, 71, 0.35);
+    }
+
+    .display-card-head,
+    .display-card-foot {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .display-card-head {
+      position: absolute;
+      left: 0.7rem;
+      right: 0.7rem;
+      top: 0.6rem;
+    }
+
+    .display-card-foot {
+      position: absolute;
+      left: 0.7rem;
+      right: 0.7rem;
+      bottom: 0.55rem;
+    }
+
+    .display-card-num {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      line-height: 1;
+      color: rgba(31, 27, 25, 0.32);
+    }
+
+    .display-card-state {
+      width: 0.56rem;
+      height: 0.56rem;
+      border-radius: 999px;
+      background: rgba(203, 122, 71, 0.32);
+      box-shadow: 0 0 0 6px rgba(203, 122, 71, 0.08);
+    }
+
+    .display-card-body {
+      position: relative;
+      z-index: 3;
+      display: grid;
+      gap: 0.5rem;
+      padding-top: 1.9rem;
+    }
+
+    .display-card-title {
+      font-family: var(--font-display);
+      font-size: clamp(0.84rem, 1.02vw, 1rem);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      max-width: 10ch;
+    }
+
+    .display-card-meta {
+      font-size: 0.64rem;
+      line-height: 1.4;
+      color: var(--text-secondary);
+    }
+
+    .display-card-lines {
+      display: grid;
       gap: 0.35rem;
     }
 
-    .phase-num {
-      font-family: var(--font-display);
-      font-size: clamp(1.1rem, 1.8vw, 1.6rem);
-      line-height: 1;
-      color: rgba(31,27,25,0.2);
+    .display-card-lines span {
+      display: block;
+      height: 0.36rem;
+      border-radius: 999px;
+      background: rgba(31, 27, 25, 0.08);
     }
 
-    .phase-title {
-      font-size: clamp(0.72rem, 0.95vw, 0.86rem);
-      font-weight: 800;
-      color: var(--text-primary);
-      line-height: 1.2;
-    }
+    .display-card-lines span:nth-child(1) { width: 88%; }
+    .display-card-lines span:nth-child(2) { width: 64%; }
+    .display-card-lines span:nth-child(3) { width: 76%; }
 
-    .phase-desc {
-      font-size: clamp(0.58rem, 0.76vw, 0.68rem);
-      color: var(--text-secondary);
-      line-height: 1.5;
-      margin-top: 0.15rem;
-    }
-
-    .phase-card.active-phase {
-      background: rgba(203,122,71,0.06);
-      border-color: rgba(203,122,71,0.3);
-    }
-
-    .phase-card.active-phase .phase-num {
-      color: rgba(203,122,71,0.45);
-    }
-
-    /* ── 聊天气泡 ── */
-    .chat-bubble {
-      display: flex;
-      gap: 0.55rem;
-      align-items: flex-start;
-      margin-bottom: 0.55rem;
-    }
-
-    .chat-bubble.user {
-      flex-direction: row-reverse;
-    }
-
-    .chat-avatar {
-      width: 1.6rem;
-      height: 1.6rem;
-      border-radius: 50%;
+    .display-card-preview {
+      position: absolute;
+      inset: 0;
       display: grid;
       place-items: center;
-      font-size: 0.65rem;
-      font-weight: 900;
-      flex-shrink: 0;
+      overflow: hidden;
+      z-index: 0;
+      padding: 0.55rem;
     }
 
-    .chat-avatar.ai { background: rgba(203,122,71,0.18); color: var(--accent-warm); }
-    .chat-avatar.user { background: rgba(157,202,180,0.25); color: #3d8a6b; }
-
-    .chat-text {
-      max-width: 72%;
-      padding: 0.55rem 0.8rem;
-      border-radius: 0.9rem;
-      font-size: clamp(0.62rem, 0.82vw, 0.74rem);
-      line-height: 1.55;
-      background: rgba(255,255,255,0.88);
-      border: 1px solid var(--line);
-      color: var(--text-primary);
+    .display-card-preview::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 38%;
+      background: linear-gradient(180deg, transparent, rgba(245, 241, 232, 0.86));
+      z-index: 2;
+      pointer-events: none;
     }
 
-    .chat-bubble.user .chat-text {
-      background: rgba(203,122,71,0.08);
-      border-color: rgba(203,122,71,0.22);
+    .display-card-canvas {
+      position: relative;
+      width: 640px;
+      height: 400px;
+      transform: scale(0.19);
+      transform-origin: center center;
+      pointer-events: none;
+      filter: saturate(0.88) contrast(0.96);
     }
 
-    @media (max-width: 900px) {
-      .hero-grid,
-      .two-col,
-      .three-col,
-      .four-col,
-      .detail-grid,
-      .copy-layout,
-      .compare-grid,
-      .folder-grid,
-      .timeline,
-      .mini-row,
-      .phase-cards {
-        grid-template-columns: 1fr;
-      }
-
-      .tabs {
-        display: none;
-      }
-
-      .page {
-        padding-right: 0;
-      }
+    .display-card-canvas .page {
+      padding-right: 0;
+      width: 100%;
+      height: 100%;
     }
 
-    /* ── 入场动画 ── */
+    .display-card-canvas .sheet {
+      border-radius: 1.4rem;
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
+      border-color: rgba(31, 27, 25, 0.08);
+    }
+
+    .display-card-canvas .tabs,
+    .display-card-canvas .binder,
+    .display-card-canvas .footer,
+    .display-card-canvas .copy-btn {
+      display: none !important;
+    }
+
+    .display-card-canvas .inner {
+      padding: 1.5rem 1.6rem 1.2rem;
+      gap: 0.65rem;
+      transform: none !important;
+      opacity: 1 !important;
+    }
+
+    .display-card-canvas .slide-head,
+    .display-card-canvas .reveal,
+    .display-card-canvas .reveal-left,
+    .display-card-canvas .reveal-scale {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+
+    .display-card-canvas h1 {
+      font-size: 2.2rem;
+    }
+
+    .display-card-canvas h2 {
+      font-size: 1.75rem;
+    }
+
+    .display-card-canvas p,
+    .display-card-canvas li,
+    .display-card-canvas code,
+    .display-card-canvas .lead,
+    .display-card-canvas .subnote {
+      font-size: 0.82rem;
+    }
+
     .reveal {
       opacity: 0;
       transform: translateY(30px);
@@ -1128,9 +1384,35 @@
     .stagger-3 { transition-delay: 0.24s; }
     .stagger-4 { transition-delay: 0.32s; }
     .stagger-5 { transition-delay: 0.4s; }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .two-col,
+      .three-col,
+      .four-col,
+      .detail-grid,
+      .copy-layout,
+      .compare-grid,
+      .scenario-flow,
+      .folder-grid,
+      .timeline,
+      .mini-row,
+      .folder-map,
+      .mindmap-pipeline {
+        grid-template-columns: 1fr;
+      }
+
+      .tabs {
+        display: none;
+      }
+
+      .page {
+        padding-right: 0;
+      }
+    }
   </style>
 </head>
-<body>
+<body data-theme="notebook">
   <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
   <nav class="nav-dots" id="navDots"></nav>
   <div class="keyboard-hint">↑ ↓ / Space 切页</div>
@@ -1140,15 +1422,14 @@
     <symbol id="icon-file" viewBox="0 0 24 24"><path d="M7 3h7l5 5v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm6 1.5V9h4.5"/><path d="M9 13h6M9 17h6M9 9h2"/></symbol>
     <symbol id="icon-flow" viewBox="0 0 24 24"><path d="M7 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm14 14a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM5 7v4a3 3 0 0 0 3 3h5a3 3 0 0 1 3 3v0M19 17v-4a3 3 0 0 0-3-3h-5a3 3 0 0 1-3-3v0"/></symbol>
     <symbol id="icon-stack" viewBox="0 0 24 24"><path d="m12 3 9 4.5-9 4.5L3 7.5 12 3Zm-9 9 9 4.5 9-4.5M3 16.5 12 21l9-4.5"/></symbol>
+    <symbol id="icon-folder" viewBox="0 0 24 24"><path d="M3 6.5A2.5 2.5 0 0 1 5.5 4H10l2 2h6.5A2.5 2.5 0 0 1 21 8.5v9A2.5 2.5 0 0 1 18.5 20h-13A2.5 2.5 0 0 1 3 17.5v-11Z"/></symbol>
+    <symbol id="icon-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0 0 18h1.2a2.3 2.3 0 0 0 0-4.6H12a1.6 1.6 0 0 1 0-3.2h2.7A6.3 6.3 0 0 0 21 6.9 3.9 3.9 0 0 0 17.1 3H12Zm-4 6a1.2 1.2 0 1 1 0 2.4A1.2 1.2 0 0 1 8 9Zm3-3a1.2 1.2 0 1 1 0 2.4A1.2 1.2 0 0 1 11 6Zm3 0a1.2 1.2 0 1 1 0 2.4A1.2 1.2 0 0 1 14 6Zm3 3a1.2 1.2 0 1 1 0 2.4A1.2 1.2 0 0 1 17 9Z"/></symbol>
     <symbol id="icon-robot" viewBox="0 0 24 24"><path d="M9 2h6v2h-2v2.1A6 6 0 0 1 18 12v4a3 3 0 0 1-3 3h-1v3h-4v-3H9a3 3 0 0 1-3-3v-4a6 6 0 0 1 5-5.9V4H9V2Zm-1 9a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm8 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm-6 6h4v-2h-4v2Z"/></symbol>
-    <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5.25 3.5 10.15 8 11.25C16.5 22.15 20 17.25 20 12V6l-8-3Zm-1 13-3-3 1.4-1.4 1.6 1.6 3.6-3.6 1.4 1.4-5 5Z"/></symbol>
-    <symbol id="icon-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></symbol>
-    <symbol id="icon-figma" viewBox="0 0 24 24"><path d="M8.5 2A3.5 3.5 0 0 0 5 5.5V7h7V2H8.5ZM12 2h3.5A3.5 3.5 0 0 1 19 5.5V7h-7V2ZM5 10.5A3.5 3.5 0 0 0 8.5 14H12V7H5v3.5ZM12 14h3.5a3.5 3.5 0 1 0 0-7H12v7ZM8.5 15.5A3.5 3.5 0 0 0 12 19v-3.5H8.5Z"/></symbol>
   </svg>
 
-  <!-- ===============================================
-       SLIDE 1: 封面
-       =============================================== -->
+  <!-- ===========================================
+       SLIDE 1: TITLE
+       =========================================== -->
   <section class="slide visible" data-title="封面">
     <div class="slide-content">
       <div class="page">
@@ -1156,43 +1437,34 @@
           <div class="binder"><span></span></div>
           <div class="tabs">
             <div class="tab mint">FLOW</div>
-            <div class="tab rose">HABIT</div>
-            <div class="tab sky">SKILL</div>
-            <div class="tab gold">DEPLOY</div>
+            <div class="tab rose">TEAM</div>
+            <div class="tab sky">BUILD</div>
+            <div class="tab gold">TEMPLATE</div>
           </div>
           <div class="inner">
             <div class="slide-head reveal">
-              <div class="eyebrow">Designer Vibecoding · 完整迭代旅程</div>
+              <div class="eyebrow">Designer Vibecoding</div>
               <div class="slide-index">01</div>
             </div>
             <div class="hero-grid">
               <div class="reveal-left stagger-1">
-                <h1>从 0 搭一套<br>设计师能用的<br>vibecoding<br>协作链路</h1>
+                <h1>设计师如何<br>从0-1搭1套<br><span style="white-space:nowrap;">vibecoding协作链路</span></h1>
                 <p class="lead" style="margin-top: 1rem;">
-                  不是一次突然的顿悟，而是一路踩坑、
-                  迭代、沉淀的完整过程。
+                  这次最重要的收获，不是做出了一个思维导图工具，
+                  而是把“设计师怎么和 AI 一起做项目”沉淀成了一套能复用的模板。
                 </p>
-                <div class="iter-tags" style="margin-top: 0.8rem;">
-                  <span class="iter-tag warm">V0 一问一答</span>
-                  <span class="iter-tag rose">V1 单模型多 Agent</span>
-                  <span class="iter-tag mint">V2 工作习惯</span>
-                  <span class="iter-tag sky">V3 Figma MCP</span>
-                  <span class="iter-tag gold">V4 完整 Skill</span>
-                  <span class="iter-tag rose">V5 Superpowers</span>
-                </div>
               </div>
               <div class="card soft-rose reveal-scale stagger-3">
                 <div class="card-label">核心判断</div>
-                <div class="stat">工作习惯 &gt; Prompt</div>
+                <div class="stat">AI 小团队</div>
                 <p class="lead" style="font-size: clamp(0.85rem, 1.2vw, 1.05rem); max-width: none;">
-                  真正让项目不跑偏的，不是一句神奇的提示词，
-                  而是一套被写进文件的工作方式。
+                  从“我和 AI 聊一聊”，变成“我带着一个 AI 团队做项目”。
                 </p>
               </div>
             </div>
             <div class="footer reveal stagger-4">
-              <span>设计驱动 · 单模型多 Agent · 可模板化</span>
-              <span>卡恩 · 完整迭代版</span>
+              <span>分享提炼版 / HTML PPT</span>
+              <span>设计驱动 · 多模式协作 · 可模板化</span>
             </div>
           </div>
         </div>
@@ -1200,255 +1472,334 @@
     </div>
   </section>
 
-  <!-- ===============================================
-       SLIDE 2: 起点 — 最粗糙的版本
-       =============================================== -->
-  <section class="slide" data-title="起点">
+  <!-- ===========================================
+       SLIDE 2: PROJECT START
+       =========================================== -->
+  <section class="slide" data-title="立项">
     <div class="slide-content">
       <div class="page">
         <div class="sheet">
           <div class="binder"><span></span></div>
           <div class="tabs">
-            <div class="tab warm" style="background: rgba(203,122,71,0.35);">V0</div>
-            <div class="tab rose">PAIN</div>
-            <div class="tab sky">GAP</div>
+            <div class="tab gold">MVP</div>
+            <div class="tab mint">SCOPE</div>
+            <div class="tab rose">VERIFY</div>
           </div>
           <div class="inner">
             <div class="slide-head reveal">
-              <div class="eyebrow">V0 · 起点</div>
+              <div class="eyebrow">Project Start</div>
               <div class="slide-index">02</div>
             </div>
-            <h2 class="reveal-left stagger-1">最开始，我和 AI 就是一问一答</h2>
-            <p class="subnote reveal stagger-1">没有流程，没有角色，没有验证。每次对话都从头说清楚背景，AI 做完给我看，我说不对，它改，如此循环。</p>
-
-            <div class="two-col" style="margin-top: 0.8rem;">
-              <!-- 左：对话示意 -->
-              <div class="card reveal stagger-2" style="padding: 0.8rem;">
-                <div class="card-label">典型对话模式</div>
-                <div class="chat-bubble" style="margin-top: 0.5rem;">
-                  <div class="chat-avatar ai">我</div>
-                  <div class="chat-text">帮我把这个思维导图的节点拖拽做出来，参考这份设计稿……（粘贴了 800 字描述）</div>
-                </div>
-                <div class="chat-bubble user">
-                  <div class="chat-avatar user">AI</div>
-                  <div class="chat-text">好的，我来实现拖拽功能，这里我用了 react-draggable……（生成了 200 行代码）</div>
-                </div>
-                <div class="chat-bubble">
-                  <div class="chat-avatar ai">我</div>
-                  <div class="chat-text">不对，不是 react-draggable，我们用的是 XYFlow，你没记住之前说的。</div>
-                </div>
-                <div class="chat-bubble user">
-                  <div class="chat-avatar user">AI</div>
-                  <div class="chat-text">抱歉，让我重新做……（新会话开始，又忘了之前的所有约定）</div>
-                </div>
+            <h2 class="reveal-left stagger-1">先确定 MVP 范围，以验证为目标</h2>
+            <p class="subnote reveal stagger-1">0-1 最重要的不是想得全，而是知道什么先不做。</p>
+            <div class="two-col" style="margin-top: 0.9rem;">
+              <div class="card soft-gold reveal stagger-2">
+                <div class="card-header"><div class="card-icon"><svg viewBox="0 0 24 24"><use href="#icon-file"></use></svg></div><div class="card-label">为什么做</div></div>
+                <ul class="bullet-list">
+                  <li>设计稿已经就绪，我对完整方案也足够熟悉</li>
+                  <li>文档整理和结构发散这个痛点一直没被解决</li>
+                  <li>思维导图刚好能把这个痛点转成一个真实产品</li>
+                </ul>
               </div>
-
-              <!-- 右：问题列表 -->
-              <div style="display: grid; gap: 0.65rem;">
-                <div class="card soft-rose reveal stagger-3">
-                  <div class="card-header">
-                    <div class="card-icon"><svg viewBox="0 0 24 24"><use href="#icon-target"></use></svg></div>
-                    <div class="card-label">核心问题</div>
-                  </div>
-                  <ul class="bullet-list">
-                    <li>每次对话要重新交代背景，成本极高</li>
-                    <li>AI 没有记忆，规则约定全靠 prompt 传递</li>
-                    <li>没有验证环节，"做完"不等于"做对"</li>
-                    <li>Context 越来越长，输出质量越来越差</li>
-                  </ul>
-                </div>
-                <div class="card soft-gold reveal stagger-4">
-                  <div class="card-label">本质缺失</div>
-                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.65; margin-top: 0.3rem;">
-                    没有<strong style="color: var(--text-primary);">流程</strong>承载规则，
-                    没有<strong style="color: var(--text-primary);">角色</strong>划分职责，
-                    没有<strong style="color: var(--text-primary);">验证</strong>保证质量。
-                    这不是 AI 的能力问题，是协作方式的问题。
-                  </p>
-                </div>
+              <div class="card soft-mint reveal stagger-3">
+                <div class="card-header"><div class="card-icon"><svg viewBox="0 0 24 24"><use href="#icon-target"></use></svg></div><div class="card-label">为什么先定 MVP 范围</div></div>
+                <ul class="bullet-list">
+                  <li>我当时并不确定 AI 能不能做出这么复杂的交互产品</li>
+                  <li>所以先把范围压成最小闭环，用来验证 vibecoding 的能力</li>
+                  <li>先验证“能不能跑通”，再决定要不要继续往深处做</li>
+                </ul>
               </div>
             </div>
-
-            <div class="quote reveal stagger-5">我需要的不是"更好地和 AI 聊天"，而是"搭一套让 AI 能稳定工作的体系"。</div>
+            <div class="sequence" style="margin-top: 0.8rem;">
+              <div class="card reveal stagger-2">
+                <div class="card-label">MVP</div>
+                <h3>创建 / 编辑 / 保存</h3>
+              </div>
+              <div class="arrow reveal stagger-3">→</div>
+              <div class="card reveal stagger-3">
+                <div class="card-label">MVP</div>
+                <h3>拖拽 / 缩放 / 导出</h3>
+              </div>
+              <div class="arrow reveal stagger-4">→</div>
+              <div class="card reveal stagger-4">
+                <div class="card-label">原则</div>
+                <h3>先跑通闭环，再谈扩展</h3>
+              </div>
+            </div>
+            <div class="quote reveal stagger-5">范围不是压小了，而是被压成了一个可以被验证的 MVP。</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===============================================
-       SLIDE 3: 演进 — 单模型多 Agent
-       =============================================== -->
-  <section class="slide" data-title="单模型多 Agent">
+  <!-- ===========================================
+       SLIDE 3: LEVERAGE
+       =========================================== -->
+  <section class="slide" data-title="借力启动">
     <div class="slide-content">
       <div class="page">
         <div class="sheet">
           <div class="binder"><span></span></div>
           <div class="tabs">
-            <div class="tab mint">V1</div>
-            <div class="tab rose">ARCH</div>
-            <div class="tab gold">COST</div>
+            <div class="tab sky">OSS</div>
+            <div class="tab gold">RESEARCH</div>
+            <div class="tab rose">CHOICE</div>
           </div>
           <div class="inner">
             <div class="slide-head reveal">
-              <div class="eyebrow">V1 · 单模型多 Agent</div>
+              <div class="eyebrow">Start Smart</div>
               <div class="slide-index">03</div>
             </div>
-            <h2 class="reveal-left stagger-1">把规划和执行拆开——这是最重要的一步</h2>
-            <p class="subnote reveal stagger-1">参考了优秀的 agent 配置实践后，核心判断是：一问一答不是 AI 的极限，而是协作架构的极限。把"想明白"和"做出来"拆开，才能真正发挥 AI 的潜力。</p>
-
-            <div class="two-col" style="margin-top: 0.75rem;">
-              <!-- 架构图 -->
-              <div class="card soft-mint reveal stagger-2">
-                <div class="card-label">单模型多 Agent 架构</div>
-                <div style="display: grid; gap: 0.5rem; margin-top: 0.5rem;">
-                  <div style="text-align: center; padding: 0.55rem 0.8rem; background: rgba(203,122,71,0.1); border-radius: 0.8rem; border: 1px solid rgba(203,122,71,0.25);">
-                    <div style="font-size: var(--small-size); font-weight: 900; color: var(--accent-warm);">用户</div>
-                  </div>
-                  <div style="text-align:center; font-size: 1.1rem; color: rgba(31,27,25,0.3);">↓</div>
-                  <div style="text-align: center; padding: 0.65rem 0.8rem; background: rgba(203,122,71,0.14); border-radius: 0.8rem; border: 2px solid rgba(203,122,71,0.3);">
-                    <div style="font-size: clamp(0.68rem, 0.9vw, 0.82rem); font-weight: 900; color: var(--accent-warm);">Codewiz 主 Agent</div>
-                    <div style="font-size: var(--small-size); color: var(--text-secondary); margin-top: 0.2rem;">规划 · 编排 · Review · 决策</div>
-                  </div>
-                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem; text-align: center;">
-                    <div style="font-size: 1.1rem; color: rgba(31,27,25,0.3); text-align:center; grid-column: span 2;">↙ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↘</div>
-                    <div style="padding: 0.45rem; background: rgba(255,255,255,0.85); border-radius: 0.65rem; border: 1px solid var(--line);">
-                      <div style="font-size: var(--small-size); font-weight: 800; color: var(--text-primary);">子 Agent 1</div>
-                      <div style="font-size: 0.58rem; color: var(--text-secondary);">独立上下文·执行 Task-1</div>
-                    </div>
-                    <div style="padding: 0.45rem; background: rgba(255,255,255,0.85); border-radius: 0.65rem; border: 1px solid var(--line);">
-                      <div style="font-size: var(--small-size); font-weight: 800; color: var(--text-primary);">子 Agent 2</div>
-                      <div style="font-size: 0.58rem; color: var(--text-secondary);">独立上下文·执行 Task-2</div>
-                    </div>
-                  </div>
-                </div>
+            <h2 class="reveal-left stagger-1">0-1 不等于从零造轮子</h2>
+            <p class="subnote reveal stagger-1">AI 先做研究和技术选型，人再做取舍。下面用这个思维导图项目举例。</p>
+            <div class="mindmap-pipeline">
+              <div class="card soft-sky reveal stagger-2">
+                <div class="card-header"><div class="card-icon"><svg viewBox="0 0 24 24"><use href="#icon-stack"></use></svg></div><div class="card-label">候选方案</div></div>
+                <ul class="bullet-list">
+                  <li>MindElixir</li>
+                  <li>React Flow / XYFlow</li>
+                  <li>Markmap</li>
+                </ul>
               </div>
-
-              <!-- 三条收益 -->
-              <div style="display: grid; gap: 0.65rem;">
-                <div class="card reveal stagger-3">
-                  <div class="card-label">收益 1 — 上下文精简</div>
-                  <h3 style="font-size: clamp(0.85rem, 1.1vw, 0.98rem);">主线程只留决策</h3>
-                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.6; margin-top: 0.3rem;">研究、探索和并行分析交给子 Agent。主上下文窗口保持干净，输出质量稳定。</p>
-                </div>
-                <div class="card reveal stagger-4">
-                  <div class="card-label">收益 2 — 天然带 Review</div>
-                  <h3 style="font-size: clamp(0.85rem, 1.1vw, 0.98rem);">规划与执行相互校正</h3>
-                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.6; margin-top: 0.3rem;">拆开之后，主 Agent 对子 Agent 的结果天然存在一道 Review 关卡。</p>
-                </div>
-                <div class="card reveal stagger-5">
-                  <div class="card-label">收益 3 — 成本可控</div>
-                  <h3 style="font-size: clamp(0.85rem, 1.1vw, 0.98rem);">高频执行用轻量 Agent</h3>
-                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.6; margin-top: 0.3rem;">高价值规划用更稳的模型，高频执行用成本更低的模型，整体成本可控。</p>
-                </div>
+              <div class="arrow reveal stagger-2">→</div>
+              <div class="card soft-rose reveal stagger-3">
+                <div class="card-header"><div class="card-icon"><svg viewBox="0 0 24 24"><use href="#icon-flow"></use></svg></div><div class="card-label">筛选标准</div></div>
+                <ul class="bullet-list">
+                  <li>交互控制力</li>
+                  <li>扩展性</li>
+                  <li>导出与状态管理</li>
+                </ul>
+              </div>
+              <div class="arrow reveal stagger-3">→</div>
+              <div class="mindmap-final reveal-scale stagger-4">
+                <div class="card-label">最终技术方案</div>
+                <div class="mindmap-center">React + XYFlow</div>
+                <div class="node" style="left: 10%; top: 18%;">Zustand</div>
+                <div class="node" style="right: 10%; top: 18%;">dagre</div>
+                <div class="node" style="left: 12%; bottom: 16%;">localforage</div>
+                <div class="node" style="right: 8%; bottom: 16%;">jsPDF</div>
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                  <line x1="50" y1="50" x2="22" y2="24" stroke="rgba(31,27,25,0.24)" stroke-width="1.2"/>
+                  <line x1="50" y1="50" x2="78" y2="24" stroke="rgba(31,27,25,0.24)" stroke-width="1.2"/>
+                  <line x1="50" y1="50" x2="24" y2="76" stroke="rgba(31,27,25,0.24)" stroke-width="1.2"/>
+                  <line x1="50" y1="50" x2="79" y2="76" stroke="rgba(31,27,25,0.24)" stroke-width="1.2"/>
+                </svg>
               </div>
             </div>
-
-            <div class="quote reveal stagger-5">"从'我和 AI 聊一聊'，变成'我带着一个 AI 团队做项目'。"</div>
+            <div class="command reveal stagger-5">技术选型的核心不是“全从零做”，而是“先快速筛出能承载产品方向的底座”。</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===============================================
-       SLIDE 4: 关键转折 — 工作习惯 + AGENTS.md
-       =============================================== -->
+  <!-- ===========================================
+       SLIDE 4: MODEL SPLIT
+       =========================================== -->
+  <section class="slide" data-title="模型分工">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab mint">PM</div>
+            <div class="tab rose">BUILD</div>
+            <div class="tab sky">COST</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">Early Collaboration</div>
+              <div class="slide-index">04</div>
+            </div>
+            <h2 class="reveal-left stagger-1">为什么我最早选择 Claude Code + Codex</h2>
+            <p class="subnote reveal stagger-1">一个现实前提：公司 CodeWiz 给了 Claude Code 的 tokens 配额，所以我会优先把高上下文的规划工作放在 Claude 侧。</p>
+            <div class="sequence" style="margin-top: 1rem;">
+              <div class="card soft-gold reveal stagger-2">
+                <div class="card-header"><div class="card-icon"><svg viewBox="0 0 24 24"><use href="#icon-target"></use></svg></div><div class="card-label">Manager</div></div>
+                <h3>Claude Code</h3>
+                <ul class="bullet-list">
+                  <li>需求澄清</li>
+                  <li>上下文管理</li>
+                  <li>任务拆解与 handoff</li>
+                </ul>
+              </div>
+              <div class="arrow reveal stagger-3">→</div>
+              <div class="card soft-mint reveal stagger-3">
+                <div class="card-header"><div class="card-icon"><svg viewBox="0 0 24 24"><use href="#icon-robot"></use></svg></div><div class="card-label">Builder</div></div>
+                <h3>Codex</h3>
+                <ul class="bullet-list">
+                  <li>实现与多文件修改</li>
+                  <li>测试与修问题</li>
+                  <li>补完整验证链路</li>
+                </ul>
+              </div>
+            </div>
+            <div class="card soft-sky reveal stagger-4" style="margin-top: 0.8rem;">
+              <div class="card-label">Tips</div>
+              <p class="lead" style="font-size: clamp(0.78rem, 1.02vw, 0.92rem); max-width: none;">公司 CodeWiz 有 Claude Code 的 tokens 配额，所以这条链路一开始既解决了上下文问题，也符合成本结构。</p>
+            </div>
+            <div class="three-col" style="margin-top: 0.8rem;">
+              <div class="card reveal stagger-2">
+                <div class="card-label">解决点 1</div>
+                <h3>上下文精简</h3>
+                <p class="lead" style="font-size: clamp(0.78rem, 1.05vw, 0.96rem); max-width: none;">Claude 收束长上下文，Codex 只接执行必需信息。</p>
+              </div>
+              <div class="card reveal stagger-3">
+                <div class="card-label">解决点 2</div>
+                <h3>控制成本</h3>
+                <p class="lead" style="font-size: clamp(0.78rem, 1.05vw, 0.96rem); max-width: none;">高价值规划交给更稳的模型，高频执行交给更适合落地的模型。</p>
+              </div>
+              <div class="card reveal stagger-4">
+                <div class="card-label">额外收益</div>
+                <h3>天然带 review</h3>
+                <p class="lead" style="font-size: clamp(0.78rem, 1.05vw, 0.96rem); max-width: none;">规划和执行拆开之后，模型之间会自然形成校正。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       SLIDE 5: EVOLUTION
+       =========================================== -->
+  <section class="slide" data-title="演进">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab rose">V1</div>
+            <div class="tab mint">V2</div>
+            <div class="tab sky">V3</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">Evolution</div>
+              <div class="slide-index">05</div>
+            </div>
+            <h2 class="reveal-left stagger-1">协作模式是怎么一步步长成团队的</h2>
+            <p class="subnote reveal stagger-1">阶段 1 到阶段 2 不只是角色变多了，也因为 Claude Code 的 tokens 更贵，耗光后必须有一条能独立顶上的替代链路。</p>
+            <div class="timeline" style="margin-top: 1rem;">
+              <div class="phase reveal stagger-2">阶段 1</div>
+              <div class="card soft-gold reveal stagger-2">
+                <h3>Claude Code + Codex</h3>
+                <p class="lead" style="font-size: clamp(0.8rem, 1.05vw, 0.96rem); max-width: none;">先把“想明白”和“做出来”拆开，用 Claude 管上下文，用 Codex 管执行。</p>
+              </div>
+              <div class="phase reveal stagger-3">阶段 2</div>
+              <div class="card soft-sky reveal stagger-3">
+                <h3>Codex 多 agent</h3>
+                <p class="lead" style="font-size: clamp(0.8rem, 1.05vw, 0.96rem); max-width: none;">执行端拆成研究、实现、验证、review，同时承担 Claude tokens 用光后的替代方案。</p>
+              </div>
+              <div class="phase reveal stagger-4">阶段 3</div>
+              <div class="card soft-rose reveal stagger-4">
+                <h3>Figma MCP + design-analyst</h3>
+                <p class="lead" style="font-size: clamp(0.8rem, 1.05vw, 0.96rem); max-width: none;">设计角色正式接进来，AI 协作开始更像一个完整的小团队。</p>
+              </div>
+            </div>
+            <div class="quote reveal stagger-5">最后追求的不是“一个更强的 AI”，而是“一套分工更顺的小团队”。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       SLIDE 6: HABITS
+       =========================================== -->
   <section class="slide" data-title="工作习惯">
     <div class="slide-content">
       <div class="page">
         <div class="sheet">
           <div class="binder"><span></span></div>
           <div class="tabs">
-            <div class="tab gold">V2</div>
-            <div class="tab mint">AGENTS</div>
-            <div class="tab rose">HABIT</div>
+            <div class="tab mint">PLAN</div>
+            <div class="tab gold">LESSONS</div>
+            <div class="tab sky">VERIFY</div>
           </div>
           <div class="inner">
             <div class="slide-head reveal">
-              <div class="eyebrow">V2 · 关键转折 — 工作习惯</div>
-              <div class="slide-index">04</div>
+              <div class="eyebrow">Workflow Habits</div>
+              <div class="slide-index">06</div>
             </div>
-            <h2 class="reveal-left stagger-1">参考优秀的 Agent 配置后，我意识到：<br>真正让项目不跑偏的不是 Prompt，而是工作习惯</h2>
-            <p class="subnote reveal stagger-1">规则要写进文件，不能靠对话传递。于是有了 AGENTS.md——一个每次会话启动时 AI 必须读取的"团队宪法"。</p>
-
-            <div class="copy-layout" style="margin-top: 0.75rem;">
-              <!-- 左：四条工作习惯 -->
-              <div class="detail-grid" style="margin-top: 0;">
-                <div class="card reveal stagger-2">
-                  <div class="card-label">Plan 优先</div>
-                  <h3 style="font-size: clamp(0.85rem, 1.1vw, 0.98rem);">复杂任务先写 Spec</h3>
-                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.55; margin-top: 0.3rem;">超过 3 步或涉及架构判断，先写范围、验收和风险，再动手。</p>
-                  <pre class="mini-code">## spec
-- 目标：完成导出链路
-- 范围：仅 PDF / PNG
-- 验收：能导出且不丢节点
-- 风险：大图性能、分页裁切</pre>
-                </div>
-                <div class="card reveal stagger-3">
-                  <div class="card-label">子 Agent 拆出去</div>
-                  <h3 style="font-size: clamp(0.85rem, 1.1vw, 0.98rem);">研究和并行分析独立</h3>
-                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.55; margin-top: 0.3rem;">主上下文只保留当前决策，避免一个窗口里塞满所有细节。</p>
-                  <pre class="mini-code">agent A：研究导出方案
-agent B：排查状态持久化
-agent C：对比主流 mindmap 库
-
-主线程只保留结论与决策</pre>
-                </div>
-                <div class="card reveal stagger-4">
-                  <div class="card-label">Lessons 沉淀</div>
-                  <h3 style="font-size: clamp(0.85rem, 1.1vw, 0.98rem);">每次纠正写进文件</h3>
-                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.55; margin-top: 0.3rem;">把反复出现的错误变成默认规则，不靠每次重新提醒。</p>
-                  <pre class="mini-code">## lessons
-- 设计稿不能直接进开发
-- 先转 PRD 再 handoff
-- 任务完成前必须留验证证据</pre>
-                </div>
-                <div class="card reveal stagger-5">
-                  <div class="card-label">Task Management</div>
-                  <h3 style="font-size: clamp(0.85rem, 1.1vw, 0.98rem);">任务清单持续勾选</h3>
-                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.55; margin-top: 0.3rem;">计划、进度、review 都落在同一个文件，做完一项勾一项。</p>
-                  <pre class="mini-code">- [x] 明确导出范围
-- [x] 拆分实现步骤
-- [ ] 跑回归测试
-- [ ] 补 review 小结</pre>
+            <h2 class="reveal-left stagger-1">真正让项目不跑偏的，不是 prompt，而是工作习惯</h2>
+            <p class="subnote reveal stagger-1">这页我不想只讲抽象原则，而是直接讲这套习惯具体怎么落到项目里。</p>
+            <div class="copy-layout">
+              <div class="copy-stack">
+                <div class="detail-grid">
+                  <div class="card reveal stagger-2">
+                    <div class="card-label">Plan</div>
+                    <h3>复杂任务先进 Plan</h3>
+                    <p class="lead" style="font-size: clamp(0.74rem, 0.98vw, 0.88rem); max-width: none;">超过 3 步、涉及架构判断，就先写 spec、范围、验收和风险。</p>
+                  </div>
+                  <div class="card reveal stagger-3">
+                    <div class="card-label">Subagents</div>
+                    <h3>研究和并行分析拆出去</h3>
+                    <p class="lead" style="font-size: clamp(0.74rem, 0.98vw, 0.88rem); max-width: none;">让主上下文只保留当前决策，避免一个窗口里塞满所有细节。</p>
+                  </div>
+                  <div class="card reveal stagger-4">
+                    <div class="card-label">Lessons</div>
+                    <h3>每次纠正都写进 lessons</h3>
+                    <p class="lead" style="font-size: clamp(0.74rem, 0.98vw, 0.88rem); max-width: none;">把反复出现的错误变成默认规则，而不是每次重新提醒。</p>
+                  </div>
+                  <div class="card reveal stagger-5">
+                    <div class="card-label">Verify</div>
+                    <h3>完成前必须留下证据</h3>
+                    <p class="lead" style="font-size: clamp(0.74rem, 0.98vw, 0.88rem); max-width: none;">测试、日志、diff、行为对比，至少要证明这件事真的跑通了。</p>
+                  </div>
                 </div>
               </div>
-
-              <!-- 右：AGENTS.md 摘要 -->
-              <div class="copy-wrap reveal stagger-3">
-                <div class="copy-head">
-                  <span>AGENTS.md 核心条款</span>
+              <div class="copy-wrap reveal stagger-4" style="display:flex; flex-direction:column;">
+                <div class="copy-head" style="flex-shrink:0;">
+                  <span>Agent 配置文件（可直接复制）</span>
+                  <button class="copy-btn" data-copy-target="agent-config">复制</button>
                 </div>
-                <pre class="copy-pre">## 任务分级与强制流程
+                <pre class="copy-pre" id="agent-config" style="flex:1; overflow-y:auto; min-height:0; max-height: min(52vh, 420px);">工作流编排（Workflow Orchestration）
+1. 默认进入 Plan 模式
+- 任何非简单任务（3 步以上或涉及架构决策）都进入 plan 模式
+- 一旦出现偏差，立刻停止并重新规划
+- plan 模式不仅用于搭建，也用于验证步骤
+- 先写详细规格说明（spec）降低歧义
 
-🟢 小任务（≤2步，单文件）
-→ 直接实现 → verify → 完成
+2. 子代理策略（Subagent Strategy）
+- 大量使用子代理，让主上下文窗口保持干净
+- 研究、探索和并行分析交给子代理处理
+- 面对复杂问题，用子代理堆算力
+- 每个子代理只负责一条思路
 
-🟡 中任务（3-6步，跨2个模块）
-→ 写 plan → 实现 → 两阶段 review → 完成
+3. 自我改进闭环（Self-Improvement Loop）
+- 用户每次纠正后：写入 tasks/lessons.md
+- 给自己写规则，避免同类错误再次发生
+- 持续迭代这些经验，直到错误率下降
+- 每次会话开始时，先回顾 lessons
 
-🔴 大任务（跨模块/架构调整）
-→ brainstorming → 写 spec → 实现
-→ 两阶段 review → 完成
+4. 完成前必须验证（Verification Before Done）
+- 没有证明能跑通，就不要标记任务完成
+- 必要时对比主分支与修改后的行为差异（diff）
+- 自问：一个 Staff Engineer 会认可吗？
+- 跑测试、查日志、给出可验证证据
 
-## 两阶段 Review 门控
+5. 追求优雅（Demand Elegance）
+- 对非简单改动：先问有没有更优雅的方式
+- 如果修复很 hack：问基于现在认知应该怎么做才优雅
+- 对简单显然的修复不必过度设计
+- 对外呈现前先挑战自己的实现方案
 
-阶段 1：Spec 合规 Review
-- spec 中每条需求是否都有对应实现？
-- 边界条件和错误处理是否覆盖？
+6. 自主修 Bug（Autonomous Bug Fixing）
+- 收到 bug 报告：直接修，不要让用户手把手带
+- 指向日志、错误信息、失败测试，然后解决它
+- 不要求用户做额外上下文切换
+- 不用别人告诉你怎么做，也能把 CI 挂掉的测试修好
 
-阶段 2：代码质量 Review
-- 类型安全？相同逻辑是否超过 2 处？
-- 是否有明显的回归风险？
-
-两关都通过才算完成。
-
-## 完成定义（DoD）
-- [ ] 功能可运行
-- [ ] npm run build 通过
-- [ ] 两阶段 review 通过
-- [ ] 无明显回归风险</pre>
+任务管理（Task Management）
+- 先写计划：把 plan 写到 tasks/todo.md，用可勾选清单列出
+- 验证计划：开始实现前先确认/对齐计划
+- 跟踪进度：做一项勾一项
+- 解释改动：每一步给出高层概述
+- 记录结果：在 tasks/todo.md 增加 review 小节
+- 沉淀经验：用户纠正后更新 tasks/lessons.md</pre>
               </div>
             </div>
           </div>
@@ -1457,10 +1808,10 @@ agent C：对比主流 mindmap 库
     </div>
   </section>
 
-  <!-- ===============================================
-       SLIDE 5: Figma MCP + 设计角色
-       =============================================== -->
-  <section class="slide" data-title="Figma MCP + 设计角色">
+  <!-- ===========================================
+       SLIDE 7: DESIGN-DRIVEN
+       =========================================== -->
+  <section class="slide" data-title="设计转译">
     <div class="slide-content">
       <div class="page">
         <div class="sheet">
@@ -1472,240 +1823,456 @@ agent C：对比主流 mindmap 库
           </div>
           <div class="inner">
             <div class="slide-head reveal">
-              <div class="eyebrow">V3 · Figma MCP + 设计角色</div>
-              <div class="slide-index">05</div>
+              <div class="eyebrow">Design Driven</div>
+              <div class="slide-index">07</div>
             </div>
-            <h2 class="reveal-left stagger-1">接入 Figma MCP 后，design-analyst 上线了</h2>
-            <p class="subnote reveal stagger-1">之前 PRD 靠我手写，设计细节经常遗漏。有了 design-analyst，它能直接读设计稿，把设计意图翻译成工程能接手的格式。</p>
+            <h2 class="reveal-left stagger-1">加入 design-analyst 之后，PRD 变得完全不一样</h2>
+            <p class="subnote reveal stagger-1">这页不讲抽象原则，直接看加入设计分析角色前后，需求描述长什么样。</p>
+            <div class="compare-grid">
+              <div class="compare-card bad reveal stagger-2">
+                <div class="compare-top">没有 design-analyst 时</div>
+                <pre class="compare-pre">PRD 节选
 
-            <div class="two-col" style="margin-top: 0.75rem;">
-              <!-- 左：3 种场景 -->
-              <div style="display: grid; gap: 0.6rem;">
-                <div class="card reveal stagger-2" style="border-left: 3px solid var(--accent-sky);">
-                  <div class="card-label">场景 A — 大型设计稿</div>
-                  <div class="flow-chain" style="margin-top: 0.35rem;">
-                    <span class="flow-step">Figma 全稿</span>
-                    <span class="flow-arrow">→</span>
-                    <span class="flow-step accent">设计分析</span>
-                    <span class="flow-arrow">→</span>
-                    <span class="flow-step">识别模块</span>
-                    <span class="flow-arrow">→</span>
-                    <span class="flow-step">拆分多个 PRD</span>
-                  </div>
-                </div>
-                <div class="card reveal stagger-3" style="border-left: 3px solid var(--accent-rose);">
-                  <div class="card-label">场景 B — PRD + 设计稿</div>
-                  <div class="flow-chain" style="margin-top: 0.35rem;">
-                    <span class="flow-step">产品 PRD</span>
-                    <span class="flow-arrow">+</span>
-                    <span class="flow-step">设计稿</span>
-                    <span class="flow-arrow">→</span>
-                    <span class="flow-step accent">对齐分析</span>
-                    <span class="flow-arrow">→</span>
-                    <span class="flow-step">标注疑点/风险</span>
-                  </div>
-                </div>
-                <div class="card reveal stagger-4" style="border-left: 3px solid var(--accent-mint);">
-                  <div class="card-label">场景 C — 单组件设计稿</div>
-                  <div class="flow-chain" style="margin-top: 0.35rem;">
-                    <span class="flow-step">单组件稿</span>
-                    <span class="flow-arrow">→</span>
-                    <span class="flow-step">检查现有 PRD</span>
-                    <span class="flow-arrow">→</span>
-                    <span class="flow-step accent">补充 UI 规格</span>
-                  </div>
-                </div>
-                <div class="card soft-gold reveal stagger-5">
-                  <div class="card-label">design-role-rules.md</div>
-                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.6; margin-top: 0.3rem;">411 行实战沉淀的 Figma→CSS 还原规则库，7 个章节：字体·间距·颜色·状态·响应式·Figma 特殊属性·组件映射。每次踩坑都更新。</p>
-                </div>
-              </div>
+目标：
+实现首页导航区域
 
-              <!-- 右：PRD 对比 -->
-              <div>
-                <div class="compare-card bad reveal stagger-2" style="border-radius: 1.1rem; margin-bottom: 0.6rem;">
-                  <div class="compare-top">没有 design-analyst</div>
-                  <pre class="compare-pre">需求：
+需求：
 - 页面风格和 Figma 保持一致
-- 顶部有搜索和操作区
+- 顶部有搜索、切换按钮和操作区
 - 卡片要有 hover 状态
 - 颜色和间距尽量还原
 
-问题：哪些是组件不清楚；
-颜色没有 token 映射；
-工程拿到后仍然要猜</pre>
-                </div>
-                <div class="compare-card good reveal stagger-3" style="border-radius: 1.1rem;">
-                  <div class="compare-top">加入 design-analyst 后</div>
-                  <pre class="compare-pre">组件映射：
-- SearchInput → Input/Search
-- ViewSwitch → SegmentedControl
+问题：
+- 哪些是组件，哪些只是视觉相似，没写清楚
+- 状态只有 hover，没有 disabled / loading
+- spacing、颜色、字号没有 token 映射
+- 工程拿到后仍然要自己猜</pre>
+              </div>
+              <div class="compare-card good reveal stagger-3">
+                <div class="compare-top">加入 design-analyst 后</div>
+                <pre class="compare-pre">PRD 节选
+
+模块：Header / Toolbar
+
+组件映射：
+- SearchInput → 使用 Input/Search 组件
+- ViewSwitch → SegmentedControl，2 个状态：map / document
 - PrimaryAction → Button/Primary
 
-设计约束：gap-16 / padding-x-24
-状态：default/hover/active/disabled
-验收：所有颜色必须走 tokens
-       Header 高度 72px 不允许漂移</pre>
-                </div>
+设计约束：
+- 间距：gap-16 / padding-x-24
+- 字体：title-sm / body-sm
+- 颜色：surface-default / text-primary / border-subtle
+- 状态：default / hover / active / disabled / loading
+
+验收：
+- 所有颜色与间距必须走 tokens
+- 图标尺寸固定 20px
+- Header 高度 72px，不允许自由漂移</pre>
               </div>
             </div>
+            <div class="command reveal stagger-4">设计稿不是直接交给开发，而是先被翻译成：组件映射 + token 约束 + 状态定义 + 验收标准。</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===============================================
-       SLIDE 6: 治理体系建立
-       =============================================== -->
-  <section class="slide" data-title="治理体系">
+  <!-- ===========================================
+       SLIDE 8: PRODUCTIZED SYSTEM
+       =========================================== -->
+  <section class="slide" data-title="产品化">
     <div class="slide-content">
       <div class="page">
         <div class="sheet">
           <div class="binder"><span></span></div>
           <div class="tabs">
-            <div class="tab gold">PRD</div>
-            <div class="tab mint">SPRINT</div>
-            <div class="tab rose">DOD</div>
+            <div class="tab gold">PATHS</div>
+            <div class="tab mint">MODES</div>
+            <div class="tab rose">SWITCH</div>
           </div>
           <div class="inner">
             <div class="slide-head reveal">
-              <div class="eyebrow">治理体系 · prd-registry + DoR/DoD</div>
-              <div class="slide-index">06</div>
+              <div class="eyebrow">Productized System</div>
+              <div class="slide-index">08</div>
             </div>
-            <h2 class="reveal-left stagger-1">光靠工作习惯还不够，需要一套治理框架来管项目生命周期</h2>
-            <p class="subnote reveal stagger-1">多个 PRD 同时进行时，每次会话"从哪里接着做"变成了问题。于是引入 prd-registry.md 作为唯一主控文件。</p>
-
-            <div class="three-col" style="margin-top: 0.8rem;">
+            <h2 class="reveal-left stagger-1">最后我把它收成了 2 种开发路径 + 3 条协作模式</h2>
+            <p class="subnote reveal stagger-1">其中 Codex 多子 agent 这条链路，并不绑定某个单一模型，它的重点是把角色拆开而不是把能力绑死。</p>
+            <div class="two-col" style="margin-top: 0.9rem;">
               <div class="card soft-gold reveal stagger-2">
-                <div class="card-header">
-                  <div class="card-icon"><svg viewBox="0 0 24 24"><use href="#icon-file"></use></svg></div>
-                  <div class="card-label">prd-registry.md</div>
-                </div>
-                <h3 style="font-size: clamp(0.85rem, 1.1vw, 0.98rem);">PRD 驱动开发</h3>
+                <div class="card-label">开发路径 1</div>
+                <h3>0-1 无设计稿项目</h3>
                 <ul class="bullet-list">
-                  <li>Active PRD 唯一可见</li>
-                  <li>会话启动：先读 registry，告知用户下一步</li>
-                  <li>任务完成自动更新状态</li>
-                  <li>队列管理：完成一个取下一个</li>
+                  <li>意图理解</li>
+                  <li>产品规划</li>
+                  <li>PRD / spec / handoff</li>
+                  <li>开发 / 测试 / 验收</li>
                 </ul>
-                <pre class="mini-code" style="min-height: auto; margin-top: 0.65rem;">会话启动协议：
-"当前 Active PRD 是 [导出链路]，
-下一步是 [实现 PDF 导出]，
-确认继续？"</pre>
               </div>
-              <div class="card soft-mint reveal stagger-3">
-                <div class="card-header">
-                  <div class="card-icon"><svg viewBox="0 0 24 24"><use href="#icon-flow"></use></svg></div>
-                  <div class="card-label">DoR — 需求准入</div>
-                </div>
-                <h3 style="font-size: clamp(0.85rem, 1.1vw, 0.98rem);">进开发前必须通过</h3>
+              <div class="card soft-rose reveal stagger-3">
+                <div class="card-label">开发路径 2</div>
+                <h3>基于设计稿的项目</h3>
                 <ul class="bullet-list">
-                  <li>需求背景和目标清晰？</li>
-                  <li>验收标准（AC）已定义？</li>
-                  <li>设计稿已就绪或明确不需要？</li>
-                  <li>依赖项已解决？</li>
-                  <li>范围边界已确认？</li>
+                  <li>设计分析</li>
+                  <li>设计转 PRD</li>
+                  <li>产品校验</li>
+                  <li>开发 / 测试 / Design QA</li>
                 </ul>
-                <div style="margin-top: 0.65rem; padding: 0.45rem 0.65rem; border-radius: 0.65rem; background: rgba(157,202,180,0.18); font-size: var(--small-size); font-weight: 700; color: #3d8a6b;">
-                  不满足 DoR → 禁止进入开发
-                </div>
-              </div>
-              <div class="card soft-rose reveal stagger-4">
-                <div class="card-header">
-                  <div class="card-icon"><svg viewBox="0 0 24 24"><use href="#icon-shield"></use></svg></div>
-                  <div class="card-label">DoD — 完成定义</div>
-                </div>
-                <h3 style="font-size: clamp(0.85rem, 1.1vw, 0.98rem);">全部满足才算完成</h3>
-                <ul class="bullet-list">
-                  <li>功能可运行</li>
-                  <li>npm run build 通过</li>
-                  <li>两阶段 Review 通过</li>
-                  <li>无明显回归风险</li>
-                  <li>关键变更有注释</li>
-                </ul>
-                <div style="margin-top: 0.65rem; padding: 0.45rem 0.65rem; border-radius: 0.65rem; background: rgba(227,183,196,0.2); font-size: var(--small-size); font-weight: 700; color: #b06080;">
-                  不满足 DoD → 视为未完成
-                </div>
               </div>
             </div>
-
-            <div class="quote reveal stagger-5">治理的价值不是限制，而是让 AI 和人都知道"做到什么程度算完成"。</div>
+            <div class="mini-table reveal stagger-4" style="margin-top: 0.8rem;">
+              <div class="mini-row head">
+                <div>协作模式</div>
+                <div>适用场景</div>
+                <div>角色分配</div>
+              </div>
+              <div class="mini-row">
+                <div><strong>Claude + Codex</strong></div>
+                <div>Claude 还有配额，需求复杂、上下文长</div>
+                <div>Claude 管规划，Codex 管执行</div>
+              </div>
+              <div class="mini-row">
+                <div><strong>Codex 多 agent</strong></div>
+                <div>需求较清楚，希望端到端推进；任何单一模型都能按这条拆角色情况来跑</div>
+                <div>重点不是模型名，而是 product / architect / engineer / tester / reviewer 的角色拆分</div>
+              </div>
+              <div class="mini-row">
+                <div><strong>OpenClaw</strong></div>
+                <div>希望任务在后台持续工作</div>
+                <div>叠加在前两条模式上，负责执行与回传</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===============================================
-       SLIDE 7: 技术债危机 + 架构守护
-       =============================================== -->
-  <section class="slide" data-title="架构守护">
+  <!-- ===========================================
+       SLIDE 9: SINGLE SOURCE OF TRUTH
+       =========================================== -->
+  <section class="slide" data-title="统一入口">
     <div class="slide-content">
       <div class="page">
         <div class="sheet">
           <div class="binder"><span></span></div>
           <div class="tabs">
-            <div class="tab rose">BUG</div>
-            <div class="tab gold">ARCH</div>
-            <div class="tab mint">AFTER</div>
+            <div class="tab mint">STATE</div>
+            <div class="tab sky">HANDOFF</div>
+            <div class="tab gold">RUN</div>
           </div>
           <div class="inner">
             <div class="slide-head reveal">
-              <div class="eyebrow">架构守护 · 改 5 处 → 改 1 处</div>
-              <div class="slide-index">07</div>
+              <div class="eyebrow">No Chaos</div>
+              <div class="slide-index">09</div>
             </div>
-            <h2 class="reveal-left stagger-1">加了 LR/TB 两种布局，布局 Bug 悄悄出现了</h2>
-            <p class="subnote reveal stagger-1">导出 PNG 时连接线方向全部错误。深查发现：同一套"方向"逻辑散落在 5 个文件里互不知晓——这是"先快速跑起来"积累的典型技术债。</p>
+            <h2 class="reveal-left stagger-1">三条模式混着用，怎么保证不乱</h2>
+            <p class="subnote reveal stagger-1">真实使用里，用户可能上午还在 Claude Code + Codex，下午 tokens 用光切到 Codex 多 agent，晚上回家再用 OpenClaw 远程继续跑。关键是无缝衔接，不丢上下文。</p>
+            <div class="scenario-flow">
+              <div class="scenario-card soft-gold reveal stagger-2">
+                <div class="card-label">上午</div>
+                <h3>Claude + Codex</h3>
+                <p class="lead" style="font-size: clamp(0.72rem, 0.96vw, 0.86rem); max-width: none;">用 Claude 管上下文，Codex 执行。</p>
+              </div>
+              <div class="scenario-card soft-sky reveal stagger-3">
+                <div class="card-label">下午</div>
+                <h3>Claude tokens 用光</h3>
+                <p class="lead" style="font-size: clamp(0.72rem, 0.96vw, 0.86rem); max-width: none;">切到 Codex 多 agent，继续沿当前任务推进。</p>
+              </div>
+              <div class="scenario-card soft-rose reveal stagger-4">
+                <div class="card-label">晚上</div>
+                <h3>回家继续做</h3>
+                <p class="lead" style="font-size: clamp(0.72rem, 0.96vw, 0.86rem); max-width: none;">用 OpenClaw 后台拉 handoff，继续执行。</p>
+              </div>
+              <div class="scenario-card soft-mint reveal stagger-5">
+                <div class="card-label">结果</div>
+                <h3>无缝衔接</h3>
+                <p class="lead" style="font-size: clamp(0.72rem, 0.96vw, 0.86rem); max-width: none;">任务线不断，状态线不断，上下文线也不断。</p>
+              </div>
+            </div>
+            <div class="four-col" style="margin-top: 0.8rem;">
+              <div class="card reveal stagger-2">
+                <div class="card-label">唯一开关</div>
+                <h3><code>current-workflow.md</code></h3>
+                <p class="lead" style="font-size: clamp(0.74rem, 1vw, 0.9rem); max-width: none;">现在到底走哪条主工作流</p>
+              </div>
+              <div class="card reveal stagger-3">
+                <div class="card-label">唯一任务源</div>
+                <h3><code>.agent/handoff.json</code></h3>
+                <p class="lead" style="font-size: clamp(0.74rem, 1vw, 0.9rem); max-width: none;">所有任务统一从这里进入执行层</p>
+              </div>
+              <div class="card reveal stagger-4">
+                <div class="card-label">唯一状态源</div>
+                <h3><code>.agent/status.json</code></h3>
+                <p class="lead" style="font-size: clamp(0.74rem, 1vw, 0.9rem); max-width: none;">运行状态、阻塞、完成情况都看这里</p>
+              </div>
+              <div class="card reveal stagger-5">
+                <div class="card-label">唯一执行入口</div>
+                <h3><code>scripts/agent_run.sh</code></h3>
+                <p class="lead" style="font-size: clamp(0.74rem, 1vw, 0.9rem); max-width: none;">本地和远程都走同一入口</p>
+              </div>
+            </div>
+            <div class="two-col" style="margin-top: 0.8rem;">
+              <div class="command reveal stagger-4">npm run workflow:intent -- "用 Claude Code + Codex 协作，有设计稿"</div>
+              <div class="command reveal stagger-5">npm run workflow:intent -- "跟我用 Codex 协作链路，有设计稿，并在后台继续跑"</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            <div class="two-col" style="margin-top: 0.75rem; gap: 0.85rem; align-items: start;">
-              <div style="display: grid; gap: 0.5rem;">
-                <div style="display: flex; align-items: center; gap: 0.5rem; padding-bottom: 0.4rem; border-bottom: 1px solid rgba(203,122,71,0.2);">
-                  <span style="width: 1.5rem; height: 1.5rem; border-radius: 50%; background: rgba(203,122,71,0.12); display: grid; place-items: center; font-size: 0.7rem; font-weight: 900; color: var(--accent-warm);">✗</span>
-                  <span style="font-size: var(--small-size); font-weight: 800; letter-spacing: 0.07em; color: var(--accent-warm); text-transform: uppercase;">Before — 布局规则散落 5 处</span>
+  <!-- ===========================================
+       SLIDE 10: AUTOMATION LOOP
+       =========================================== -->
+  <section class="slide" data-title="自动化">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab rose">AUTO</div>
+            <div class="tab mint">REMOTE</div>
+            <div class="tab sky">QA</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">Automation Loop</div>
+              <div class="slide-index">10</div>
+            </div>
+            <h2 class="reveal-left stagger-1">自动化闭环长什么样</h2>
+            <div class="sequence" style="margin-top: 1rem;">
+              <div class="card soft-gold reveal stagger-2">
+                <div class="card-label">PM</div>
+                <h3>Claude / Product</h3>
+                <p class="lead" style="font-size: clamp(0.78rem, 1.02vw, 0.92rem); max-width: none;">需求澄清、冻结范围、产出 handoff</p>
+              </div>
+              <div class="arrow reveal stagger-3">→</div>
+              <div class="card soft-rose reveal stagger-3">
+                <div class="card-label">Design</div>
+                <h3>design-analyst</h3>
+                <p class="lead" style="font-size: clamp(0.78rem, 1.02vw, 0.92rem); max-width: none;">设计分析、PRD、Design QA</p>
+              </div>
+              <div class="arrow reveal stagger-4">→</div>
+              <div class="card soft-sky reveal stagger-4">
+                <div class="card-label">Build</div>
+                <h3>Codex 多 agent</h3>
+                <p class="lead" style="font-size: clamp(0.78rem, 1.02vw, 0.92rem); max-width: none;">architect / engineer / tester / reviewer</p>
+              </div>
+              <div class="arrow reveal stagger-5">→</div>
+              <div class="card soft-mint reveal stagger-5">
+                <div class="card-label">Remote</div>
+                <h3>OpenClaw</h3>
+                <p class="lead" style="font-size: clamp(0.78rem, 1.02vw, 0.92rem); max-width: none;">后台执行、状态回传、日志回传</p>
+              </div>
+            </div>
+            <div class="quote reveal stagger-5">目标不是“我一直盯着 AI 干活”，而是“需求一旦明确，后面能自动推进到测试和验收”。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       SLIDE 11: TEMPLATE FOLDER
+       =========================================== -->
+  <section class="slide" data-title="模板文件夹">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab gold">FILES</div>
+            <div class="tab mint">RULES</div>
+            <div class="tab rose">ENTRY</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">Template Output</div>
+              <div class="slide-index">11</div>
+            </div>
+            <h2 class="reveal-left stagger-1">最终产出物：一个可一键初始化的项目模板</h2>
+            <p class="subnote reveal stagger-1">这一页用简版"模板解剖图"。中间火箭是整个 skill，四周小字号标签是支撑这套系统的关键文件。</p>
+            <a class="reveal stagger-1" href="file:///Users/zhangzhongwei/Desktop/vibcoding%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/presentations/designer-vibecoding-share/skill-landing.html#setup" target="_blank" style="display:inline-flex;align-items:center;gap:0.45rem;margin-top:-0.1rem;font-size:var(--small-size);font-weight:700;letter-spacing:0.06em;color:var(--accent-warm);text-decoration:none;border-bottom:1px solid rgba(203,122,71,0.4);padding-bottom:1px;">
+              🔗 Skill 介绍站点 →
+            </a>
+            <div class="exploded-map reveal-scale stagger-2">
+              <div class="diagram-meta-left">FIG-011</div>
+              <div class="diagram-meta-right">[ DESIGNER VIBECODING TEMPLATE ]</div>
+              <div class="diagram-title">SKILL TEMPLATE ASSEMBLY<br>DETAILED ANATOMY VIEW</div>
+
+              <svg class="diagram-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M16 15 H32 L47 28"></path>
+                <path d="M13 33 H28 L43 43"></path>
+                <path d="M13 49 H28 L40 60"></path>
+                <path d="M82 17 H72 L60 28"></path>
+                <path d="M82 35 H72 L61 44"></path>
+                <path d="M82 57 H72 L58 66"></path>
+              </svg>
+
+              <div class="exploded-art-wrap">
+                <img class="exploded-art" src="./assets/skillpaint.png" alt="Skill template anatomy illustration">
+              </div>
+
+              <div class="anno left" style="left: 2.2rem; top: 4.1rem;">
+                <div class="file">AGENTS.md</div><br>
+                <div class="desc">总规则入口。流程、边界、DoD 都从这里开始。</div>
+              </div>
+
+              <div class="anno left" style="left: 1.9rem; top: 11rem;">
+                <div class="file">current-workflow.md</div><br>
+                <div class="desc">唯一工作流开关，决定当前到底走哪条主链路。</div>
+              </div>
+
+              <div class="anno left" style="left: 1.9rem; top: 17.6rem;">
+                <div class="file">handoff.json</div><br>
+                <div class="desc">唯一任务源。规划好的任务都从这里进入执行层。</div>
+              </div>
+
+              <div class="anno right" style="right: 2.3rem; top: 5rem;">
+                <div class="file">ai-workflows/</div><br>
+                <div class="desc">两条主工作流与共享模板，固化协作模式和角色分工。</div>
+              </div>
+
+              <div class="anno right" style="right: 2.3rem; top: 12.8rem;">
+                <div class="file">status.json</div><br>
+                <div class="desc">唯一状态源。运行进度、阻塞和完成状态都在这里看。</div>
+              </div>
+
+              <div class="anno right" style="right: 2.4rem; top: 21.2rem;">
+                <div class="file">agent_run.sh</div><br>
+                <div class="desc">统一执行入口。本地跑和远程跑，最终都落到这里。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       SLIDE 12: GET THE SKILL
+       =========================================== -->
+  <!-- ===========================================
+       SLIDE 12: CLOSING
+       =========================================== -->
+  <section class="slide" data-title="总结">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab sky">SCOPE</div>
+            <div class="tab rose">FLOW</div>
+            <div class="tab mint">SKILL</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">Takeaways</div>
+              <div class="slide-index">12</div>
+            </div>
+            <h2 class="reveal-left stagger-1">最后我想沉淀的，不只是经验，而是一个 skill</h2>
+            <div class="three-col" style="margin-top: 1rem;">
+              <div class="card soft-gold reveal stagger-2">
+                <div class="card-label">Takeaway 1</div>
+                <h3>先学会控 scope</h3>
+                <p class="lead" style="font-size: clamp(0.8rem, 1.05vw, 0.96rem); max-width: none;">0-1 最重要的不是做得全，而是先跑通最小闭环。</p>
+              </div>
+              <div class="card soft-rose reveal stagger-3">
+                <div class="card-label">Takeaway 2</div>
+                <h3>先搭流程，再拼 prompt</h3>
+                <p class="lead" style="font-size: clamp(0.8rem, 1.05vw, 0.96rem); max-width: none;">稳定产出靠工作流、角色和验证，不是一句神奇提问。</p>
+              </div>
+              <div class="card soft-mint reveal stagger-4">
+                <div class="card-label">Takeaway 3</div>
+                <h3>把方法做成模板</h3>
+                <p class="lead" style="font-size: clamp(0.8rem, 1.05vw, 0.96rem); max-width: none;">最终目标是一个启动即问"有没有设计稿"的设计师 vibecoding skill。</p>
+              </div>
+            </div>
+            <div class="quote reveal stagger-5">分享不是终点。最后留下来的，应该是一套别人也能直接启动的项目模板。</div>
+            <div class="footer reveal stagger-5">
+              <span>HTML Presentation / Frontend Slides Style</span>
+              <span>End</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       SLIDE 13: GET THE SKILL
+       =========================================== -->
+  <section class="slide" data-title="获取 Skill">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab mint">INSTALL</div>
+            <div class="tab gold">START</div>
+            <div class="tab rose">LINK</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">Get The Skill</div>
+              <div class="slide-index">13</div>
+            </div>
+            <h2 class="reveal-left stagger-1">一条命令，把这套模板带走</h2>
+            <p class="subnote reveal stagger-1">复制命令，直接告诉 AI 让他帮你安装。</p>
+
+            <div class="two-col" style="margin-top: 0.9rem; align-items: start;">
+              <div style="display:grid; gap: 0.75rem;">
+                <div class="copy-wrap reveal stagger-2">
+                  <div class="copy-head">
+                    <span>安装命令</span>
+                    <button class="copy-btn" onclick="copyText('claude skills install github.com/YOUR_USERNAME/designer-vibecoding-starter', this)">复制</button>
+                  </div>
+                  <pre class="copy-pre" id="install-cmd">claude skills install github.com/YOUR_USERNAME/designer-vibecoding-starter</pre>
                 </div>
-                <div class="code-diff before"><span class="code-hi">// EditorPage.tsx</span>
-if (isLR) sourceHandle = 'source-right'
-else      sourceHandle = 'source-bottom'
 
-<span class="code-hi">// MindmapNode.tsx</span>
-if (mode==='left-right') position=Right
-else                     position=Bottom
+                <div class="copy-wrap reveal stagger-3">
+                  <div class="copy-head">
+                    <span>安装完成后的第一步</span>
+                  </div>
+                  <pre class="copy-pre" style="color: #9dcab4;"># 1. 打开任意项目，告诉 Claude：
+"帮我搭一套协作脚手架"
 
-<span class="code-hi">// snapshot.ts</span>
-sourcePosition: Position.Right <span class="code-err">← 硬编码!</span>
-targetPosition: Position.Left
+# 2. Claude 弹出对话框，回答 4 个问题：
+#    - 项目名称
+#    - 是否有设计稿
+#    - 协作模式
+#    - 是否需要 OpenClaw
 
-<span class="code-hi">// + FoldButton.css / AddButton.css ...</span></div>
-                <div style="background: rgba(203,122,71,0.08); border-radius: 0.6rem; padding: 0.38rem 0.8rem; font-size: var(--small-size); color: var(--accent-warm); font-weight: 700;">
-                  新增布局 RL → 需要改 5 个文件，极易漏改
+# 3. 脚手架自动生成，打开 AGENTS.md 开始</pre>
                 </div>
               </div>
 
-              <div style="display: grid; gap: 0.5rem;">
-                <div style="display: flex; align-items: center; gap: 0.5rem; padding-bottom: 0.4rem; border-bottom: 1px solid rgba(157,202,180,0.3);">
-                  <span style="width: 1.5rem; height: 1.5rem; border-radius: 50%; background: rgba(157,202,180,0.2); display: grid; place-items: center; font-size: 0.7rem; font-weight: 900; color: #3d8a6b;">✓</span>
-                  <span style="font-size: var(--small-size); font-weight: 800; letter-spacing: 0.07em; color: #3d8a6b; text-transform: uppercase;">After — 单一数据源 layoutConfig.ts</span>
+              <div style="display:grid; gap: 0.75rem;">
+                <div class="card soft-gold reveal stagger-2">
+                  <div class="card-label">Skill 介绍站点</div>
+                  <h3 style="font-size: clamp(0.9rem, 1.3vw, 1.1rem); margin-bottom: 0.5rem;">完整功能说明 & 在线体验</h3>
+                  <a href="file:///Users/zhangzhongwei/Desktop/vibcoding%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/presentations/designer-vibecoding-share/skill-landing.html#setup" target="_blank" style="display:inline-block; font-size:var(--small-size); color:var(--accent-warm); font-weight:700; word-break:break-all; text-decoration:none; border-bottom: 1px solid rgba(203,122,71,0.4);">
+                    skill-landing.html →
+                  </a>
                 </div>
-                <div class="code-diff after"><span class="code-ok">// layout/layoutConfig.ts ← 唯一改动处</span>
-'right-left': {
-  sourceHandleId:       'source-left',
-  sourcePosition:       Position.Left,
-  exportSourcePosition: Position.Left,
-  foldButton: { side: 'left', ... },
-}
 
-<span class="code-ok">// EditorPage / MindmapNode / snapshot.ts</span>
-const cfg = getLayoutConfig(mode) // 自动适配</div>
-                <div style="background: rgba(157,202,180,0.12); border-radius: 0.6rem; padding: 0.38rem 0.8rem; font-size: var(--small-size); color: #3d8a6b; font-weight: 700;">
-                  新增布局 RL → 只改 1 个文件，其余自动适配
+                <div class="card soft-mint reveal stagger-3">
+                  <div class="card-label">包含什么</div>
+                  <ul class="bullet-list">
+                    <li>2 条开发路径（有/无设计稿）</li>
+                    <li>3 条协作链路（Claude+Codex / Codex 全流程 / OpenClaw）</li>
+                    <li>初始化脚本 + 12 个核心文件</li>
+                    <li>中文意图切换命令</li>
+                  </ul>
                 </div>
-                <div class="card reveal stagger-4" style="padding: 0.7rem;">
-                  <div class="card-label">沉淀进 AGENTS.md §9 — 架构守护</div>
-                  <ul class="rule-list" style="margin-top: 0.3rem;">
-                    <li><span class="rule-num">1</span>相同逻辑出现 2+ 处 → 必须抽取</li>
-                    <li><span class="rule-num">2</span>新功能引入新"维度" → 必须建配置入口</li>
-                    <li><span class="rule-num">3</span>发现架构问题 → 禁止沉默，必须向用户说明技术债和收益</li>
+
+                <div class="card soft-sky reveal stagger-4">
+                  <div class="card-label">适合谁</div>
+                  <ul class="bullet-list">
+                    <li>想用 AI 做项目但不知道从哪搭流程的设计师</li>
+                    <li>需要 Claude + Codex 协作的开发者</li>
+                    <li>想把项目初始化标准化的团队</li>
                   </ul>
                 </div>
               </div>
@@ -1717,170 +2284,7 @@ const cfg = getLayoutConfig(mode) // 自动适配</div>
   </section>
 
   <!-- ===============================================
-       SLIDE 8: 最终协作链路（完整版）
-       =============================================== -->
-  <section class="slide" data-title="完整协作链路">
-    <div class="slide-content">
-      <div class="page">
-        <div class="sheet">
-          <div class="binder"><span></span></div>
-          <div class="tabs">
-            <div class="tab mint">FULL</div>
-            <div class="tab sky">PATHS</div>
-            <div class="tab gold">ROLES</div>
-          </div>
-          <div class="inner">
-            <div class="slide-head reveal">
-              <div class="eyebrow">最终形态 · 完整协作链路</div>
-              <div class="slide-index">08</div>
-            </div>
-            <h2 class="reveal-left stagger-1">两条开发路径 + 完整角色团队</h2>
-            <p class="subnote reveal stagger-1">所有阶段的经验都汇入了最终的协作链路：有无设计稿走不同路径，每条路径都有完整的角色分工和治理体系兜底。</p>
-
-            <div class="two-col" style="margin-top: 0.7rem;">
-              <div class="card soft-gold reveal stagger-2">
-                <div class="card-label">路径 1 — 0-1 / 无设计稿 · Superpowers 式追问</div>
-                <h3 style="font-size: clamp(0.85rem, 1.1vw, 0.98rem); margin-bottom: 0.5rem;">一次只问一个问题，6 步收集完整需求</h3>
-                <div class="flow-chain">
-                  <span class="flow-step">追问需求</span>
-                  <span class="flow-arrow">→</span>
-                  <span class="flow-step accent">生成 PRD</span>
-                  <span class="flow-arrow">→</span>
-                  <span class="flow-step">writing-plans</span>
-                  <span class="flow-arrow">→</span>
-                  <span class="flow-step">子 Agent 实现</span>
-                  <span class="flow-arrow">→</span>
-                  <span class="flow-step accent">Review + DoD</span>
-                </div>
-              </div>
-              <div class="card soft-sky reveal stagger-3">
-                <div class="card-label">路径 2 — 设计稿驱动 · Figma MCP 全链路</div>
-                <h3 style="font-size: clamp(0.85rem, 1.1vw, 0.98rem); margin-bottom: 0.5rem;">Figma → PRD → 开发 → Design QA</h3>
-                <div class="flow-chain">
-                  <span class="flow-step">Figma 读稿</span>
-                  <span class="flow-arrow">→</span>
-                  <span class="flow-step accent">设计分析</span>
-                  <span class="flow-arrow">→</span>
-                  <span class="flow-step">批量 PRD</span>
-                  <span class="flow-arrow">→</span>
-                  <span class="flow-step">子 Agent 实现</span>
-                  <span class="flow-arrow">→</span>
-                  <span class="flow-step accent">Design QA</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="agent-flow stage3 reveal stagger-4" style="margin-top: 0.75rem;">
-              <div class="agent-node">
-                <div class="agent-role">Design</div>
-                <h4>design-analyst</h4>
-                <p>拆设计稿、组件映射、token 约束、Design QA</p>
-              </div>
-              <div class="agent-node">
-                <div class="agent-role">PM</div>
-                <h4>project-manager</h4>
-                <p>prd-registry 主控、PRD 准入、范围收口</p>
-              </div>
-              <div class="agent-node">
-                <div class="agent-role">Arch</div>
-                <h4>architect</h4>
-                <p>架构守护、配置层设计、技术债预警</p>
-              </div>
-              <div class="agent-node">
-                <div class="agent-role">Build</div>
-                <h4>engineer</h4>
-                <p>实现、联调、多文件修改</p>
-              </div>
-              <div class="agent-node">
-                <div class="agent-role">Test</div>
-                <h4>tester</h4>
-                <p>跑验证、补测试、守关键路径</p>
-              </div>
-              <div class="agent-node">
-                <div class="agent-role">Review</div>
-                <h4>reviewer</h4>
-                <p>Spec 合规 + 代码质量两阶段 Review</p>
-              </div>
-            </div>
-
-            <div class="quote reveal stagger-5">最终追求的不是"一个更强的 AI"，而是"一套分工更顺的小团队"。</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===============================================
-       SLIDE 9: 完整 Skill v4.0
-       =============================================== -->
-  <section class="slide" data-title="完整 Skill">
-    <div class="slide-content">
-      <div class="page">
-        <div class="sheet">
-          <div class="binder"><span></span></div>
-          <div class="tabs">
-            <div class="tab mint">SKILL</div>
-            <div class="tab gold">PHASES</div>
-            <div class="tab rose">INSTALL</div>
-          </div>
-          <div class="inner">
-            <div class="slide-head reveal">
-              <div class="eyebrow">designer-vibecoding-starter v4.0 · 全生命周期</div>
-              <div class="slide-index">09</div>
-            </div>
-            <h2 class="reveal-left stagger-1">最终沉淀成一个从启动到部署的完整 Skill</h2>
-            <p class="subnote reveal stagger-1">一条命令初始化，AI 自动追问，生成真实可运行代码，5 分钟上线。覆盖从 0 到上线的完整生命周期。</p>
-
-            <div class="phase-cards reveal stagger-2">
-              <div class="phase-card active-phase">
-                <div class="phase-num">0</div>
-                <div class="phase-title">项目初始化</div>
-                <div class="phase-desc">一条命令生成 19 个治理文件：AGENTS.md · 7 个 Skills · prd-registry · design-role-rules.md</div>
-              </div>
-              <div class="phase-card active-phase">
-                <div class="phase-num">1</div>
-                <div class="phase-title">需求收集</div>
-                <div class="phase-desc">有设计稿走 Figma 路径；无设计稿逐步追问 6 步，生成带 AC 的完整 PRD</div>
-              </div>
-              <div class="phase-card active-phase">
-                <div class="phase-num">2</div>
-                <div class="phase-title">代码生成</div>
-                <div class="phase-desc">技术栈确认 → 架构规划 → 设计 Token CSS → 路由骨架 → Page/Layout 组件，npm run dev 即可跑</div>
-              </div>
-              <div class="phase-card active-phase">
-                <div class="phase-num">3</div>
-                <div class="phase-title">协作开发</div>
-                <div class="phase-desc">PRD 驱动 · 子 Agent 实现 · 两阶段 Review · DoR/DoD 体系全程兜底</div>
-              </div>
-              <div class="phase-card active-phase">
-                <div class="phase-num">4</div>
-                <div class="phase-title">部署上线</div>
-                <div class="phase-desc">1 个问题判断平台：纯前端 → Vercel 精确引导；有后端 → Railway，5 分钟上线</div>
-              </div>
-            </div>
-
-            <div class="copy-wrap reveal stagger-3" style="margin-top: 0.75rem; max-height: 6rem;">
-              <div class="copy-head">
-                <span>安装命令</span>
-                <button class="copy-btn" onclick="copyText('claude skills install github.com/15029041458nanke-blip/designer-vibecoding-starter', this)">复制</button>
-              </div>
-              <pre class="copy-pre" style="color: #9dcab4;">claude skills install github.com/15029041458nanke-blip/designer-vibecoding-starter
-# 安装后：打开项目，告诉 Claude "帮我搭一套协作脚手架"
-# Claude 追问 → 项目名/有无设计稿/技术栈 → 自动生成 19 个文件</pre>
-            </div>
-
-            <div class="footer reveal stagger-4">
-              <a href="./skill-landing.html" target="_blank" style="color: var(--accent-warm); font-weight: 700; text-decoration: none; font-size: var(--small-size);">Skill 介绍站点 → skill-landing.html</a>
-              <span>全生命周期 · 0-1 启动 → 代码生成 → 协作开发 → 部署上线</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===============================================
-       SLIDE 10: Superpowers Skill + 子Agent→子SKILL 进化
+       SLIDE 14: Superpowers Skill + 子Agent→子SKILL 进化
        =============================================== -->
   <section class="slide" data-title="Superpowers Skill">
     <div class="slide-content">
@@ -1894,8 +2298,8 @@ const cfg = getLayoutConfig(mode) // 自动适配</div>
           </div>
           <div class="inner">
             <div class="slide-head reveal">
-              <div class="eyebrow">引入 Superpowers · 子 Agent → 子 SKILL 的进化</div>
-              <div class="slide-index">10</div>
+              <div class="eyebrow">Superpowers Skill · 子 Agent → 子 SKILL 的进化</div>
+              <div class="slide-index">14</div>
             </div>
             <h2 class="reveal-left stagger-1">引入 GitHub 高星开发全家桶 Skill 后，<br>随机子 Agent 进化成了结构化的子 SKILL</h2>
             <p class="subnote reveal stagger-1">Superpowers 是社区沉淀的最佳实践 Skill 集。引入后结合自定义的 design-analyst 角色，构成了最终协作形态。最关键的进化：从"随机调用子 Agent"变成"有规范的子 SKILL"。</p>
@@ -1926,7 +2330,7 @@ skills/design-analysis/SKILL.md
                 </div>
               </div>
 
-              <!-- 右：7个SKILL全景 + 结合design-analyst的最终形态 -->
+              <!-- 右：7个SKILL全景 + 最终协作形态 -->
               <div style="display: grid; gap: 0.55rem;">
                 <div class="card soft-gold reveal stagger-2">
                   <div class="card-label">7 个结构化子 SKILL（Superpowers + 自定义设计角色）</div>
@@ -1990,76 +2394,10 @@ skills/design-analysis/SKILL.md
     </div>
   </section>
 
-  <!-- ===============================================
-       SLIDE 11: 总结 + 实践洞察
-       =============================================== -->
-  <section class="slide" data-title="总结">
-    <div class="slide-content">
-      <div class="page">
-        <div class="sheet">
-          <div class="binder"><span></span></div>
-          <div class="tabs">
-            <div class="tab sky">SCOPE</div>
-            <div class="tab rose">FLOW</div>
-            <div class="tab mint">NEXT</div>
-          </div>
-          <div class="inner">
-            <div class="slide-head reveal">
-              <div class="eyebrow">Takeaways · 实践洞察</div>
-              <div class="slide-index">11</div>
-            </div>
-            <h2 class="reveal-left stagger-1">五条真实踩出来的经验</h2>
-
-            <div class="three-col" style="margin-top: 0.85rem;">
-              <div class="card soft-gold reveal stagger-2">
-                <div class="card-label">Lesson 1</div>
-                <h3 style="font-size: clamp(0.88rem, 1.2vw, 1.08rem);">先跑通最小闭环</h3>
-                <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.6; margin-top: 0.35rem;">0-1 最重要的不是做得全，而是先验证"能不能跑通"，再决定往深处做。</p>
-              </div>
-              <div class="card soft-rose reveal stagger-3">
-                <div class="card-label">Lesson 2</div>
-                <h3 style="font-size: clamp(0.88rem, 1.2vw, 1.08rem);">习惯 &gt; Prompt</h3>
-                <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.6; margin-top: 0.35rem;">真正让项目稳定的是写进文件的工作方式，不是一句神奇的提示词。</p>
-              </div>
-              <div class="card soft-mint reveal stagger-4">
-                <div class="card-label">Lesson 3</div>
-                <h3 style="font-size: clamp(0.88rem, 1.2vw, 1.08rem);">规则要写成文件</h3>
-                <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.6; margin-top: 0.35rem;">每次被纠正的错误，都要沉淀成 AGENTS.md 里的规则，而不是在 prompt 里重复。</p>
-              </div>
-              <div class="card soft-sky reveal stagger-3">
-                <div class="card-label">Lesson 4</div>
-                <h3 style="font-size: clamp(0.88rem, 1.2vw, 1.08rem);">早期架构值得投入</h3>
-                <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.6; margin-top: 0.35rem;">早期多花 2 小时做架构设计，等于省去后期 20 小时的技术债偿还。</p>
-              </div>
-              <div class="card reveal stagger-4">
-                <div class="card-label">Lesson 5</div>
-                <h3 style="font-size: clamp(0.88rem, 1.2vw, 1.08rem);">把方法做成可复用 Skill</h3>
-                <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.6; margin-top: 0.35rem;">分享不是终点。最后留下来的，是一套别人也能直接启动的项目模板。</p>
-              </div>
-              <div class="card soft-gold reveal stagger-5" style="background: rgba(203,122,71,0.07); border-color: rgba(203,122,71,0.25);">
-                <div class="card-label" style="background: rgba(203,122,71,0.15); color: var(--accent-warm);">迭代路径</div>
-                <div class="iter-tags" style="margin-top: 0.4rem; flex-direction: column; gap: 0.3rem;">
-                  <span class="iter-tag warm" style="font-size: 0.56rem;">V0 · 一问一答（问题重重）</span>
-                  <span class="iter-tag rose" style="font-size: 0.56rem;">V1 · 单模型多 Agent</span>
-                  <span class="iter-tag mint" style="font-size: 0.56rem;">V2 · 工作习惯 + AGENTS.md</span>
-                  <span class="iter-tag sky" style="font-size: 0.56rem;">V3 · Figma MCP + 设计角色 + 治理</span>
-                  <span class="iter-tag gold" style="font-size: 0.56rem;">V4 · 完整 Skill（全生命周期）</span>
-                  <span class="iter-tag rose" style="font-size: 0.56rem;">V5 · Superpowers — 子 Agent → 子 SKILL</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="footer reveal stagger-5">
-              <span>designer-vibecoding-starter v4.0 · HTML Presentation</span>
-              <span style="color: var(--accent-warm); font-weight: 700;">持续迭代，持续进化</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <script>
+    /* ===========================================
+       SLIDE PRESENTATION CONTROLLER
+       =========================================== */
     class SlidePresentation {
       constructor() {
         this.slides = [...document.querySelectorAll(".slide")];
@@ -2087,8 +2425,11 @@ skills/design-analysis/SKILL.md
               }
             });
           },
-          { threshold: 0.55 }
+          {
+            threshold: 0.55
+          }
         );
+
         this.slides.forEach((slide) => observer.observe(slide));
       }
 
@@ -2103,31 +2444,52 @@ skills/design-analysis/SKILL.md
             event.preventDefault();
             this.scrollToSlide(this.currentSlide + 1);
           }
+
           if (event.key === "ArrowUp" || event.key === "PageUp") {
             event.preventDefault();
             this.scrollToSlide(this.currentSlide - 1);
           }
-          if (event.key === "Home") { event.preventDefault(); this.scrollToSlide(0); }
-          if (event.key === "End") { event.preventDefault(); this.scrollToSlide(this.slides.length - 1); }
+
+          if (event.key === "Home") {
+            event.preventDefault();
+            this.scrollToSlide(0);
+          }
+
+          if (event.key === "End") {
+            event.preventDefault();
+            this.scrollToSlide(this.slides.length - 1);
+          }
         });
       }
 
       setupWheelNav() {
-        window.addEventListener("wheel", (event) => {
-          if (this.isScrolling) return;
-          if (Math.abs(event.deltaY) < 16) return;
-          this.isScrolling = true;
-          const direction = event.deltaY > 0 ? 1 : -1;
-          this.scrollToSlide(this.currentSlide + direction);
-          setTimeout(() => { this.isScrolling = false; }, 700);
-        }, { passive: true });
+        window.addEventListener(
+          "wheel",
+          (event) => {
+            if (this.isScrolling) return;
+            if (Math.abs(event.deltaY) < 16) return;
+            this.isScrolling = true;
+            const direction = event.deltaY > 0 ? 1 : -1;
+            this.scrollToSlide(this.currentSlide + direction);
+            setTimeout(() => {
+              this.isScrolling = false;
+            }, 700);
+          },
+          { passive: true }
+        );
       }
 
       setupTouchNav() {
         let startY = 0;
-        window.addEventListener("touchstart", (e) => { startY = e.changedTouches[0].clientY; }, { passive: true });
-        window.addEventListener("touchend", (e) => {
-          const delta = startY - e.changedTouches[0].clientY;
+        let endY = 0;
+
+        window.addEventListener("touchstart", (event) => {
+          startY = event.changedTouches[0].clientY;
+        }, { passive: true });
+
+        window.addEventListener("touchend", (event) => {
+          endY = event.changedTouches[0].clientY;
+          const delta = startY - endY;
           if (Math.abs(delta) < 50) return;
           this.scrollToSlide(this.currentSlide + (delta > 0 ? 1 : -1));
         }, { passive: true });
@@ -2157,6 +2519,28 @@ skills/design-analysis/SKILL.md
     }
 
     new SlidePresentation();
+
+    document.querySelectorAll(".copy-btn").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const targetId = button.getAttribute("data-copy-target");
+        const target = document.getElementById(targetId);
+        if (!target) return;
+        const text = target.innerText;
+        try {
+          await navigator.clipboard.writeText(text);
+          const original = button.textContent;
+          button.textContent = "已复制";
+          setTimeout(() => {
+            button.textContent = original;
+          }, 1200);
+        } catch (error) {
+          button.textContent = "复制失败";
+          setTimeout(() => {
+            button.textContent = "复制";
+          }, 1200);
+        }
+      });
+    });
 
     async function copyText(text, btn) {
       try {
