@@ -967,6 +967,7 @@
       display: inline-block;
       color: #2447c2;
       font-weight: 800;
+      font-size: clamp(0.56rem, 0.78vw, 0.7rem);
       background: rgba(255,255,255,0.78);
       padding: 0.12rem 0.28rem;
     }
@@ -976,6 +977,7 @@
       margin-top: 0.28rem;
       max-width: 16rem;
       color: rgba(36, 71, 194, 0.8);
+      font-size: clamp(0.56rem, 0.78vw, 0.7rem);
       text-transform: none;
       letter-spacing: 0.01em;
       line-height: 1.35;
@@ -1812,59 +1814,23 @@
               <div class="phase reveal stagger-4">阶段 3</div>
               <div class="card soft-rose reveal stagger-4">
                 <h3>Figma MCP + design-analyst — 设计角色上线</h3>
-                <p class="lead" style="font-size: clamp(0.8rem, 1.05vw, 0.9rem); max-width: none;">设计稿直接喂进来，design-analyst 把设计意图翻译成组件映射 + token 约束 + 验收标准，工程直接可接手。</p>
+                <div class="flow-chain" style="margin: 0.45rem 0 0.5rem; flex-wrap: wrap; gap: 0.3rem 0.2rem; font-size: clamp(0.68rem, 0.9vw, 0.78rem);">
+                  <span class="flow-step" style="background: rgba(171,204,229,0.18); border-color: rgba(171,204,229,0.4);">Figma 读稿</span>
+                  <span class="flow-arrow">→</span>
+                  <span class="flow-step accent" style="background: rgba(227,183,196,0.2); border-color: rgba(227,183,196,0.5); color: #c07090;">design-analyst 解析</span>
+                  <span class="flow-arrow">→</span>
+                  <span class="flow-step" style="background: rgba(157,202,180,0.15); border-color: rgba(157,202,180,0.4);">组件映射 + token 约束 + 状态定义</span>
+                  <span class="flow-arrow">→</span>
+                  <span class="flow-step accent" style="background: rgba(203,122,71,0.12); border-color: rgba(203,122,71,0.35); color: var(--accent-warm);">工程可接手的 PRD</span>
+                </div>
+                <div style="display: flex; gap: 0.5rem; font-size: clamp(0.65rem, 0.85vw, 0.74rem); color: var(--text-secondary); line-height: 1.45;">
+                  <span style="flex: 1; padding: 0.3rem 0.45rem; border-radius: 0.5rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);">📐 设计稿有、PRD 未提：标注疑点，询问</span>
+                  <span style="flex: 1; padding: 0.3rem 0.45rem; border-radius: 0.5rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);">⚠️ PRD 有、设计稿未覆盖：标注风险，可能遗漏</span>
+                  <span style="flex: 1; padding: 0.3rem 0.45rem; border-radius: 0.5rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);">✅ 一致项：直接写入 AC，工程可直接接手</span>
+                </div>
               </div>
             </div>
             <div class="quote reveal stagger-5">最后追求的不是"一个更强的 AI"，而是"一套分工更顺的小团队"。</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===========================================
-       SLIDE 6: HABITS
-       =========================================== -->
-  <section class="slide" data-title="工作习惯">
-    <div class="slide-content">
-      <div class="page">
-        <div class="sheet">
-          <div class="binder"><span></span></div>
-          <div class="tabs">
-            <div class="tab mint">PLAN</div>
-            <div class="tab gold">LESSONS</div>
-            <div class="tab sky">VERIFY</div>
-          </div>
-          <div class="inner">
-            <div class="slide-head reveal">
-              <div class="eyebrow">Workflow Habits</div>
-              <div class="slide-index">07</div>
-            </div>
-            <h2 class="reveal-left stagger-1">真正让项目不跑偏的，不是 prompt，而是工作习惯</h2>
-            <p class="subnote reveal stagger-1">把借鉴来的原则落地成具体行为——这四条是我每个会话都在执行的。</p>
-            <div class="four-col" style="margin-top: 0.85rem; gap: 0.65rem;">
-              <div class="card reveal stagger-2" style="border-top: 3px solid rgba(203,122,71,0.5);">
-                <div class="card-label">Plan</div>
-                <h3>复杂任务先进 Plan</h3>
-                <p class="lead" style="font-size: clamp(0.74rem, 0.98vw, 0.88rem); max-width: none; margin-top: 0.35rem;">超过 3 步、涉及架构判断，就先写 spec、范围、验收和风险，再动手。</p>
-              </div>
-              <div class="card reveal stagger-3" style="border-top: 3px solid rgba(157,202,180,0.6);">
-                <div class="card-label">Subagents</div>
-                <h3>研究和并行分析拆出去</h3>
-                <p class="lead" style="font-size: clamp(0.74rem, 0.98vw, 0.88rem); max-width: none; margin-top: 0.35rem;">让主上下文只保留当前决策，避免一个窗口里塞满所有细节。</p>
-              </div>
-              <div class="card reveal stagger-4" style="border-top: 3px solid rgba(232,216,159,0.8);">
-                <div class="card-label">Lessons</div>
-                <h3>每次纠正都写进 lessons</h3>
-                <p class="lead" style="font-size: clamp(0.74rem, 0.98vw, 0.88rem); max-width: none; margin-top: 0.35rem;">把反复出现的错误变成默认规则，而不是每次重新提醒。</p>
-              </div>
-              <div class="card reveal stagger-5" style="border-top: 3px solid rgba(171,204,229,0.8);">
-                <div class="card-label">Verify</div>
-                <h3>完成前必须留下证据</h3>
-                <p class="lead" style="font-size: clamp(0.74rem, 0.98vw, 0.88rem); max-width: none; margin-top: 0.35rem;">测试、日志、diff、行为对比，至少要证明这件事真的跑通了。</p>
-              </div>
-            </div>
-            <div class="quote reveal stagger-5" style="margin-top: 0.85rem;">规则写进文件，才能不靠记忆传递——这是从借鉴配置里学到的最重要的一件事。</div>
           </div>
         </div>
       </div>
@@ -1887,7 +1853,7 @@
           <div class="inner">
             <div class="slide-head reveal">
               <div class="eyebrow">Design Driven</div>
-              <div class="slide-index">08</div>
+              <div class="slide-index">07</div>
             </div>
             <h2 class="reveal-left stagger-1">加入 design-analyst 之后，PRD 变得完全不一样</h2>
             <p class="subnote reveal stagger-1">这页不讲抽象原则，直接看加入设计分析角色前后，需求描述长什么样。</p>
@@ -1957,7 +1923,7 @@
           <div class="inner">
             <div class="slide-head reveal">
               <div class="eyebrow">Productized System</div>
-              <div class="slide-index">09</div>
+              <div class="slide-index">08</div>
             </div>
             <h2 class="reveal-left stagger-1">最后我把它收成了 2 种开发路径 + 3 条协作模式</h2>
             <p class="subnote reveal stagger-1">其中 Codex 多子 agent 这条链路，并不绑定某个单一模型，它的重点是把角色拆开而不是把能力绑死。</p>
@@ -2027,7 +1993,7 @@
           <div class="inner">
             <div class="slide-head reveal">
               <div class="eyebrow">阶段性产物 · 第一版协作脚手架</div>
-              <div class="slide-index">10</div>
+              <div class="slide-index">09</div>
             </div>
             <h2 class="reveal-left stagger-1">阶段性产物：一套跑通了的协作脚手架</h2>
             <p class="subnote reveal stagger-1">把上面所有探索沉淀成文件——能复用、能一键初始化。这是那个阶段的交付物，也是下一个问题的起点。</p>
@@ -2089,30 +2055,44 @@
   </section>
 
   <!-- ===========================================
-       SLIDE 10: 架构挑战与规范化的缺失
+       SLIDE 11: 架构挑战 A — 还原混乱
        =========================================== -->
-  <section class="slide" data-title="架构挑战">
+  <section class="slide" data-title="架构挑战·混乱">
     <div class="slide-content">
       <div class="page">
         <div class="sheet">
           <div class="binder"><span></span></div>
           <div class="tabs">
-            <div class="tab rose">BUG</div>
-            <div class="tab gold">ARCH</div>
-            <div class="tab mint">LESSON</div>
+            <div class="tab rose">CHAOS</div>
+            <div class="tab gold">BUG</div>
+            <div class="tab mint">01/03</div>
           </div>
           <div class="inner">
             <div class="slide-head reveal">
-              <div class="eyebrow">遇到了架构问题 · 没有开发经验积累的代价</div>
-              <div class="slide-index">11</div>
+              <div class="eyebrow">架构挑战 01 · 还原混乱现场</div>
+              <div class="slide-index">10</div>
             </div>
-            <h2 class="reveal-left stagger-1">脚手架跑起来了，但出现了架构层面的混乱——<br>这是没有清晰开发流程带来的代价</h2>
-            <p class="subnote reveal stagger-1">加了布局方向（LR/TB）之后，导出时连接线方向全部错误。深查才发现：同一套"方向"逻辑散落在 5 个文件里互不知晓——典型的无规范开发积累的技术债。</p>
+            <h2 class="reveal-left stagger-1">新增一种模板布局方向——<br>发现所有连接线逻辑要重新实现一遍</h2>
+            <p class="subnote reveal stagger-1">这是脚手架第一版交付之后遇到的第一个真实打击：以为只是"加个方向选项"，结果打开了一个无法局部修复的混乱。</p>
 
-            <div class="two-col" style="margin-top: 0.8rem; gap: 0.85rem; align-items: start;">
+            <div class="two-col" style="margin-top: 0.85rem; gap: 0.9rem; align-items: start;">
               <div style="display: grid; gap: 0.55rem;">
-                <div class="compare-card bad reveal stagger-2" style="border-radius: 1.1rem;">
-                  <div class="compare-top">问题：布局规则散落 5 处</div>
+                <div class="card soft-rose reveal stagger-2">
+                  <div class="card-label">触发事件</div>
+                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.7; margin-top: 0.3rem;">
+                    用户想新增一种思维导图布局：从默认的「上下展开」改成「左右展开」。<br><br>
+                    听起来很简单——加个方向参数就行。<br><br>
+                    <strong style="color: var(--text-primary);">结果：导出图片时，所有连接线方向全部错误。</strong>
+                  </p>
+                </div>
+                <div style="padding: 0.45rem 0.7rem; border-radius: 0.65rem; background: rgba(203,122,71,0.08); border-left: 3px solid rgba(203,122,71,0.5); font-size: var(--small-size); color: var(--text-secondary); line-height: 1.6;">
+                  改了 EditorPage，没改 snapshot；改了节点位置，没改导线方向；加了参数，5 个地方各自为政，没有一处是对的。
+                </div>
+              </div>
+
+              <div style="display: grid; gap: 0.55rem; align-content: start;">
+                <div class="compare-card bad reveal stagger-3" style="border-radius: 1.1rem;">
+                  <div class="compare-top">发现：同一套"方向"逻辑散落 5 处</div>
                   <pre class="compare-pre">// EditorPage.tsx
 if (isLR) sourceHandle = 'source-right'
 else      sourceHandle = 'source-bottom'
@@ -2123,14 +2103,54 @@ if (mode==='left-right') position = Right
 // snapshot.ts
 sourcePosition: Position.Right  ← 硬编码!
 
-// + FoldButton.css / AddButton.css ...</pre>
+// FoldButton.css / AddButton.css
+.fold-btn { left: -1.2rem }  ← 写死位置</pre>
                 </div>
-                <div style="padding: 0.4rem 0.7rem; border-radius: 0.6rem; background: rgba(203,122,71,0.08); font-size: var(--small-size); color: var(--accent-warm); font-weight: 700;">
-                  新增一种布局 → 需要改 5 个文件，极易漏改
+                <div style="padding: 0.4rem 0.7rem; border-radius: 0.6rem; background: rgba(203,122,71,0.08); font-size: var(--small-size); color: var(--accent-warm); font-weight: 700; text-align: center;">
+                  新增一种布局 → 要改 5 个文件，而且极易漏改
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- ===========================================
+       SLIDE 12: 架构挑战 B — 诊断与优化
+       =========================================== -->
+  <section class="slide" data-title="架构挑战·优化">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab gold">DIAG</div>
+            <div class="tab mint">FIX</div>
+            <div class="tab sky">02/03</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">架构挑战 02 · 诊断根因 + 执行优化</div>
+              <div class="slide-index">11</div>
+            </div>
+            <h2 class="reveal-left stagger-1">问题不是 bug——是代码架构问题。<br>散落 5 处的逻辑，合并成唯一数据源。</h2>
+            <p class="subnote reveal stagger-1">找到根因之后，解法反而很清晰：建一个单一配置文件，其他所有地方都来读它。</p>
+
+            <div class="two-col" style="margin-top: 0.85rem; gap: 0.9rem; align-items: start;">
+              <div style="display: grid; gap: 0.55rem;">
+                <div class="card soft-gold reveal stagger-2">
+                  <div class="card-label">诊断：这不是 bug，是架构问题</div>
+                  <ul class="bullet-list" style="margin-top: 0.4rem;">
+                    <li>没有明确的架构规范——相同逻辑可以出现在任意文件</li>
+                    <li>没有 review 检查点——实现完就算完，没人把关</li>
+                    <li>没有"新增功能时检查现有影响"的意识</li>
+                    <li>AI 只会按要求做，不会主动指出散落的耦合</li>
+                  </ul>
+                </div>
                 <div class="compare-card good reveal stagger-3" style="border-radius: 1.1rem;">
-                  <div class="compare-top">解决：单一数据源 layoutConfig.ts</div>
+                  <div class="compare-top">优化：单一数据源 layoutConfig.ts</div>
                   <pre class="compare-pre">// layout/layoutConfig.ts ← 唯一改动处
 'right-left': {
   sourceHandleId:  'source-left',
@@ -2138,172 +2158,112 @@ sourcePosition: Position.Right  ← 硬编码!
   foldButton: { side: 'left' },
 }
 
-// 其他所有文件：
+// 其他所有文件只读配置：
 const cfg = getLayoutConfig(mode) // 自动适配</pre>
                 </div>
-                <div style="padding: 0.4rem 0.7rem; border-radius: 0.6rem; background: rgba(157,202,180,0.12); font-size: var(--small-size); color: #3d8a6b; font-weight: 700;">
-                  新增布局 → 只改 1 个文件，其余自动适配
+              </div>
+
+              <div style="display: grid; gap: 0.55rem; align-content: start;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                  <div style="padding: 0.65rem 0.75rem; border-radius: 0.75rem; background: rgba(203,122,71,0.07); border: 1px solid rgba(203,122,71,0.2); text-align: center;">
+                    <div style="font-size: 1.4rem; font-weight: 900; color: var(--accent-warm); font-family: 'Fraunces', serif;">5</div>
+                    <div style="font-size: var(--small-size); color: var(--text-secondary); margin-top: 0.15rem;">改动前<br>要改的文件数</div>
+                  </div>
+                  <div style="padding: 0.65rem 0.75rem; border-radius: 0.75rem; background: rgba(157,202,180,0.1); border: 1px solid rgba(157,202,180,0.3); text-align: center;">
+                    <div style="font-size: 1.4rem; font-weight: 900; color: #3d8a6b; font-family: 'Fraunces', serif;">1</div>
+                    <div style="font-size: var(--small-size); color: var(--text-secondary); margin-top: 0.15rem;">改动后<br>要改的文件数</div>
+                  </div>
+                </div>
+
+                <div class="card soft-mint reveal stagger-3">
+                  <div class="card-label">沉淀成规则（写进 AGENTS.md）</div>
+                  <pre style="font-size: clamp(0.6rem, 0.82vw, 0.72rem); line-height: 1.5; margin: 0.4rem 0 0; color: var(--text-secondary); white-space: pre-wrap;">## 架构守护
+新需求前快速扫描：
+- 相同逻辑是否出现在 2+ 个文件？→ 应抽取
+- 数据来源是否唯一（Single Source of Truth）？
+- 改动文件是否超过 500 行？→ 应提前拆分</pre>
+                </div>
+
+                <div style="padding: 0.4rem 0.7rem; border-radius: 0.6rem; background: rgba(157,202,180,0.12); font-size: var(--small-size); color: #3d8a6b; font-weight: 700; text-align: center;">
+                  新增布局 → 只改 1 个文件，其余全部自动适配
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       SLIDE 13: 架构挑战 C — 转折点·引出规范
+       =========================================== -->
+  <section class="slide" data-title="架构挑战·转折">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab rose">TURN</div>
+            <div class="tab gold">INSIGHT</div>
+            <div class="tab mint">03/03</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">架构挑战 03 · 转折点</div>
+              <div class="slide-index">12</div>
+            </div>
+            <h2 class="reveal-left stagger-1">这次架构混乱让我意识到：<br>缺的不是更好的 AI，而是一套开发规范</h2>
+            <p class="subnote reveal stagger-1">我没有系统的开发经验积累，没有清晰的架构守则，AI 只会按要求做——它不会主动告诉你"这样写以后会出问题"。</p>
+
+            <div class="two-col" style="margin-top: 0.9rem; gap: 1rem; align-items: start;">
+              <div style="display: grid; gap: 0.6rem;">
+                <div class="card soft-rose reveal stagger-2">
+                  <div class="card-label">以前的认知</div>
+                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.7; margin-top: 0.3rem;">
+                    遇到问题 → 问 AI → AI 给一个解法 → 跑通 → 下一个问题<br><br>
+                    每次 AI 给我的代码，我只知道「能不能跑」，不知道「架构对不对」。<br><br>
+                    结果是：问题会以不同的形式反复出现。
+                  </p>
+                </div>
+                <div class="card reveal stagger-3" style="border: 1.5px solid rgba(232,216,159,0.4); background: rgba(232,216,159,0.04);">
+                  <div class="card-label" style="color: #c9a833;">关键认知转变</div>
+                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.7; margin-top: 0.3rem;">
+                    <strong style="color: var(--text-primary);">这不是 AI 能力的问题，是我没有一套规范化的开发框架。</strong><br><br>
+                    既然我自己没有经验积累，那就去找<strong style="color: var(--text-primary);">有经验的人总结好的框架</strong>直接用——<br>不是 prompt 技巧，而是完整的开发协作规范。
+                  </p>
                 </div>
               </div>
 
               <div style="display: grid; gap: 0.6rem; align-content: start;">
-                <div class="card soft-rose reveal stagger-2">
-                  <div class="card-label">根本原因 · 没有开发经验积累</div>
-                  <ul class="bullet-list" style="margin-top: 0.4rem;">
-                    <li>没有明确的架构规范——相同逻辑可以出现在任意文件</li>
-                    <li>没有 review 检查点——实现完就算完，没人把关架构合理性</li>
-                    <li>没有"新增功能时检查现有影响"的意识</li>
-                    <li>AI 只会按要求做，不会主动指出散落的耦合</li>
-                  </ul>
-                </div>
-
-                <div class="card soft-gold reveal stagger-3">
-                  <div class="card-label">我意识到的问题</div>
-                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.65; margin-top: 0.35rem;">
-                    我没有系统的开发经验积累，没有清晰的开发流程，也没有沉淀任何架构守则。<br><br>
-                    结果是：每次 AI 给我的代码，我只知道"能不能跑"，不知道"架构对不对"。<br><br>
-                    <strong style="color: var(--text-primary);">这不是 AI 能力的问题，是我自己没有一套规范化的开发框架。</strong>
-                  </p>
-                </div>
-
-                <div class="card reveal stagger-4" style="border: 1.5px dashed rgba(203,122,71,0.4); background: rgba(203,122,71,0.04);">
-                  <div class="card-label" style="color: var(--accent-warm);">由此引出下一步</div>
-                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.65; margin-top: 0.35rem;">
-                    既然我自己没有经验积累，那就去找<strong style="color: var(--text-primary);">有经验的人总结好的框架</strong>直接用。<br><br>
-                    这就是引入 Superpowers 协作规范框架的起点——不是"更好的 AI"，而是"一套有规范的开发流程"。
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===========================================
-       SLIDE 11: CLOSING
-       =========================================== -->
-  <section class="slide" data-title="总结">
-    <div class="slide-content">
-      <div class="page">
-        <div class="sheet">
-          <div class="binder"><span></span></div>
-          <div class="tabs">
-            <div class="tab sky">SCOPE</div>
-            <div class="tab rose">FLOW</div>
-            <div class="tab mint">SKILL</div>
-          </div>
-          <div class="inner">
-            <div class="slide-head reveal">
-              <div class="eyebrow">Takeaways</div>
-              <div class="slide-index">12</div>
-
-            </div>
-            <h2 class="reveal-left stagger-1">最后我想沉淀的，不只是经验，而是一个 skill</h2>
-            <div class="three-col" style="margin-top: 1rem;">
-              <div class="card soft-gold reveal stagger-2">
-                <div class="card-label">Takeaway 1</div>
-                <h3>先学会控 scope</h3>
-                <p class="lead" style="font-size: clamp(0.8rem, 1.05vw, 0.96rem); max-width: none;">0-1 最重要的不是做得全，而是先跑通最小闭环。</p>
-              </div>
-              <div class="card soft-rose reveal stagger-3">
-                <div class="card-label">Takeaway 2</div>
-                <h3>先搭流程，再拼 prompt</h3>
-                <p class="lead" style="font-size: clamp(0.8rem, 1.05vw, 0.96rem); max-width: none;">稳定产出靠工作流、角色和验证，不是一句神奇提问。</p>
-              </div>
-              <div class="card soft-mint reveal stagger-4">
-                <div class="card-label">Takeaway 3</div>
-                <h3>把方法做成模板</h3>
-                <p class="lead" style="font-size: clamp(0.8rem, 1.05vw, 0.96rem); max-width: none;">最终目标是一个启动即问"有没有设计稿"的设计师 vibecoding skill。</p>
-              </div>
-            </div>
-            <div class="quote reveal stagger-5">分享不是终点。最后留下来的，应该是一套别人也能直接启动的项目模板。</div>
-            <div class="footer reveal stagger-5">
-              <span>HTML Presentation / Frontend Slides Style</span>
-              <span>End</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===========================================
-       SLIDE 13: GET THE SKILL
-       =========================================== -->
-  <section class="slide" data-title="获取 Skill">
-    <div class="slide-content">
-      <div class="page">
-        <div class="sheet">
-          <div class="binder"><span></span></div>
-          <div class="tabs">
-            <div class="tab mint">INSTALL</div>
-            <div class="tab gold">START</div>
-            <div class="tab rose">LINK</div>
-          </div>
-          <div class="inner">
-            <div class="slide-head reveal">
-              <div class="eyebrow">Get The Skill</div>
-              <div class="slide-index">13</div>
-
-            </div>
-            <h2 class="reveal-left stagger-1">一条命令，把这套模板带走</h2>
-            <p class="subnote reveal stagger-1">复制命令，直接告诉 AI 让他帮你安装。</p>
-
-            <div class="two-col" style="margin-top: 0.9rem; align-items: start;">
-              <div style="display:grid; gap: 0.75rem;">
-                <div class="copy-wrap reveal stagger-2">
-                  <div class="copy-head">
-                    <span>安装命令</span>
-                    <button class="copy-btn" onclick="copyText('claude skills install github.com/YOUR_USERNAME/designer-vibecoding-starter', this)">复制</button>
-                  </div>
-                  <pre class="copy-pre" id="install-cmd">claude skills install github.com/YOUR_USERNAME/designer-vibecoding-starter</pre>
-                </div>
-
-                <div class="copy-wrap reveal stagger-3">
-                  <div class="copy-head">
-                    <span>安装完成后的第一步</span>
-                  </div>
-                  <pre class="copy-pre" style="color: #9dcab4;"># 1. 打开任意项目，告诉 Claude：
-"帮我搭一套协作脚手架"
-
-# 2. Claude 弹出对话框，回答 4 个问题：
-#    - 项目名称
-#    - 是否有设计稿
-#    - 协作模式
-#    - 是否需要 OpenClaw
-
-# 3. 脚手架自动生成，打开 AGENTS.md 开始</pre>
-                </div>
-              </div>
-
-              <div style="display:grid; gap: 0.75rem;">
                 <div class="card soft-gold reveal stagger-2">
-                  <div class="card-label">Skill 介绍站点</div>
-                  <h3 style="font-size: clamp(0.9rem, 1.3vw, 1.1rem); margin-bottom: 0.5rem;">完整功能说明 & 在线体验</h3>
-                  <a href="file:///Users/zhangzhongwei/Desktop/vibcoding%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/presentations/designer-vibecoding-share/skill-landing.html#setup" target="_blank" style="display:inline-block; font-size:var(--small-size); color:var(--accent-warm); font-weight:700; word-break:break-all; text-decoration:none; border-bottom: 1px solid rgba(203,122,71,0.4);">
-                    skill-landing.html →
-                  </a>
+                  <div class="card-label">引出下一步</div>
+                  <div class="flow-chain" style="margin: 0.5rem 0 0.5rem; flex-direction: column; gap: 0.4rem; align-items: flex-start;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; font-size: var(--small-size);">
+                      <span style="width: 1.2rem; height: 1.2rem; border-radius: 50%; background: rgba(203,122,71,0.2); display: flex; align-items: center; justify-content: center; font-size: 0.55rem; font-weight: 900; color: var(--accent-warm); flex-shrink: 0;">1</span>
+                      <span style="color: var(--text-secondary);">发现架构混乱 → 意识到缺乏规范</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; font-size: var(--small-size);">
+                      <span style="width: 1.2rem; height: 1.2rem; border-radius: 50%; background: rgba(203,122,71,0.2); display: flex; align-items: center; justify-content: center; font-size: 0.55rem; font-weight: 900; color: var(--accent-warm); flex-shrink: 0;">2</span>
+                      <span style="color: var(--text-secondary);">搜索社区实践 → 找到 Superpowers Skill 集</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; font-size: var(--small-size);">
+                      <span style="width: 1.2rem; height: 1.2rem; border-radius: 50%; background: rgba(157,202,180,0.25); display: flex; align-items: center; justify-content: center; font-size: 0.55rem; font-weight: 900; color: #3d8a6b; flex-shrink: 0;">3</span>
+                      <span style="color: var(--text-secondary);">引入 + 结合 design-analyst → 最终协作形态</span>
+                    </div>
+                  </div>
                 </div>
 
                 <div class="card soft-mint reveal stagger-3">
-                  <div class="card-label">包含什么</div>
-                  <ul class="bullet-list">
-                    <li>2 条开发路径（有/无设计稿）</li>
-                    <li>3 条协作链路（Claude+Codex / Codex 全流程 / OpenClaw）</li>
-                    <li>初始化脚本 + 12 个核心文件</li>
-                    <li>中文意图切换命令</li>
-                  </ul>
+                  <div class="card-label">这次混乱最大的价值</div>
+                  <p style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.65; margin-top: 0.3rem;">
+                    不是"学会了架构守护"——<br>而是第一次真正明白：<br><br>
+                    <strong style="color: var(--text-primary);">一个人振动编程，最终需要的是一套完整的团队协作规范，而不是更厉害的 prompt。</strong>
+                  </p>
                 </div>
 
-                <div class="card soft-sky reveal stagger-4">
-                  <div class="card-label">适合谁</div>
-                  <ul class="bullet-list">
-                    <li>想用 AI 做项目但不知道从哪搭流程的设计师</li>
-                    <li>需要 Claude + Codex 协作的开发者</li>
-                    <li>想把项目初始化标准化的团队</li>
-                  </ul>
+                <div style="padding: 0.5rem 0.75rem; border-radius: 0.75rem; background: rgba(203,122,71,0.06); border: 1.5px dashed rgba(203,122,71,0.35); text-align: center;">
+                  <div style="font-size: var(--small-size); font-weight: 900; color: var(--accent-warm);">↓ 下一张：Superpowers Skill</div>
                 </div>
               </div>
             </div>
@@ -2313,9 +2273,9 @@ const cfg = getLayoutConfig(mode) // 自动适配</pre>
     </div>
   </section>
 
-  <!-- ===============================================
+  <!-- ===========================================
        SLIDE 14: Superpowers Skill + 子Agent→子SKILL 进化
-       =============================================== -->
+       =========================================== -->
   <section class="slide" data-title="Superpowers Skill">
     <div class="slide-content">
       <div class="page">
@@ -2329,8 +2289,7 @@ const cfg = getLayoutConfig(mode) // 自动适配</pre>
           <div class="inner">
             <div class="slide-head reveal">
               <div class="eyebrow">Superpowers Skill · 子 Agent → 子 SKILL 的进化</div>
-              <div class="slide-index">14</div>
-
+              <div class="slide-index">13</div>
             </div>
             <h2 class="reveal-left stagger-1">引入 GitHub 高星开发全家桶 Skill 后，<br>随机子 Agent 进化成了结构化的子 SKILL</h2>
             <p class="subnote reveal stagger-1">Superpowers 是社区沉淀的最佳实践 Skill 集。引入后结合自定义的 design-analyst 角色，构成了最终协作形态。最关键的进化：从"随机调用子 Agent"变成"有规范的子 SKILL"。</p>
@@ -2416,6 +2375,138 @@ skills/design-analysis/SKILL.md
                 <div style="padding: 0.55rem 0.75rem; border-radius: 0.8rem; background: rgba(203,122,71,0.06); border: 1px dashed rgba(203,122,71,0.3);">
                   <div style="font-size: var(--small-size); font-weight: 900; color: var(--accent-warm); margin-bottom: 0.25rem;">核心判断</div>
                   <div style="font-size: var(--small-size); color: var(--text-secondary); line-height: 1.6;">习惯 &gt; Prompt &nbsp;·&nbsp; <strong style="color: var(--text-primary);">SKILL &gt; Agent</strong> &nbsp;·&nbsp; 规则写文件 &gt; 对话口述<br>子 SKILL 是最稳定、最可复用的协作单元。</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       SLIDE 15: CLOSING
+       =========================================== -->
+  <section class="slide" data-title="总结">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab sky">SCOPE</div>
+            <div class="tab rose">FLOW</div>
+            <div class="tab mint">SKILL</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">Takeaways</div>
+              <div class="slide-index">14</div>
+
+            </div>
+            <h2 class="reveal-left stagger-1">最后我想沉淀的，不只是经验，而是一个 skill</h2>
+            <div class="three-col" style="margin-top: 1rem;">
+              <div class="card soft-gold reveal stagger-2">
+                <div class="card-label">Takeaway 1</div>
+                <h3>先学会控 scope</h3>
+                <p class="lead" style="font-size: clamp(0.8rem, 1.05vw, 0.96rem); max-width: none;">0-1 最重要的不是做得全，而是先跑通最小闭环。</p>
+              </div>
+              <div class="card soft-rose reveal stagger-3">
+                <div class="card-label">Takeaway 2</div>
+                <h3>先搭流程，再拼 prompt</h3>
+                <p class="lead" style="font-size: clamp(0.8rem, 1.05vw, 0.96rem); max-width: none;">稳定产出靠工作流、角色和验证，不是一句神奇提问。</p>
+              </div>
+              <div class="card soft-mint reveal stagger-4">
+                <div class="card-label">Takeaway 3</div>
+                <h3>把方法做成模板</h3>
+                <p class="lead" style="font-size: clamp(0.8rem, 1.05vw, 0.96rem); max-width: none;">最终目标是一个启动即问"有没有设计稿"的设计师 vibecoding skill。</p>
+              </div>
+            </div>
+            <div class="quote reveal stagger-5">分享不是终点。最后留下来的，应该是一套别人也能直接启动的项目模板。</div>
+            <div class="footer reveal stagger-5">
+              <span>HTML Presentation / Frontend Slides Style</span>
+              <span>End</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       SLIDE 16: GET THE SKILL
+       =========================================== -->
+  <section class="slide" data-title="获取 Skill">
+    <div class="slide-content">
+      <div class="page">
+        <div class="sheet">
+          <div class="binder"><span></span></div>
+          <div class="tabs">
+            <div class="tab mint">INSTALL</div>
+            <div class="tab gold">START</div>
+            <div class="tab rose">LINK</div>
+          </div>
+          <div class="inner">
+            <div class="slide-head reveal">
+              <div class="eyebrow">Get The Skill</div>
+              <div class="slide-index">15</div>
+
+            </div>
+            <h2 class="reveal-left stagger-1">一条命令，把这套模板带走</h2>
+            <p class="subnote reveal stagger-1">复制命令，直接告诉 AI 让他帮你安装。</p>
+
+            <div class="two-col" style="margin-top: 0.9rem; align-items: start;">
+              <div style="display:grid; gap: 0.75rem;">
+                <div class="copy-wrap reveal stagger-2">
+                  <div class="copy-head">
+                    <span>安装命令</span>
+                    <button class="copy-btn" onclick="copyText('claude skills install github.com/YOUR_USERNAME/designer-vibecoding-starter', this)">复制</button>
+                  </div>
+                  <pre class="copy-pre" id="install-cmd">claude skills install github.com/YOUR_USERNAME/designer-vibecoding-starter</pre>
+                </div>
+
+                <div class="copy-wrap reveal stagger-3">
+                  <div class="copy-head">
+                    <span>安装完成后的第一步</span>
+                  </div>
+                  <pre class="copy-pre" style="color: #9dcab4;"># 1. 打开任意项目，告诉 Claude：
+"帮我搭一套协作脚手架"
+
+# 2. Claude 弹出对话框，回答 4 个问题：
+#    - 项目名称
+#    - 是否有设计稿
+#    - 协作模式
+#    - 是否需要 OpenClaw
+
+# 3. 脚手架自动生成，打开 AGENTS.md 开始</pre>
+                </div>
+              </div>
+
+              <div style="display:grid; gap: 0.75rem;">
+                <div class="card soft-gold reveal stagger-2">
+                  <div class="card-label">Skill 介绍站点</div>
+                  <h3 style="font-size: clamp(0.9rem, 1.3vw, 1.1rem); margin-bottom: 0.5rem;">完整功能说明 & 在线体验</h3>
+                  <a href="file:///Users/zhangzhongwei/Desktop/vibcoding%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/presentations/designer-vibecoding-share/skill-landing.html#setup" target="_blank" style="display:inline-block; font-size:var(--small-size); color:var(--accent-warm); font-weight:700; word-break:break-all; text-decoration:none; border-bottom: 1px solid rgba(203,122,71,0.4);">
+                    skill-landing.html →
+                  </a>
+                </div>
+
+                <div class="card soft-mint reveal stagger-3">
+                  <div class="card-label">包含什么</div>
+                  <ul class="bullet-list">
+                    <li>2 条开发路径（有/无设计稿）</li>
+                    <li>3 条协作链路（Claude+Codex / Codex 全流程 / OpenClaw）</li>
+                    <li>初始化脚本 + 12 个核心文件</li>
+                    <li>中文意图切换命令</li>
+                  </ul>
+                </div>
+
+                <div class="card soft-sky reveal stagger-4">
+                  <div class="card-label">适合谁</div>
+                  <ul class="bullet-list">
+                    <li>想用 AI 做项目但不知道从哪搭流程的设计师</li>
+                    <li>需要 Claude + Codex 协作的开发者</li>
+                    <li>想把项目初始化标准化的团队</li>
+                  </ul>
                 </div>
               </div>
             </div>
