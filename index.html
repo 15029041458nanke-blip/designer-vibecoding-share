@@ -708,6 +708,53 @@
       letter-spacing: 0.04em;
     }
 
+    /* ── skill-link-tag：vintage editorial 斜体标注风格跳转 ── */
+    .skill-link-tag {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.32rem;
+      padding: 0.28em 0.7em 0.28em 0.6em;
+      border: 1px solid rgba(203, 122, 71, 0.55);
+      border-radius: 2px;
+      background: rgba(203, 122, 71, 0.06);
+      color: var(--accent-warm);
+      font-family: var(--font-display);
+      font-size: clamp(0.56rem, 0.78vw, 0.72rem);
+      font-weight: 600;
+      font-style: italic;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      white-space: nowrap;
+      position: relative;
+      transition: background var(--duration-fast), border-color var(--duration-fast), color var(--duration-fast);
+    }
+    .skill-link-tag::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 2px;
+      background: var(--accent-warm);
+      opacity: 0;
+      transition: opacity var(--duration-fast);
+    }
+    .skill-link-tag:hover {
+      color: #fff;
+      border-color: var(--accent-warm);
+    }
+    .skill-link-tag:hover::before { opacity: 1; }
+    .skill-link-tag__label,
+    .skill-link-tag__arrow {
+      position: relative;
+      z-index: 1;
+    }
+    .skill-link-tag__arrow {
+      transition: transform var(--duration-fast) var(--ease-out-expo);
+    }
+    .skill-link-tag:hover .skill-link-tag__arrow {
+      transform: translate(2px, -2px);
+    }
+
     .copy-btn {
       border: none;
       border-radius: 999px;
@@ -2443,18 +2490,9 @@ skills/design-analysis/SKILL.md
             </div>
             <div style="display:flex;align-items:baseline;justify-content:space-between;gap:1rem;">
               <h2 class="reveal-left stagger-1" style="margin:0;">一条命令，把这套协作链路带走</h2>
-              <a class="reveal stagger-1" href="./skill-landing.html" target="_blank"
-                style="flex-shrink:0;display:inline-flex;align-items:center;gap:0.38rem;
-                       padding:0.35em 0.85em;border-radius:999px;
-                       background:#D97757;color:#fff;
-                       font-family:var(--font-body);font-size:var(--small-size);font-weight:700;
-                       letter-spacing:0.02em;text-decoration:none;white-space:nowrap;
-                       box-shadow:0 1px 4px rgba(0,0,0,0.18);
-                       transition:background 0.18s,box-shadow 0.18s;"
-                onmouseover="this.style.background='#c0623d';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.22)'"
-                onmouseout="this.style.background='#D97757';this.style.boxShadow='0 1px 4px rgba(0,0,0,0.18)'">
-                Skill 介绍
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="margin-left:1px"><path d="M2.5 6h7M6.5 3l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <a class="reveal stagger-1 skill-link-tag" href="./skill-landing.html" target="_blank">
+                <span class="skill-link-tag__label">Skill 介绍</span>
+                <svg class="skill-link-tag__arrow" width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H3.5M9.5 1.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
             </div>
             <p class="subnote reveal stagger-1">从想法到上线，Skill 全程引导——你只在关键节点做决策。</p>
