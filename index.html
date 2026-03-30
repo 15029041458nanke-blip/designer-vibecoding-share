@@ -708,6 +708,67 @@
       letter-spacing: 0.04em;
     }
 
+    /* ══════════════════════════════════════════════
+       典型问题模块 — 统一章节条
+       ══════════════════════════════════════════════ */
+
+    /* 章节标识条：横跨全宽的印刷专题感 header */
+    .problem-strip {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin: 0.15rem 0 0.6rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .problem-strip__module {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 600;
+      font-size: clamp(0.58rem, 0.8vw, 0.72rem);
+      color: var(--accent-warm);
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+    }
+
+    .problem-strip__divider {
+      flex: 1;
+      height: 1px;
+      background: repeating-linear-gradient(
+        90deg,
+        rgba(203,122,71,0.3) 0,
+        rgba(203,122,71,0.3) 4px,
+        transparent 4px,
+        transparent 10px
+      );
+    }
+
+    .problem-strip__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.28rem;
+      padding: 0.18em 0.55em;
+      border: 1px solid rgba(203,122,71,0.35);
+      border-radius: 2px;
+      font-family: var(--font-body);
+      font-size: clamp(0.52rem, 0.7vw, 0.64rem);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-warm);
+      white-space: nowrap;
+    }
+
+    .problem-strip__num {
+      font-family: var(--font-display);
+      font-size: clamp(0.58rem, 0.8vw, 0.72rem);
+      font-weight: 700;
+      color: var(--text-secondary);
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
     /* ── skill-link-tag：vintage editorial 斜体标注风格跳转 ── */
     .skill-link-tag {
       flex-shrink: 0;
@@ -2069,8 +2130,14 @@
 
           <div class="inner">
             <div class="slide-head reveal">
-              <div class="eyebrow">File Routing · 信息该写到哪里</div>
+              <div class="eyebrow">典型问题</div>
               <div class="slide-index">10</div>
+            </div>
+            <div class="problem-strip reveal stagger-1">
+              <span class="problem-strip__module">典型问题 · File Routing</span>
+              <span class="problem-strip__divider"></span>
+              <span class="problem-strip__tag">目录混乱</span>
+              <span class="problem-strip__num">01 / 04</span>
             </div>
             <h2 class="reveal-left stagger-1">目录树混乱？根源是没有信息归属规则</h2>
             <p class="subnote reveal stagger-1">脚手架生成后，AI、PRD、产品规则、踩坑记录……全往一个地方堆是常见的失误。建立写入路由，AI 才不会把东西放错地方。</p>
@@ -2149,8 +2216,14 @@
 
           <div class="inner">
             <div class="slide-head reveal">
-              <div class="eyebrow">架构挑战 01 · 还原混乱现场</div>
+              <div class="eyebrow">典型问题</div>
               <div class="slide-index">11</div>
+            </div>
+            <div class="problem-strip reveal stagger-1">
+              <span class="problem-strip__module">典型问题 · Architecture</span>
+              <span class="problem-strip__divider"></span>
+              <span class="problem-strip__tag">逻辑散落</span>
+              <span class="problem-strip__num">02 / 04</span>
             </div>
             <h2 class="reveal-left stagger-1">新增一种模板布局方向——<br>发现所有连接线逻辑要重新实现一遍</h2>
             <p class="subnote reveal stagger-1">这是脚手架第一版交付之后遇到的第一个真实打击：以为只是"加个方向选项"，结果打开了一个无法局部修复的混乱。</p>
@@ -2208,8 +2281,14 @@ sourcePosition: Position.Right  ← 硬编码!
 
           <div class="inner">
             <div class="slide-head reveal">
-              <div class="eyebrow">架构挑战 02 · 诊断根因 + 执行优化</div>
+              <div class="eyebrow">典型问题</div>
               <div class="slide-index">12</div>
+            </div>
+            <div class="problem-strip reveal stagger-1">
+              <span class="problem-strip__module">典型问题 · Architecture</span>
+              <span class="problem-strip__divider"></span>
+              <span class="problem-strip__tag">单一数据源</span>
+              <span class="problem-strip__num">03 / 04</span>
             </div>
             <h2 class="reveal-left stagger-1">问题不是 bug——是代码架构问题。<br>散落 5 处的逻辑，合并成唯一数据源。</h2>
             <p class="subnote reveal stagger-1">找到根因之后，解法反而很清晰：建一个单一配置文件，其他所有地方都来读它。</p>
@@ -2282,8 +2361,14 @@ const cfg = getLayoutConfig(mode) // 自动适配</pre>
 
           <div class="inner">
             <div class="slide-head reveal">
-              <div class="eyebrow">架构挑战 03 · 转折点</div>
+              <div class="eyebrow">典型问题</div>
               <div class="slide-index">13</div>
+            </div>
+            <div class="problem-strip reveal stagger-1">
+              <span class="problem-strip__module">典型问题 · Mindset Shift</span>
+              <span class="problem-strip__divider"></span>
+              <span class="problem-strip__tag">认知转折</span>
+              <span class="problem-strip__num">04 / 04</span>
             </div>
             <h2 class="reveal-left stagger-1">这次架构混乱让我意识到：<br>缺的不是更好的 AI，而是一套开发规范</h2>
             <p class="subnote reveal stagger-1">我没有系统的开发经验积累，没有清晰的架构守则，AI 只会按要求做——它不会主动告诉你"这样写以后会出问题"。</p>
