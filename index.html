@@ -713,27 +713,28 @@
       flex-shrink: 0;
       display: inline-flex;
       align-items: center;
-      gap: 0.32rem;
-      padding: 0.28em 0.7em 0.28em 0.6em;
-      border: 1px solid rgba(203, 122, 71, 0.55);
-      border-radius: 2px;
-      background: rgba(203, 122, 71, 0.06);
+      gap: 0.45rem;
+      padding: 0 1.1em;
+      min-height: 40px;
+      border: 1.5px solid rgba(203, 122, 71, 0.65);
+      border-radius: 3px;
+      background: rgba(203, 122, 71, 0.07);
       color: var(--accent-warm);
       font-family: var(--font-display);
-      font-size: clamp(0.56rem, 0.78vw, 0.72rem);
+      font-size: clamp(0.72rem, 1vw, 0.9rem);
       font-weight: 600;
       font-style: italic;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.04em;
       text-decoration: none;
       white-space: nowrap;
       position: relative;
-      transition: background var(--duration-fast), border-color var(--duration-fast), color var(--duration-fast);
+      transition: color var(--duration-fast);
     }
     .skill-link-tag::before {
       content: '';
       position: absolute;
       inset: 0;
-      border-radius: 2px;
+      border-radius: 3px;
       background: var(--accent-warm);
       opacity: 0;
       transition: opacity var(--duration-fast);
@@ -749,6 +750,8 @@
       z-index: 1;
     }
     .skill-link-tag__arrow {
+      width: 14px;
+      height: 14px;
       transition: transform var(--duration-fast) var(--ease-out-expo);
     }
     .skill-link-tag:hover .skill-link-tag__arrow {
@@ -1484,12 +1487,7 @@
       <div class="page">
         <div class="sheet">
           <div class="binder"><span></span></div>
-          <div class="tabs">
-            <div class="tab mint">FLOW</div>
-            <div class="tab rose">TEAM</div>
-            <div class="tab sky">BUILD</div>
-            <div class="tab gold">TEMPLATE</div>
-          </div>
+
           <div class="inner">
             <div class="slide-head reveal">
               <div class="eyebrow">Designer Vibecoding</div>
@@ -1529,11 +1527,7 @@
       <div class="page">
         <div class="sheet">
           <div class="binder"><span></span></div>
-          <div class="tabs">
-            <div class="tab gold">MVP</div>
-            <div class="tab mint">SCOPE</div>
-            <div class="tab rose">VERIFY</div>
-          </div>
+
           <div class="inner">
             <div class="slide-head reveal">
               <div class="eyebrow">Project Start</div>
@@ -1590,11 +1584,7 @@
       <div class="page">
         <div class="sheet">
           <div class="binder"><span></span></div>
-          <div class="tabs">
-            <div class="tab sky">OSS</div>
-            <div class="tab gold">RESEARCH</div>
-            <div class="tab rose">CHOICE</div>
-          </div>
+
           <div class="inner">
             <div class="slide-head reveal">
               <div class="eyebrow">Start Smart</div>
@@ -1651,11 +1641,7 @@
       <div class="page">
         <div class="sheet">
           <div class="binder"><span></span></div>
-          <div class="tabs">
-            <div class="tab gold">LEARN</div>
-            <div class="tab mint">ADAPT</div>
-            <div class="tab rose">FILE</div>
-          </div>
+
           <div class="inner">
             <div class="slide-head reveal">
               <div class="eyebrow">站在巨人肩上 · 借鉴优秀 Agent 配置</div>
@@ -1740,11 +1726,7 @@
       <div class="page">
         <div class="sheet">
           <div class="binder"><span></span></div>
-          <div class="tabs">
-            <div class="tab mint">PM</div>
-            <div class="tab rose">BUILD</div>
-            <div class="tab sky">COST</div>
-          </div>
+
           <div class="inner">
             <div class="slide-head reveal">
               <div class="eyebrow">Early Collaboration</div>
@@ -1804,11 +1786,7 @@
       <div class="page">
         <div class="sheet">
           <div class="binder"><span></span></div>
-          <div class="tabs">
-            <div class="tab rose">V1</div>
-            <div class="tab mint">V2</div>
-            <div class="tab sky">V3</div>
-          </div>
+
           <div class="inner">
             <div class="slide-head reveal">
               <div class="eyebrow">Evolution</div>
@@ -1888,11 +1866,7 @@
       <div class="page">
         <div class="sheet">
           <div class="binder"><span></span></div>
-          <div class="tabs">
-            <div class="tab sky">FIGMA</div>
-            <div class="tab rose">PRD</div>
-            <div class="tab mint">QA</div>
-          </div>
+
           <div class="inner">
             <div class="slide-head reveal">
               <div class="eyebrow">Design Driven</div>
@@ -1958,11 +1932,7 @@
       <div class="page">
         <div class="sheet">
           <div class="binder"><span></span></div>
-          <div class="tabs">
-            <div class="tab gold">PATHS</div>
-            <div class="tab mint">MODES</div>
-            <div class="tab rose">SWITCH</div>
-          </div>
+
           <div class="inner">
             <div class="slide-head reveal">
               <div class="eyebrow">Productized System</div>
@@ -2023,11 +1993,7 @@
       <div class="page">
         <div class="sheet">
           <div class="binder"><span></span></div>
-          <div class="tabs">
-            <div class="tab gold">FILES</div>
-            <div class="tab mint">RULES</div>
-            <div class="tab rose">ENTRY</div>
-          </div>
+
           <div class="inner">
             <div class="slide-head reveal">
               <div class="eyebrow">阶段性产物 · 第一版协作脚手架</div>
@@ -2100,11 +2066,7 @@
       <div class="page">
         <div class="sheet">
           <div class="binder"><span></span></div>
-          <div class="tabs">
-            <div class="tab rose">CHAOS</div>
-            <div class="tab gold">BUG</div>
-            <div class="tab mint">01/03</div>
-          </div>
+
           <div class="inner">
             <div class="slide-head reveal">
               <div class="eyebrow">架构挑战 01 · 还原混乱现场</div>
@@ -2163,11 +2125,7 @@ sourcePosition: Position.Right  ← 硬编码!
       <div class="page">
         <div class="sheet">
           <div class="binder"><span></span></div>
-          <div class="tabs">
-            <div class="tab gold">DIAG</div>
-            <div class="tab mint">FIX</div>
-            <div class="tab sky">02/03</div>
-          </div>
+
           <div class="inner">
             <div class="slide-head reveal">
               <div class="eyebrow">架构挑战 02 · 诊断根因 + 执行优化</div>
@@ -2241,11 +2199,7 @@ const cfg = getLayoutConfig(mode) // 自动适配</pre>
       <div class="page">
         <div class="sheet">
           <div class="binder"><span></span></div>
-          <div class="tabs">
-            <div class="tab rose">TURN</div>
-            <div class="tab gold">INSIGHT</div>
-            <div class="tab mint">03/03</div>
-          </div>
+
           <div class="inner">
             <div class="slide-head reveal">
               <div class="eyebrow">架构挑战 03 · 转折点</div>
@@ -2319,11 +2273,7 @@ const cfg = getLayoutConfig(mode) // 自动适配</pre>
       <div class="page">
         <div class="sheet">
           <div class="binder"><span></span></div>
-          <div class="tabs">
-            <div class="tab gold">SUPER</div>
-            <div class="tab mint">SKILL</div>
-            <div class="tab rose">EVOL</div>
-          </div>
+
           <div class="inner">
             <div class="slide-head reveal">
               <div class="eyebrow">Superpowers Skill · 子 Agent → 子 SKILL 的进化</div>
@@ -2430,11 +2380,7 @@ skills/design-analysis/SKILL.md
       <div class="page">
         <div class="sheet">
           <div class="binder"><span></span></div>
-          <div class="tabs">
-            <div class="tab sky">SCOPE</div>
-            <div class="tab rose">FLOW</div>
-            <div class="tab mint">SKILL</div>
-          </div>
+
           <div class="inner">
             <div class="slide-head reveal">
               <div class="eyebrow">Takeaways</div>
@@ -2478,11 +2424,7 @@ skills/design-analysis/SKILL.md
       <div class="page">
         <div class="sheet">
           <div class="binder"><span></span></div>
-          <div class="tabs">
-            <div class="tab mint">INSTALL</div>
-            <div class="tab gold">START</div>
-            <div class="tab rose">LINK</div>
-          </div>
+
           <div class="inner">
             <div class="slide-head reveal">
               <div class="eyebrow">Get The Skill</div>
@@ -2492,7 +2434,7 @@ skills/design-analysis/SKILL.md
               <h2 class="reveal-left stagger-1" style="margin:0;">一条命令，把这套协作链路带走</h2>
               <a class="reveal stagger-1 skill-link-tag" href="./skill-landing.html" target="_blank">
                 <span class="skill-link-tag__label">Skill 介绍</span>
-                <svg class="skill-link-tag__arrow" width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H3.5M9.5 1.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg class="skill-link-tag__arrow" width="14" height="14" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H3.5M9.5 1.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
             </div>
             <p class="subnote reveal stagger-1">从想法到上线，Skill 全程引导——你只在关键节点做决策。</p>
