@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Designer Vibecoding Starter — 版本切换</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; overflow: hidden; }
+
+/* Floating toggle button — bottom right */
+.toggle-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2), 0 0 0 1px rgba(255,255,255,0.08);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.toggle-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.28), 0 0 0 1px rgba(255,255,255,0.12);
+}
+.toggle-btn:active {
+  transform: scale(0.95);
+}
+.toggle-btn svg {
+  width: 22px;
+  height: 22px;
+  fill: #fff;
+}
+
+/* Tooltip */
+.toggle-btn::after {
+  content: attr(data-tip);
+  position: absolute;
+  right: 56px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(20, 20, 20, 0.88);
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+.toggle-btn:hover::after {
+  opacity: 1;
+}
+
+/* Iframe container */
+.frame-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.frame-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Layer control via z-index */
+.z-back  { z-index: 1; }
+.z-front { z-index: 2; }
+
+/* Clip mask — hidden by default */
+.clipped {
+  clip-path: circle(0px at calc(100% - 52px) calc(100% - 52px));
+}
+
+/* Expanding animation */
+.revealing {
+  animation: circleReveal 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes circleReveal {
+  from {
+    clip-path: circle(24px at calc(100% - 52px) calc(100% - 52px));
+  }
+  to {
+    clip-path: circle(150vmax at calc(100% - 52px) calc(100% - 52px));
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Toggle button -->
+<button class="toggle-btn" id="toggleBtn" data-tip="切换到线上版" onclick="toggle()">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256"><path d="M48,64a8,8,0,0,1,8-8H72V40a8,8,0,0,1,16,0V56h16a8,8,0,0,1,0,16H88V88a8,8,0,0,1-16,0V72H56A8,8,0,0,1,48,64ZM184,192h-8v-8a8,8,0,0,0-16,0v8h-8a8,8,0,0,0,0,16h8v8a8,8,0,0,0,16,0v-8h8a8,8,0,0,0,0-16Zm56-48H224V128a8,8,0,0,0-16,0v16H192a8,8,0,0,0,0,16h16v16a8,8,0,0,0,16,0V160h16a8,8,0,0,0,0-16ZM219.31,80,80,219.31a16,16,0,0,1-22.62,0L36.68,198.63a16,16,0,0,1,0-22.63L176,36.69a16,16,0,0,1,22.63,0l20.68,20.68A16,16,0,0,1,219.31,80Zm-54.63,32L144,91.31l-96,96L68.68,208ZM208,68.69,187.31,48l-32,32L176,100.69Z"></path></svg>
+</button>
+
+<!-- Both iframes are always loaded, never re-fetched -->
+<div class="frame-container">
+  <iframe id="frame-a" class="z-back" src="skill-landing.html"></iframe>
+  <iframe id="frame-b" class="z-front clipped" src="https://15029041458nanke-blip.github.io/designer-vibecoding-share/skill-landing.html"></iframe>
+</div>
+
+<script>
+let animating = false;
+let showingNew = true; // frame-a (new) is currently visible
+
+const frameA = document.getElementById('frame-a');
+const frameB = document.getElementById('frame-b');
+const btn = document.getElementById('toggleBtn');
+
+function toggle() {
+  if (animating) return;
+  animating = true;
+
+  // Determine which frame is currently behind (clipped) — that's the one to reveal
+  const frontFrame = showingNew ? frameA : frameB;
+  const backFrame  = showingNew ? frameB : frameA;
+
+  // Back frame is on top (z-front) with clip — start revealing it
+  backFrame.className = 'z-front revealing';
+  frontFrame.className = 'z-back';
+
+  backFrame.addEventListener('animationend', function onEnd() {
+    backFrame.removeEventListener('animationend', onEnd);
+
+    // Animation done: back frame is now fully visible on top
+    // Remove clip so it stays fully visible
+    backFrame.className = 'z-front';
+    // Put old front behind with clip ready for next toggle
+    frontFrame.className = 'z-back clipped';
+
+    showingNew = !showingNew;
+    btn.setAttribute('data-tip', showingNew ? '切换到线上版' : '切换到新版');
+    animating = false;
+  });
+}
+</script>
+</body>
+</html>
