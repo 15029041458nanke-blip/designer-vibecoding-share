@@ -1200,6 +1200,109 @@ nav {
 .install-pre .str { color: #ce9178; }
 
 /* ═══════════════════════════════════════════
+   Design Comparison — Before / After
+   ═══════════════════════════════════════════ */
+.compare-section {
+  padding: var(--sp-3xl) 0;
+  border-top: 1px solid var(--border);
+  transition: var(--transition-theme);
+  overflow: hidden;
+}
+.compare-header {
+  text-align: center;
+  margin-bottom: var(--sp-2xl);
+}
+.compare-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--sp-xs);
+}
+.compare-title em {
+  font-style: normal;
+  color: var(--accent-text);
+}
+.compare-desc {
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
+  color: var(--text-2);
+  line-height: 1.7;
+  max-width: 52ch;
+  margin: 0 auto;
+}
+.compare-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-m);
+  margin-bottom: var(--sp-xl);
+}
+.compare-card {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  transition: var(--transition-theme);
+}
+.compare-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+}
+.compare-label .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.compare-card.before .compare-label { color: var(--text-3); }
+.compare-card.before .dot { background: var(--text-3); }
+.compare-card.after .compare-label { color: var(--accent-text); }
+.compare-card.after .dot { background: var(--accent-text); }
+.compare-card img {
+  width: 100%;
+  display: block;
+}
+.compare-section-name {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-2);
+  margin-bottom: var(--sp-s);
+  padding-left: 4px;
+}
+.compare-insight {
+  text-align: center;
+  max-width: 64ch;
+  margin: 0 auto;
+  padding: var(--sp-l) 0 0;
+}
+.compare-insight-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: var(--sp-m);
+}
+.compare-insight-list li {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-2);
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-elevated);
+}
+@media (max-width: 768px) {
+  .compare-pair { grid-template-columns: 1fr; }
+}
+
+/* ═══════════════════════════════════════════
    CTA
    ═══════════════════════════════════════════ */
 .cta-section {
@@ -1530,6 +1633,67 @@ footer { border-top: 1px solid var(--border); padding: var(--sp-m) 0; transition
   </div>
 </section>
 
+<!-- ═══ DESIGN COMPARISON — Before / After ═══ -->
+<section class="compare-section section" id="design-compare">
+  <div class="container">
+    <div class="compare-header">
+      <div class="section-eyebrow reveal">Style Foundation Skill</div>
+      <h2 class="compare-title reveal">真正理解参考图风格<br/>主动提炼<em>设计叙事</em></h2>
+      <p class="compare-desc reveal" style="transition-delay:.06s">不是简单套模板。Skill 会分析参考图的视觉语言——色彩、排版、留白、质感——提炼出「风格宪法」，然后在每个组件中一致执行。以下是同一个 Skill 落地页的前后对比。</p>
+    </div>
+
+    <!-- Pair 1: Hero -->
+    <p class="compare-section-name reveal">Hero 区域</p>
+    <div class="compare-pair reveal" style="transition-delay:.08s">
+      <div class="compare-card before">
+        <div class="compare-label"><span class="dot"></span>Before — 默认生成</div>
+        <img src="assets/compare-old-hero.png" alt="旧版 Hero" loading="lazy" />
+      </div>
+      <div class="compare-card after">
+        <div class="compare-label"><span class="dot"></span>After — Style Foundation</div>
+        <img src="assets/compare-new-hero.png" alt="新版 Hero" loading="lazy" />
+      </div>
+    </div>
+
+    <!-- Pair 2: Phases -->
+    <p class="compare-section-name reveal">全生命周期模块</p>
+    <div class="compare-pair reveal" style="transition-delay:.08s">
+      <div class="compare-card before">
+        <div class="compare-label"><span class="dot"></span>Before — 默认生成</div>
+        <img src="assets/compare-old-phases.png" alt="旧版 Phases" loading="lazy" />
+      </div>
+      <div class="compare-card after">
+        <div class="compare-label"><span class="dot"></span>After — Style Foundation</div>
+        <img src="assets/compare-new-phases.png" alt="新版 Phases" loading="lazy" />
+      </div>
+    </div>
+
+    <!-- Pair 3: Paths -->
+    <p class="compare-section-name reveal">路径选择模块</p>
+    <div class="compare-pair reveal" style="transition-delay:.08s">
+      <div class="compare-card before">
+        <div class="compare-label"><span class="dot"></span>Before — 默认生成</div>
+        <img src="assets/compare-old-paths.png" alt="旧版 Paths" loading="lazy" />
+      </div>
+      <div class="compare-card after">
+        <div class="compare-label"><span class="dot"></span>After — Style Foundation</div>
+        <img src="assets/compare-new-paths.png" alt="新版 Paths" loading="lazy" />
+      </div>
+    </div>
+
+    <div class="compare-insight reveal">
+      <p class="compare-desc">同一份内容，同一个 Skill。区别只在于——是否让 AI 先理解你想要的视觉语言。</p>
+      <ul class="compare-insight-list">
+        <li>从参考图提炼色彩体系</li>
+        <li>排版节奏与留白比例</li>
+        <li>组件风格一致性</li>
+        <li>视觉层级与信息密度</li>
+        <li>动效与交互质感</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ Q-FLOW ═══ -->
 <section class="section section--alt" id="questions">
   <div class="container">
@@ -1701,23 +1865,23 @@ footer { border-top: 1px solid var(--border); padding: var(--sp-m) 0; transition
     <div class="section-eyebrow reveal">安装</div>
     <div class="install-grid">
       <div>
-        <h2 class="install-title reveal">一条命令，<br/><span>带走这套模板</span></h2>
-        <p class="install-desc reveal" style="transition-delay:.08s">安装后，向 Codewiz 说任意触发词即可启动——「帮我初始化项目」、「从0开始做一个应用」、「我有设计稿要开发」。</p>
+        <h2 class="install-title reveal">一个链接，<br/><span>带走这套模板</span></h2>
+        <p class="install-desc reveal" style="transition-delay:.08s">直接访问 GitHub 仓库获取完整 Skill 工具包——包含主 Skill、7 个依赖 Skill、脚手架脚本和设计规则库，可配合任意支持 Claude Skill 的工具使用。</p>
       </div>
       <div class="reveal" style="transition-delay:.14s">
         <div class="install-code">
           <div class="install-bar">
-            <span class="install-bar-label">TERMINAL</span>
-            <button class="copy-btn" onclick="copyInstall(this)">复制</button>
+            <span class="install-bar-label">GITHUB</span>
+            <button class="copy-btn" onclick="copyInstall(this)">复制链接</button>
           </div>
-          <pre class="install-pre" id="install-cmd"><span class="cmt"># 安装 skill</span>
-<span class="cmd">claude skills install</span> <span class="arg">github.com/15029041458nanke-blip/designer-vibecoding-starter</span>
+          <pre class="install-pre" id="install-cmd"><span class="arg">https://github.com/15029041458nanke-blip/designer-vibecoding-starter</span>
 
-<span class="cmt"># 向 Codewiz 说（任选其一）：</span>
-<span class="str">"帮我初始化一个新的 vibecoding 项目"</span>
-<span class="str">"从0开始做一个应用"</span>
-<span class="str">"我有设计稿要开始开发"</span>
-<span class="str">"帮我部署上线"</span></pre>
+<span class="cmt"># 包含：</span>
+<span class="str">SKILL.md</span>            <span class="cmt"># 主 Skill 入口 v4.1</span>
+<span class="str">skills/style-foundation/</span>   <span class="cmt"># 风格宪法生成</span>
+<span class="str">skills/design-analysis/</span>    <span class="cmt"># Figma 设计稿分析</span>
+<span class="str">agent-context/</span>             <span class="cmt"># Figma→CSS 规则库</span>
+<span class="str">scripts/</span>                   <span class="cmt"># 脚手架初始化脚本</span></pre>
         </div>
       </div>
     </div>
@@ -1750,10 +1914,10 @@ footer { border-top: 1px solid var(--border); padding: var(--sp-m) 0; transition
 <script>
 // ── Copy button ──
 function copyInstall(btn) {
-  const text = document.getElementById('install-cmd').innerText;
-  navigator.clipboard.writeText(text).then(() => {
+  const url = 'https://github.com/15029041458nanke-blip/designer-vibecoding-starter';
+  navigator.clipboard.writeText(url).then(() => {
     btn.textContent = '已复制 ✓';
-    setTimeout(() => btn.textContent = '复制', 1800);
+    setTimeout(() => btn.textContent = '复制链接', 1800);
   });
 }
 
