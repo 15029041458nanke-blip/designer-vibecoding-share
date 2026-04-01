@@ -1200,19 +1200,24 @@ nav {
 .install-pre .str { color: #ce9178; }
 
 /* ═══════════════════════════════════════════
-   Design Comparison — Before / After
+   Horizontal Scroll Pipeline — Input → Extract → Output
    ═══════════════════════════════════════════ */
-.compare-section {
-  padding: var(--sp-3xl) 0;
+.pipeline-section {
   border-top: 1px solid var(--border);
   transition: var(--transition-theme);
-  overflow: hidden;
+  /* ⚠️ 不能用 overflow:hidden — 会破坏 sticky */
+  overflow: visible;
+  padding: 0; /* 覆盖 .section 的 padding，header 自带 padding */
 }
-.compare-header {
+.pipeline-header {
   text-align: center;
-  margin-bottom: var(--sp-2xl);
+  padding: var(--sp-3xl) 0 var(--sp-xl);
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding-left: clamp(1.25rem, 4vw, 3rem);
+  padding-right: clamp(1.25rem, 4vw, 3rem);
 }
-.compare-title {
+.pipeline-title {
   font-family: var(--font-serif);
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 400;
@@ -1220,459 +1225,275 @@ nav {
   letter-spacing: -0.02em;
   margin-bottom: var(--sp-xs);
 }
-.compare-title em {
+.pipeline-title em {
   font-style: normal;
   color: var(--accent-text);
 }
-.compare-desc {
+.pipeline-desc {
   font-size: clamp(0.9rem, 1.1vw, 1rem);
   color: var(--text-2);
   line-height: 1.7;
   max-width: 52ch;
   margin: 0 auto;
 }
-.compare-pair {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--sp-m);
-  margin-bottom: var(--sp-xl);
+
+/* ── Scroll-driven horizontal track ── */
+.pipeline-track-outer {
+  position: relative;
+  height: 300vh; /* 3x viewport = scroll distance */
 }
-.compare-card {
-  border-radius: 14px;
+.pipeline-track-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
   overflow: hidden;
-  border: 1px solid var(--border);
-  background: var(--bg-elevated);
-  transition: var(--transition-theme);
 }
-.compare-label {
+.pipeline-track {
+  display: flex;
+  width: 300%; /* 3 panels side by side */
+  height: 100%;
+  will-change: transform;
+  transition: none;
+}
+.pipeline-panel {
+  width: calc(100vw);
+  height: 100%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* ── Progress indicator ── */
+.pipeline-progress {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 20px;
+  border-radius: 50px;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+.pip-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+.pip-dot.active {
+  background: var(--accent);
+  width: 28px;
+  border-radius: 5px;
+}
+.pip-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-3);
+  white-space: nowrap;
+  min-width: 80px;
+  text-align: center;
+}
+
+/* ── Panel 1: User Input (Prompt + Reference) ── */
+.stage-input {
+  background: var(--bg);
+}
+.stage-input-inner {
+  max-width: 640px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+/* Pipeline chat window — reuses .hero-mockup + .mockup-* base styles */
+.pipeline-mockup {
+  max-width: 100%;
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
+.pipeline-chat {
+  min-height: auto;
+  padding: 20px 16px;
+  gap: 14px;
+}
+.pipeline-chat .mockup-bubble {
+  max-width: 92%;
+  font-size: 0.82rem;
+  line-height: 1.65;
+}
+.pipeline-chat .mockup-msg.ai .mockup-bubble strong {
+  color: var(--accent-text);
+}
+.pipeline-chat .mockup-msg.user .mockup-bubble strong {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-color: rgba(255,255,255,0.4);
+  text-underline-offset: 2px;
+}
+.pipeline-chat .mockup-avatar {
+  width: 30px;
+  height: 30px;
+  font-size: 0.65rem;
+}
+/* Reference images inside chat bubble */
+.si-refs {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+.si-refs-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.si-ref-img {
+  aspect-ratio: 16/9;
+  border-radius: 10px;
+  background-size: cover;
+  background-position: center top;
+  border: 1px solid var(--border-subtle);
+  position: relative;
+  overflow: hidden;
+}
+.si-ref-img::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 4px 8px;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-align: center;
+  backdrop-filter: blur(4px);
+}
+
+/* ── Panel 2: Code Editor (Style Foundation output) ── */
+.stage-extract {
+  background: #1e1e2e;
+}
+.stage-extract-inner {
+  max-width: 960px;
+  width: 100%;
+}
+.se-editor {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 16px 60px rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.se-tab-bar {
+  display: flex;
+  align-items: center;
+  background: #181825;
+  padding: 0 12px;
+  gap: 2px;
+}
+.se-tab {
+  padding: 10px 16px;
+  font-size: 0.72rem;
+  font-family: var(--mono);
+  color: #6c7086;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+.se-tab.active {
+  color: #cdd6f4;
+  border-bottom-color: var(--accent);
+  background: #1e1e2e;
+}
+.se-tab:hover:not(.active) {
+  color: #a6adc8;
+}
+.se-dots {
+  display: flex; gap: 6px; padding: 12px 8px; margin-right: 12px;
+}
+.se-dots span { width: 10px; height: 10px; border-radius: 50%; }
+.se-dots span:nth-child(1) { background: #ff5f57; }
+.se-dots span:nth-child(2) { background: #febc2e; }
+.se-dots span:nth-child(3) { background: #28c840; }
+.se-code {
+  background: #1e1e2e;
+  padding: 24px;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  line-height: 1.75;
+  color: #cdd6f4;
+  overflow-x: auto;
+  max-height: 65vh;
+  overflow-y: auto;
+}
+.se-code .ln {
+  color: #45475a;
+  display: inline-block;
+  width: 36px;
+  text-align: right;
+  margin-right: 20px;
+  user-select: none;
+}
+.se-code .kw { color: #cba6f7; }   /* keyword: purple */
+.se-code .fn { color: #89b4fa; }   /* function: blue */
+.se-code .str { color: #a6e3a1; }  /* string: green */
+.se-code .cm { color: #585b70; font-style: italic; }  /* comment */
+.se-code .prop { color: #f9e2af; } /* property: yellow */
+.se-code .val { color: #fab387; }  /* value: peach */
+.se-code .tag { color: #89dceb; }  /* tag: teal */
+.se-code .punc { color: #6c7086; } /* punctuation */
+.se-code .type { color: #f38ba8; } /* type: red/pink */
+.se-label {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 16px;
+  padding: 12px 20px;
+  background: rgba(166, 227, 161, 0.08);
+  border-top: 1px solid rgba(166, 227, 161, 0.12);
   font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border-bottom: 1px solid var(--border);
+  color: #a6e3a1;
+  font-weight: 600;
 }
-.compare-label .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-}
-.compare-card.before .compare-label { color: var(--text-3); }
-.compare-card.before .dot { background: var(--text-3); }
-.compare-card.after .compare-label { color: var(--accent-text); }
-.compare-card.after .dot { background: var(--accent-text); }
-.compare-card img {
-  width: 100%;
-  display: block;
+.se-label svg {
+  width: 14px; height: 14px;
 }
 
-/* ═══ Mini-section 缩略预览 (桌面模拟) ═══ */
+/* ── Panel 3: Final Output ── */
+.stage-output {
+  background: #0c0b0a;
+  padding: 20px !important;
+}
+.stage-output-inner {
+  max-width: 1200px;
+  width: 96%;
+}
+/* Mini-viewport for output */
 .mini-viewport {
   width: 100%;
   overflow: hidden;
   position: relative;
-  /* 默认背景: 桌面壁纸 */
-  background: url('assets/desktop-bg.jpg') center center / cover no-repeat;
+  border-radius: 16px;
+  box-shadow: 0 16px 60px rgba(0,0,0,0.3);
 }
-/* 真实内容以 1280px 宽度渲染，缩放到容器宽度 */
 .mini-inner {
   position: absolute;
   top: 0; left: 0;
   width: 1280px;
-  height: 720px;
+  height: 900px;
   transform-origin: top left;
+  transform: scale(calc(100vw / 1280));
   pointer-events: none;
   user-select: none;
-}
-
-/* ━━━━━ macOS 浮窗通用 ━━━━━ */
-.mac-window {
-  background: rgba(30,30,28,.92);
-  backdrop-filter: blur(20px);
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,.08);
-  overflow: hidden;
-  box-shadow: 0 24px 64px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.04);
-}
-.mac-titlebar {
-  display: flex; align-items: center; gap: 6px;
-  padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,.06);
-  background: rgba(255,255,255,.03);
-}
-.mac-dots { display: flex; gap: 5px; }
-.mac-dot { width: 10px; height: 10px; border-radius: 50%; }
-.mac-dot.red   { background: #ff5f57; }
-.mac-dot.yel   { background: #febc2e; }
-.mac-dot.grn   { background: #28c840; }
-.mac-titlebar-name {
-  flex: 1; text-align: center; font-family: -apple-system, sans-serif;
-  font-size: 11px; color: rgba(255,255,255,.4); font-weight: 500;
-}
-.mac-urlbar {
-  display: flex; align-items: center; gap: 6px;
-  padding: 7px 14px; border-bottom: 1px solid rgba(255,255,255,.05);
-  background: rgba(0,0,0,.15);
-}
-.mac-urlbar-pill {
-  flex: 1; background: rgba(255,255,255,.07); border-radius: 5px;
-  padding: 3px 10px; font-family: -apple-system, sans-serif;
-  font-size: 10px; color: rgba(255,255,255,.3); text-align: center;
-}
-.mac-nav-btn {
-  width: 18px; height: 18px; border-radius: 50%;
-  background: rgba(255,255,255,.06); display: flex; align-items: center; justify-content: center;
-  font-size: 9px; color: rgba(255,255,255,.25);
-}
-
-/* ━━━━━ PAIR 1: Hero ━━━━━ */
-/* Before: 劣质 AI 生成浮窗，漂在桌面上 */
-.mb-hero-wrap {
-  width: 100%; height: 100%;
-  display: flex; align-items: center; justify-content: center;
-  position: relative;
-}
-.mb-hero-window {
-  width: 780px;
-  background: linear-gradient(160deg, #fff 0%, #f0f0f8 100%);
-  border-radius: 10px; overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0,0,0,.35);
-  border: 1px solid rgba(0,0,0,.08);
-}
-.mb-hero-titlebar {
-  display: flex; align-items: center; gap: 5px;
-  background: #ececec; padding: 8px 12px; border-bottom: 1px solid #ddd;
-}
-.mb-hero-titlebar span { width: 10px; height: 10px; border-radius: 50%; }
-.mb-hero-titlebar .r { background: #ff5f57; }
-.mb-hero-titlebar .y { background: #febc2e; }
-.mb-hero-titlebar .g { background: #28c840; }
-.mb-hero-titlebar-name {
-  flex: 1; text-align: center; font-size: 11px; color: #999;
-  font-family: -apple-system, sans-serif; font-weight: 500;
-}
-.mb-hero-body {
-  padding: 48px 56px 40px;
-  display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px;
-  font-family: -apple-system, sans-serif;
-  background: linear-gradient(180deg, #5b21b6 0%, #4158f6 100%);
-}
-.mb-hero-tag {
-  font-size: 10px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
-  color: rgba(255,255,255,.5); background: rgba(255,255,255,.1);
-  padding: 4px 12px; border-radius: 9999px;
-}
-.mb-hero-h { font-size: 38px; font-weight: 900; color: #fff; line-height: 1.1; }
-.mb-hero-h span { color: #fde68a; }
-.mb-hero-p { font-size: 14px; color: rgba(255,255,255,.7); max-width: 380px; line-height: 1.55; }
-.mb-hero-ctas { display: flex; gap: 10px; margin-top: 6px; }
-.mb-hero-btn1 { background: #fff; color: #5b21b6; font-weight: 700; font-size: 13px; padding: 10px 24px; border-radius: 9999px; border: none; }
-.mb-hero-btn2 { background: rgba(255,255,255,.1); color: #fff; font-size: 13px; padding: 10px 22px; border-radius: 9999px; border: 1px solid rgba(255,255,255,.25); font-weight: 500; }
-.mb-hero-stats { display: flex; gap: 32px; margin-top: 12px; }
-.mb-hero-stat { text-align: center; }
-.mb-hero-stat-n { font-size: 22px; font-weight: 900; color: #fff; }
-.mb-hero-stat-l { font-size: 9px; color: rgba(255,255,255,.45); font-weight: 600; text-transform: uppercase; letter-spacing: .1em; }
-
-/* After: keytail.ai 风格 — 文字印在风景上，浮窗在下方 */
-.ma-hero-wrap {
-  width: 100%; height: 100%;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: flex-start;
-  position: relative; overflow: hidden;
-  background: url('assets/desktop-bg.jpg') center 30% / cover no-repeat;
-}
-.ma-hero-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(160,175,165,.15) 0%, rgba(100,120,105,.08) 60%, rgba(0,0,0,.25) 100%);
-}
-.ma-hero-nav {
-  position: relative; z-index: 2;
-  width: 100%; display: flex; align-items: center; justify-content: space-between;
-  padding: 18px 48px; box-sizing: border-box;
-  font-family: -apple-system, sans-serif;
-}
-.ma-hero-nav-logo { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.9); }
-.ma-hero-nav-links { display: flex; gap: 24px; }
-.ma-hero-nav-links a { font-size: 12px; color: rgba(255,255,255,.6); text-decoration: none; font-weight: 400; }
-.ma-hero-nav-cta {
-  background: rgba(255,255,255,.9); color: #111; font-size: 12px; font-weight: 600;
-  padding: 8px 18px; border-radius: 9999px; border: none;
-}
-.ma-hero-text {
-  position: relative; z-index: 2; text-align: center;
-  padding: 30px 80px 0; font-family: -apple-system, sans-serif;
-}
-.ma-hero-big {
-  font-size: 90px; font-weight: 700; line-height: 1.0;
-  color: #fff; letter-spacing: -3px;
-  text-shadow: 0 2px 24px rgba(0,0,0,.18);
-}
-.ma-hero-sub-text {
-  font-size: 15px; color: rgba(255,255,255,.72); margin-top: 12px; line-height: 1.6;
-}
-.ma-hero-ctarow { display: flex; gap: 12px; justify-content: center; margin-top: 18px; }
-.ma-hero-cta1 {
-  background: rgba(255,255,255,.93); color: #111; font-size: 13px; font-weight: 600;
-  padding: 11px 26px; border-radius: 9999px; border: none;
-}
-.ma-hero-cta2 {
-  background: rgba(255,255,255,.12); color: rgba(255,255,255,.85); font-size: 13px; font-weight: 500;
-  padding: 11px 22px; border-radius: 9999px; border: 1px solid rgba(255,255,255,.25);
-}
-/* 悬浮的 macOS browser window */
-.ma-hero-browser {
-  position: relative; z-index: 2;
-  width: 860px; margin-top: 24px;
-  background: rgba(24,24,22,.9);
-  backdrop-filter: blur(24px);
-  border-radius: 12px 12px 0 0;
-  border: 1px solid rgba(255,255,255,.1);
-  border-bottom: none;
-  box-shadow: 0 -8px 40px rgba(0,0,0,.3), 0 0 0 1px rgba(255,255,255,.04);
-  overflow: hidden;
-}
-.ma-browser-bar {
-  display: flex; align-items: center; gap: 8px;
-  padding: 10px 16px; background: rgba(255,255,255,.04);
-  border-bottom: 1px solid rgba(255,255,255,.06);
-}
-.ma-browser-dots { display: flex; gap: 5px; }
-.ma-browser-dot { width: 10px; height: 10px; border-radius: 50%; }
-.ma-browser-url {
-  flex: 1; background: rgba(255,255,255,.07); border-radius: 5px;
-  padding: 4px 12px; font-size: 10px; color: rgba(255,255,255,.3);
-  font-family: -apple-system, sans-serif; text-align: center;
-}
-.ma-browser-body {
-  display: flex; height: 200px;
-}
-.ma-browser-sidebar {
-  width: 160px; border-right: 1px solid rgba(255,255,255,.06);
-  padding: 14px 12px; display: flex; flex-direction: column; gap: 6px;
-  font-family: -apple-system, sans-serif;
-}
-.ma-sidebar-logo { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-.ma-sidebar-logo-icon { width: 22px; height: 22px; border-radius: 5px; background: #25765f; }
-.ma-sidebar-logo-name { font-size: 11px; font-weight: 600; color: rgba(255,255,255,.8); }
-.ma-sidebar-item {
-  font-size: 10px; color: rgba(255,255,255,.35); padding: 5px 8px;
-  border-radius: 5px; display: flex; align-items: center; gap: 7px;
-}
-.ma-sidebar-item.active { background: rgba(37,118,95,.2); color: rgba(37,118,95,.9); }
-.ma-sidebar-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
-.ma-browser-main {
-  flex: 1; padding: 14px 18px; display: flex; flex-direction: column; gap: 10px;
-  font-family: -apple-system, sans-serif;
-}
-.ma-main-header { display: flex; align-items: center; justify-content: space-between; }
-.ma-main-title { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.8); }
-.ma-main-badge {
-  font-size: 9px; font-weight: 600; background: rgba(37,118,95,.2); color: #69c09a;
-  padding: 3px 8px; border-radius: 9999px;
-}
-.ma-stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-.ma-stat-card {
-  background: rgba(255,255,255,.04); border-radius: 7px; padding: 10px 10px 8px;
-  border: 1px solid rgba(255,255,255,.05);
-}
-.ma-stat-label { font-size: 8px; color: rgba(255,255,255,.3); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px; }
-.ma-stat-num { font-size: 18px; font-weight: 700; color: rgba(255,255,255,.85); line-height: 1; }
-.ma-clusters-row { display: flex; gap: 6px; }
-.ma-cluster {
-  flex: 1; background: rgba(255,255,255,.04); border-radius: 7px; padding: 8px 10px;
-  border: 1px solid rgba(255,255,255,.05);
-}
-.ma-cluster-name { font-size: 10px; font-weight: 600; color: rgba(255,255,255,.65); margin-bottom: 3px; }
-.ma-cluster-meta { font-size: 9px; color: rgba(255,255,255,.25); }
-
-/* ━━━━━ PAIR 2: 生命周期 ━━━━━ */
-/* Before: 灰白背景 + 无聊的卡片 */
-.mb-phases-wrap {
-  width: 100%; height: 100%;
-  position: relative;
-  /* 使用桌面背景不同切片 */
-  background: url('assets/desktop-bg.jpg') center 60% / cover no-repeat;
-  display: flex; align-items: center; justify-content: center;
-}
-.mb-phases-window {
-  width: 860px;
-  background: rgba(255,255,255,.97);
-  border-radius: 10px; overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0,0,0,.3);
-}
-.mb-phases-titlebar {
-  display: flex; align-items: center; gap: 5px;
-  background: #f0f0f0; padding: 8px 12px; border-bottom: 1px solid #ddd;
-}
-.mb-phases-titlebar span { width: 10px; height: 10px; border-radius: 50%; }
-.mb-phases-titlebar .r { background: #ff5f57; }
-.mb-phases-titlebar .y { background: #febc2e; }
-.mb-phases-titlebar .g { background: #28c840; }
-.mb-phases-titlebar-name { flex: 1; text-align: center; font-size: 11px; color: #aaa; font-family: -apple-system, sans-serif; }
-.mb-phases-body {
-  padding: 36px 40px 32px; font-family: -apple-system, sans-serif;
-  display: flex; flex-direction: column; align-items: center; gap: 24px;
-}
-.mb-phases-h { font-size: 28px; font-weight: 800; color: #111; text-align: center; }
-.mb-phases-h span { color: #4158f6; }
-.mb-phases-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; width: 100%; }
-.mb-pcard { border: 1px solid #e5e7eb; border-radius: 10px; padding: 16px 14px; background: linear-gradient(145deg, #f9f9ff, #fff); }
-.mb-pcard-n { font-size: 9px; font-weight: 700; color: #4158f6; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 4px; }
-.mb-pcard-t { font-size: 14px; font-weight: 700; color: #111; margin-bottom: 5px; }
-.mb-pcard-d { font-size: 11px; color: #6b7280; line-height: 1.5; }
-.mb-pcard-tags { display: flex; gap: 4px; margin-top: 8px; flex-wrap: wrap; }
-.mb-pcard-tag { font-size: 9px; background: #ede9fe; color: #7c3aed; padding: 2px 7px; border-radius: 9999px; font-weight: 600; }
-
-/* After: 桌面背景切片 + 深色悬浮窗 */
-.ma-phases-wrap {
-  width: 100%; height: 100%;
-  position: relative;
-  background: url('assets/desktop-bg.jpg') center 70% / cover no-repeat;
-  display: flex; align-items: flex-start; justify-content: center;
-  padding-top: 60px; box-sizing: border-box;
-}
-.ma-phases-text {
-  position: absolute; top: 0; left: 0; right: 0;
-  padding: 24px 80px; display: flex; align-items: center; justify-content: space-between;
-  font-family: -apple-system, sans-serif; z-index: 2;
-}
-.ma-phases-heading {
-  font-family: -apple-system, sans-serif;
-  font-size: 52px; font-weight: 700; color: #fff;
-  letter-spacing: -2px; line-height: 1; text-shadow: 0 2px 16px rgba(0,0,0,.2);
-}
-.ma-phases-window {
-  position: relative; z-index: 2;
-  width: 900px; margin-top: 90px;
-  background: rgba(20,22,18,.88); backdrop-filter: blur(20px);
-  border-radius: 12px 12px 0 0; border: 1px solid rgba(255,255,255,.09);
-  border-bottom: none; overflow: hidden;
-  box-shadow: 0 -6px 40px rgba(0,0,0,.35);
-}
-.ma-phases-window .mac-titlebar { padding: 10px 16px; }
-.ma-phases-body { padding: 28px 32px 24px; font-family: -apple-system, sans-serif; }
-.ma-phases-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: #25765f; margin-bottom: 10px; }
-.ma-pwin-h { font-size: 22px; font-weight: 600; color: rgba(255,255,255,.85); margin-bottom: 20px; }
-.ma-pwin-h em { font-style: italic; color: #69c09a; font-weight: 400; }
-.ma-pgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(255,255,255,.06); border-radius: 8px; overflow: hidden; }
-.ma-pcard { padding: 16px; background: rgba(13,16,8,.85); }
-.ma-pcard-line { width: 20px; height: 1px; background: #25765f; margin-bottom: 10px; opacity: .5; }
-.ma-pcard-n { font-size: 9px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; color: rgba(37,118,95,.7); margin-bottom: 6px; }
-.ma-pcard-t { font-size: 13px; font-weight: 500; color: rgba(255,255,255,.8); margin-bottom: 5px; }
-.ma-pcard-d { font-size: 10px; color: rgba(255,255,255,.3); line-height: 1.5; }
-
-/* ━━━━━ PAIR 3: 路径选择 ━━━━━ */
-/* Before: 平庸卡片 */
-.mb-paths-wrap {
-  width: 100%; height: 100%;
-  background: url('assets/desktop-bg.jpg') center 20% / cover no-repeat;
-  display: flex; align-items: center; justify-content: center;
-}
-.mb-paths-window {
-  width: 820px; background: rgba(255,255,255,.96);
-  border-radius: 10px; overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0,0,0,.3);
-}
-.mb-paths-titlebar {
-  display: flex; align-items: center; gap: 5px;
-  background: #f0f0f0; padding: 8px 12px; border-bottom: 1px solid #ddd;
-}
-.mb-paths-titlebar span { width: 10px; height: 10px; border-radius: 50%; }
-.mb-paths-titlebar .r { background: #ff5f57; }
-.mb-paths-titlebar .y { background: #febc2e; }
-.mb-paths-titlebar .g { background: #28c840; }
-.mb-paths-titlebar-name { flex: 1; text-align: center; font-size: 11px; color: #aaa; font-family: -apple-system, sans-serif; }
-.mb-paths-body {
-  padding: 36px 40px; font-family: -apple-system, sans-serif;
-  display: flex; flex-direction: column; align-items: center; gap: 22px;
-}
-.mb-paths-h { font-size: 26px; font-weight: 800; color: #111; }
-.mb-paths-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; width: 100%; }
-.mb-ppath { border: 2px solid #e5e7eb; border-radius: 12px; padding: 22px 20px; background: #fff; position: relative; }
-.mb-ppath.hot { border-color: #4158f6; }
-.mb-ppath-badge { position: absolute; top: -10px; right: 14px; background: #4158f6; color: #fff; font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 3px 8px; border-radius: 9999px; }
-.mb-ppath-icon { font-size: 28px; margin-bottom: 10px; }
-.mb-ppath-t { font-size: 16px; font-weight: 800; color: #111; margin-bottom: 5px; }
-.mb-ppath-d { font-size: 11px; color: #6b7280; line-height: 1.5; }
-.mb-ppath-feats { margin-top: 10px; display: flex; flex-direction: column; gap: 5px; }
-.mb-ppath-feat { font-size: 10px; color: #374151; }
-.mb-ppath-feat::before { content: '✓ '; color: #4158f6; font-weight: 700; }
-
-/* After: 风景背景 + 轻盈悬浮窗 */
-.ma-paths-wrap {
-  width: 100%; height: 100%;
-  background: url('assets/desktop-bg.jpg') center 40% / cover no-repeat;
-  display: flex; align-items: center; justify-content: center;
-  position: relative;
-}
-.ma-paths-window {
-  width: 780px;
-  background: rgba(247,245,238,.94);
-  backdrop-filter: blur(20px);
-  border-radius: 12px; overflow: hidden;
-  box-shadow: 0 24px 64px rgba(0,0,0,.28);
-  border: 1px solid rgba(255,255,255,.6);
-}
-.ma-paths-titlebar {
-  display: flex; align-items: center; gap: 5px;
-  background: rgba(235,233,226,.9); padding: 8px 12px; border-bottom: 1px solid rgba(0,0,0,.07);
-}
-.ma-paths-titlebar span { width: 10px; height: 10px; border-radius: 50%; }
-.ma-paths-titlebar .r { background: #ff5f57; }
-.ma-paths-titlebar .y { background: #febc2e; }
-.ma-paths-titlebar .g { background: #28c840; }
-.ma-paths-titlebar-name { flex: 1; text-align: center; font-size: 11px; color: rgba(0,0,0,.3); font-family: -apple-system, sans-serif; }
-.ma-paths-body { padding: 36px 40px; font-family: -apple-system, sans-serif; display: flex; flex-direction: column; align-items: center; gap: 22px; }
-.ma-paths-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: #25765f; }
-.ma-paths-h { font-family: 'Georgia', serif; font-size: 30px; font-weight: 400; color: #1a1a16; text-align: center; line-height: 1.2; }
-.ma-paths-h em { font-style: italic; color: #25765f; }
-.ma-ppgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%; }
-.ma-ppath { border: 1px solid rgba(26,26,22,.1); border-radius: 10px; padding: 22px 20px; background: #fff; }
-.ma-ppath.hl { background: #25765f; }
-.ma-ppath-label { font-size: 9px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #25765f; margin-bottom: 8px; }
-.ma-ppath.hl .ma-ppath-label { color: rgba(255,255,255,.6); }
-.ma-ppath-t { font-family: 'Georgia', serif; font-size: 18px; font-weight: 400; color: #1a1a16; margin-bottom: 6px; line-height: 1.2; }
-.ma-ppath.hl .ma-ppath-t { color: #fff; }
-.ma-ppath-div { width: 100%; height: 1px; background: rgba(26,26,22,.08); margin: 10px 0; }
-.ma-ppath.hl .ma-ppath-div { background: rgba(255,255,255,.15); }
-.ma-ppath-feats { display: flex; flex-direction: column; gap: 6px; }
-.ma-ppath-feat { font-size: 10px; color: rgba(26,26,22,.55); display: flex; gap: 6px; }
-.ma-ppath.hl .ma-ppath-feat { color: rgba(255,255,255,.7); }
-.ma-ppath-feat::before { content: '—'; opacity: .35; flex-shrink: 0; }
-.compare-section-name {
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--text-2);
-  margin-bottom: var(--sp-s);
-  padding-left: 4px;
-}
-.compare-insight {
-  text-align: center;
-  max-width: 64ch;
-  margin: 0 auto;
-  padding: var(--sp-l) 0 0;
-}
-.compare-insight-list {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.6rem;
-  margin-top: var(--sp-m);
-}
-.compare-insight-list li {
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--text-2);
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--bg-elevated);
-}
-@media (max-width: 768px) {
-  .compare-pair { grid-template-columns: 1fr; }
 }
 
 /* ═══════════════════════════════════════════
@@ -1711,6 +1532,68 @@ footer { border-top: 1px solid var(--border); padding: var(--sp-m) 0; transition
 }
 .footer-brand { font-size: 0.82rem; font-weight: 500; color: var(--text-3); }
 .footer-meta { font-size: 0.68rem; color: var(--text-3); }
+
+/* ═══════════════════════════════════════════
+   Case 3: Lovart (used in Pipeline Stage 3)
+   ═══════════════════════════════════════════ */
+.case-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+.case-app {
+  border-radius: 12px;
+  box-shadow: 0 24px 48px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: 'DM Sans', sans-serif;
+  position: relative;
+}
+.case-app .mac-titlebar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 16px; border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.case-app .mac-dots { display: flex; gap: 6px; }
+.case-app .mac-dots span { width: 10px; height: 10px; border-radius: 50%; }
+.case-app .mac-dots span:nth-child(1) { background: #ff5f57; }
+.case-app .mac-dots span:nth-child(2) { background: #febc2e; }
+.case-app .mac-dots span:nth-child(3) { background: #28c840; }
+.case-3-app { width: 1240px; height: 860px; background: #0c0b0a; color: #f0f0f0; }
+.case-3-app .mac-titlebar { background: #161514; border-bottom: 1px solid #222; }
+.case-3-body { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+.c3-nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; font-size: 12px; }
+.c3-logo { font-weight: 700; font-size: 16px; display: flex; align-items: center; gap: 6px; }
+.c3-links { display: flex; gap: 32px; color: #999; font-weight: 500; }
+.c3-btn { background: #f0f0f0; color: #0c0b0a; padding: 8px 16px; border-radius: 20px; font-weight: 600; }
+.c3-header { text-align: center; padding: 20px 0 30px; }
+.c3-eyebrow { font-size: 10px; letter-spacing: 0.15em; color: #888; margin-bottom: 16px; text-transform: uppercase; font-weight: 600; }
+.c3-h1 { font-family: var(--font-serif); font-size: 46px; line-height: 1.15; margin-bottom: 24px; font-weight: 400; }
+.c3-h1 i { font-style: italic; color: #b3b3b3; font-weight: 300; }
+.c3-h1 sup { font-size: 16px; vertical-align: super; opacity: 0.6; }
+.c3-btn-l { background: #f0f0f0; color: #0c0b0a; padding: 12px 28px; border-radius: 24px; font-size: 13px; font-weight: 600; border: none; cursor: pointer; }
+.c3-workspace { flex: 1; margin: 0 20px 20px; border-radius: 16px; background: url('assets/desktop-bg.jpg') center 80%/cover; position: relative; display: flex; justify-content: center; align-items: flex-end; padding: 16px; overflow: hidden; }
+.c3-workspace-inner { width: 100%; height: 100%; background: #1c1a18; border-radius: 12px; display: flex; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); }
+.c3-left { flex: 1; padding: 20px; position: relative; background: #1c1a18; overflow: hidden; }
+.c3-w-header { display: flex; align-items: center; font-size: 11px; color: #ccc; gap: 8px; font-weight: 500; }
+.c3-w-header-icon { background: #fff; color: #000; width: 16px; height: 16px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 8px; font-weight: bold; }
+.c3-img { position: absolute; background: #fff; box-shadow: 0 8px 24px rgba(0,0,0,0.2); border-radius: 2px; }
+.c3-img-1 { width: 160px; height: 200px; left: 40px; top: 100px; background: url('https://images.unsplash.com/photo-1495474472205-51f7b80c58a5?q=80&w=300&auto=format&fit=crop') center/cover; }
+.c3-img-2 { width: 180px; height: 260px; left: 240px; top: 60px; background: #e6dfd1; padding: 10px; display: flex; flex-direction: column; border: 1px solid #5a8cc2; z-index: 2; }
+.c3-img-2-top { display: flex; justify-content: space-between; font-size: 9px; color: #666; margin-bottom: 6px; font-weight: 500; }
+.c3-img-2-inner { flex: 1; background: url('https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c?q=80&w=300&auto=format&fit=crop') center/cover; border-radius: 2px; }
+.c3-img-3 { width: 150px; height: 180px; left: 440px; top: 140px; background: url('https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=300&auto=format&fit=crop') center/cover; z-index: 1; }
+.c3-img-4 { width: 50px; height: 140px; right: 40px; top: 80px; background: #fff; font-size: 8px; padding: 8px; color: #000; text-align: center; }
+.c3-right { width: 320px; background: #262421; padding: 24px; display: flex; flex-direction: column; border-left: 1px solid #333; }
+.c3-chat-h { font-size: 11px; color: #888; margin-bottom: 20px; font-weight: 600; }
+.c3-msg { background: #353330; padding: 14px; border-radius: 10px; font-size: 11px; line-height: 1.5; color: #ddd; margin-bottom: 16px; border: 1px solid #3f3d3a; }
+.c3-status { display: flex; flex-direction: column; gap: 10px; font-size: 11px; color: #999; margin-bottom: 20px; padding-left: 4px; }
+.c3-status-item { display: flex; align-items: center; gap: 8px; }
+.c3-bot-msg { font-size: 11px; line-height: 1.6; color: #ccc; }
+.c3-input { margin-top: auto; background: #1c1a18; border-radius: 24px; padding: 12px 16px; font-size: 11px; color: #666; display: flex; justify-content: space-between; align-items: center; border: 1px solid #3a3835; }
+
 
 /* ═══════════════════════════════════════════
    Responsive
@@ -2006,245 +1889,170 @@ footer { border-top: 1px solid var(--border); padding: var(--sp-m) 0; transition
   </div>
 </section>
 
-<!-- ═══ DESIGN COMPARISON — Before / After ═══ -->
-<section class="compare-section section" id="design-compare">
+<!-- ═══ PIPELINE: Input → Extract → Output (横向滚动) ═══ -->
+<section class="pipeline-section section" id="design-pipeline">
   <div class="container">
-    <div class="compare-header">
+    <div class="pipeline-header">
       <div class="section-eyebrow reveal">Style Foundation Skill</div>
-      <h2 class="compare-title reveal">真正理解参考图风格<br/>主动提炼<em>设计叙事</em></h2>
-      <p class="compare-desc reveal" style="transition-delay:.06s">不是简单套模板。Skill 会分析参考图的视觉语言——色彩、排版、留白、质感——提炼出「风格宪法」，然后在每个组件中一致执行。以下是同一个 Skill 落地页的前后对比。</p>
+      <h2 class="pipeline-title reveal">从参考图到产品级 UI<br/>只需<em>三步</em></h2>
+      <p class="pipeline-desc reveal" style="transition-delay:.06s">输入你的想法和参考图 → Skill 自动提炼设计系统 → 输出一致性极高的完整界面</p>
     </div>
 
-    <!-- Pair 1: Hero -->
-    <p class="compare-section-name reveal">Hero 区域</p>
-    <div class="compare-pair reveal" style="transition-delay:.08s">
+  </div><!-- /container -->
 
-      <!-- Before: 普通 app 浮窗漂在桌面上 -->
-      <div class="compare-card before">
-        <div class="compare-label"><span class="dot"></span>Before — 默认生成</div>
-        <div class="mini-viewport" data-mini>
-          <div class="mini-inner">
-            <div class="mb-hero-wrap">
-              <div class="mb-hero-window">
-                <div class="mb-hero-titlebar">
-                  <span class="r"></span><span class="y"></span><span class="g"></span>
-                  <div class="mb-hero-titlebar-name">vibecoding-starter — Hero</div>
+  <!-- Horizontal Scroll Track -->
+  <div class="pipeline-track-outer" id="pipeline-outer">
+    <div class="pipeline-track-sticky">
+      <div class="pipeline-track" id="pipeline-track">
+
+        <!-- ═══ Stage 1: User Input ═══ -->
+        <div class="pipeline-panel stage-input">
+          <div class="stage-input-inner">
+            <div class="hero-mockup pipeline-mockup">
+              <div class="mockup-bar">
+                <div class="mockup-dots"><span></span><span></span><span></span></div>
+                <span class="mockup-bar-title">Codewiz · Style Foundation</span>
+              </div>
+              <div class="mockup-chat pipeline-chat">
+                <div class="mockup-msg user">
+                  <div class="mockup-avatar">你</div>
+                  <div class="mockup-bubble">
+                    帮我做一个<strong>品牌设计工具</strong>的落地页，风格参考下面的图，要有<strong>暗色高级感</strong>，强调 AI 协作能力。
+                    <div class="si-refs si-refs-2">
+                      <div class="si-ref-img" data-label="Everit · Scale" style="background-image:url('assets/ref-dark-team.png');"></div>
+                      <div class="si-ref-img" data-label="Replit · Features" style="background-image:url('assets/ref-dark-features.png');"></div>
+                    </div>
+                  </div>
                 </div>
-                <div class="mb-hero-body">
-                  <div class="mb-hero-tag">AI Vibecoding Tool · Beta</div>
-                  <div class="mb-hero-h">让 AI 帮你<span>写代码</span><br/>从今天开始</div>
-                  <div class="mb-hero-p">无需编程经验，输入你的想法，AI 自动生成完整项目代码，5 分钟上线。</div>
-                  <div class="mb-hero-ctas">
-                    <button class="mb-hero-btn1">立即开始</button>
-                    <button class="mb-hero-btn2">查看 Demo</button>
-                  </div>
-                  <div class="mb-hero-stats">
-                    <div class="mb-hero-stat"><div class="mb-hero-stat-n">12,000+</div><div class="mb-hero-stat-l">用户</div></div>
-                    <div class="mb-hero-stat"><div class="mb-hero-stat-n">98%</div><div class="mb-hero-stat-l">满意度</div></div>
-                    <div class="mb-hero-stat"><div class="mb-hero-stat-n">5 min</div><div class="mb-hero-stat-l">上线时间</div></div>
-                  </div>
+                <div class="mockup-msg ai">
+                  <div class="mockup-avatar">AI</div>
+                  <div class="mockup-bubble">收到！我先分析这 2 张参考图的视觉语言，提炼出<strong>风格宪法（Style Constitution）</strong>…</div>
+                </div>
+                <div class="mockup-msg ai">
+                  <div class="mockup-avatar">AI</div>
+                  <div class="mockup-bubble">两张参考图都采用了<strong>深色背景 + 高对比排版</strong>的模式。我检测到几个共性信号：圆角卡片、大留白、衬线标题…正在生成 Constitution 文件。</div>
+                </div>
+                <div class="mockup-typing">
+                  <span></span><span></span><span></span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- After: keytail.ai 风格 — 大字直接印在风景上 + 浮窗 browser -->
-      <div class="compare-card after">
-        <div class="compare-label"><span class="dot"></span>After — Style Foundation</div>
-        <div class="mini-viewport" data-mini>
-          <div class="mini-inner">
-            <div class="ma-hero-wrap">
-              <div class="ma-hero-overlay"></div>
-              <!-- Nav -->
-              <div class="ma-hero-nav">
-                <div class="ma-hero-nav-logo">designer-vibecoding-starter</div>
-                <div class="ma-hero-nav-links">
-                  <a href="#">Product</a><a href="#">Pricing</a><a href="#">Blog</a>
-                </div>
-                <button class="ma-hero-nav-cta">Get started</button>
+        <!-- ═══ Stage 2: Code Editor (Style Foundation) ═══ -->
+        <div class="pipeline-panel stage-extract">
+          <div class="stage-extract-inner">
+            <div class="se-editor">
+              <div class="se-tab-bar">
+                <div class="se-dots"><span></span><span></span><span></span></div>
+                <div class="se-tab active">style-constitution.md</div>
+                <div class="se-tab">design-tokens.json</div>
+                <div class="se-tab">narrative.md</div>
               </div>
-              <!-- Big text -->
-              <div class="ma-hero-text">
-                <div class="ma-hero-big">风格一致。<br/>自动执行。</div>
-                <div class="ma-hero-sub-text">让 AI 理解你的视觉语言，从参考图提炼「风格宪法」，<br/>在每一个组件里一致延续。</div>
-                <div class="ma-hero-ctarow">
-                  <button class="ma-hero-cta1">获取 Skill 包</button>
-                  <button class="ma-hero-cta2">查看效果对比</button>
-                </div>
-              </div>
-              <!-- Floating browser window -->
-              <div class="ma-hero-browser">
-                <div class="ma-browser-bar">
-                  <div class="ma-browser-dots">
-                    <div class="ma-browser-dot" style="background:#ff5f57"></div>
-                    <div class="ma-browser-dot" style="background:#febc2e"></div>
-                    <div class="ma-browser-dot" style="background:#28c840"></div>
-                  </div>
-                  <div style="display:flex;gap:8px;margin-left:8px">
-                    <div style="width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;font-size:9px;color:rgba(255,255,255,.25)">‹</div>
-                    <div style="width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;font-size:9px;color:rgba(255,255,255,.25)">›</div>
-                  </div>
-                  <div class="ma-browser-url">style-foundation.design</div>
-                  <div style="display:flex;gap:6px">
-                    <div style="width:16px;height:16px;border-radius:3px;background:rgba(255,255,255,.06)"></div>
-                    <div style="width:16px;height:16px;border-radius:3px;background:rgba(255,255,255,.06)"></div>
-                  </div>
-                </div>
-                <div class="ma-browser-body">
-                  <div class="ma-browser-sidebar">
-                    <div class="ma-sidebar-logo">
-                      <div class="ma-sidebar-logo-icon"></div>
-                      <div class="ma-sidebar-logo-name">振动设计系统</div>
-                    </div>
-                    <div class="ma-sidebar-item active"><div class="ma-sidebar-dot"></div>仪表盘</div>
-                    <div class="ma-sidebar-item"><div class="ma-sidebar-dot"></div>风格宪法</div>
-                    <div class="ma-sidebar-item"><div class="ma-sidebar-dot"></div>组件库</div>
-                    <div class="ma-sidebar-item" style="margin-top:6px;font-size:9px;color:rgba(255,255,255,.2);padding-left:4px">最近</div>
-                    <div class="ma-sidebar-item"><div class="ma-sidebar-dot"></div>Hero 区域</div>
-                    <div class="ma-sidebar-item"><div class="ma-sidebar-dot"></div>生命周期模块</div>
-                    <div class="ma-sidebar-item"><div class="ma-sidebar-dot"></div>路径选择卡</div>
-                  </div>
-                  <div class="ma-browser-main">
-                    <div class="ma-main-header">
-                      <div class="ma-main-title">Style Foundation · 项目概览</div>
-                      <div class="ma-main-badge">运行中</div>
-                    </div>
-                    <div class="ma-stats-row">
-                      <div class="ma-stat-card"><div class="ma-stat-label">组件数</div><div class="ma-stat-num">24</div></div>
-                      <div class="ma-stat-card"><div class="ma-stat-label">风格令牌</div><div class="ma-stat-num">87</div></div>
-                      <div class="ma-stat-card"><div class="ma-stat-label">Design QA</div><div class="ma-stat-num">98%</div></div>
-                      <div class="ma-stat-card"><div class="ma-stat-label">构建时间</div><div class="ma-stat-num">4.2s</div></div>
-                    </div>
-                    <div class="ma-clusters-row">
-                      <div class="ma-cluster"><div class="ma-cluster-name">色彩体系</div><div class="ma-cluster-meta">12 个令牌 · 已同步</div></div>
-                      <div class="ma-cluster"><div class="ma-cluster-name">排版节奏</div><div class="ma-cluster-meta">8 个级别 · 已同步</div></div>
-                      <div class="ma-cluster"><div class="ma-cluster-name">间距系统</div><div class="ma-cluster-meta">16 个步进 · 已同步</div></div>
-                    </div>
-                  </div>
-                </div>
+              <div class="se-code"><span class="ln"> 1</span><span class="cm"># Style Constitution — Brand Design Tool</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span><span class="cm">## 1. Design Narrative</span>
+<span class="ln"> 4</span>
+<span class="ln"> 5</span><span class="str">"A dark canvas that breathes — where every element</span>
+<span class="ln"> 6</span><span class="str"> floats with purpose, like constellations in a night sky.</span>
+<span class="ln"> 7</span><span class="str"> The interface disappears; the creation takes center stage."</span>
+<span class="ln"> 8</span>
+<span class="ln"> 9</span><span class="cm">## 2. Color System</span>
+<span class="ln">10</span>
+<span class="ln">11</span><span class="prop">background-primary</span><span class="punc">:</span>  <span class="val">#0c0b0a</span>  <span class="cm">/* deep charcoal, not pure black */</span>
+<span class="ln">12</span><span class="prop">background-elevated</span><span class="punc">:</span> <span class="val">#1c1a18</span>  <span class="cm">/* warm dark brown */</span>
+<span class="ln">13</span><span class="prop">surface-card</span><span class="punc">:</span>       <span class="val">#262421</span>  <span class="cm">/* subtle lift */</span>
+<span class="ln">14</span><span class="prop">accent-primary</span><span class="punc">:</span>    <span class="val">#f0f0f0</span>  <span class="cm">/* warm white for CTA */</span>
+<span class="ln">15</span><span class="prop">text-primary</span><span class="punc">:</span>      <span class="val">#f0f0f0</span>
+<span class="ln">16</span><span class="prop">text-secondary</span><span class="punc">:</span>    <span class="val">#888888</span>
+<span class="ln">17</span><span class="prop">border-subtle</span><span class="punc">:</span>     <span class="val">rgba(255,255,255,0.05)</span>
+<span class="ln">18</span>
+<span class="ln">19</span><span class="cm">## 3. Typography</span>
+<span class="ln">20</span>
+<span class="ln">21</span><span class="prop">heading-font</span><span class="punc">:</span>   <span class="str">"serif with italic emphasis"</span>
+<span class="ln">22</span><span class="prop">heading-weight</span><span class="punc">:</span> <span class="val">400</span>  <span class="cm">/* light, elegant */</span>
+<span class="ln">23</span><span class="prop">body-font</span><span class="punc">:</span>      <span class="str">"DM Sans, system-ui"</span>
+<span class="ln">24</span><span class="prop">body-size</span><span class="punc">:</span>      <span class="val">13-14px</span>
+<span class="ln">25</span><span class="prop">letter-spacing</span><span class="punc">:</span> <span class="val">-0.01em</span> <span class="cm">/* tight, modern */</span>
+<span class="ln">26</span>
+<span class="ln">27</span><span class="cm">## 4. Spatial Rhythm</span>
+<span class="ln">28</span>
+<span class="ln">29</span><span class="prop">base-unit</span><span class="punc">:</span>      <span class="val">8px</span>
+<span class="ln">30</span><span class="prop">section-gap</span><span class="punc">:</span>    <span class="val">120px</span>   <span class="cm">/* generous breathing room */</span>
+<span class="ln">31</span><span class="prop">card-radius</span><span class="punc">:</span>    <span class="val">16px</span>
+<span class="ln">32</span><span class="prop">card-padding</span><span class="punc">:</span>   <span class="val">24px</span>
+<span class="ln">33</span><span class="prop">border-width</span><span class="punc">:</span>   <span class="val">1px</span>     <span class="cm">/* hairline separators */</span>
+<span class="ln">34</span>
+<span class="ln">35</span><span class="cm">## 5. Component Signatures</span>
+<span class="ln">36</span>
+<span class="ln">37</span><span class="prop">buttons</span><span class="punc">:</span>    <span class="str">"pill-shape, high contrast, hover lift"</span>
+<span class="ln">38</span><span class="prop">cards</span><span class="punc">:</span>      <span class="str">"elevated with subtle inner shadow"</span>
+<span class="ln">39</span><span class="prop">nav</span><span class="punc">:</span>        <span class="str">"minimal, icon-forward, left rail"</span>
+<span class="ln">40</span><span class="prop">workspace</span><span class="punc">:</span>  <span class="str">"canvas center, chat panel right"</span></div>
+              <div class="se-label">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>
+                Style Constitution 已生成 — 40 行规则覆盖 5 个维度
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- Pair 2: Phases -->
-    <p class="compare-section-name reveal">全生命周期模块</p>
-    <div class="compare-pair reveal" style="transition-delay:.08s">
-
-      <!-- Before: 白色普通窗口 -->
-      <div class="compare-card before">
-        <div class="compare-label"><span class="dot"></span>Before — 默认生成</div>
-        <div class="mini-viewport" data-mini>
-          <div class="mini-inner">
-            <div class="mb-phases-wrap">
-              <div class="mb-phases-window">
-                <div class="mb-phases-titlebar">
-                  <span class="r"></span><span class="y"></span><span class="g"></span>
-                  <div class="mb-phases-titlebar-name">lifecycle.html</div>
-                </div>
-                <div class="mb-phases-body">
-                  <div class="mb-phases-h">全程 AI 协作<span>，四个阶段</span></div>
-                  <div class="mb-phases-grid">
-                    <div class="mb-pcard">
-                      <div class="mb-pcard-n">Phase 01</div><div class="mb-pcard-t">需求收集</div>
-                      <div class="mb-pcard-d">通过对话提炼需求，生成 PRD 草稿。</div>
-                      <div class="mb-pcard-tags"><span class="mb-pcard-tag">AI对话</span><span class="mb-pcard-tag">PRD</span></div>
-                    </div>
-                    <div class="mb-pcard">
-                      <div class="mb-pcard-n">Phase 02</div><div class="mb-pcard-t">设计分析</div>
-                      <div class="mb-pcard-d">上传参考图，AI 提取色彩字体间距。</div>
-                      <div class="mb-pcard-tags"><span class="mb-pcard-tag">Figma</span><span class="mb-pcard-tag">风格</span></div>
-                    </div>
-                    <div class="mb-pcard">
-                      <div class="mb-pcard-n">Phase 03</div><div class="mb-pcard-t">代码生成</div>
-                      <div class="mb-pcard-d">自动生成脚手架，npm run dev 跑起来。</div>
-                      <div class="mb-pcard-tags"><span class="mb-pcard-tag">React</span><span class="mb-pcard-tag">TS</span></div>
-                    </div>
-                    <div class="mb-pcard">
-                      <div class="mb-pcard-n">Phase 04</div><div class="mb-pcard-t">部署上线</div>
-                      <div class="mb-pcard-d">一键部署 Vercel，自动 CI/CD。</div>
-                      <div class="mb-pcard-tags"><span class="mb-pcard-tag">Vercel</span><span class="mb-pcard-tag">Deploy</span></div>
-                    </div>
+        <!-- ═══ Stage 3: Final Output ═══ -->
+        <div class="pipeline-panel stage-output">
+          <div class="stage-output-inner">
+            <div class="mini-viewport" data-mini>
+              <div class="mini-inner case-inner">
+                <div class="case-app case-3-app">
+                  <div class="mac-titlebar">
+                    <div class="mac-dots"><span></span><span></span><span></span></div>
+                    <span style="margin-left:auto; font-size:10px; color:#666; font-weight:500;">lovart.ai</span>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- After: 风景背景 + 深色浮窗 -->
-      <div class="compare-card after">
-        <div class="compare-label"><span class="dot"></span>After — Style Foundation</div>
-        <div class="mini-viewport" data-mini>
-          <div class="mini-inner">
-            <div class="ma-phases-wrap">
-              <div class="ma-phases-text">
-                <div class="ma-phases-heading">从想法<br/>到上线。</div>
-              </div>
-              <div class="ma-phases-window">
-                <div class="mac-titlebar">
-                  <div class="mac-dots"><div class="mac-dot red"></div><div class="mac-dot yel"></div><div class="mac-dot grn"></div></div>
-                  <div class="mac-titlebar-name">全生命周期 · Style Foundation</div>
-                </div>
-                <div class="ma-phases-body">
-                  <div class="ma-phases-eyebrow">全生命周期</div>
-                  <div class="ma-pwin-h">AI 全程协作，<em>四个阶段</em></div>
-                  <div class="ma-pgrid">
-                    <div class="ma-pcard"><div class="ma-pcard-line"></div><div class="ma-pcard-n">Phase 01</div><div class="ma-pcard-t">需求精化</div><div class="ma-pcard-d">一次一问，收敛 PRD</div></div>
-                    <div class="ma-pcard"><div class="ma-pcard-line"></div><div class="ma-pcard-n">Phase 02</div><div class="ma-pcard-t">风格宪法</div><div class="ma-pcard-d">提炼视觉语言令牌</div></div>
-                    <div class="ma-pcard"><div class="ma-pcard-line"></div><div class="ma-pcard-n">Phase 03</div><div class="ma-pcard-t">代码生成</div><div class="ma-pcard-d">真实项目即刻跑起来</div></div>
-                    <div class="ma-pcard"><div class="ma-pcard-line"></div><div class="ma-pcard-n">Phase 04</div><div class="ma-pcard-t">部署上线</div><div class="ma-pcard-d">一命令到公网访问</div></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Pair 3: Paths -->
-    <p class="compare-section-name reveal">路径选择模块</p>
-    <div class="compare-pair reveal" style="transition-delay:.08s">
-
-      <!-- Before: 白底卡片浮窗 -->
-      <div class="compare-card before">
-        <div class="compare-label"><span class="dot"></span>Before — 默认生成</div>
-        <div class="mini-viewport" data-mini>
-          <div class="mini-inner">
-            <div class="mb-paths-wrap">
-              <div class="mb-paths-window">
-                <div class="mb-paths-titlebar">
-                  <span class="r"></span><span class="y"></span><span class="g"></span>
-                  <div class="mb-paths-titlebar-name">paths.html</div>
-                </div>
-                <div class="mb-paths-body">
-                  <div class="mb-paths-h">选择你的协作路径</div>
-                  <div class="mb-paths-grid">
-                    <div class="mb-ppath hot">
-                      <div class="mb-ppath-badge">推荐</div>
-                      <div class="mb-ppath-icon">🎨</div>
-                      <div class="mb-ppath-t">设计驱动路径</div>
-                      <div class="mb-ppath-d">上传 Figma，AI 生成 100% 还原代码。</div>
-                      <div class="mb-ppath-feats">
-                        <div class="mb-ppath-feat">Figma MCP 直连</div>
-                        <div class="mb-ppath-feat">设计令牌自动提取</div>
-                        <div class="mb-ppath-feat">像素级还原验证</div>
-                      </div>
+                  <div class="case-3-body">
+                    <div class="c3-nav">
+                      <div class="c3-logo">✦ Lovart</div>
+                      <div class="c3-links"><span>Home</span><span>Pricing</span><span>News</span></div>
+                      <div class="c3-btn">Get started</div>
                     </div>
-                    <div class="mb-ppath">
-                      <div class="mb-ppath-icon">💡</div>
-                      <div class="mb-ppath-t">0-1 创意路径</div>
-                      <div class="mb-ppath-d">只有想法，AI 帮你从头构建。</div>
-                      <div class="mb-ppath-feats">
-                        <div class="mb-ppath-feat">智能追问需求</div>
-                        <div class="mb-ppath-feat">自动生成风格建议</div>
-                        <div class="mb-ppath-feat">PRD 确认再生成</div>
+                    <div class="c3-header">
+                      <div class="c3-eyebrow">YOUR AI DESIGN PARTNER</div>
+                      <div class="c3-h1">Design a <i>Brand System</i><sup>(3)</sup><br/>for a <i>Local Coffee Shop</i></div>
+                      <button class="c3-btn-l">Design now</button>
+                    </div>
+                    <div class="c3-workspace">
+                      <div class="c3-workspace-inner">
+                        <div class="c3-left">
+                          <div class="c3-w-header"><span class="c3-w-header-icon">LO</span> Coffee Shop Brand System <span style="font-size:8px; opacity:0.6;">▼</span></div>
+                          <div class="c3-img c3-img-1"></div>
+                          <div class="c3-img c3-img-2">
+                            <div class="c3-img-2-top"><span>Image</span><span>540 x 720</span></div>
+                            <div class="c3-img-2-inner"></div>
+                          </div>
+                          <div class="c3-img c3-img-3"></div>
+                          <div class="c3-img c3-img-4">
+                            <div style="font-weight:bold; font-size:12px; margin-bottom:4px; font-family:serif;">Latte</div>
+                            <div style="font-size:6px; color:#999; margin-bottom:8px;">manufactured by</div>
+                            <div style="width:100%; height:40px; background:#f0f0f0; margin-bottom:4px;"></div>
+                            <div style="width:100%; height:20px; background:#e0e0e0;"></div>
+                          </div>
+                        </div>
+                        <div class="c3-right">
+                          <div class="c3-chat-h">New Chat</div>
+                          <div class="c3-msg">Develop a complete visual identity for a neighborhood coffee shop, covering in-store, packaging, and digital touchpoints.</div>
+                          <div class="c3-status">
+                            <div class="c3-status-item"><span>⊕</span> Analyzed user intent</div>
+                            <div class="c3-status-item"><span>⊕</span> Explored visual trends</div>
+                            <div class="c3-status-item"><span>⊕</span> Collected references</div>
+                          </div>
+                          <div class="c3-bot-msg">
+                            <p style="margin-bottom:12px;">I've designed a brand system for a local coffee shop focused on craft, warmth, and everyday use.</p>
+                            <p>The system uses earthy colors, tactile details, and human-centered typography, with flexible components that scale across packaging, signage, and digital touchpoints.</p>
+                          </div>
+                          <div class="c3-input">
+                            <span>What shall we design together?</span>
+                            <span style="display:flex; gap:8px;"><span>📎</span><span style="background:#555; color:#fff; width:16px; height:16px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; font-size:10px;">↑</span></span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -2253,64 +2061,21 @@ footer { border-top: 1px solid var(--border); padding: var(--sp-m) 0; transition
             </div>
           </div>
         </div>
+
+      </div><!-- /pipeline-track -->
+
+      <!-- Progress indicator -->
+      <div class="pipeline-progress">
+        <span class="pip-dot active" data-stage="0"></span>
+        <span class="pip-dot" data-stage="1"></span>
+        <span class="pip-dot" data-stage="2"></span>
+        <span class="pip-label">输入想法 + 参考图</span>
       </div>
 
-      <!-- After: 奶白玻璃浮窗在风景上 -->
-      <div class="compare-card after">
-        <div class="compare-label"><span class="dot"></span>After — Style Foundation</div>
-        <div class="mini-viewport" data-mini>
-          <div class="mini-inner">
-            <div class="ma-paths-wrap">
-              <div class="ma-paths-window">
-                <div class="ma-paths-titlebar">
-                  <span class="r"></span><span class="y"></span><span class="g"></span>
-                  <div class="ma-paths-titlebar-name">paths · Style Foundation</div>
-                </div>
-                <div class="ma-paths-body">
-                  <div class="ma-paths-eyebrow">两条路径</div>
-                  <div class="ma-paths-h">有设计稿，或<br/>只有<em>一个想法</em></div>
-                  <div class="ma-ppgrid">
-                    <div class="ma-ppath hl">
-                      <div class="ma-ppath-label">设计驱动路径</div>
-                      <div class="ma-ppath-t">从 Figma<br/>到真实代码</div>
-                      <div class="ma-ppath-div"></div>
-                      <div class="ma-ppath-feats">
-                        <div class="ma-ppath-feat">Figma MCP 直连，自动拉取图层结构</div>
-                        <div class="ma-ppath-feat">风格宪法提炼，令牌一次写入</div>
-                        <div class="ma-ppath-feat">Design QA 像素级验收</div>
-                      </div>
-                    </div>
-                    <div class="ma-ppath">
-                      <div class="ma-ppath-label">0-1 创意路径</div>
-                      <div class="ma-ppath-t">从想法<br/>到上线</div>
-                      <div class="ma-ppath-div"></div>
-                      <div class="ma-ppath-feats">
-                        <div class="ma-ppath-feat">6 步对话收敛需求，一次一问</div>
-                        <div class="ma-ppath-feat">参考图分析，定义视觉风格</div>
-                        <div class="ma-ppath-feat">PRD 确认后生成，不提前开始</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="compare-insight reveal">
-      <p class="compare-desc">同一份内容，同一个 Skill。区别只在于——是否让 AI 先理解你想要的视觉语言。</p>
-      <ul class="compare-insight-list">
-        <li>从参考图提炼色彩体系</li>
-        <li>排版节奏与留白比例</li>
-        <li>组件风格一致性</li>
-        <li>视觉层级与信息密度</li>
-        <li>动效与交互质感</li>
-      </ul>
-    </div>
-  </div>
+    </div><!-- /pipeline-track-sticky -->
+  </div><!-- /pipeline-track-outer -->
 </section>
+
 
 <!-- ═══ Q-FLOW ═══ -->
 <section class="section section--alt" id="questions">
@@ -2537,12 +2302,71 @@ function scaleMiniViewports() {
     if (!inner) return;
     const scale = vp.offsetWidth / 1280;
     inner.style.transform = `scale(${scale})`;
-    // 修正高度：inner 本身 720px，缩放后实际占用 720*scale
-    vp.style.height = (720 * scale) + 'px';
+    // 修正高度：inner 本身 900px，缩放后实际占用 900*scale
+    vp.style.height = (900 * scale) + 'px';
   });
 }
 scaleMiniViewports();
 window.addEventListener('resize', scaleMiniViewports);
+
+// ── Pipeline: Scroll-driven horizontal slide ──
+(function() {
+  const outer = document.getElementById('pipeline-outer');
+  const track = document.getElementById('pipeline-track');
+  if (!outer || !track) return;
+
+  const dots = document.querySelectorAll('.pip-dot');
+  const label = document.querySelector('.pip-label');
+  const labels = ['输入想法 + 参考图', '提炼设计系统', '产出完整界面'];
+  let lastStage = -1;
+
+  function updatePipeline() {
+    const rect = outer.getBoundingClientRect();
+    // scrollable distance = outer height minus one viewport (the sticky viewport)
+    const scrollableH = outer.offsetHeight - window.innerHeight;
+    if (scrollableH <= 0) return;
+
+    // progress: 0 at top of outer, 1 at bottom of outer
+    const rawProgress = -rect.top / scrollableH;
+    const progress = Math.max(0, Math.min(1, rawProgress));
+
+    // Move track: translateX from 0% to -66.666% (showing panel 1→2→3)
+    track.style.transform = `translateX(-${progress * 66.6667}%)`;
+
+    // Determine active stage (0, 1, 2)
+    const stage = progress < 0.33 ? 0 : progress < 0.66 ? 1 : 2;
+
+    // Only update DOM when stage changes (perf)
+    if (stage !== lastStage) {
+      dots.forEach((d, i) => d.classList.toggle('active', i === stage));
+      if (label) label.textContent = labels[stage];
+      lastStage = stage;
+
+      // Recalculate mini-viewport scale when stage 3 becomes visible
+      if (stage === 2) {
+        requestAnimationFrame(scaleMiniViewports);
+      }
+    }
+  }
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updatePipeline();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  // Also recalc on resize
+  window.addEventListener('resize', () => {
+    requestAnimationFrame(updatePipeline);
+  });
+
+  updatePipeline();
+})();
 
 // ── Copy button ──
 function copyInstall(btn) {
