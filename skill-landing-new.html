@@ -1,0 +1,1878 @@
+<!DOCTYPE html>
+<!-- skill-landing.html — designer-vibecoding-starter v4.0 落地页 (light/dark theme) -->
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Designer Vibecoding Starter · 从想法到上线</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+/* ═══════════════════════════════════════════
+   Theme System — Light + Dark
+   ═══════════════════════════════════════════ */
+
+/* ── Light Theme (Obvious-inspired) ── */
+[data-theme="light"] {
+  --bg:           #fafaf8;
+  --bg-alt:       #f0f4f8;
+  --bg-elevated:  #ffffff;
+  --bg-inset:     #f5f8fa;
+  --bg-dark-section:   #1a2535;
+  --bg-dark-section-2: #141e2c;
+
+  --text-1:       #1a1a1a;
+  --text-2:       #555560;
+  --text-3:       #8a8a92;
+  --text-on-dark: #f0f2f8;
+
+  --accent:       #25765F;
+  --accent-hover: #1d6350;
+  --accent-soft:  #e6f2ee;
+  --accent-badge: #c8e3da;
+  --accent-text:  #25765F;
+
+  --border:       #e2e1dc;
+  --border-subtle:#ececea;
+
+  /* Mockup */
+  --mockup-bg:    #ffffff;
+  --mockup-bar:   #f8f8f6;
+  --mockup-sidebar-bg: #fafaf8;
+  --mockup-dot-1: #ff5f57;
+  --mockup-dot-2: #febc2e;
+  --mockup-dot-3: #28c840;
+  --mockup-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 12px 40px rgba(0,0,0,0.06);
+  --mockup-border: var(--border);
+
+  /* Code panel */
+  --code-bg:      #1e1e1e;
+  --code-bar:     #2a2a2a;
+  --code-border:  #333;
+  --code-text:    #d4d4d4;
+
+  /* Chat */
+  --chat-bg:      #ffffff;
+  --chat-bar-bg:  #f8f8f6;
+  --chat-ai-bg:   var(--bg-alt);
+  --chat-ai-text: var(--text-1);
+  --chat-hu-bg:   var(--accent);
+  --chat-hu-text: #fff;
+
+  /* Deploy */
+  --deploy-rec-bg: #fcfcfa;
+  --deploy-paid-bg: #fef3e2;
+  --deploy-paid-text: #b07020;
+
+  /* Output */
+  --output-code-bg: var(--accent-soft);
+  --output-code-hover: var(--accent-badge);
+
+  /* CTA */
+  --cta-phrase-border: var(--border);
+  --cta-phrase-hover-bg: var(--accent-soft);
+
+  /* Theme toggle */
+  --toggle-bg:    var(--bg-alt);
+  --toggle-border: var(--border);
+  --toggle-icon:  var(--text-2);
+}
+
+/* ── Dark Theme (Linear-inspired) ── */
+[data-theme="dark"] {
+  --bg:           #0a0a0b;
+  --bg-alt:       #111113;
+  --bg-elevated:  #18181b;
+  --bg-inset:     #141416;
+  --bg-dark-section:   #0d0d0f;
+  --bg-dark-section-2: #08080a;
+
+  --text-1:       #ededec;
+  --text-2:       #8e8e8a;
+  --text-3:       #5c5c58;
+  --text-on-dark: #ededec;
+
+  --accent:       #3da88a;
+  --accent-hover: #5bbda2;
+  --accent-soft:  rgba(37, 118, 95, 0.08);
+  --accent-badge: rgba(37, 118, 95, 0.12);
+  --accent-text:  #3da88a;
+
+  --border:       #222225;
+  --border-subtle:#1a1a1d;
+
+  /* Mockup */
+  --mockup-bg:    #141416;
+  --mockup-bar:   #1a1a1d;
+  --mockup-sidebar-bg: #111113;
+  --mockup-dot-1: #ff5f57;
+  --mockup-dot-2: #febc2e;
+  --mockup-dot-3: #28c840;
+  --mockup-shadow: 0 2px 8px rgba(0,0,0,0.3), 0 16px 48px rgba(0,0,0,0.4);
+  --mockup-border: #2a2a2d;
+
+  /* Code panel */
+  --code-bg:      #111113;
+  --code-bar:     #18181b;
+  --code-border:  #222225;
+  --code-text:    #d4d4d4;
+
+  /* Chat */
+  --chat-bg:      #141416;
+  --chat-bar-bg:  #1a1a1d;
+  --chat-ai-bg:   #1e1e21;
+  --chat-ai-text: var(--text-1);
+  --chat-hu-bg:   rgba(37, 118, 95, 0.15);
+  --chat-hu-text: var(--accent);
+
+  /* Deploy */
+  --deploy-rec-bg: #141416;
+  --deploy-paid-bg: rgba(200, 160, 50, 0.1);
+  --deploy-paid-text: #d4a832;
+
+  /* Output */
+  --output-code-bg: rgba(37, 118, 95, 0.05);
+  --output-code-hover: rgba(37, 118, 95, 0.1);
+
+  /* CTA */
+  --cta-phrase-border: var(--border);
+  --cta-phrase-hover-bg: var(--accent-soft);
+
+  /* Theme toggle */
+  --toggle-bg:    var(--bg-elevated);
+  --toggle-border: var(--border);
+  --toggle-icon:  var(--text-2);
+}
+
+/* ── Shared ── */
+:root {
+  --font: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-serif: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+  --mono: 'JetBrains Mono', 'SF Mono', monospace;
+  --sp-xs:  0.5rem;
+  --sp-s:   1rem;
+  --sp-m:   1.5rem;
+  --sp-l:   2.5rem;
+  --sp-xl:  4rem;
+  --sp-2xl: 6.5rem;
+  --sp-3xl: 9rem;
+  --max-w:  1140px;
+  --max-w-narrow: 720px;
+  --transition-theme: background 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+  background: var(--bg);
+  color: var(--text-1);
+  font-family: var(--font);
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: var(--transition-theme);
+}
+
+/* ── Utilities ── */
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
+.section { padding: var(--sp-3xl) 0; transition: var(--transition-theme); }
+.section--alt { background: var(--bg-alt); }
+.section--dark { background: var(--bg-dark-section); color: var(--text-on-dark); }
+
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  margin-bottom: var(--sp-m);
+}
+.section-eyebrow::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--sp-s);
+}
+.section-title--lg { font-size: clamp(2.5rem, 5.5vw, 4rem); }
+.section-desc {
+  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+  color: var(--text-2);
+  line-height: 1.75;
+  max-width: 52ch;
+}
+
+/* ── Reveal ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ═══════════════════════════════════════════
+   Navigation — Floating capsule
+   ═══════════════════════════════════════════ */
+nav {
+  position: fixed;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(calc(100% - 32px), var(--max-w));
+  z-index: 100;
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid var(--border-subtle);
+  border-radius: 50px;
+  transition: var(--transition-theme), width 0.3s ease;
+}
+[data-theme="dark"] nav {
+  background: rgba(18, 18, 20, 0.72);
+  border-color: rgba(255,255,255,0.06);
+}
+.nav-inner {
+  padding: 0 6px 0 clamp(1rem, 3vw, 1.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+}
+.nav-logo {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-1);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition: color 0.2s;
+}
+.nav-badge {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--text-1);
+  color: var(--bg);
+  padding: 0.15em 0.5em;
+  border-radius: 50px;
+}
+.nav-links {
+  display: flex;
+  gap: var(--sp-l);
+  list-style: none;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-3);
+}
+.nav-links a { color: inherit; text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--text-1); }
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-s);
+}
+.nav-cta {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--bg);
+  background: var(--text-1);
+  padding: 0.5rem 1.1rem;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+.nav-cta:hover { background: #333; transform: translateY(-1px); }
+
+/* ── Theme Toggle (removed) ── */
+
+/* ═══════════════════════════════════════════
+   Hero — Full-bleed background image + split layout
+   ═══════════════════════════════════════════ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: flex-start;
+  overflow: hidden;
+}
+
+/* Background image layer */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.hero-bg img,
+.hero-bg video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  display: block;
+}
+
+/* Subtle top gradient for nav readability */
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 180px;
+  z-index: 1;
+  background: linear-gradient(to bottom, rgba(250,250,248,0.7) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Bottom fade into page bg */
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  z-index: 1;
+  background: linear-gradient(to bottom, transparent 0%, var(--bg) 100%);
+  pointer-events: none;
+}
+
+/* Hero content — split layout */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 3rem);
+  padding-top: calc(48px + 12px + var(--sp-xl) + 40px);
+  padding-bottom: var(--sp-xl);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-l);
+  align-items: start;
+}
+
+/* Left column — text + CTA */
+.hero-left {
+  padding-bottom: var(--sp-l);
+}
+
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { to { opacity: 1; } }
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  margin-bottom: var(--sp-m);
+  opacity: 0; transform: translateY(12px);
+  animation: fadeUp 0.7s 0.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--sp-m);
+  color: var(--text-1);
+  opacity: 0; transform: translateY(18px);
+  animation: fadeUp 0.8s 0.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.hero-title .hero-title-light {
+  font-weight: 100;
+  color: var(--text-1);
+}
+.hero-title span { color: var(--accent-text); }
+
+.hero-sub {
+  font-size: clamp(0.92rem, 1.2vw, 1.05rem);
+  color: var(--text-2);
+  line-height: 1.75;
+  max-width: 42ch;
+  margin-bottom: var(--sp-l);
+  opacity: 0; transform: translateY(14px);
+  animation: fadeUp 0.7s 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-m);
+  margin-bottom: var(--sp-l);
+  opacity: 0; transform: translateY(12px);
+  animation: fadeUp 0.7s 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--text-1);
+  color: var(--bg);
+  font-family: var(--font);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.8rem 1.8rem;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+.btn-primary:hover { background: #333; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-1);
+  text-decoration: none;
+  padding: 0.8rem 1.8rem;
+  border-radius: 50px;
+  border: 1px solid rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-secondary:hover { background: rgba(255,255,255,0.92); transform: translateY(-1px); }
+
+/* Hero code editor — glassmorphism container, spans full width */
+.hero-code-editor-wrap {
+  grid-column: 1 / -1;
+  perspective: 1200px;
+}
+.hero-code-editor {
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 14px;
+  overflow: hidden;
+  opacity: 0;
+  transform: rotateX(15deg) translateY(20px) scale(0.96);
+  transform-origin: center bottom;
+  animation: fadeUpTilt 0.8s 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04), 0 20px 48px rgba(0,0,0,0.06);
+  will-change: transform;
+}
+.hero-code-editor.scroll-active {
+  animation: none !important;
+  transition: transform 0.15s ease-out;
+}
+@keyframes fadeUpTilt {
+  to {
+    opacity: 1;
+    transform: rotateX(15deg) translateY(0) scale(0.96);
+  }
+}
+.hero-code-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(248,248,246,0.9);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.hero-code-bar .mockup-dots { display: flex; gap: 6px; }
+.hero-code-bar .mockup-dots span { width: 9px; height: 9px; border-radius: 50%; }
+.hero-code-tabs {
+  display: flex;
+  gap: 0;
+  margin-left: 12px;
+}
+.hero-code-tab {
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--text-3);
+  padding: 4px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+  font-family: var(--mono);
+}
+.hero-code-tab.active {
+  color: var(--text-1);
+  background: rgba(0,0,0,0.05);
+  font-weight: 600;
+}
+.hero-code-body {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  min-height: 220px;
+}
+.hero-code-sidebar {
+  padding: 16px;
+  border-right: 1px solid rgba(0,0,0,0.06);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  line-height: 1.9;
+  color: var(--text-3);
+  background: rgba(248,248,246,0.5);
+}
+.hero-code-sidebar .hcs-folder {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--text-2);
+  margin-bottom: 2px;
+}
+.hero-code-sidebar .hcs-file {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 1px 0 1px 18px;
+  color: var(--text-3);
+  transition: color 0.15s;
+}
+.hero-code-sidebar .hcs-file.active {
+  color: var(--accent-text);
+  font-weight: 600;
+}
+.hero-code-sidebar .hcs-icon {
+  font-size: 0.62rem;
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+.hero-code-main {
+  padding: 16px 20px;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  line-height: 1.85;
+  color: var(--text-2);
+  overflow-x: auto;
+}
+.hero-code-main .hcm-comment { color: #a0a090; font-style: italic; }
+.hero-code-main .hcm-key { color: #7c5cbf; }
+.hero-code-main .hcm-string { color: #3a7d5c; }
+.hero-code-main .hcm-prop { color: #c06030; }
+.hero-code-main .hcm-tag { color: #2a6496; }
+.hero-code-main .hcm-fn { color: #b07020; }
+.hero-code-main .hcm-new {
+  background: rgba(37, 118, 95, 0.08);
+  display: inline;
+  padding: 0 4px;
+  border-radius: 2px;
+}
+
+/* Code typing animation — lines hidden by default */
+.hero-code-main .code-line {
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  white-space: pre;
+}
+.hero-code-main .code-line.typed {
+  opacity: 1;
+  transform: translateX(0);
+}
+/* Blinking cursor on the last typed line */
+.hero-code-main .code-line.typing::after {
+  content: '▊';
+  color: var(--accent-text);
+  animation: cursorBlink 0.8s step-end infinite;
+  margin-left: 1px;
+  font-size: 0.8em;
+}
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Right column — floating product mockup */
+.hero-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding-bottom: var(--sp-m);
+}
+
+.hero-mockup {
+  width: 100%;
+  max-width: 480px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.5);
+  overflow: hidden;
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(16px) saturate(1.3);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 24px 64px rgba(0,0,0,0.1);
+  opacity: 0; transform: translateY(24px);
+  animation: fadeUp 0.9s 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.mockup-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: rgba(248,248,246,0.9);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.mockup-dots { display: flex; gap: 6px; }
+.mockup-dots span { width: 9px; height: 9px; border-radius: 50%; }
+.mockup-dots span:nth-child(1) { background: var(--mockup-dot-1); }
+.mockup-dots span:nth-child(2) { background: var(--mockup-dot-2); }
+.mockup-dots span:nth-child(3) { background: var(--mockup-dot-3); }
+.mockup-bar-title {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-3);
+  margin-left: auto;
+}
+
+.mockup-chat {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 280px;
+}
+
+.mockup-msg {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.mockup-msg.user { flex-direction: row-reverse; }
+
+.mockup-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  font-weight: 700;
+  margin-top: 2px;
+}
+.mockup-msg.ai .mockup-avatar { background: var(--accent); color: #fff; }
+.mockup-msg.user .mockup-avatar { background: var(--bg-alt); color: var(--text-2); }
+
+.mockup-bubble {
+  font-size: 0.76rem;
+  line-height: 1.6;
+  padding: 8px 12px;
+  border-radius: 10px;
+  max-width: 82%;
+}
+.mockup-msg.ai .mockup-bubble { background: var(--bg-alt); color: var(--text-1); }
+.mockup-msg.user .mockup-bubble { background: var(--accent); color: #fff; }
+
+.mockup-typing {
+  display: flex;
+  gap: 4px;
+  padding: 10px 14px;
+  align-items: center;
+}
+.mockup-typing span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-3);
+  opacity: 0.4;
+  animation: typingDot 1.4s infinite;
+}
+.mockup-typing span:nth-child(2) { animation-delay: 0.2s; }
+.mockup-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typingDot {
+  0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-3px); }
+}
+
+/* Syntax highlighting (kept for other sections) */
+.hl-comment { color: #a0a090; font-style: italic; }
+.hl-key { color: #7c5cbf; }
+.hl-string { color: #3a7d5c; }
+.hl-prop { color: #c06030; }
+.hl-tag { color: #2a6496; }
+
+/* ── Hero Responsive ── */
+@media (max-width: 960px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+    align-items: flex-start;
+    padding-top: calc(48px + 12px + var(--sp-l) + 40px);
+  }
+  .hero-left { padding-bottom: 0; }
+  .hero-right {
+    justify-content: center;
+  }
+  .hero-mockup { max-width: 420px; }
+  .hero-code-body { grid-template-columns: 160px 1fr; }
+}
+@media (max-width: 600px) {
+  .hero {
+    min-height: auto;
+    padding-bottom: var(--sp-l);
+  }
+  .hero-content {
+    padding-top: calc(48px + 12px + var(--sp-m) + 40px);
+  }
+  .hero-mockup { max-width: 100%; }
+  .hero-title {
+    font-size: clamp(2rem, 8vw, 2.8rem);
+  }
+  .hero-code-body { grid-template-columns: 1fr; }
+  .hero-code-sidebar { border-right: none; border-bottom: 1px solid rgba(0,0,0,0.06); }
+}
+
+/* ═══════════════════════════════════════════
+   Phases — Junior.ai inspired (full-bleed dark + separated cards)
+   ═══════════════════════════════════════════ */
+.section--phases {
+  position: relative;
+  background: var(--bg-dark-section);
+  color: var(--text-on-dark);
+  overflow: hidden;
+}
+/* Background texture layer — reuse hero bg with blur */
+.phases-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.phases-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: blur(24px) brightness(0.45) saturate(1.4);
+  transform: scale(1.1);
+}
+.phases-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(18, 28, 42, 0.3);
+}
+
+.section--phases .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Eyebrow on dark */
+.phases-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(240,239,232,0.45);
+  margin-bottom: var(--sp-m);
+}
+
+/* Title — serif, large */
+.phases-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--text-on-dark);
+  margin-bottom: var(--sp-2xl);
+}
+
+/* Grid — 4 separated cards */
+.phases-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(14px, 2vw, 24px);
+  margin-top: 0;
+}
+
+/* Individual phase card */
+.phase-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: clamp(20px, 2vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  transition: background 0.3s, border-color 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.phase-card:hover {
+  background: rgba(255,255,255,0.09);
+  border-color: rgba(255,255,255,0.14);
+}
+
+/* Phase number — top left */
+.phase-num {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: clamp(12px, 1.5vw, 18px);
+  letter-spacing: 0.02em;
+}
+
+/* Inner mockup window */
+.phase-mockup {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: clamp(16px, 2vw, 24px);
+}
+.phase-mockup-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.phase-mockup-dots {
+  display: flex;
+  gap: 4px;
+}
+.phase-mockup-dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+.phase-mockup-dots span:nth-child(1) { background: #ff5f57; }
+.phase-mockup-dots span:nth-child(2) { background: #febc2e; }
+.phase-mockup-dots span:nth-child(3) { background: #28c840; }
+.phase-mockup-title {
+  font-size: 0.6rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.3);
+  margin-left: auto;
+}
+.phase-mockup-body {
+  padding: 14px;
+  font-size: 0.72rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.5);
+}
+.phase-mockup-body .pm-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+  margin-bottom: 8px;
+}
+.phase-mockup-body .pm-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.phase-mockup-body .pm-item:last-child { border-bottom: none; }
+.phase-mockup-body .pm-check {
+  color: #6bb8e8;
+  font-size: 0.68rem;
+  flex-shrink: 0;
+}
+.phase-mockup-body .pm-text {
+  color: rgba(255,255,255,0.55);
+  font-size: 0.72rem;
+}
+.phase-mockup-body .pm-status {
+  margin-left: auto;
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.3);
+}
+.phase-mockup-body .pm-status.active {
+  color: #6bb8e8;
+}
+.phase-mockup-body .pm-progress {
+  width: 100%;
+  height: 3px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+.phase-mockup-body .pm-progress-bar {
+  height: 100%;
+  background: #6bb8e8;
+  border-radius: 2px;
+}
+.phase-mockup-body .pm-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.06);
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-top: 6px;
+}
+
+/* Card text content */
+.phase-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-on-dark);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+.phase-desc {
+  font-size: 0.78rem;
+  color: rgba(240,239,232,0.5);
+  line-height: 1.65;
+  flex: 1;
+}
+
+/* Bottom tag */
+.phase-bottom-tag {
+  margin-top: auto;
+  padding-top: clamp(12px, 1.5vw, 18px);
+  font-size: 0.7rem;
+  color: rgba(240,239,232,0.3);
+  font-weight: 500;
+}
+
+/* Dark section eyebrow */
+.section--dark .section-eyebrow { color: var(--accent); }
+.section--dark .section-eyebrow::before { background: var(--accent); }
+
+/* ═══════════════════════════════════════════
+   Paths
+   ═══════════════════════════════════════════ */
+.paths-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: var(--sp-l);
+  transition: var(--transition-theme);
+}
+.path-card {
+  background: var(--bg-elevated);
+  padding: var(--sp-xl) var(--sp-l);
+  transition: var(--transition-theme);
+}
+.path-num {
+  font-size: clamp(3.5rem, 6vw, 5rem);
+  font-weight: 300;
+  line-height: 1;
+  color: var(--border);
+  margin-bottom: var(--sp-xs);
+}
+[data-theme="dark"] .path-num { color: #222; }
+.path-tag {
+  display: inline-block;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--accent-badge);
+  color: var(--accent-text);
+  padding: 0.2em 0.6em;
+  border-radius: 3px;
+  margin-bottom: var(--sp-s);
+}
+.path-name {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: var(--sp-xs);
+}
+.path-desc { font-size: 0.88rem; color: var(--text-2); line-height: 1.75; max-width: 38ch; margin-bottom: var(--sp-m); }
+.path-steps { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.path-steps li { display: flex; align-items: baseline; gap: 0.65rem; font-size: 0.82rem; color: var(--text-2); line-height: 1.55; }
+.step-num { font-size: 0.68rem; font-weight: 700; color: var(--accent-text); min-width: 1.2em; flex-shrink: 0; }
+
+/* ═══════════════════════════════════════════
+   Q-Flow
+   ═══════════════════════════════════════════ */
+.qflow-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2xl); align-items: start; }
+.feat-list { display: flex; flex-direction: column; gap: 0.6rem; margin-top: var(--sp-m); }
+.feat-item { display: flex; align-items: baseline; gap: 0.65rem; font-size: 0.85rem; color: var(--text-2); line-height: 1.55; }
+.feat-item::before { content: '✓'; color: var(--accent-text); font-weight: 700; font-size: 0.78rem; flex-shrink: 0; }
+
+.chat-window {
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  background: var(--chat-bg);
+  transition: var(--transition-theme);
+}
+.chat-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: var(--chat-bar-bg);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: var(--transition-theme);
+}
+.chat-bar-dots { display: flex; gap: 5px; }
+.chat-bar-dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
+[data-theme="dark"] .chat-bar-dots span { background: #333; }
+.chat-bar-title { font-size: 0.68rem; font-weight: 600; color: var(--text-3); }
+.chat-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 260px;
+  background: var(--chat-bg);
+  transition: var(--transition-theme);
+}
+.msg { display: flex; gap: 8px; align-items: flex-start; }
+.msg-avatar {
+  width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.58rem; font-weight: 700; margin-top: 2px;
+}
+.msg.ai .msg-avatar { background: var(--accent); }
+[data-theme="light"] .msg.ai .msg-avatar { color: #fff; }
+[data-theme="dark"] .msg.ai .msg-avatar { color: #0a0a0b; }
+.msg.hu .msg-avatar { background: var(--bg-alt); color: var(--text-2); }
+.msg-bubble { font-size: 0.78rem; line-height: 1.6; padding: 8px 12px; border-radius: 8px; max-width: 82%; }
+.msg.ai .msg-bubble { background: var(--chat-ai-bg); color: var(--chat-ai-text); }
+.msg.hu { flex-direction: row-reverse; }
+.msg.hu .msg-bubble { background: var(--chat-hu-bg); color: var(--chat-hu-text); }
+.chat-nav {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 16px 12px;
+  background: var(--chat-bg);
+  border-top: 1px solid var(--border-subtle);
+  transition: var(--transition-theme);
+}
+.chat-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--border); cursor: pointer; transition: background 0.2s; }
+.chat-dot.on { background: var(--accent); }
+.chat-prog { font-size: 0.62rem; font-weight: 600; color: var(--text-3); margin-left: auto; }
+
+/* ═══════════════════════════════════════════
+   Code Gen
+   ═══════════════════════════════════════════ */
+.cg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2xl); align-items: start; }
+.code-panel {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--code-border);
+  background: var(--code-bg);
+  transition: var(--transition-theme);
+}
+.code-bar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 16px;
+  background: var(--code-bar);
+  border-bottom: 1px solid var(--code-border);
+  transition: var(--transition-theme);
+}
+.code-bar-dots { display: flex; gap: 5px; }
+.code-bar-dots span { width: 8px; height: 8px; border-radius: 50%; background: #444; }
+.code-bar-file { font-size: 0.68rem; font-weight: 500; color: #888; margin-left: auto; font-family: var(--mono); }
+.code-body {
+  padding: 20px 24px;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  line-height: 1.9;
+  color: var(--code-text);
+  overflow-x: auto;
+}
+.ck { color: #c586c0; } .cf { color: #dcdcaa; } .cs { color: #6a9955; }
+.cc { color: #6a9955; font-style: italic; } .ct { color: #4ec9b0; }
+.cp { color: #9cdcfe; } .cn { color: #b5cea8; } .co { color: #ce9178; }
+
+/* ═══════════════════════════════════════════
+   Deploy
+   ═══════════════════════════════════════════ */
+.deploy-question {
+  margin: var(--sp-l) 0;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: var(--sp-m) var(--sp-l);
+  transition: var(--transition-theme);
+}
+.deploy-question p:first-child { font-size: 0.92rem; font-weight: 600; color: var(--text-1); margin-bottom: 0.3rem; }
+.deploy-question p:last-child { font-size: 0.8rem; color: var(--text-2); }
+.deploy-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  background: var(--border); border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden;
+  transition: var(--transition-theme);
+}
+.deploy-card { background: var(--bg-elevated); padding: var(--sp-l); transition: var(--transition-theme); }
+.deploy-card.recommended { background: var(--deploy-rec-bg); }
+.deploy-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); margin-bottom: var(--sp-s); }
+.deploy-name { font-family: var(--font-serif); font-size: clamp(1.8rem, 2.5vw, 2.4rem); font-weight: 400; line-height: 1; margin-bottom: 0.4rem; }
+.deploy-tag { display: inline-block; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.2em 0.6em; border-radius: 3px; margin-bottom: var(--sp-s); }
+.deploy-tag.free { background: var(--accent-soft); color: var(--accent-text); }
+.deploy-tag.paid { background: var(--deploy-paid-bg); color: var(--deploy-paid-text); }
+.deploy-desc { font-size: 0.82rem; color: var(--text-2); line-height: 1.7; margin-bottom: var(--sp-s); max-width: 36ch; }
+.deploy-steps { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+.deploy-steps li { font-size: 0.78rem; color: var(--text-2); display: flex; align-items: baseline; gap: 0.6rem; }
+.deploy-steps .sn { font-size: 0.65rem; font-weight: 700; color: var(--accent-text); min-width: 1em; }
+.deploy-time { margin-top: var(--sp-s); font-size: 0.74rem; font-weight: 600; color: var(--text-3); }
+.deploy-time strong { color: var(--accent-text); }
+
+/* ═══════════════════════════════════════════
+   Output Files
+   ═══════════════════════════════════════════ */
+.output-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  background: var(--border); border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden; margin-top: var(--sp-l);
+  transition: var(--transition-theme);
+}
+.output-item { background: var(--bg-elevated); padding: var(--sp-m); transition: var(--transition-theme); }
+.output-item:hover { background: var(--bg-alt); }
+.output-item.code-file { background: var(--output-code-bg); }
+.output-item.code-file:hover { background: var(--output-code-hover); }
+.output-cat { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 0.4rem; }
+.output-item.code-file .output-cat { color: var(--accent-text); }
+.output-name { font-family: var(--mono); font-size: 0.74rem; font-weight: 600; color: var(--text-1); margin-bottom: 0.3rem; }
+.output-desc { font-size: 0.72rem; color: var(--text-3); line-height: 1.55; }
+
+/* ═══════════════════════════════════════════
+   Install (always dark)
+   ═══════════════════════════════════════════ */
+.install-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2xl); align-items: center; margin-top: var(--sp-l); }
+.install-title { font-family: var(--font-serif); font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 400; line-height: 1.15; color: var(--text-on-dark); margin-bottom: var(--sp-s); }
+.install-title span { color: var(--accent); }
+.install-desc { font-size: 0.88rem; color: rgba(240,239,232,0.55); line-height: 1.7; max-width: 38ch; }
+.install-code { border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); }
+.install-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 16px; background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.install-bar-label { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.1em; color: rgba(255,255,255,0.35); }
+.copy-btn {
+  border: none; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6);
+  padding: 0.3rem 0.8rem; font-size: 0.66rem; cursor: pointer;
+  font-family: var(--font); font-weight: 600; border-radius: 4px; transition: background 0.15s;
+}
+.copy-btn:hover { background: rgba(255,255,255,0.14); }
+.install-pre {
+  margin: 0; padding: 20px 24px; font-family: var(--mono);
+  font-size: 0.74rem; line-height: 1.9; color: rgba(255,255,255,0.7);
+  overflow-x: auto; background: var(--bg-dark-section-2);
+}
+.install-pre .cmd { color: var(--accent); }
+.install-pre .arg { color: #9cdcfe; }
+.install-pre .cmt { color: rgba(255,255,255,0.25); }
+.install-pre .str { color: #ce9178; }
+
+/* ═══════════════════════════════════════════
+   CTA
+   ═══════════════════════════════════════════ */
+.cta-section {
+  padding: var(--sp-3xl) 0;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  transition: var(--transition-theme);
+  background: url('assets/footer-bg.png') center bottom / 100% auto no-repeat;
+}
+.cta-title { font-family: var(--font-serif); font-size: clamp(2.5rem, 5.5vw, 4rem); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: var(--sp-s); }
+.cta-title span { color: var(--accent-text); }
+.cta-sub { font-size: clamp(0.95rem, 1.2vw, 1.05rem); color: var(--text-2); line-height: 1.75; max-width: 48ch; margin: 0 auto var(--sp-l); }
+.cta-phrases { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; margin-bottom: var(--sp-l); }
+.cta-phrases li {
+  font-size: 0.82rem; font-weight: 500; color: var(--text-2);
+  padding: 0.55rem 1.2rem; border: 1px solid var(--cta-phrase-border);
+  border-radius: 8px; cursor: pointer;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.cta-phrases li:hover { border-color: var(--accent); color: var(--accent-text); background: var(--cta-phrase-hover-bg); }
+
+/* ═══════════════════════════════════════════
+   Footer
+   ═══════════════════════════════════════════ */
+footer { border-top: 1px solid var(--border); padding: var(--sp-m) 0; transition: var(--transition-theme); }
+.footer-inner {
+  max-width: var(--max-w); margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 3rem);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-brand { font-size: 0.82rem; font-weight: 500; color: var(--text-3); }
+.footer-meta { font-size: 0.68rem; color: var(--text-3); }
+
+/* ═══════════════════════════════════════════
+   Responsive
+   ═══════════════════════════════════════════ */
+@media (max-width: 960px) {
+  .phases-grid { grid-template-columns: 1fr 1fr; } /* already 2-col */
+  .paths-grid { grid-template-columns: 1fr; }
+  .qflow-grid, .cg-grid, .install-grid { grid-template-columns: 1fr; }
+  .deploy-grid { grid-template-columns: 1fr; }
+  .output-grid { grid-template-columns: 1fr 1fr; }
+  nav .nav-links { display: none; }
+  nav { width: calc(100% - 24px); border-radius: 50px; }
+  .phases-title { margin-bottom: var(--sp-xl); }
+}
+@media (max-width: 600px) {
+  .phases-grid { grid-template-columns: 1fr; } /* stack on mobile */
+  .output-grid { grid-template-columns: 1fr; }
+  nav { top: 8px; width: calc(100% - 16px); border-radius: 50px; }
+  .phases-title { font-size: clamp(1.8rem, 7vw, 2.4rem); }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      designer-vibecoding-starter
+      <span class="nav-badge">v4.0</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#lifecycle">全流程</a></li>
+      <li><a href="#paths">两条路径</a></li>
+      <li><a href="#questions">智能追问</a></li>
+      <li><a href="#codegen">代码生成</a></li>
+      <li><a href="#deploy">部署上线</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="#install" class="nav-cta">安装 Skill</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <!-- Full-bleed background image -->
+  <div class="hero-bg">
+    <video src="assets/bg-motion.mp4" autoplay muted loop playsinline></video>
+  </div>
+
+  <!-- Split layout content -->
+  <div class="hero-content">
+    <!-- Left: Text + CTA + Features -->
+    <div class="hero-left">
+      <p class="hero-eyebrow">Claude Skill · 设计师全生命周期</p>
+      <h1 class="hero-title">从想法到上线。<br/><span class="hero-title-light">For any role.</span></h1>
+      <p class="hero-sub">没有代码经验？没关系。说出你的想法或粘贴 Figma 链接——Skill 引导你走完从需求澄清到代码生成、再到发布上线的完整链路。</p>
+      <div class="hero-actions">
+        <a href="#install" class="btn-primary">安装 Skill</a>
+        <a href="#lifecycle" class="btn-secondary">看全流程</a>
+      </div>
+
+    </div>
+
+    <!-- Right: Floating chat mockup -->
+    <div class="hero-right">
+      <div class="hero-mockup">
+        <div class="mockup-bar">
+          <div class="mockup-dots"><span></span><span></span><span></span></div>
+          <span class="mockup-bar-title">Codewiz · 0-1 路径</span>
+        </div>
+        <div class="mockup-chat">
+          <div class="mockup-msg ai">
+            <div class="mockup-avatar">AI</div>
+            <div class="mockup-bubble">你想构建的是什么？用一句话描述你的产品。</div>
+          </div>
+          <div class="mockup-msg user">
+            <div class="mockup-avatar">你</div>
+            <div class="mockup-bubble">一个帮助设计师快速整理灵感的看板工具</div>
+          </div>
+          <div class="mockup-msg ai">
+            <div class="mockup-avatar">AI</div>
+            <div class="mockup-bubble">好的，「灵感看板」的主要用户是谁？他们现在是怎么解决这个问题的？</div>
+          </div>
+          <div class="mockup-msg user">
+            <div class="mockup-avatar">你</div>
+            <div class="mockup-bubble">UI 设计师，现在用截图 + Notion 手动整理</div>
+          </div>
+          <div class="mockup-msg ai">
+            <div class="mockup-avatar">AI</div>
+            <div class="mockup-bubble">你的产品比现有方案好在哪里？最核心的差异点是什么？</div>
+          </div>
+          <div class="mockup-typing">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Full-width code editor — spans both columns -->
+    <div class="hero-code-editor-wrap">
+    <div class="hero-code-editor" id="hero-code-editor">
+      <div class="hero-code-bar">
+        <div class="mockup-dots"><span></span><span></span><span></span></div>
+        <div class="hero-code-tabs">
+          <span class="hero-code-tab active">项目结构</span>
+          <span class="hero-code-tab">package.json</span>
+          <span class="hero-code-tab">App.tsx</span>
+        </div>
+      </div>
+      <div class="hero-code-body">
+        <div class="hero-code-sidebar">
+          <div class="hcs-folder"><span class="hcs-icon">📁</span> inspiration-board/</div>
+          <div class="hcs-file"><span class="hcs-icon">📄</span> AGENTS.md</div>
+          <div class="hcs-file"><span class="hcs-icon">📄</span> prd-registry.md</div>
+          <div class="hcs-file active"><span class="hcs-icon">📦</span> package.json</div>
+          <div class="hcs-folder"><span class="hcs-icon">📁</span> skills/</div>
+          <div class="hcs-file"><span class="hcs-icon">📄</span> design-analysis/</div>
+          <div class="hcs-file"><span class="hcs-icon">📄</span> two-stage-review/</div>
+          <div class="hcs-folder"><span class="hcs-icon">📁</span> src/</div>
+          <div class="hcs-file"><span class="hcs-icon">📄</span> App.tsx</div>
+          <div class="hcs-file"><span class="hcs-icon">📄</span> main.tsx</div>
+          <div class="hcs-folder"><span class="hcs-icon">📁</span> src/pages/</div>
+          <div class="hcs-file"><span class="hcs-icon">📄</span> BoardPage.tsx</div>
+          <div class="hcs-file"><span class="hcs-icon">📄</span> UploadPage.tsx</div>
+          <div class="hcs-file"><span class="hcs-icon">📄</span> PalettePage.tsx</div>
+        </div>
+        <div class="hero-code-main" id="hero-code-main">
+          <div class="code-line"><span class="hcm-comment">// Skill 自动生成的完整项目脚手架</span></div>
+          <div class="code-line"><span class="hcm-comment">// PRD-001 · 灵感看板 MVP</span></div>
+          <div class="code-line"> </div>
+          <div class="code-line">{</div>
+          <div class="code-line">  <span class="hcm-prop">"name"</span>: <span class="hcm-string">"inspiration-board"</span>,</div>
+          <div class="code-line">  <span class="hcm-prop">"private"</span>: <span class="hcm-key">true</span>,</div>
+          <div class="code-line">  <span class="hcm-prop">"scripts"</span>: {</div>
+          <div class="code-line">    <span class="hcm-prop">"dev"</span>: <span class="hcm-string">"vite"</span>,</div>
+          <div class="code-line">    <span class="hcm-prop">"build"</span>: <span class="hcm-string">"tsc &amp;&amp; vite build"</span>,</div>
+          <div class="code-line">    <span class="hcm-prop">"preview"</span>: <span class="hcm-string">"vite preview"</span></div>
+          <div class="code-line">  },</div>
+          <div class="code-line">  <span class="hcm-prop">"dependencies"</span>: {</div>
+          <div class="code-line">    <span class="hcm-new"><span class="hcm-prop">"react"</span>: <span class="hcm-string">"^18.3.1"</span>,</span></div>
+          <div class="code-line">    <span class="hcm-new"><span class="hcm-prop">"react-dom"</span>: <span class="hcm-string">"^18.3.1"</span>,</span></div>
+          <div class="code-line">    <span class="hcm-new"><span class="hcm-prop">"react-router-dom"</span>: <span class="hcm-string">"^6.23.0"</span>,</span></div>
+          <div class="code-line">    <span class="hcm-new"><span class="hcm-prop">"zustand"</span>: <span class="hcm-string">"^4.5.2"</span></span></div>
+          <div class="code-line">  },</div>
+          <div class="code-line">  <span class="hcm-prop">"devDependencies"</span>: {</div>
+          <div class="code-line">    <span class="hcm-prop">"typescript"</span>: <span class="hcm-string">"^5.4.0"</span>,</div>
+          <div class="code-line">    <span class="hcm-prop">"vite"</span>: <span class="hcm-string">"^5.2.0"</span>,</div>
+          <div class="code-line">    <span class="hcm-prop">"tailwindcss"</span>: <span class="hcm-string">"^3.4.0"</span>,</div>
+          <div class="code-line">    <span class="hcm-prop">"@types/react"</span>: <span class="hcm-string">"^18.3.0"</span></div>
+          <div class="code-line">  }</div>
+          <div class="code-line">}</div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PATHS ═══ -->
+<section class="section" id="paths">
+  <div class="container">
+    <div class="section-eyebrow reveal">选择你的起点</div>
+    <h2 class="section-title reveal">两条路径，同一个终点</h2>
+    <p class="section-desc reveal">无论你有没有设计稿，Skill 都能引导你走完全流程。</p>
+    <div class="paths-grid">
+      <div class="path-card reveal">
+        <p class="path-num">01</p>
+        <span class="path-tag">没有设计稿</span>
+        <h3 class="path-name">0-1 路径</h3>
+        <p class="path-desc">从一句话描述出发，Codewiz 像产品经理一样逐步追问，6 个问题后生成完整 PRD，确认后立即进入代码生成。</p>
+        <ul class="path-steps">
+          <li><span class="step-num">①</span>你想构建的是什么？（一句话）</li>
+          <li><span class="step-num">②</span>目标用户是谁？他们现在怎么解决这个问题？</li>
+          <li><span class="step-num">③</span>你的核心差异点是什么？</li>
+          <li><span class="step-num">④</span>MVP 3 个核心功能（严格上限）</li>
+          <li><span class="step-num">⑤</span>技术栈偏好？（可跳过，自动推荐）</li>
+          <li><span class="step-num">⑥</span>界面风格倾向？（可跳过）</li>
+        </ul>
+      </div>
+      <div class="path-card reveal" style="transition-delay:.08s">
+        <p class="path-num">02</p>
+        <span class="path-tag">有 Figma 设计稿</span>
+        <h3 class="path-name">设计驱动路径</h3>
+        <p class="path-desc">粘贴 Figma 链接，Skill 自动拉取设计数据，判断 3 种场景，逐步消除设计疑点，生成含设计规格的完整 PRD。</p>
+        <ul class="path-steps">
+          <li><span class="step-num">①</span>粘贴 Figma 链接，MCP 自动拉取顶层结构</li>
+          <li><span class="step-num">②</span>判断场景 A/B/C，决定 PRD 拆分方案</li>
+          <li><span class="step-num">③</span>提取组件层级、状态矩阵、间距、颜色 Token</li>
+          <li><span class="step-num">④</span>识别设计疑点，一次一问逐一消除</li>
+          <li><span class="step-num">⑤</span>输出设计分析包 → PRD + Acceptance Criteria</li>
+          <li><span class="step-num">⑥</span>用户确认 → 代码生成 → Design QA 闭环</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PHASES ═══ -->
+<section class="section section--phases" id="lifecycle">
+  <!-- Blurred background texture -->
+  <div class="phases-bg">
+    <img src="assets/hero-bg.png" alt="" loading="lazy" />
+  </div>
+  <div class="container">
+    <p class="phases-eyebrow reveal">HOW IT WORKS</p>
+    <h2 class="phases-title reveal">四个阶段，从想法到上线。</h2>
+
+    <div class="phases-grid">
+      <!-- Card 01 -->
+      <div class="phase-card reveal">
+        <p class="phase-num">01</p>
+        <div class="phase-mockup">
+          <div class="phase-mockup-bar">
+            <div class="phase-mockup-dots"><span></span><span></span><span></span></div>
+            <span class="phase-mockup-title">Codewiz · 对话</span>
+          </div>
+          <div class="phase-mockup-body">
+            <div class="pm-item"><span class="pm-check">✓</span><span class="pm-text">产品定位 · 一句话描述</span></div>
+            <div class="pm-item"><span class="pm-check">✓</span><span class="pm-text">目标用户 · 痛点分析</span></div>
+            <div class="pm-item"><span class="pm-check">✓</span><span class="pm-text">核心差异 · 竞品对比</span></div>
+            <div class="pm-item"><span class="pm-check" style="opacity:0.3">○</span><span class="pm-text" style="opacity:0.4">MVP 功能 · 3 个上限</span></div>
+          </div>
+        </div>
+        <p class="phase-name">需求确认</p>
+        <p class="phase-desc">两条路径：0-1 路径用 6 步逐步追问建立 PRD；设计驱动路径拉取 Figma 数据，疑点逐一消除后生成 PRD。</p>
+        <p class="phase-bottom-tag">一次只问一个问题</p>
+      </div>
+
+      <!-- Card 02 -->
+      <div class="phase-card reveal" style="transition-delay:.08s">
+        <p class="phase-num">02</p>
+        <div class="phase-mockup">
+          <div class="phase-mockup-bar">
+            <div class="phase-mockup-dots"><span></span><span></span><span></span></div>
+            <span class="phase-mockup-title">脚手架生成中</span>
+          </div>
+          <div class="phase-mockup-body">
+            <div class="pm-label">PROJECT STRUCTURE</div>
+            <div class="pm-item"><span class="pm-check">✓</span><span class="pm-text">AGENTS.md</span><span class="pm-status active">Created</span></div>
+            <div class="pm-item"><span class="pm-check">✓</span><span class="pm-text">skills/ × 7</span><span class="pm-status active">Created</span></div>
+            <div class="pm-item"><span class="pm-check">✓</span><span class="pm-text">prd-registry.md</span><span class="pm-status active">Created</span></div>
+            <div class="pm-item"><span class="pm-check" style="opacity:0.3">○</span><span class="pm-text" style="opacity:0.4">PRD-001-mvp.md</span><span class="pm-status">Pending</span></div>
+          </div>
+        </div>
+        <p class="phase-name">脚手架初始化</p>
+        <p class="phase-desc">治理文件一键生成：AGENTS.md、7 个 SKILL.md、prd-registry.md……不需要手动创建任何文件。</p>
+        <p class="phase-bottom-tag">单模型多 Agent 规则体系</p>
+      </div>
+
+      <!-- Card 03 -->
+      <div class="phase-card reveal" style="transition-delay:.16s">
+        <p class="phase-num">03</p>
+        <div class="phase-mockup">
+          <div class="phase-mockup-bar">
+            <div class="phase-mockup-dots"><span></span><span></span><span></span></div>
+            <span class="phase-mockup-title">src/pages/Board.tsx</span>
+          </div>
+          <div class="phase-mockup-body">
+            <div class="pm-item"><span class="pm-check">✓</span><span class="pm-text">package.json + vite config</span></div>
+            <div class="pm-item"><span class="pm-check">✓</span><span class="pm-text">设计 Token CSS 变量</span></div>
+            <div class="pm-item"><span class="pm-check">✓</span><span class="pm-text">React Router 路由骨架</span></div>
+            <div class="pm-item"><span class="pm-check">✓</span><span class="pm-text">MVP Page 组件 × 3</span></div>
+            <div class="pm-progress"><div class="pm-progress-bar" style="width:100%"></div></div>
+          </div>
+        </div>
+        <p class="phase-name">真实代码生成</p>
+        <p class="phase-desc">不是空模板。配置文件、设计 Token、路由骨架、每个功能的 Page 组件，一次生成。浏览器打开就能看到初始界面。</p>
+        <p class="phase-bottom-tag">npm run dev 即可跑</p>
+      </div>
+
+      <!-- Card 04 -->
+      <div class="phase-card reveal" style="transition-delay:.24s">
+        <p class="phase-num">04</p>
+        <div class="phase-mockup">
+          <div class="phase-mockup-bar">
+            <div class="phase-mockup-dots"><span></span><span></span><span></span></div>
+            <span class="phase-mockup-title">部署引导</span>
+          </div>
+          <div class="phase-mockup-body">
+            <div class="pm-item"><span class="pm-check">✓</span><span class="pm-text">代码推送到 GitHub</span></div>
+            <div class="pm-item"><span class="pm-check">✓</span><span class="pm-text">Vercel 自动检测框架</span></div>
+            <div class="pm-item"><span class="pm-check">✓</span><span class="pm-text">Deploy 完成</span></div>
+            <div class="pm-tag">→ your-app.vercel.app</div>
+          </div>
+        </div>
+        <p class="phase-name">部署上线</p>
+        <p class="phase-desc">随时触发，无需等开发完成。1 个问题判断项目类型，精确引导 Vercel 或 Railway 部署。</p>
+        <p class="phase-bottom-tag">5 分钟上线</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Q-FLOW ═══ -->
+<section class="section section--alt" id="questions">
+  <div class="container">
+    <div class="qflow-grid">
+      <div>
+        <div class="section-eyebrow reveal">智能追问</div>
+        <h2 class="section-title reveal">一次只问<br/>一个问题</h2>
+        <p class="section-desc reveal" style="transition-delay:.06s">不会一次性抛出问题列表让你填表。像和产品经理对话一样——问完一个、等你回答、再问下一个。</p>
+        <div class="feat-list reveal" style="transition-delay:.12s">
+          <div class="feat-item">等用户回答后才问下一题，绝不跳步</div>
+          <div class="feat-item">可选问题跳过时自动给出合理默认值</div>
+          <div class="feat-item">6 步完成后生成 PRD 草稿，先让用户确认</div>
+          <div class="feat-item">确认后才进入代码生成，不提前开始</div>
+          <div class="feat-item">设计驱动路径：设计疑点同样一次一问消除</div>
+        </div>
+      </div>
+      <div class="reveal" style="transition-delay:.16s">
+        <div class="chat-window">
+          <div class="chat-bar">
+            <div class="chat-bar-dots"><span></span><span></span><span></span></div>
+            <span class="chat-bar-title">Codewiz · 0-1 路径对话</span>
+          </div>
+          <div class="chat-body" id="chat-body">
+            <div class="msg ai" data-step="0"><div class="msg-avatar">AI</div><div class="msg-bubble">你想构建的是什么？用一句话描述你的产品/应用。</div></div>
+            <div class="msg hu" data-step="0"><div class="msg-avatar">你</div><div class="msg-bubble">一个帮助设计师快速整理灵感的看板工具</div></div>
+            <div class="msg ai" data-step="1" style="display:none"><div class="msg-avatar">AI</div><div class="msg-bubble">好的，「灵感看板」的主要用户是谁？他们现在是怎么解决这个问题的？</div></div>
+            <div class="msg hu" data-step="1" style="display:none"><div class="msg-avatar">你</div><div class="msg-bubble">UI 设计师，现在用截图 + Notion 手动整理，很麻烦</div></div>
+            <div class="msg ai" data-step="2" style="display:none"><div class="msg-avatar">AI</div><div class="msg-bubble">你的产品比现有方案好在哪里？最核心的差异点是什么？</div></div>
+            <div class="msg hu" data-step="2" style="display:none"><div class="msg-avatar">你</div><div class="msg-bubble">可以直接拖拽截图分组，自动提取颜色和字体</div></div>
+            <div class="msg ai" data-step="3" style="display:none"><div class="msg-avatar">AI</div><div class="msg-bubble">如果只做 3 个核心功能验证这个想法，你会选哪 3 个？（3 个是上限）</div></div>
+            <div class="msg hu" data-step="3" style="display:none"><div class="msg-avatar">你</div><div class="msg-bubble">① 拖拽上传截图 ② 自动分组 ③ 一键提取颜色板</div></div>
+            <div class="msg ai" data-step="4" style="display:none"><div class="msg-avatar">AI</div><div class="msg-bubble">技术栈有偏好吗？没有的话我来推荐。（跳过也可以）</div></div>
+            <div class="msg hu" data-step="4" style="display:none"><div class="msg-avatar">你</div><div class="msg-bubble">React 就行，其他不懂</div></div>
+            <div class="msg ai" data-step="5" style="display:none"><div class="msg-avatar">AI</div><div class="msg-bubble">好，我将使用 React + TypeScript + Vite + TailwindCSS。最后，界面风格有倾向吗？（跳过也可以）</div></div>
+          </div>
+          <div class="chat-nav">
+            <div class="chat-dot on" onclick="goStep(0)"></div>
+            <div class="chat-dot" onclick="goStep(1)"></div>
+            <div class="chat-dot" onclick="goStep(2)"></div>
+            <div class="chat-dot" onclick="goStep(3)"></div>
+            <div class="chat-dot" onclick="goStep(4)"></div>
+            <div class="chat-dot" onclick="goStep(5)"></div>
+            <span class="chat-prog" id="cs-prog">步骤 1 / 6</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CODE GEN ═══ -->
+<section class="section" id="codegen">
+  <div class="container">
+    <div class="cg-grid">
+      <div>
+        <div class="section-eyebrow reveal">真实代码生成</div>
+        <h2 class="section-title reveal">PRD 确认后，<br/>立即生成代码</h2>
+        <p class="section-desc reveal" style="transition-delay:.06s">不是空模板——是 <code style="background:var(--accent-soft);color:var(--accent-text);padding:.15em .45em;border-radius:4px;font-size:.85em;font-family:var(--mono)">npm run dev</code> 就能在浏览器里跑起来的真实项目。</p>
+        <div class="feat-list reveal" style="transition-delay:.12s">
+          <div class="feat-item">package.json / tsconfig / vite.config / tailwind.config 全套</div>
+          <div class="feat-item">设计 Token CSS（0-1 按风格；设计驱动从 Figma 提取）</div>
+          <div class="feat-item">main.tsx + App.tsx + React Router 路由骨架</div>
+          <div class="feat-item">每个 MVP 功能 → 一个有 UI 骨架的 Page 组件</div>
+          <div class="feat-item">Layout + Navbar，开箱即可导航</div>
+        </div>
+      </div>
+      <div class="reveal" style="transition-delay:.16s">
+        <div class="code-panel">
+          <div class="code-bar">
+            <div class="code-bar-dots"><span></span><span></span><span></span></div>
+            <span class="code-bar-file">src/pages/InspirationBoard/Page.tsx</span>
+          </div>
+          <pre class="code-body"><span class="cc">// PRD-001 · Feature 1: 灵感看板</span>
+<span class="cc">// AC-1: 用户可拖拽截图上传</span>
+<span class="cc">// AC-2: 自动提取颜色生成色板</span>
+
+<span class="ck">import</span> <span class="ct">React</span>, { <span class="cf">useCallback</span> } <span class="ck">from</span> <span class="co">'react'</span>
+<span class="ck">import</span> { <span class="ct">UploadZone</span>, <span class="ct">BoardGrid</span>, <span class="ct">ColorPalette</span> }
+  <span class="ck">from</span> <span class="co">'./components'</span>
+<span class="ck">import</span> { <span class="cf">useBoardStore</span> } <span class="ck">from</span> <span class="co">'@/stores/board'</span>
+
+<span class="ck">export default function</span> <span class="cf">InspirationBoard</span>() {
+  <span class="ck">const</span> { <span class="cp">items</span>, <span class="cp">addItem</span> } = <span class="cf">useBoardStore</span>()
+
+  <span class="ck">const</span> <span class="cp">handleDrop</span> = <span class="cf">useCallback</span>(
+    (<span class="cp">files</span>: <span class="ct">File</span>[]) <span class="ck">=></span> {
+      <span class="cp">files</span>.<span class="cf">forEach</span>(<span class="cp">f</span> => <span class="cf">addItem</span>({ file: <span class="cp">f</span> }))
+    }, [<span class="cp">addItem</span>]
+  )
+
+  <span class="ck">return</span> (
+    &lt;<span class="ct">div</span> <span class="cp">className</span>=<span class="co">"board-page"</span>&gt;
+      &lt;<span class="ct">UploadZone</span> <span class="cp">onDrop</span>={<span class="cp">handleDrop</span>} /&gt;
+      &lt;<span class="ct">BoardGrid</span> <span class="cp">items</span>={<span class="cp">items</span>} /&gt;
+      &lt;<span class="ct">ColorPalette</span> <span class="cp">items</span>={<span class="cp">items</span>} /&gt;
+    &lt;/<span class="ct">div</span>&gt;
+  )
+}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DEPLOY ═══ -->
+<section class="section section--alt" id="deploy">
+  <div class="container">
+    <div class="section-eyebrow reveal">部署上线</div>
+    <h2 class="section-title section-title--lg reveal">说"帮我部署"，<span style="color:var(--accent-text)">就能上线</span></h2>
+    <p class="section-desc reveal" style="transition-delay:.06s">可以在项目任意阶段触发，不必等开发完成。1 个问题判断项目类型，然后精确引导每一步操作。</p>
+    <div class="deploy-question reveal" style="transition-delay:.1s">
+      <p>你的项目有后端服务吗（需要登录账号、保存数据到数据库、有 API 接口）？</p>
+      <p>A) 没有，就是一个页面/工具（纯前端）→ 推荐 Vercel &nbsp;&nbsp;|&nbsp;&nbsp; B) 有，需要后端 → 推荐 Railway</p>
+    </div>
+    <div class="deploy-grid reveal" style="transition-delay:.16s">
+      <div class="deploy-card recommended">
+        <p class="deploy-label">纯前端 / 推荐首选</p>
+        <p class="deploy-name">Vercel</p>
+        <span class="deploy-tag free">免费 · 无需信用卡</span>
+        <p class="deploy-desc">React / Next.js / Vite 最佳搭档。自动检测框架，自动 HTTPS，全球 CDN。每次 git push 自动重新部署。</p>
+        <ul class="deploy-steps">
+          <li><span class="sn">①</span>确认代码已推送到 GitHub</li>
+          <li><span class="sn">②</span>打开 vercel.com → 用 GitHub 登录</li>
+          <li><span class="sn">③</span>Import 你的仓库 → 自动检测框架</li>
+          <li><span class="sn">④</span>点 Deploy → 等待约 1-3 分钟</li>
+          <li><span class="sn">⑤</span>访问 your-project.vercel.app ✓</li>
+        </ul>
+        <p class="deploy-time">上线时间约 <strong>5 分钟</strong></p>
+      </div>
+      <div class="deploy-card">
+        <p class="deploy-label">有后端 / 全栈项目</p>
+        <p class="deploy-name">Railway</p>
+        <span class="deploy-tag paid">$5/月免费额度</span>
+        <p class="deploy-desc">Node.js / Python / 数据库一站式部署。环境变量管理友好，支持 PostgreSQL / MySQL 一键添加。</p>
+        <ul class="deploy-steps">
+          <li><span class="sn">①</span>确认代码已推送到 GitHub</li>
+          <li><span class="sn">②</span>打开 railway.app → 用 GitHub 登录</li>
+          <li><span class="sn">③</span>New Project → Deploy from GitHub Repo</li>
+          <li><span class="sn">④</span>在 Variables 里配置环境变量</li>
+          <li><span class="sn">⑤</span>Settings → Generate Domain ✓</li>
+        </ul>
+        <p class="deploy-time">含数据库约 <strong>10 分钟</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ OUTPUT FILES ═══ -->
+<section class="section" id="output">
+  <div class="container">
+    <div class="section-eyebrow reveal">初始化后你会拿到什么</div>
+    <p class="section-desc reveal">绿色标注的是 Phase 2B 生成的真实业务代码，其余是治理结构文件——每个文件开箱即用。</p>
+    <div class="output-grid">
+      <div class="output-item reveal"><div class="output-cat">治理</div><p class="output-name">AGENTS.md</p><p class="output-desc">规则总入口，单模型多 Agent 协作规则体系</p></div>
+      <div class="output-item reveal" style="transition-delay:.04s"><div class="output-cat">治理</div><p class="output-name">prd-registry.md</p><p class="output-desc">PRD 主控追踪，含会话启动协议 + Sprint 生命周期</p></div>
+      <div class="output-item reveal" style="transition-delay:.06s"><div class="output-cat">Skill × 7</div><p class="output-name">skills/*/SKILL.md</p><p class="output-desc">design-analysis · requirements-refinement · two-stage-review 等 7 个 Skill</p></div>
+      <div class="output-item reveal" style="transition-delay:.08s"><div class="output-cat">治理</div><p class="output-name">PRD-001-mvp.md</p><p class="output-desc">第一个 PRD，含 User Story + AC + 功能范围</p></div>
+      <div class="output-item code-file reveal" style="transition-delay:.1s"><div class="output-cat">代码 · Phase 2B</div><p class="output-name">package.json</p><p class="output-desc">React + TypeScript + Vite + TailwindCSS + Zustand 完整依赖</p></div>
+      <div class="output-item code-file reveal" style="transition-delay:.12s"><div class="output-cat">代码 · Phase 2B</div><p class="output-name">styles/tokens.css</p><p class="output-desc">设计 Token CSS 变量，0-1 按风格生成，设计驱动从 Figma 提取</p></div>
+      <div class="output-item code-file reveal" style="transition-delay:.14s"><div class="output-cat">代码 · Phase 2B</div><p class="output-name">src/pages/*</p><p class="output-desc">每个 MVP 功能对应一个 Page 组件，有真实 UI 骨架</p></div>
+      <div class="output-item code-file reveal" style="transition-delay:.16s"><div class="output-cat">代码 · Phase 2B</div><p class="output-name">App.tsx + router/</p><p class="output-desc">React Router 路由骨架 + Layout + Navbar</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ INSTALL ═══ -->
+<section class="section section--dark" id="install">
+  <div class="container">
+    <div class="section-eyebrow reveal">安装</div>
+    <div class="install-grid">
+      <div>
+        <h2 class="install-title reveal">一条命令，<br/><span>带走这套模板</span></h2>
+        <p class="install-desc reveal" style="transition-delay:.08s">安装后，向 Codewiz 说任意触发词即可启动——「帮我初始化项目」、「从0开始做一个应用」、「我有设计稿要开发」。</p>
+      </div>
+      <div class="reveal" style="transition-delay:.14s">
+        <div class="install-code">
+          <div class="install-bar">
+            <span class="install-bar-label">TERMINAL</span>
+            <button class="copy-btn" onclick="copyInstall(this)">复制</button>
+          </div>
+          <pre class="install-pre" id="install-cmd"><span class="cmt"># 安装 skill</span>
+<span class="cmd">claude skills install</span> <span class="arg">github.com/15029041458nanke-blip/designer-vibecoding-starter</span>
+
+<span class="cmt"># 向 Codewiz 说（任选其一）：</span>
+<span class="str">"帮我初始化一个新的 vibecoding 项目"</span>
+<span class="str">"从0开始做一个应用"</span>
+<span class="str">"我有设计稿要开始开发"</span>
+<span class="str">"帮我部署上线"</span></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title reveal">说一句话，<span>开始项目</span></h2>
+    <p class="cta-sub reveal" style="transition-delay:.08s">告诉 Codewiz 你想做什么，剩下的交给 Skill——追问、脚手架、代码、部署，全程引导。</p>
+    <ul class="cta-phrases reveal" style="transition-delay:.14s">
+      <li>帮我初始化一个新的 vibecoding 项目</li>
+      <li>我有设计稿，帮我开始开发</li>
+      <li>从0开始做一个应用</li>
+      <li>帮我部署上线</li>
+    </ul>
+    <a href="#install" class="btn-primary reveal" style="transition-delay:.2s">安装 Skill →</a>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+    <p class="footer-brand">Designer Vibecoding Starter — Claude Skill</p>
+    <p class="footer-meta">v4.0 · 2026-03-26 · 需求 → 代码生成 → 开发协作 → 部署上线</p>
+  </div>
+</footer>
+
+<script>
+// ── Copy button ──
+function copyInstall(btn) {
+  const text = document.getElementById('install-cmd').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '已复制 ✓';
+    setTimeout(() => btn.textContent = '复制', 1800);
+  });
+}
+
+// ── Chat step walker (Q-Flow section) ──
+let cur = 0;
+function goStep(n) {
+  const msgs = document.querySelectorAll('#chat-body .msg');
+  msgs.forEach(m => {
+    const s = parseInt(m.dataset.step);
+    m.style.display = s <= n ? '' : 'none';
+  });
+  document.querySelectorAll('.chat-dot').forEach((d, i) => {
+    d.classList.toggle('on', i === n);
+  });
+  document.getElementById('cs-prog').textContent = `步骤 ${n + 1} / 6`;
+  cur = n;
+}
+let autoTimer = setInterval(() => { goStep((cur + 1) % 6); }, 3200);
+document.querySelectorAll('.chat-dot').forEach(d => {
+  d.addEventListener('click', () => { clearInterval(autoTimer); });
+});
+
+// ── Scroll reveal ──
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// ── Parallax effect on hero background ──
+(function() {
+  const heroBg = document.querySelector('.hero-bg video') || document.querySelector('.hero-bg img');
+  if (!heroBg) return;
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        const heroH = document.querySelector('.hero').offsetHeight;
+        if (scrollY < heroH) {
+          heroBg.style.transform = `translateY(${scrollY * 0.3}px) scale(1.05)`;
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+})();
+
+// ── Scroll-synchronized: 3D tilt + code typing animation ──
+(function() {
+  const codeEditor = document.getElementById('hero-code-editor');
+  const codeMain = document.getElementById('hero-code-main');
+  if (!codeEditor || !codeMain) return;
+
+  const lines = codeMain.querySelectorAll('.code-line');
+  const totalLines = lines.length;
+  const baseLines = 5;
+  let scrollActivated = false;
+
+  // Show first few lines after entrance animation completes (~1.35s = 0.55s delay + 0.8s anim)
+  setTimeout(() => {
+    for (let i = 0; i < Math.min(baseLines, totalLines); i++) {
+      lines[i].classList.add('typed');
+    }
+    if (baseLines < totalLines) {
+      lines[baseLines - 1].classList.add('typing');
+    }
+  }, 1400);
+
+  let rafId = null;
+  window.addEventListener('scroll', () => {
+    if (rafId) return;
+    rafId = requestAnimationFrame(() => {
+      rafId = null;
+      if (window.scrollY < 1) return; // Don't override entrance animation at top
+
+      // On first scroll, cancel CSS animation so JS can take over
+      if (!scrollActivated) {
+        scrollActivated = true;
+        codeEditor.classList.add('scroll-active');
+      }
+
+      const rect = codeEditor.getBoundingClientRect();
+      const viewH = window.innerHeight;
+
+      // Tilt progress: 0 → 1 within 150px of scroll from initial position
+      // Use scrollY directly for more predictable behavior
+      const tiltProgress = Math.min(1, Math.max(0, window.scrollY / 150));
+
+      // Interpolate rotateX: 15° → 0°
+      const rotX = 15 * (1 - tiltProgress);
+      const scale = 0.96 + 0.04 * tiltProgress;
+      const translateY = 10 * (1 - tiltProgress);
+      codeEditor.style.transform = `rotateX(${rotX}deg) translateY(${translateY}px) scale(${scale})`;
+      codeEditor.style.opacity = '1';
+
+      // Typing animation: always show at least 5 lines, rest fill in as scroll progresses
+      if (totalLines > 0) {
+        const baseLines = 5;
+        const remaining = totalLines - baseLines;
+        const target = Math.min(totalLines, baseLines + Math.floor(tiltProgress * remaining));
+
+        for (let i = 0; i < totalLines; i++) {
+          if (i < target) {
+            lines[i].classList.add('typed');
+            lines[i].classList.remove('typing');
+          } else {
+            lines[i].classList.remove('typed', 'typing');
+          }
+        }
+        if (target > 0 && target < totalLines) {
+          lines[target - 1].classList.add('typing');
+        }
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
