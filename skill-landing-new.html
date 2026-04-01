@@ -1268,6 +1268,255 @@ nav {
   width: 100%;
   display: block;
 }
+
+/* ── Mini-section 缩略预览 ── */
+.mini-viewport {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  background: #f8f8f6;
+}
+.mini-viewport.dark-bg {
+  background: #111110;
+}
+/* 真实内容以 1280px 宽度渲染，缩放到容器宽度 */
+.mini-inner {
+  position: absolute;
+  top: 0; left: 0;
+  width: 1280px;
+  /* 高度 = 1280 * (9/16) = 720px */
+  height: 720px;
+  transform-origin: top left;
+  /* scale 由 JS 动态注入，初始写死后备 */
+  transform: scale(calc(100vw / 2 / 1280));
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ── Before: generic AI 风格 ── */
+.mb-hero {
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, #6b21ff 0%, #4158f6 60%, #0ea5e9 100%);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 16px;
+  font-family: -apple-system, sans-serif;
+  padding: 0 80px; box-sizing: border-box; text-align: center;
+}
+.mb-hero-badge {
+  font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(255,255,255,.55); margin-bottom: 4px;
+}
+.mb-hero-h1 {
+  font-size: 52px; font-weight: 800; line-height: 1.1; color: #fff;
+  letter-spacing: -1px;
+}
+.mb-hero-h1 span { color: #facc15; }
+.mb-hero-sub {
+  font-size: 17px; color: rgba(255,255,255,.75); max-width: 520px; line-height: 1.55;
+}
+.mb-hero-ctas { display: flex; gap: 12px; margin-top: 8px; }
+.mb-btn-p {
+  background: #fff; color: #6b21ff; font-weight: 700; font-size: 15px;
+  padding: 12px 28px; border-radius: 9999px; border: none; cursor: pointer;
+}
+.mb-btn-s {
+  background: rgba(255,255,255,.12); color: #fff; font-weight: 600; font-size: 15px;
+  padding: 12px 28px; border-radius: 9999px; border: 1px solid rgba(255,255,255,.3); cursor: pointer;
+}
+.mb-hero-stat { display: flex; gap: 40px; margin-top: 20px; }
+.mb-stat { text-align: center; }
+.mb-stat-n { font-size: 28px; font-weight: 800; color: #fff; }
+.mb-stat-l { font-size: 11px; color: rgba(255,255,255,.55); font-weight: 600; text-transform: uppercase; letter-spacing: .1em; }
+
+/* ── After: 风格宪法执行版 Hero ── */
+.ma-hero {
+  width: 100%; height: 100%;
+  background: #0d1008;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 20px;
+  font-family: 'Georgia', serif; padding: 0 80px; box-sizing: border-box; text-align: center;
+  position: relative; overflow: hidden;
+}
+.ma-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 40% at 50% 60%, rgba(37,118,95,.22) 0%, transparent 70%);
+}
+.ma-hero-eyebrow {
+  font-family: -apple-system, sans-serif;
+  font-size: 10px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+  color: #25765f; position: relative;
+}
+.ma-hero-h1 {
+  font-size: 62px; font-weight: 400; line-height: 1.08; color: #f2f0e8;
+  letter-spacing: -1.5px; position: relative;
+}
+.ma-hero-h1 em { font-style: italic; color: #69c09a; }
+.ma-hero-sub {
+  font-family: -apple-system, sans-serif;
+  font-size: 16px; color: rgba(242,240,232,.5); max-width: 480px; line-height: 1.65;
+  position: relative;
+}
+.ma-hero-ctas { display: flex; gap: 14px; margin-top: 8px; position: relative; }
+.ma-btn-p {
+  background: #f2f0e8; color: #0d1008; font-family: -apple-system, sans-serif;
+  font-weight: 600; font-size: 15px; padding: 14px 32px;
+  border-radius: 6px; border: none; cursor: pointer;
+}
+.ma-btn-s {
+  background: transparent; color: rgba(242,240,232,.6);
+  font-family: -apple-system, sans-serif;
+  font-weight: 500; font-size: 15px; padding: 14px 28px;
+  border-radius: 6px; border: 1px solid rgba(242,240,232,.15); cursor: pointer;
+}
+
+/* ── Before: generic 卡片式生命周期 ── */
+.mb-phases {
+  width: 100%; height: 100%;
+  background: #fff;
+  display: flex; flex-direction: column;
+  align-items: center; padding: 60px 60px 0;
+  box-sizing: border-box; font-family: -apple-system, sans-serif;
+  gap: 32px;
+}
+.mb-phases-h { font-size: 36px; font-weight: 800; color: #111; letter-spacing: -.5px; }
+.mb-phases-h span { color: #4158f6; }
+.mb-phases-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; width: 100%;
+}
+.mb-phase-card {
+  border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px 16px;
+  background: linear-gradient(145deg, #f8f9ff, #fff);
+}
+.mb-phase-icon {
+  width: 36px; height: 36px; border-radius: 8px; margin-bottom: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+.mb-phase-num { font-size: 10px; font-weight: 700; color: #4158f6; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 4px; }
+.mb-phase-t { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 6px; }
+.mb-phase-d { font-size: 12px; color: #6b7280; line-height: 1.5; }
+.mb-phase-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 10px; }
+.mb-phase-tag { font-size: 10px; background: #ede9fe; color: #7c3aed; padding: 2px 8px; border-radius: 9999px; font-weight: 600; }
+
+/* ── After: 风格宪法版生命周期 ── */
+.ma-phases {
+  width: 100%; height: 100%;
+  background: #0d1008;
+  display: flex; flex-direction: column;
+  align-items: center; padding: 55px 60px 0;
+  box-sizing: border-box; gap: 36px; position: relative; overflow: hidden;
+}
+.ma-phases::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(37,118,95,.6), transparent);
+}
+.ma-phases-eyebrow {
+  font-family: -apple-system, sans-serif;
+  font-size: 10px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+  color: #25765f;
+}
+.ma-phases-h {
+  font-family: 'Georgia', serif;
+  font-size: 38px; font-weight: 400; color: #f2f0e8;
+  letter-spacing: -1px; line-height: 1.1; text-align: center;
+}
+.ma-phases-h em { font-style: italic; color: #69c09a; }
+.ma-phases-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  width: 100%; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.06);
+  border-radius: 12px; overflow: hidden;
+}
+.ma-phase-card {
+  padding: 24px 20px; background: rgba(13,16,8,.9);
+}
+.ma-phase-num {
+  font-family: -apple-system, sans-serif;
+  font-size: 10px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase;
+  color: rgba(37,118,95,.7); margin-bottom: 10px;
+}
+.ma-phase-t {
+  font-family: 'Georgia', serif;
+  font-size: 18px; font-weight: 400; color: #f2f0e8; margin-bottom: 8px; line-height: 1.2;
+}
+.ma-phase-d {
+  font-family: -apple-system, sans-serif;
+  font-size: 12px; color: rgba(242,240,232,.4); line-height: 1.6;
+}
+.ma-phase-line {
+  width: 24px; height: 1px; background: #25765f; margin-bottom: 14px; opacity: .5;
+}
+
+/* ── Before: generic 路径卡 ── */
+.mb-paths {
+  width: 100%; height: 100%;
+  background: #f9fafb;
+  display: flex; flex-direction: column;
+  align-items: center; padding: 50px 60px 0;
+  box-sizing: border-box; font-family: -apple-system, sans-serif; gap: 28px;
+}
+.mb-paths-h { font-size: 34px; font-weight: 800; color: #111; letter-spacing: -.5px; }
+.mb-paths-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%; }
+.mb-path-card {
+  border: 2px solid #e5e7eb; border-radius: 16px; padding: 28px 24px;
+  background: #fff; position: relative;
+}
+.mb-path-card.hot { border-color: #4158f6; }
+.mb-path-badge {
+  position: absolute; top: -10px; right: 16px;
+  background: #4158f6; color: #fff; font-size: 10px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; padding: 3px 10px; border-radius: 9999px;
+}
+.mb-path-icon { font-size: 32px; margin-bottom: 12px; }
+.mb-path-t { font-size: 20px; font-weight: 800; color: #111; margin-bottom: 6px; }
+.mb-path-d { font-size: 13px; color: #6b7280; line-height: 1.55; }
+.mb-path-features { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
+.mb-path-feat { font-size: 12px; color: #374151; }
+.mb-path-feat::before { content: '✓ '; color: #4158f6; font-weight: 700; }
+
+/* ── After: 风格宪法版路径 ── */
+.ma-paths {
+  width: 100%; height: 100%;
+  background: #f7f5ee;
+  display: flex; flex-direction: column;
+  align-items: center; padding: 50px 60px 0;
+  box-sizing: border-box; font-family: -apple-system, sans-serif; gap: 32px;
+}
+.ma-paths-eyebrow {
+  font-size: 10px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+  color: #25765f;
+}
+.ma-paths-h {
+  font-family: 'Georgia', serif;
+  font-size: 36px; font-weight: 400; color: #1a1a16; letter-spacing: -.5px; line-height: 1.15;
+  text-align: center;
+}
+.ma-paths-h em { font-style: italic; color: #25765f; }
+.ma-paths-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
+.ma-path-card {
+  border: 1px solid rgba(26,26,22,.1); border-radius: 12px; padding: 28px 24px;
+  background: #fff;
+}
+.ma-path-card.highlight { background: #25765f; }
+.ma-path-label {
+  font-size: 10px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+  color: #25765f; margin-bottom: 10px;
+}
+.ma-path-card.highlight .ma-path-label { color: rgba(255,255,255,.6); }
+.ma-path-t {
+  font-family: 'Georgia', serif;
+  font-size: 22px; font-weight: 400; color: #1a1a16; margin-bottom: 8px; line-height: 1.2;
+}
+.ma-path-card.highlight .ma-path-t { color: #fff; }
+.ma-path-d { font-size: 13px; color: rgba(26,26,22,.55); line-height: 1.6; }
+.ma-path-card.highlight .ma-path-d { color: rgba(255,255,255,.65); }
+.ma-path-divider { width: 100%; height: 1px; background: rgba(26,26,22,.08); margin: 14px 0; }
+.ma-path-card.highlight .ma-path-divider { background: rgba(255,255,255,.15); }
+.ma-path-features { display: flex; flex-direction: column; gap: 7px; }
+.ma-path-feat { font-size: 12px; color: rgba(26,26,22,.6); display: flex; gap: 8px; align-items: flex-start; }
+.ma-path-card.highlight .ma-path-feat { color: rgba(255,255,255,.7); }
+.ma-path-feat::before { content: '—'; opacity: .4; flex-shrink: 0; }
 .compare-section-name {
   font-size: 0.78rem;
   font-weight: 600;
@@ -1647,11 +1896,40 @@ footer { border-top: 1px solid var(--border); padding: var(--sp-m) 0; transition
     <div class="compare-pair reveal" style="transition-delay:.08s">
       <div class="compare-card before">
         <div class="compare-label"><span class="dot"></span>Before — 默认生成</div>
-        <img src="assets/compare-old-hero.png" alt="旧版 Hero" loading="lazy" />
+        <div class="mini-viewport" data-mini>
+          <div class="mini-inner">
+            <div class="mb-hero">
+              <div class="mb-hero-badge">AI Vibecoding Tool · Beta</div>
+              <div class="mb-hero-h1">让 AI 帮你<span>写代码</span><br/>从今天开始</div>
+              <div class="mb-hero-sub">无需编程经验，输入你的想法，AI 自动生成完整项目代码，5 分钟上线。</div>
+              <div class="mb-hero-ctas">
+                <button class="mb-btn-p">立即开始</button>
+                <button class="mb-btn-s">查看 Demo</button>
+              </div>
+              <div class="mb-hero-stat">
+                <div class="mb-stat"><div class="mb-stat-n">12,000+</div><div class="mb-stat-l">用户</div></div>
+                <div class="mb-stat"><div class="mb-stat-n">98%</div><div class="mb-stat-l">满意度</div></div>
+                <div class="mb-stat"><div class="mb-stat-n">5 min</div><div class="mb-stat-l">上线时间</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="compare-card after">
         <div class="compare-label"><span class="dot"></span>After — Style Foundation</div>
-        <img src="assets/compare-new-hero.png" alt="新版 Hero" loading="lazy" />
+        <div class="mini-viewport dark-bg" data-mini>
+          <div class="mini-inner">
+            <div class="ma-hero">
+              <div class="ma-hero-eyebrow">Style Foundation · v4.1</div>
+              <div class="ma-hero-h1">设计师的<br/>vibecoding<br/><em>协作起手式</em></div>
+              <div class="ma-hero-sub">不是模板，是一套可生长的 AI 协作骨架。从0开始用自然语言驱动，让风格在每一行代码里一致延续。</div>
+              <div class="ma-hero-ctas">
+                <button class="ma-btn-p">获取 Skill 包</button>
+                <button class="ma-btn-s">查看效果对比</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1660,11 +1938,76 @@ footer { border-top: 1px solid var(--border); padding: var(--sp-m) 0; transition
     <div class="compare-pair reveal" style="transition-delay:.08s">
       <div class="compare-card before">
         <div class="compare-label"><span class="dot"></span>Before — 默认生成</div>
-        <img src="assets/compare-old-phases.png" alt="旧版 Phases" loading="lazy" />
+        <div class="mini-viewport" data-mini style="background:#fff">
+          <div class="mini-inner">
+            <div class="mb-phases">
+              <div class="mb-phases-h">全程 AI 协作<span>，四个阶段</span></div>
+              <div class="mb-phases-grid">
+                <div class="mb-phase-card">
+                  <div class="mb-phase-num">Phase 01</div>
+                  <div class="mb-phase-t">需求收集</div>
+                  <div class="mb-phase-d">通过对话自动提炼用户需求，生成 PRD 草稿，无需手写文档。</div>
+                  <div class="mb-phase-tags"><span class="mb-phase-tag">AI对话</span><span class="mb-phase-tag">PRD</span></div>
+                </div>
+                <div class="mb-phase-card">
+                  <div class="mb-phase-num">Phase 02</div>
+                  <div class="mb-phase-t">设计分析</div>
+                  <div class="mb-phase-d">上传参考图，AI 自动提取色彩、字体、间距规律，输出设计令牌。</div>
+                  <div class="mb-phase-tags"><span class="mb-phase-tag">Figma</span><span class="mb-phase-tag">风格</span></div>
+                </div>
+                <div class="mb-phase-card">
+                  <div class="mb-phase-num">Phase 03</div>
+                  <div class="mb-phase-t">代码生成</div>
+                  <div class="mb-phase-d">基于 PRD 和设计令牌自动生成项目脚手架，npm run dev 即可运行。</div>
+                  <div class="mb-phase-tags"><span class="mb-phase-tag">React</span><span class="mb-phase-tag">TypeScript</span></div>
+                </div>
+                <div class="mb-phase-card">
+                  <div class="mb-phase-num">Phase 04</div>
+                  <div class="mb-phase-t">部署上线</div>
+                  <div class="mb-phase-d">一键部署到 Vercel / GitHub Pages，自动配置 CI/CD 流水线。</div>
+                  <div class="mb-phase-tags"><span class="mb-phase-tag">Vercel</span><span class="mb-phase-tag">Deploy</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="compare-card after">
         <div class="compare-label"><span class="dot"></span>After — Style Foundation</div>
-        <img src="assets/compare-new-phases.png" alt="新版 Phases" loading="lazy" />
+        <div class="mini-viewport dark-bg" data-mini>
+          <div class="mini-inner">
+            <div class="ma-phases">
+              <div class="ma-phases-eyebrow">全生命周期</div>
+              <div class="ma-phases-h">从<em>想法</em>到上线<br/>AI 全程协作</div>
+              <div class="ma-phases-grid">
+                <div class="ma-phase-card">
+                  <div class="ma-phase-line"></div>
+                  <div class="ma-phase-num">Phase 01</div>
+                  <div class="ma-phase-t">需求精化</div>
+                  <div class="ma-phase-d">一次只问一个问题，像产品经理对话一样收敛需求，生成可执行 PRD。</div>
+                </div>
+                <div class="ma-phase-card">
+                  <div class="ma-phase-line"></div>
+                  <div class="ma-phase-num">Phase 02</div>
+                  <div class="ma-phase-t">风格宪法</div>
+                  <div class="ma-phase-d">分析参考图视觉语言，提炼色彩、排版、留白节奏，写入全局设计令牌。</div>
+                </div>
+                <div class="ma-phase-card">
+                  <div class="ma-phase-line"></div>
+                  <div class="ma-phase-num">Phase 03</div>
+                  <div class="ma-phase-t">代码生成</div>
+                  <div class="ma-phase-d">PRD 确认后立即生成真实项目，不是模板，是 npm run dev 跑起来的代码。</div>
+                </div>
+                <div class="ma-phase-card">
+                  <div class="ma-phase-line"></div>
+                  <div class="ma-phase-num">Phase 04</div>
+                  <div class="ma-phase-t">部署上线</div>
+                  <div class="ma-phase-d">自动配置 Vercel / GitHub Pages，一条命令完成从代码到公网可访问。</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1673,11 +2016,69 @@ footer { border-top: 1px solid var(--border); padding: var(--sp-m) 0; transition
     <div class="compare-pair reveal" style="transition-delay:.08s">
       <div class="compare-card before">
         <div class="compare-label"><span class="dot"></span>Before — 默认生成</div>
-        <img src="assets/compare-old-paths.png" alt="旧版 Paths" loading="lazy" />
+        <div class="mini-viewport" data-mini style="background:#f9fafb">
+          <div class="mini-inner">
+            <div class="mb-paths">
+              <div class="mb-paths-h">选择你的协作路径</div>
+              <div class="mb-paths-grid">
+                <div class="mb-path-card hot">
+                  <div class="mb-path-badge">推荐</div>
+                  <div class="mb-path-icon">🎨</div>
+                  <div class="mb-path-t">设计驱动路径</div>
+                  <div class="mb-path-d">上传 Figma 设计稿，AI 自动分析并生成与设计 100% 还原的代码。</div>
+                  <div class="mb-path-features">
+                    <div class="mb-path-feat">Figma MCP 直连</div>
+                    <div class="mb-path-feat">设计令牌自动提取</div>
+                    <div class="mb-path-feat">像素级还原验证</div>
+                  </div>
+                </div>
+                <div class="mb-path-card">
+                  <div class="mb-path-icon">💡</div>
+                  <div class="mb-path-t">0-1 创意路径</div>
+                  <div class="mb-path-d">只有想法没有设计稿？AI 帮你从需求到设计到代码一步步构建。</div>
+                  <div class="mb-path-features">
+                    <div class="mb-path-feat">智能追问需求</div>
+                    <div class="mb-path-feat">自动生成风格建议</div>
+                    <div class="mb-path-feat">PRD 确认再生成</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="compare-card after">
         <div class="compare-label"><span class="dot"></span>After — Style Foundation</div>
-        <img src="assets/compare-new-paths.png" alt="新版 Paths" loading="lazy" />
+        <div class="mini-viewport" data-mini style="background:#f7f5ee">
+          <div class="mini-inner">
+            <div class="ma-paths">
+              <div class="ma-paths-eyebrow">两条路径</div>
+              <div class="ma-paths-h">有设计稿，或<br/>只有<em>一个想法</em></div>
+              <div class="ma-paths-grid">
+                <div class="ma-path-card highlight">
+                  <div class="ma-path-label">设计驱动路径</div>
+                  <div class="ma-path-t">从 Figma<br/>到真实代码</div>
+                  <div class="ma-path-divider"></div>
+                  <div class="ma-path-features">
+                    <div class="ma-path-feat">Figma MCP 直连，自动拉取图层结构</div>
+                    <div class="ma-path-feat">风格宪法提炼，设计令牌一次写入</div>
+                    <div class="ma-path-feat">Design QA 像素级验收，苛刻还原</div>
+                  </div>
+                </div>
+                <div class="ma-path-card">
+                  <div class="ma-path-label">0-1 创意路径</div>
+                  <div class="ma-path-t">从想法<br/>到上线</div>
+                  <div class="ma-path-divider"></div>
+                  <div class="ma-path-features">
+                    <div class="ma-path-feat">6 步对话收敛需求，一次一问</div>
+                    <div class="ma-path-feat">参考图分析，自动定义视觉风格</div>
+                    <div class="ma-path-feat">PRD 确认后生成，不提前开始</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1912,6 +2313,20 @@ footer { border-top: 1px solid var(--border); padding: var(--sp-m) 0; transition
 </footer>
 
 <script>
+// ── Mini-viewport 缩放计算 ──
+function scaleMiniViewports() {
+  document.querySelectorAll('[data-mini]').forEach(vp => {
+    const inner = vp.querySelector('.mini-inner');
+    if (!inner) return;
+    const scale = vp.offsetWidth / 1280;
+    inner.style.transform = `scale(${scale})`;
+    // 修正高度：inner 本身 720px，缩放后实际占用 720*scale
+    vp.style.height = (720 * scale) + 'px';
+  });
+}
+scaleMiniViewports();
+window.addEventListener('resize', scaleMiniViewports);
+
 // ── Copy button ──
 function copyInstall(btn) {
   const url = 'https://github.com/15029041458nanke-blip/designer-vibecoding-starter';
